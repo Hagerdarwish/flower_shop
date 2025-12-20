@@ -5,6 +5,8 @@ class AppEndpointString{
   static const String changePassword='/auth/changePassword';
   static const String getSubject='/subjects';
   static const String getExam ='/exams';
+  static const String signup ='/auth/signup';
+
 
 
 
