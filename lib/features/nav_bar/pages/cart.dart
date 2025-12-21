@@ -1,0 +1,16 @@
+import 'package:flower_shop/app/core/app_constants.dart';
+import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
+import 'package:flutter/material.dart';
+
+class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text(AppConstants.cart),
+      ),
+    );
+  }
+}
