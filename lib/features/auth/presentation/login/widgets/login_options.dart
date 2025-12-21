@@ -1,19 +1,18 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_shop/features/auth/presentation/login/widgets/custom_check_box.dart';
-import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'custom_check_box.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_shop/generated/locale_keys.g.dart';
 
-class LoginOptions extends StatefulWidget {
-  const LoginOptions({super.key, required this.onChanged});
-
+class LoginOptions extends StatelessWidget {
   final ValueChanged<bool> onChanged;
-  @override
-  State<LoginOptions> createState() =>
-      _TermsAndConditionsWidgetState();
-}
+  final bool isChecked;
 
-class _TermsAndConditionsWidgetState extends State<LoginOptions> {
-  bool isTermsAccepted = false;
+  const LoginOptions({
+    super.key,
+    required this.onChanged,
+    required this.isChecked,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -21,25 +20,21 @@ class _TermsAndConditionsWidgetState extends State<LoginOptions> {
       children: [
         Row(
           children: [
-            const SizedBox(width: 4),
             CustomCheckBox(
-          onChecked: (value) {
-            isTermsAccepted = value;
-            widget.onChanged(value);
-            setState(() {});
-          },
-          isChecked: isTermsAccepted,
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(LocaleKeys.rememberMe.tr()),
+              isChecked: isChecked,
+              onChecked: onChanged,
+            ),
+            const SizedBox(width: 10),
+            Text(LocaleKeys.rememberMe.tr()),
           ],
         ),
         InkWell(
           onTap: () {},
-          child: Text(LocaleKeys.forgotPassword.tr(),style: TextStyle(decoration: TextDecoration.underline,),),
-        )
+          child: Text(
+            LocaleKeys.forgotPassword.tr(),
+            style: const TextStyle(decoration: TextDecoration.underline),
+          ),
+        ),
       ],
     );
   }
