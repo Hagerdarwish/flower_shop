@@ -46,6 +46,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
   build_runner: ^2.10.4
+  flutter_svg: ^2.2.0
   injectable_generator: ^2.4.1
   retrofit_generator: ^10.2.0
   json_serializable: ^6.8.0
@@ -98,3 +99,11 @@ easy_localization:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_assets:
+  assets_path: assets/images/
+  output_path: lib/app/core/ui_helper/assets
+  filename: images.dart
+  field_prefix: null
+flutter_intl:
+  enabled: true

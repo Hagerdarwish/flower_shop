@@ -1,5 +1,7 @@
 {
   "emailVerification": "Email verification",
-  "emailVerification2": "Email verification"
+  "emailVerification2": "Email verification",
+  "rememberMe": "Remember me",
+  "forgotPassword?": "Forgot Password?"
 
 }

@@ -1,6 +1,8 @@
-abstract class AppImages {
-  static const String splashLogo = 'assets/images/app_logo.png';
-
-
-
+class Assets {
+  Assets._();
+  
+  /// Assets for imagesCheck
+  /// assets/images/Check.svg
+  static const String imagesCheck = "assets/images/Check.svg";
 }
+
