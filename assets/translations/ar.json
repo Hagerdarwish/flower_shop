@@ -14,6 +14,8 @@
   "enterPhoneNumber": "أدخل رقم الهاتف",
   "femaleGender": "أنثى",
   "maleGender": "ذكر",
+  "femaleValue": "female",
+  "maleValue": "male",
   "createAccount": "بإنشاء حساب، فإنك توافق على الشروط والأحكام الخاصة بنا",
   "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
   "login": "تسجيل الدخول",
@@ -32,5 +34,10 @@
   "firstNameRequired": "الاسم الأول مطلوب",
   "lastNameRequired": "الاسم الأخير مطلوب",
   "nameInvalid": "الاسم يجب أن يكون بين 3-20 حرفًا",
-  "genderRequired": "الجنس مطلوب"
+  "genderRequired": "الجنس مطلوب",
+    "loading": "جار التحميل...",
+  "registrationSuccessful": "تم التسجيل بنجاح",
+  "ok": "موافق",
+  "error": "خطأ",
+  "success": "نجاح"
 }

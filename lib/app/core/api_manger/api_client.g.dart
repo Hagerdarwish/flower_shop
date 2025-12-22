@@ -22,13 +22,13 @@ class _ApiClient implements ApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SignupDto> signUp(Map<String, dynamic> body) async {
+  Future<HttpResponse<SignupDto>> signUp(Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _options = _setStreamType<SignupDto>(
+    final _options = _setStreamType<HttpResponse<SignupDto>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -46,7 +46,8 @@ class _ApiClient implements ApiClient {
       errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
-    return _value;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

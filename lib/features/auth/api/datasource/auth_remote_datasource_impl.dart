@@ -1,5 +1,6 @@
 import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
+import 'package:flower_shop/app/core/network/safe_api_call.dart';
 import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:flower_shop/features/auth/data/models/signup_dto.dart';
 import 'package:injectable/injectable.dart';
@@ -11,27 +12,38 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<ApiResult<SignupDto>> signUp({
-    String? fName,
-    String? lName,
+    String? firstName,
+    String? lastName,
     String? email,
     String? password,
-    String? confirmPassword,
-    String? phoneNumber,
+    String? rePassword,
+    String? phone,
     String? gender,
-  }) async {
-    try {
-      SignupDto signupResponse = await apiClient.signUp({
-        'firstName': fName,
-        'lastName': lName,
-        'email': email,
-        'password': password,
-        'confirmPassword': confirmPassword,
-        'phone': phoneNumber,
-        'gender': gender,
-      });
-      return SuccessApiResult<SignupDto>(data: signupResponse);
-    } catch (e) {
-      return ErrorApiResult<SignupDto>(error: e.toString());
-    }
+  }) {
+    final Map<String, dynamic> body = {};
+
+  if (firstName != null) body['firstName'] = firstName;
+  if (lastName != null) body['lastName'] = lastName;
+  if (email != null) body['email'] = email;
+  if (password != null) body['password'] = password;
+  if (rePassword != null) body['rePassword'] = rePassword;
+  if (phone != null) body['phone'] = phone;
+  if (gender != null) body['gender'] = gender;
+
+return safeApiCall<SignupDto>(
+      call: () =>  apiClient.signUp(body),
+    );
+
+    // return safeApiCall<SignupDto>(
+    //   call: () => apiClient.signUp({
+    //     'firstName': firstName!,
+    //     'lastName': lastName!,
+    //     'email': email!,
+    //     'password': password!,
+    //     'rePassword': rePassword!,
+    //     'phone': phone!,
+    //     'gender': gender!,
+    //   }),
+    // );
   }
 }

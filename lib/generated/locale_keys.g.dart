@@ -18,6 +18,8 @@ abstract class  LocaleKeys {
   static const enterPhoneNumber = 'enterPhoneNumber';
   static const femaleGender = 'femaleGender';
   static const maleGender = 'maleGender';
+  static const femaleValue = 'femaleValue';
+  static const maleValue = 'maleValue';
   static const createAccount = 'createAccount';
   static const alreadyHaveAccount = 'alreadyHaveAccount';
   static const login = 'login';
@@ -37,5 +39,10 @@ abstract class  LocaleKeys {
   static const lastNameRequired = 'lastNameRequired';
   static const nameInvalid = 'nameInvalid';
   static const genderRequired = 'genderRequired';
+  static const loading = 'loading';
+  static const registrationSuccessful = 'registrationSuccessful';
+  static const ok = 'ok';
+  static const error = 'error';
+  static const success = 'success';
 
 }

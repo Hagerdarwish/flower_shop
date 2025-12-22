@@ -10,8 +10,10 @@ class SignupDto {
   final UserDto? user;
   @JsonKey(name: 'token')
   final String? token;
+  @JsonKey(name: 'error')
+  final String? error;
 
-  SignupDto({this.message, this.user, this.token});
+  SignupDto({this.message, this.user, this.token, this.error});
 
   factory SignupDto.fromJson(Map<String, dynamic> json) =>
       _$SignupDtoFromJson(json);

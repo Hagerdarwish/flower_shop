@@ -3,12 +3,12 @@ import 'package:flower_shop/features/auth/domain/models/signup_model.dart';
 
 abstract class AuthRepo {
   Future<ApiResult<SignupModel>> signup({
-    String? fName,
-    String? lName,
+    String? firstName,
+    String? lastName,
     String? email,
     String? password,
-    String? confirmPassword,
-    String? phoneNumber,
+    String? rePassword,
+    String? phone,
     String? gender,
   });
 }

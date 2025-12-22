@@ -9,5 +9,5 @@ abstract class ApiClient {
   factory ApiClient(Dio dio, {String? baseUrl}) = _ApiClient;
 
   @POST(AppEndpointString.signup)
-  Future<SignupDto> signUp(@Body() Map<String, dynamic> body);
+  Future<HttpResponse<SignupDto>> signUp(@Body() Map<String, dynamic> body);
 }

@@ -12,21 +12,21 @@ class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl({required this.remoteDataSource});
   @override
   Future<ApiResult<SignupModel>> signup({
-    String? fName,
-    String? lName,
+    String? firstName,
+    String? lastName,
     String? email,
     String? password,
-    String? confirmPassword,
-    String? phoneNumber,
+    String? rePassword,
+    String? phone,
     String? gender,
   }) async {
     ApiResult<SignupDto> signupResponse = await remoteDataSource.signUp(
-      fName: fName,
-      lName: lName,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: password,
-      confirmPassword: confirmPassword,
-      phoneNumber: phoneNumber,
+      rePassword: rePassword,
+      phone: phone,
       gender: gender,
     );
     switch (signupResponse) {

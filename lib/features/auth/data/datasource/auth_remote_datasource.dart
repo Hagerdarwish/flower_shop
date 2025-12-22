@@ -3,12 +3,12 @@ import 'package:flower_shop/features/auth/data/models/signup_dto.dart';
 
 abstract class AuthRemoteDataSource {
   Future<ApiResult<SignupDto>> signUp({
-    String? fName,
-    String? lName,
+    String? firstName,
+    String? lastName,
     String? email,
     String? password,
-    String? confirmPassword,
-    String? phoneNumber,
+    String? rePassword,
+    String? phone,
     String? gender,
   });
 }

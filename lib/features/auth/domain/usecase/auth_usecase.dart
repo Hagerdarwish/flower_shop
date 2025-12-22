@@ -8,20 +8,20 @@ class AuthUsecase {
   AuthRepo authRepo;
   AuthUsecase(this.authRepo);
   Future<ApiResult<SignupModel>> call({
-    String? fName,
-    String? lName,
+    String? firstName,
+    String? lastName,
     String? email,
     String? password,
-    String? confirmPassword,
+    String? rePassword,
     String? phone,
     String? gender,
   }) => authRepo.signup(
-    fName: fName,
-    lName: lName,
+    firstName: firstName,
+    lastName: lastName,
     email: email,
     password: password,
-    confirmPassword: confirmPassword,
-    phoneNumber: phone,
+    rePassword: rePassword,
+    phone: phone,
     gender: gender,
   );
 }

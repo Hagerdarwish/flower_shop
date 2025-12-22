@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/app/config/validation/app_validation.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
@@ -23,12 +25,37 @@ class AuthBloc extends Cubit<AuthStates> {
   String phone = '';
   String gender = '';
 
+  final StreamController<RegisterUiEvents> _registerUiEventStream =
+      StreamController<RegisterUiEvents>.broadcast();
+
+  Stream<RegisterUiEvents> get registerUiEventStream =>
+      _registerUiEventStream.stream;
+
+  void doUiIntent(RegisterUiEvents event) {
+    _registerUiEventStream.add(event);
+
+    // switch (event) {
+    //   case NavigateToLoginEvent():
+    //     _registerUiEventStream.add(NavigateToLoginEvent());
+    //   case ShowLoadingEvent():
+    //     _registerUiEventStream.add(ShowLoadingEvent());
+    //   case HideLoadingEvent():
+    //     _registerUiEventStream.add(HideLoadingEvent());
+    //   case ShowSuccessDialogEvent():
+    //     _registerUiEventStream.add(ShowSuccessDialogEvent());
+    //     _registerUiEventStream.add(NavigateToLoginEvent());
+
+    //   case ShowErrorDialogEvent():
+    //     _registerUiEventStream.add(ShowErrorDialogEvent());
+    // }
+  }
+
   void doIntent(AuthEvents event) async {
     switch (event) {
       case SignupEvent():
         _signup();
       case FirstNameChangedEvent():
-        _firstNameChanged();
+        _firstNameChanged(event.firstName.toString());
       case LastNameChangedEvent():
         _lastNameChanged(event.lastName.toString());
       case EmailChangedEvent():
@@ -57,15 +84,19 @@ class AuthBloc extends Cubit<AuthStates> {
     emit(
       state.copywith(signupStateCopywith: SignupState(status: Status.loading)),
     );
+    _registerUiEventStream.add(ShowLoadingEvent());
+
     ApiResult<SignupModel> response = await _authUsecase.call(
-      fName: fName,
-      lName: lName,
+      firstName: fName,
+      lastName: lName,
       email: email,
       password: password,
-      confirmPassword: confirmPassword,
+      rePassword: confirmPassword,
       gender: gender,
       phone: phone,
     );
+    _registerUiEventStream.add(HideLoadingEvent());
+
     switch (response) {
       case SuccessApiResult<SignupModel>():
         emit(
@@ -76,6 +107,11 @@ class AuthBloc extends Cubit<AuthStates> {
             ),
           ),
         );
+                    print('<<<<<<<< message ${response.data.message} ');
+                    print('<<<<<<<< ${response.data.user!.firstName} ');
+
+        _registerUiEventStream.add(ShowSuccessDialogEvent());
+
       case ErrorApiResult<SignupModel>():
         emit(
           state.copywith(
@@ -85,11 +121,19 @@ class AuthBloc extends Cubit<AuthStates> {
             ),
           ),
         );
+        _registerUiEventStream.add(
+          ShowErrorDialogEvent(errorMessage: response.error.toString()),
+        );
+            print('<<<<<<<< error ${response.error.toString()} ');
+
     }
+    print(
+      '<<<<<<<<${fName} << ${lName} << ${email} << ${password} << ${confirmPassword} << ${gender} << ${phone} ',
+    );
   }
 
-  void _firstNameChanged() {
-    // fName = value;
+  void _firstNameChanged(String value) {
+    fName = value;
     emit(
       state.copywith(signupStateCopywith: SignupState(changeFirstName: true)),
     );
@@ -135,5 +179,11 @@ class AuthBloc extends Cubit<AuthStates> {
         signupStateCopywith: SignupState(changeGender: true, genderError: null),
       ),
     );
+  }
+
+  @override
+  Future<void> close() {
+    _registerUiEventStream.close();
+    return super.close();
   }
 }

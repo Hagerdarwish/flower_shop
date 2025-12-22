@@ -2,8 +2,9 @@ class SignupModel {
   final String? message;
   final UserModel? user;
   final String? token;
+  final String? error;
 
-  SignupModel({this.message, this.user, this.token});
+  SignupModel({this.message, this.user, this.token, this.error});
 }
 
 class UserModel {

@@ -12,12 +12,14 @@ SignupDto _$SignupDtoFromJson(Map<String, dynamic> json) => SignupDto(
       ? null
       : UserDto.fromJson(json['user'] as Map<String, dynamic>),
   token: json['token'] as String?,
+  error: json['error'] as String?,
 );
 
 Map<String, dynamic> _$SignupDtoToJson(SignupDto instance) => <String, dynamic>{
   'message': instance.message,
   'user': instance.user,
   'token': instance.token,
+  'error': instance.error,
 };
 
 UserDto _$UserDtoFromJson(Map<String, dynamic> json) => UserDto(
