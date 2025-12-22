@@ -4,7 +4,7 @@ import 'package:retrofit/retrofit.dart';
 
 import 'api_result.dart';
 
-Future<ApiResult<T>?> safeApiCall<T>({
+Future<ApiResult<T>> safeApiCall<T>({
   required Future<HttpResponse<T>> Function() call,
   bool isBaseResponse = false,
 }) async {
