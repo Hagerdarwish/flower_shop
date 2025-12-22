@@ -8,6 +8,8 @@ import 'package:flower_shop/app/features/auth/data/models/response/reset_code_re
 import 'package:injectable/injectable.dart';
 
 import '../../data/datasoure/auth_datasource.dart';
+import '../../data/models/request/reset_password_request_model/reset_password_request_model.dart';
+import '../../data/models/response/reset_password_response_model/reset_password_response_model.dart';
 
 @Injectable(as: AuthDatasource)
 class AuthDatasourceImp extends AuthDatasource {
@@ -27,6 +29,15 @@ class AuthDatasourceImp extends AuthDatasource {
       ResetCodeRequest request) {
     return safeApiCall(
       call: () => apiClient.verifyResetCode(request),
+    );
+  }
+
+  @override
+  Future<ApiResult<ResetPasswordResponse>> resetPassword(
+      ResetPasswordRequest request,
+      ) {
+    return safeApiCall<ResetPasswordResponse>(
+      call: () => apiClient.resetPassword(request),
     );
   }
 }

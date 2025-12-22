@@ -20,6 +20,8 @@ import '../../features/auth/data/repos/auth_repo_imp.dart' as _i97;
 import '../../features/auth/domain/repos/auth_repo.dart' as _i877;
 import '../../features/auth/domain/usecase/forgot_password_usecase.dart'
     as _i749;
+import '../../features/auth/domain/usecase/reset_password_usecase.dart'
+    as _i1029;
 import '../../features/auth/domain/usecase/verify_reset_code_usecase.dart'
     as _i827;
 import '../network/network_module.dart' as _i200;
@@ -47,6 +49,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i827.VerifyResetCodeUseCase>(
       () => _i827.VerifyResetCodeUseCase(gh<_i877.AuthRepo>()),
+    );
+    gh.factory<_i1029.ResetPasswordUseCase>(
+      () => _i1029.ResetPasswordUseCase(gh<_i877.AuthRepo>()),
     );
     return this;
   }
