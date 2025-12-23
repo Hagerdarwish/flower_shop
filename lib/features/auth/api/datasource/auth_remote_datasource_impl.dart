@@ -20,30 +20,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     String? phone,
     String? gender,
   }) {
-    final Map<String, dynamic> body = {};
-
-  if (firstName != null) body['firstName'] = firstName;
-  if (lastName != null) body['lastName'] = lastName;
-  if (email != null) body['email'] = email;
-  if (password != null) body['password'] = password;
-  if (rePassword != null) body['rePassword'] = rePassword;
-  if (phone != null) body['phone'] = phone;
-  if (gender != null) body['gender'] = gender;
-
-return safeApiCall<SignupDto>(
-      call: () =>  apiClient.signUp(body),
+    return safeApiCall<SignupDto>(
+      call: () => apiClient.signUp({
+        'firstName': firstName!,
+        'lastName': lastName!,
+        'email': email!,
+        'password': password!,
+        'rePassword': rePassword!,
+        'phone': phone!,
+        'gender': gender!,
+      }),
     );
-
-    // return safeApiCall<SignupDto>(
-    //   call: () => apiClient.signUp({
-    //     'firstName': firstName!,
-    //     'lastName': lastName!,
-    //     'email': email!,
-    //     'password': password!,
-    //     'rePassword': rePassword!,
-    //     'phone': phone!,
-    //     'gender': gender!,
-    //   }),
-    // );
   }
 }

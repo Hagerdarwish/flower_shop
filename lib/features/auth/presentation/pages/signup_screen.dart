@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/config/di/di.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flower_shop/app/core/utils/dialog_utils.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_bloc.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_events.dart';
+import 'package:flower_shop/features/auth/presentation/manager/auth_cubit.dart';
+import 'package:flower_shop/features/auth/presentation/manager/auth_intent.dart';
 import 'package:flower_shop/features/auth/presentation/widgets/form_signup_widget.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final bloc = getIt<AuthBloc>();
+  final bloc = getIt<AuthCubit>();
 
   @override
   void initState() {

@@ -1,20 +1,19 @@
 import 'dart:async';
-
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/app/config/validation/app_validation.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/auth/domain/models/signup_model.dart';
 import 'package:flower_shop/features/auth/domain/usecase/auth_usecase.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_events.dart';
+import 'package:flower_shop/features/auth/presentation/manager/auth_intent.dart';
 import 'package:flower_shop/features/auth/presentation/manager/auth_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class AuthBloc extends Cubit<AuthStates> {
+class AuthCubit extends Cubit<AuthStates> {
   final AuthUsecase _authUsecase;
-  AuthBloc(this._authUsecase) : super(AuthStates());
+  AuthCubit(this._authUsecase) : super(AuthStates());
 
   final formKey = GlobalKey<FormState>();
   String email = '';
@@ -33,21 +32,6 @@ class AuthBloc extends Cubit<AuthStates> {
 
   void doUiIntent(RegisterUiEvents event) {
     _registerUiEventStream.add(event);
-
-    // switch (event) {
-    //   case NavigateToLoginEvent():
-    //     _registerUiEventStream.add(NavigateToLoginEvent());
-    //   case ShowLoadingEvent():
-    //     _registerUiEventStream.add(ShowLoadingEvent());
-    //   case HideLoadingEvent():
-    //     _registerUiEventStream.add(HideLoadingEvent());
-    //   case ShowSuccessDialogEvent():
-    //     _registerUiEventStream.add(ShowSuccessDialogEvent());
-    //     _registerUiEventStream.add(NavigateToLoginEvent());
-
-    //   case ShowErrorDialogEvent():
-    //     _registerUiEventStream.add(ShowErrorDialogEvent());
-    // }
   }
 
   void doIntent(AuthEvents event) async {
@@ -73,7 +57,8 @@ class AuthBloc extends Cubit<AuthStates> {
 
   Future<void> _signup() async {
     final genderError = Validators.genderValidator(gender);
-    if (!formKey.currentState!.validate() || genderError != null) {
+    if (!formKey.currentState!.validate() ||
+        genderError != null) {
       emit(
         state.copywith(
           signupStateCopywith: SignupState(genderError: genderError),
@@ -107,8 +92,6 @@ class AuthBloc extends Cubit<AuthStates> {
             ),
           ),
         );
-                    print('<<<<<<<< message ${response.data.message} ');
-                    print('<<<<<<<< ${response.data.user!.firstName} ');
 
         _registerUiEventStream.add(ShowSuccessDialogEvent());
 
@@ -124,12 +107,7 @@ class AuthBloc extends Cubit<AuthStates> {
         _registerUiEventStream.add(
           ShowErrorDialogEvent(errorMessage: response.error.toString()),
         );
-            print('<<<<<<<< error ${response.error.toString()} ');
-
     }
-    print(
-      '<<<<<<<<${fName} << ${lName} << ${email} << ${password} << ${confirmPassword} << ${gender} << ${phone} ',
-    );
   }
 
   void _firstNameChanged(String value) {

@@ -3,8 +3,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/config/validation/app_validation.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_bloc.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_events.dart';
+import 'package:flower_shop/features/auth/presentation/manager/auth_cubit.dart';
+import 'package:flower_shop/features/auth/presentation/manager/auth_intent.dart';
 import 'package:flower_shop/features/auth/presentation/manager/auth_states.dart';
 import 'package:flower_shop/features/auth/presentation/widgets/select_gender_widget.dart';
 import 'package:flower_shop/features/auth/presentation/widgets/text_form_feild_widget.dart';
@@ -17,8 +17,8 @@ class FormSignupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<AuthBloc>(context);
-    return BlocBuilder<AuthBloc, AuthStates>(
+    final bloc = BlocProvider.of<AuthCubit>(context);
+    return BlocBuilder<AuthCubit, AuthStates>(
       builder: (context, state) {
         return Column(
           children: [

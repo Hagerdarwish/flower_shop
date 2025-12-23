@@ -1,8 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_bloc.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_events.dart';
+import 'package:flower_shop/features/auth/presentation/manager/auth_cubit.dart';
+import 'package:flower_shop/features/auth/presentation/manager/auth_intent.dart';
 import 'package:flower_shop/features/auth/presentation/manager/auth_states.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class _SelectGenderWidgetState extends State<SelectGenderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<AuthBloc>(context);
+    final bloc = BlocProvider.of<AuthCubit>(context);
 
     return Row(
       children: [
