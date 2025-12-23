@@ -57,8 +57,8 @@ class AuthCubit extends Cubit<AuthStates> {
 
   Future<void> _signup() async {
     final genderError = Validators.genderValidator(gender);
-    if (!formKey.currentState!.validate() ||
-        genderError != null) {
+    final isFormValid = formKey.currentState?.validate() ?? true;
+    if (!isFormValid || genderError != null) {
       emit(
         state.copywith(
           signupStateCopywith: SignupState(genderError: genderError),
