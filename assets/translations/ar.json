@@ -1,6 +1,44 @@
 {
-  "emailVerification": "تأكيد البريد الإلكتروني",
-  "emailVerification2": "تأكيد البريد الإلكتروني"
+  "auth": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "newPassword": "كلمة مرور جديدة",
+    "rememberMe": "تذكرني",
+    "forgetPassword": "نسيت كلمة المرور؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "continue": "متابعة"
+  },
 
+  "user": {
+    "userName": "اسم المستخدم",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "phoneNumber": "رقم الهاتف"
+  },
 
+  "hints": {
+    "enterEmail": "أدخل بريدك الإلكتروني",
+    "enterFirstName": "أدخل الاسم الأول",
+    "enterLastName": "أدخل اسم العائلة",
+    "enterPassword": "أدخل كلمة المرور",
+    "enterRePassword": "أعد إدخال كلمة المرور",
+    "enterPhone": "أدخل رقم الهاتف",
+    "associatedEmail": "من فضلك أدخل البريد الإلكتروني المرتبط\nبحسابك"
+  },
+
+  "verification": {
+    "emailVerification": "التحقق من البريد الإلكتروني",
+    "instruction": "من فضلك أدخل الرمز الذي تم إرساله\nإلى بريدك الإلكتروني",
+    "didNotReceive": "لم يصلك الرمز؟",
+    "resend": "إعادة الإرسال",
+    "resetPassword": "إعادة تعيين كلمة المرور"
+  },
+
+  "validation": {
+    "password": "يجب ألا تكون كلمة المرور فارغة ويجب أن تحتوي على 6 أحرف على الأقل، تشمل حرفًا كبيرًا ورقمًا."
+  }
 }

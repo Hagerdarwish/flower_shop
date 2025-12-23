@@ -1,5 +1,46 @@
-{
-  "emailVerification": "Email verification",
-  "emailVerification2": "Email verification"
 
+{
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "newPassword": "New Password",
+    "rememberMe": "Remember me",
+    "forgetPassword": "Forget password ?",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "continue": "Continue"
+  },
+
+  "user": {
+    "userName": "User name",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "phoneNumber": "Phone number"
+  },
+
+  "hints": {
+    "enterEmail": "Enter your email",
+    "enterFirstName": "Enter First Name",
+    "enterLastName": "Enter Last Name",
+    "enterPassword": "Enter Password",
+    "enterRePassword": "Re-enter password",
+    "enterPhone": "Enter Your Phone Number",
+    "associatedEmail": "Please enter your email associated\nwith your account"
+  },
+
+  "verification": {
+    "emailVerification": "Email verification",
+    "instruction": "Please enter the code that was sent to\nyour email address",
+    "didNotReceive": "Didn't receive code?",
+    "resend": "Resend",
+    "resetPassword": "Reset password"
+  },
+
+  "validation": {
+    "password": "Password must not be empty and must contain at least 6 characters, including one uppercase letter and one number."
+  }
 }
+
