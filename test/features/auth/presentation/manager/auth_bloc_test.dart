@@ -56,7 +56,7 @@ void main() {
         return cubit;
       },
 
-      act: (cubit) { 
+      act: (cubit) {
         cubit.doIntent(FirstNameChangedEvent(firstName: 'test'));
         cubit.doIntent(LastNameChangedEvent(lastName: 'test'));
         cubit.doIntent(EmailChangedEvent(email: 'test@test.com'));
@@ -65,11 +65,10 @@ void main() {
           ConfirmPasswordChangedEvent(confirmPassword: 'password'),
         );
         cubit.doIntent(PhoneChangedEvent(phone: '+20100000000'));
-        cubit.doIntent(GenderChangedEvent(gender: 'female')); 
+        cubit.doIntent(GenderChangedEvent(gender: 'female'));
         return cubit.doIntent(SignupEvent());
       },
       expect: () => [
-
         isA<AuthStates>().having(
           (s) => s.signupState!.changeFirstName,
           "changeFirstName",
@@ -105,12 +104,12 @@ void main() {
           "changeGender",
           true,
         ),
-       
+
         isA<AuthStates>().having(
           (s) => s.signupState!.status,
           "status",
           Status.loading,
-        ), 
+        ),
         isA<AuthStates>()
             .having((s) => s.signupState!.status, "status", Status.success)
             .having((s) => s.signupState!.data!.token, "token", "fake_token")
@@ -119,6 +118,99 @@ void main() {
               "firstName",
               "test",
             ),
+      ],
+      verify: (_) {
+        verify(
+          mockUseCase.call(
+            firstName: 'test',
+            lastName: 'test',
+            email: 'test@test.com',
+            password: 'password',
+            rePassword: 'password',
+            phone: '+20100000000',
+            gender: 'female',
+          ),
+        ).called(1);
+      },
+    );
+
+    blocTest<AuthCubit, AuthStates>(
+      'emits loading then error when usecase returns ErrorApiResult',
+      build: () {
+        when(
+          mockUseCase.call(
+            firstName: anyNamed('firstName'),
+            lastName: anyNamed('lastName'),
+            email: anyNamed('email'),
+            password: anyNamed('password'),
+            rePassword: anyNamed('rePassword'),
+            phone: anyNamed('phone'),
+            gender: anyNamed('gender'),
+          ),
+        ).thenAnswer(
+          (_) async => ErrorApiResult<SignupModel>(error: 'Signup failed'),
+        );
+        return cubit;
+      },
+
+      act: (cubit) {
+        cubit.doIntent(FirstNameChangedEvent(firstName: 'test'));
+        cubit.doIntent(LastNameChangedEvent(lastName: 'test'));
+        cubit.doIntent(EmailChangedEvent(email: 'test@test.com'));
+        cubit.doIntent(PasswordChangedEvent(password: 'password'));
+        cubit.doIntent(
+          ConfirmPasswordChangedEvent(confirmPassword: 'password'),
+        );
+        cubit.doIntent(PhoneChangedEvent(phone: '+20100000000'));
+        cubit.doIntent(GenderChangedEvent(gender: 'female'));
+        return cubit.doIntent(SignupEvent());
+      },
+      expect: () => [
+        isA<AuthStates>().having(
+          (s) => s.signupState!.changeFirstName,
+          "changeFirstName",
+          true,
+        ),
+        isA<AuthStates>().having(
+          (s) => s.signupState!.changeLastName,
+          "changeLastName",
+          true,
+        ),
+        isA<AuthStates>().having(
+          (s) => s.signupState!.changeEmail,
+          "changeEmail",
+          true,
+        ),
+        isA<AuthStates>().having(
+          (s) => s.signupState!.changePassword,
+          "changePassword",
+          true,
+        ),
+        isA<AuthStates>().having(
+          (s) => s.signupState!.changeConfirmPassword,
+          "changeConfirmPassword",
+          true,
+        ),
+        isA<AuthStates>().having(
+          (s) => s.signupState!.changePhone,
+          "changePhone",
+          true,
+        ),
+        isA<AuthStates>().having(
+          (s) => s.signupState!.changeGender,
+          "changeGender",
+          true,
+        ),
+        isA<AuthStates>().having(
+          (s) => s.signupState!.status,
+          'status',
+          Status.loading,
+        ),
+        isA<AuthStates>().having(
+          (s) => s.signupState!.error,
+          'error',
+          contains('Signup failed'),
+        ),
       ],
 
       verify: (_) {
