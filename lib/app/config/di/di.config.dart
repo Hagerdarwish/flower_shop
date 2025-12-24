@@ -26,6 +26,8 @@ import '../../features/auth/domain/usecase/verify_reset_code_usecase.dart'
     as _i827;
 import '../../features/auth/presentation/forget_password/manager/forget_password_cubit.dart'
     as _i332;
+import '../../features/auth/presentation/reset_code/manager/reset_code_cubit.dart'
+    as _i513;
 import '../network/network_module.dart' as _i200;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -51,6 +53,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i827.VerifyResetCodeUseCase>(
       () => _i827.VerifyResetCodeUseCase(gh<_i877.AuthRepo>()),
+    );
+    gh.factoryParam<_i513.VerifyResetCodeCubit, String, dynamic>(
+      (email, _) => _i513.VerifyResetCodeCubit(
+        gh<_i827.VerifyResetCodeUseCase>(),
+        gh<_i749.ForgotPasswordUseCase>(),
+        email,
+      ),
     );
     gh.factory<_i332.ForgetPasswordCubit>(
       () => _i332.ForgetPasswordCubit(gh<_i749.ForgotPasswordUseCase>()),
