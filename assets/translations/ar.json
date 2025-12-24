@@ -1,6 +1,69 @@
 {
-  "emailVerification": "تأكيد البريد الإلكتروني",
-  "emailVerification2": "تأكيد البريد الإلكتروني"
+  "auth": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "newPassword": "كلمة مرور جديدة",
+    "rememberMe": "تذكرني",
+    "forgetPassword": "نسيت كلمة المرور؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "continue": "متابعة",
+    "ok": "موافق"
+  },
 
+  "user": {
+    "userName": "اسم المستخدم",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "phoneNumber": "رقم الهاتف"
+  },
 
+  "hints": {
+    "enterEmail": "أدخل بريدك الإلكتروني",
+    "enterFirstName": "أدخل الاسم الأول",
+    "enterLastName": "أدخل اسم العائلة",
+    "enterPassword": "أدخل كلمة المرور",
+    "enterRePassword": "أعد إدخال كلمة المرور",
+    "enterPhone": "أدخل رقم الهاتف",
+    "associatedEmail": "من فضلك أدخل البريد الإلكتروني المرتبط\nبحسابك"
+  },
+
+  "verification": {
+    "emailVerification": "التحقق من البريد الإلكتروني",
+    "instruction": "من فضلك أدخل الرمز الذي تم إرساله\nإلى بريدك الإلكتروني",
+    "didNotReceive": "لم يصلك الرمز؟",
+    "resend": "إعادة الإرسال",
+    "resetPassword": "إعادة تعيين كلمة المرور"
+  },
+
+  "validation": {
+    "check_email_for_verification_code": "تحقق من بريدك الإلكتروني للحصول على رمز التحقق",
+    "password": "يجب ألا تكون كلمة المرور فارغة ويجب أن تحتوي على 6 أحرف على الأقل، تشمل حرفًا كبيرًا ورقمًا."
+  },
+  "errors": {
+    "connectionTimeout": "انتهت مهلة الاتصال",
+    "noInternet": "لا يوجد اتصال بالإنترنت",
+    "unauthorized": "طلب غير مصرح به",
+    "serverError": "حدث خطأ في الخادم",
+    "unknownError": "حدث خطأ ما، حاول مرة أخرى لاحقًا",
+    "an_error_occurred": "حدث خطأ",
+
+    "invalidEmail": "البريد الإلكتروني غير صحيح",
+    "weakPassword": "كلمة المرور ضعيفة",
+    "emailRequired": "البريد الإلكتروني مطلوب",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "passwordWithCapital": "يجب أن تحتوي على حرف كبير",
+    "passwordWithNumber": "يجب أن تحتوي على رقم",
+    "passwordDontMatch": "كلمتا المرور غير متطابقتين",
+    "confirmPassword": "قم بتأكيد كلمة المرور",
+    "phoneRequired": "رقم الهاتف مطلوب",
+    "invalidNumber": "رقم هاتف مصري غير صحيح",
+    "required": "هذا الحقل مطلوب",
+    "least3Characters": "يجب ألا يقل عن 3 أحرف",
+    "least6Characters": "يجب ألا تقل عن 6 أحرف",
+    "invalidName": "اسم غير صالح"
+  }
 }

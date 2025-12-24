@@ -1,5 +1,66 @@
 {
-  "emailVerification": "Email verification",
-  "emailVerification2": "Email verification"
-
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "newPassword": "New Password",
+    "rememberMe": "Remember me",
+    "forgetPassword": "Forget password ?",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "continue": "Continue",
+    "ok": "OK"
+  },
+  "user": {
+    "userName": "User name",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "phoneNumber": "Phone number"
+  },
+  "hints": {
+    "enterEmail": "Enter your email",
+    "enterFirstName": "Enter First Name",
+    "enterLastName": "Enter Last Name",
+    "enterPassword": "Enter Password",
+    "enterRePassword": "Re-enter password",
+    "enterPhone": "Enter Your Phone Number",
+    "associatedEmail": "Please enter your email associated\nwith your account"
+  },
+  "verification": {
+    "emailVerification": "Email verification",
+    "instruction": "Please enter the code that was sent to\nyour email address",
+    "didNotReceive": "Didn't receive code?",
+    "resend": "Resend",
+    "resetPassword": "Reset password"
+  },
+  "validation": {
+    "check_email_for_verification_code": "Check your email for Verification Code",
+    "password": "Password must not be empty and must contain at least 6 characters, including one uppercase letter and one number."
+  },
+  "errors": {
+    "connectionTimeout": "Connection timed out",
+    "noInternet": "No Internet connection",
+    "unauthorized": "Unauthorized request",
+    "serverError": "Server error occurred",
+    "unknownError": "Something went wrong, please try again later",
+    "an_error_occurred": "An Error Occurred",
+    "invalidEmail": "Invalid email address",
+    "weakPassword": "Password too weak",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "passwordWithCapital": "Must contain a capital letter",
+    "passwordWithNumber": "Must contain a number",
+    "passwordDontMatch": "Passwords do not match",
+    "confirmPassword": "Confirm your password",
+    "phoneRequired": "Phone is required",
+    "invalidNumber": "Invalid Egyptian phone number",
+    "required": "Required",
+    "least3Characters": "Must be at least 3 characters",
+    "least6Characters": "At least 6 characters required",
+    "invalidName": "Invalid name"
+  }
 }
+
+

@@ -1,14 +1,27 @@
+import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../config/di/di.dart';
+import '../../features/auth/presentation/forget_password/manager/forget_password_cubit.dart';
+import '../../features/auth/presentation/forget_password/pages/forget_password_page.dart';
+import '../../features/auth/presentation/reset_code/pages/reset_code_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/', //  start here
+  initialLocation: RouteNames.forgetPassword,
   routes: [
+    GoRoute(
+      path: RouteNames.forgetPassword,
+      builder: (context, state) => BlocProvider(
+        create: (_) => getIt<ForgetPasswordCubit>(),
+        child: const ForgetPasswordPage(),
+      ),
+    ),
 
-   // GoRoute(
-   //   path: '/',
-   //   name: 'login',
-   //   builder: (context, state) => const LoginPage(),
-   // ),
+    GoRoute(
+      path: RouteNames.resetCode,
+      builder: (context, state) => const ResetCodePage(),),
+
   ],
 );
