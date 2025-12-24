@@ -1,11 +1,12 @@
 import 'package:flower_shop/app/core/router/route_names.dart';
+import 'package:flower_shop/app/features/auth/presentation/reset_password/pages/reset_password.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../config/di/di.dart';
 import '../../features/auth/presentation/forget_password/manager/forget_password_cubit.dart';
 import '../../features/auth/presentation/forget_password/pages/forget_password_page.dart';
-import '../../features/auth/presentation/reset_code/pages/reset_code_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/auth/presentation/verify_reset_code/manager/verify_reset_code_cubit.dart';
+import '../../features/auth/presentation/verify_reset_code/pages/verify_reset_code_page.dart';
 
 
 final GoRouter appRouter = GoRouter(
@@ -20,8 +21,20 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: RouteNames.resetCode,
-      builder: (context, state) => const ResetCodePage(),),
+      path: RouteNames.verifyResetCode,
+      builder: (context, state) {
+        final email = state.extra as String;
+        return BlocProvider(
+          create: (_) => getIt<VerifyResetCodeCubit>(param1: email),
+          child:  VerifyResetCodePage(email: email,),
+        );
+      },
+    ),
+
+GoRoute(
+path: RouteNames.resetPassword,
+builder: (context, state) =>const ResetPasswordPage(),
+),
 
   ],
 );

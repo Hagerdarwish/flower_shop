@@ -5,6 +5,8 @@ import 'package:flower_shop/app/features/auth/data/models/request/forget_passwor
 import 'package:flower_shop/app/features/auth/data/models/response/forget_password_response_model/forget_password_response_model.dart';
 import 'package:injectable/injectable.dart';
 import '../../data/datasoure/auth_datasource.dart';
+import '../../data/models/request/verify_reset_code_request_model/verify_reset_code_request.dart';
+import '../../data/models/response/verify_reset_code_response_model/verify_reset_code_response_model.dart';
 
 @Injectable(as: AuthDatasource)
 class AuthDatasourceImp extends AuthDatasource {
@@ -12,6 +14,16 @@ class AuthDatasourceImp extends AuthDatasource {
   AuthDatasourceImp(this.apiClient);
   @override
   Future<ApiResult<ForgotPasswordResponse>> forgotPassword(
-      ForgotPasswordRequest request) {
+    ForgotPasswordRequest request,
+  ) {
+    return safeApiCall(call: () => apiClient.forgotPassword(request));
+  }
+
+  @override
+  Future<ApiResult<VerifyResetCodeResponse>> verifyResetCode(
+      VerifyResetCodeRequest request) {
     return safeApiCall(
-      call: () => apiClient.forgotPassword(request),);}}
+      call: () => apiClient.verifyResetCode(request),
+    );
+  }
+}

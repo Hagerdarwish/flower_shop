@@ -33,7 +33,7 @@ dependencies:
   retrofit: ^4.9.0
   json_annotation: ^4.9.0
   flutter_bloc: ^9.1.1
-
+  flutter_otp_text_field:
 
 
 dev_dependencies:
@@ -49,7 +49,7 @@ dev_dependencies:
 
 
 # For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+# following pages: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:

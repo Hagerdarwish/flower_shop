@@ -21,12 +21,13 @@ class ForgetPasswordForm extends StatelessWidget {
       listenWhen: (previous, current) =>
       previous.resource.status != current.resource.status,
       listener: (context, state) {
+        final email = context.read<ForgetPasswordCubit>().emailController.text.trim();
         if (state.resource.status == Status.success) {
           showAppSnackbar(
             context,
             LocaleKeys.validation_check_email_for_verification_code.tr(),
           );
-          context.push(RouteNames.resetCode);
+          context.push(RouteNames.verifyResetCode,extra: email,);
         }
 
         if (state.resource.status == Status.error) {

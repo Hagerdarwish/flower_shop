@@ -36,7 +36,9 @@
     "instruction": "من فضلك أدخل الرمز الذي تم إرساله\nإلى بريدك الإلكتروني",
     "didNotReceive": "لم يصلك الرمز؟",
     "resend": "إعادة الإرسال",
-    "resetPassword": "إعادة تعيين كلمة المرور"
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "yourEmailVerified": "تم تأكيد بريدك الالكتروني"
+
   },
 
   "validation": {

@@ -33,7 +33,8 @@
     "instruction": "Please enter the code that was sent to\nyour email address",
     "didNotReceive": "Didn't receive code?",
     "resend": "Resend",
-    "resetPassword": "Reset password"
+    "resetPassword": "Reset password",
+    "yourEmailVerified": "Your Email Verified"
   },
   "validation": {
     "check_email_for_verification_code": "Check your email for Verification Code",

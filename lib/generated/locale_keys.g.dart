@@ -34,6 +34,7 @@ abstract class  LocaleKeys {
   static const verification_didNotReceive = 'verification.didNotReceive';
   static const verification_resend = 'verification.resend';
   static const verification_resetPassword = 'verification.resetPassword';
+  static const verification_yourEmailVerified = 'verification.yourEmailVerified';
   static const verification = 'verification';
   static const validation_check_email_for_verification_code = 'validation.check_email_for_verification_code';
   static const validation_password = 'validation.password';

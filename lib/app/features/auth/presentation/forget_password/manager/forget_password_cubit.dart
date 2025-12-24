@@ -55,9 +55,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
       emit(state.copyWith(resource: Resource.error('Unexpected error')));
     }
   }
-  void _resetState() {
-    emit(state.copyWith(resource: Resource.initial()));
-  }
+
 
   @override
   Future<void> close() {
