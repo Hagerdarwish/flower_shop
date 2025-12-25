@@ -8,9 +8,14 @@ import 'dart:async' as _i3;
 import 'package:flower_shop/app/core/network/api_result.dart' as _i4;
 import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart'
     as _i2;
-import 'package:flower_shop/features/auth/data/models/signup_dto.dart' as _i5;
+import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart'
+    as _i6;
+import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart'
+    as _i5;
+import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart'
+    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:mockito/src/dummies.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -36,7 +41,17 @@ class MockAuthRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i3.Future<_i4.ApiResult<_i5.SignupDto>> signUp({
+  _i3.Future<_i4.ApiResult<_i5.LoginResponse>?> login(
+    _i6.LoginRequest? loginRequest,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#login, [loginRequest]),
+            returnValue: _i3.Future<_i4.ApiResult<_i5.LoginResponse>?>.value(),
+          )
+          as _i3.Future<_i4.ApiResult<_i5.LoginResponse>?>);
+
+  @override
+  _i3.Future<_i4.ApiResult<_i7.SignupDto>> signUp({
     String? firstName,
     String? lastName,
     String? email,
@@ -55,8 +70,8 @@ class MockAuthRemoteDataSource extends _i1.Mock
               #phone: phone,
               #gender: gender,
             }),
-            returnValue: _i3.Future<_i4.ApiResult<_i5.SignupDto>>.value(
-              _i6.dummyValue<_i4.ApiResult<_i5.SignupDto>>(
+            returnValue: _i3.Future<_i4.ApiResult<_i7.SignupDto>>.value(
+              _i8.dummyValue<_i4.ApiResult<_i7.SignupDto>>(
                 this,
                 Invocation.method(#signUp, [], {
                   #firstName: firstName,
@@ -70,5 +85,5 @@ class MockAuthRemoteDataSource extends _i1.Mock
               ),
             ),
           )
-          as _i3.Future<_i4.ApiResult<_i5.SignupDto>>);
+          as _i3.Future<_i4.ApiResult<_i7.SignupDto>>);
 }

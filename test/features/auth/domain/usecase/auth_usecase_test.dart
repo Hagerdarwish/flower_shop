@@ -1,7 +1,7 @@
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/auth/domain/models/signup_model.dart';
 import 'package:flower_shop/features/auth/domain/repos/auth_repo.dart';
-import 'package:flower_shop/features/auth/domain/usecase/auth_usecase.dart';
+import 'package:flower_shop/features/auth/domain/usecase/signup_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -11,11 +11,11 @@ import 'auth_usecase_test.mocks.dart';
 @GenerateMocks([AuthRepo])
 void main() {
   late MockAuthRepo mockRepo;
-  late AuthUsecase useCase;
+  late SignupUsecase useCase;
 
   setUpAll(() {
     mockRepo = MockAuthRepo();
-    useCase = AuthUsecase(mockRepo);
+    useCase = SignupUsecase(mockRepo);
     provideDummy<ApiResult<SignupModel>>(
       SuccessApiResult<SignupModel>(data: SignupModel()),
     );

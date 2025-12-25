@@ -1,6 +1,6 @@
 import 'package:flower_shop/app/core/router/route_names.dart';
-import 'package:flower_shop/features/auth/presentation/pages/login_screen.dart';
-import 'package:flower_shop/features/auth/presentation/pages/signup_screen.dart';
+import 'package:flower_shop/features/auth/presentation/signup/pages/signup_screen.dart';
+import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -12,7 +12,8 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: RouteNames.login,
-      builder: (context, state) => const LoginScreen(),
+      name: 'login',
+      builder: (context, state) => const LoginPage(),
     ),
   ],
 );

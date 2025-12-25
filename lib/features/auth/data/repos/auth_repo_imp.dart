@@ -1,15 +1,32 @@
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:flower_shop/features/auth/data/mappers/signup_dto_mapper.dart';
-import 'package:flower_shop/features/auth/data/models/signup_dto.dart';
+import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
+import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
+import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
+import 'package:flower_shop/features/auth/domain/models/login_model.dart';
 import 'package:flower_shop/features/auth/domain/models/signup_model.dart';
 import 'package:flower_shop/features/auth/domain/repos/auth_repo.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: AuthRepo)
-class AuthRepoImpl implements AuthRepo {
-  AuthRemoteDataSource remoteDataSource;
-  AuthRepoImpl({required this.remoteDataSource});
+class AuthRepoImp implements AuthRepo {
+  final AuthRemoteDataSource authDatasource;
+  AuthRepoImp(this.authDatasource);
+
+  @override
+  Future<ApiResult<LoginModel>> login(String email, String password) async {
+    final loginRequest = LoginRequest(email: email, password: password);
+    final result = await authDatasource.login(loginRequest);
+    if (result is SuccessApiResult<LoginResponse>) {
+      return SuccessApiResult<LoginModel>(data: result.data.toEntity());
+    }
+    if (result is ErrorApiResult<LoginResponse>) {
+      return ErrorApiResult<LoginModel>(error: result.error);
+    }
+    return ErrorApiResult<LoginModel>(error: 'Unknown error');
+  }
+
   @override
   Future<ApiResult<SignupModel>> signup({
     String? firstName,
@@ -20,7 +37,7 @@ class AuthRepoImpl implements AuthRepo {
     String? phone,
     String? gender,
   }) async {
-    ApiResult<SignupDto> signupResponse = await remoteDataSource.signUp(
+    ApiResult<SignupDto> signupResponse = await authDatasource.signUp(
       firstName: firstName,
       lastName: lastName,
       email: email,

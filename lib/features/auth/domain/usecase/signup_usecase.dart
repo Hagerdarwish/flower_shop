@@ -4,9 +4,10 @@ import 'package:flower_shop/features/auth/domain/repos/auth_repo.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class AuthUsecase {
+class SignupUsecase {
   AuthRepo authRepo;
-  AuthUsecase(this.authRepo);
+  SignupUsecase(this.authRepo);
+
   Future<ApiResult<SignupModel>> call({
     String? firstName,
     String? lastName,

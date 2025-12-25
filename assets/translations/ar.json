@@ -1,5 +1,4 @@
 {
-  "signupTitle": "انشاء حساب",
   "firstName": "الاسم الأول",
   "lastName": "الاسم الأخير",
   "email": "البريد الإلكتروني",
@@ -39,5 +38,13 @@
   "registrationSuccessful": "تم التسجيل بنجاح",
   "ok": "موافق",
   "error": "خطأ",
-  "success": "نجاح"
+  "success": "نجاح",
+  "emailVerification": "تأكيد البريد الإلكتروني",
+  "rememberMe": "تذكرني",
+  "continueAsGuest": "المتابعة كزائر",
+  "dontHaveAnAccount": "ليس لديك حساب؟ ",
+  "signUp": "إنشاء حساب",
+  "enterYourEmail": "أدخل بريدك الإلكتروني",
+  "enterYourPassword": "أدخل كلمة المرور الخاصة بك",
+  "forgotPassword": "هل نسيت كلمة المرور؟"
 }

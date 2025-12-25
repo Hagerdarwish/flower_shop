@@ -1,5 +1,4 @@
 {
-  "signupTitle": "Sign Up",
   "firstName": "First Name",
   "lastName": "Last Name",
   "email": "Email",
@@ -9,7 +8,6 @@
   "gender": "Gender",
   "enterFirstName": "Enter first name",
   "enterLastName": "Enter last name",
-  "enterEmail": "Enter your email",
   "enterPassword": "Enter password",
   "enterPhoneNumber": "Enter phone number",
   "femaleGender": "Female",
@@ -39,5 +37,14 @@
   "registrationSuccessful": "Registration Successful",
   "ok": "OK",
   "error": "Error",
-  "success": "Success"
+  "success": "Success",
+  "emailVerification": "Email verification",
+  "rememberMe": "Remember me",
+  "forgotPassword?": "Forgot Password?",
+  "continueAsGuest": "Continue as Guest",
+  "dontHaveAnAccount": "Don't have an account? ",
+  "signUp": "Sign Up",
+  "enterYourEmail": "Enter your email",
+  "enterYourPassword": "Enter your password",
+  "forgotPassword": "Forgot Password?"
 }

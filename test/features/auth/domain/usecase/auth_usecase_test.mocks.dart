@@ -6,8 +6,10 @@
 import 'dart:async' as _i3;
 
 import 'package:flower_shop/app/core/network/api_result.dart' as _i4;
-import 'package:flower_shop/features/auth/domain/models/signup_model.dart'
+import 'package:flower_shop/features/auth/domain/models/login_model.dart'
     as _i5;
+import 'package:flower_shop/features/auth/domain/models/signup_model.dart'
+    as _i7;
 import 'package:flower_shop/features/auth/domain/repos/auth_repo.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
@@ -35,7 +37,23 @@ class MockAuthRepo extends _i1.Mock implements _i2.AuthRepo {
   }
 
   @override
-  _i3.Future<_i4.ApiResult<_i5.SignupModel>> signup({
+  _i3.Future<_i4.ApiResult<_i5.LoginModel>> login(
+    String? email,
+    String? password,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#login, [email, password]),
+            returnValue: _i3.Future<_i4.ApiResult<_i5.LoginModel>>.value(
+              _i6.dummyValue<_i4.ApiResult<_i5.LoginModel>>(
+                this,
+                Invocation.method(#login, [email, password]),
+              ),
+            ),
+          )
+          as _i3.Future<_i4.ApiResult<_i5.LoginModel>>);
+
+  @override
+  _i3.Future<_i4.ApiResult<_i7.SignupModel>> signup({
     String? firstName,
     String? lastName,
     String? email,
@@ -54,8 +72,8 @@ class MockAuthRepo extends _i1.Mock implements _i2.AuthRepo {
               #phone: phone,
               #gender: gender,
             }),
-            returnValue: _i3.Future<_i4.ApiResult<_i5.SignupModel>>.value(
-              _i6.dummyValue<_i4.ApiResult<_i5.SignupModel>>(
+            returnValue: _i3.Future<_i4.ApiResult<_i7.SignupModel>>.value(
+              _i6.dummyValue<_i4.ApiResult<_i7.SignupModel>>(
                 this,
                 Invocation.method(#signup, [], {
                   #firstName: firstName,
@@ -69,5 +87,5 @@ class MockAuthRepo extends _i1.Mock implements _i2.AuthRepo {
               ),
             ),
           )
-          as _i3.Future<_i4.ApiResult<_i5.SignupModel>>);
+          as _i3.Future<_i4.ApiResult<_i7.SignupModel>>);
 }

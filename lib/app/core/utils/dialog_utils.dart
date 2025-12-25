@@ -16,7 +16,7 @@ class DialogUtils {
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircularProgressIndicator(color: AppColors.pink),
+              CircularProgressIndicator(color: AppColors.primaryColor),
               Text(message, style: TextStyle(color: AppColors.white)),
             ],
           ),

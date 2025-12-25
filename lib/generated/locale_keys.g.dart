@@ -3,7 +3,6 @@
 // ignore_for_file: constant_identifier_names
 
 abstract class  LocaleKeys {
-  static const signupTitle = 'signupTitle';
   static const firstName = 'firstName';
   static const lastName = 'lastName';
   static const email = 'email';
@@ -44,5 +43,13 @@ abstract class  LocaleKeys {
   static const ok = 'ok';
   static const error = 'error';
   static const success = 'success';
+  static const emailVerification = 'emailVerification';
+  static const rememberMe = 'rememberMe';
+  static const continueAsGuest = 'continueAsGuest';
+  static const dontHaveAnAccount = 'dontHaveAnAccount';
+  static const signUp = 'signUp';
+  static const enterYourEmail = 'enterYourEmail';
+  static const enterYourPassword = 'enterYourPassword';
+  static const forgotPassword = 'forgotPassword';
 
 }
