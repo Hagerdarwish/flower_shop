@@ -27,19 +27,20 @@ class TextFormFieldWidget extends StatelessWidget {
       width: double.infinity,
       child: TextFormField(
         onChanged: onChanged,
-        style: textTheme.bodyLarge,
         obscureText: obscureText,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         focusNode: focusNode,
         keyboardType: keyboardType,
         cursorColor: AppColors.pink,
         validator: validator,
-
         onTapOutside: (event) {
           FocusScope.of(context).unfocus();
         },
         decoration: InputDecoration(
-          hint: Text(hint, style: textTheme.bodyLarge),
+          hint: Text(
+            hint,
+            style: textTheme.labelSmall!.copyWith(color: AppColors.grey2),
+          ),
           labelText: label,
         ),
       ),

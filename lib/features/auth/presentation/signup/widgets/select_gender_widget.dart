@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flower_shop/features/auth/presentation/signup/manager/signup_cubit.dart';
 import 'package:flower_shop/features/auth/presentation/signup/manager/signup_intent.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
@@ -25,7 +26,7 @@ class _SelectGenderWidgetState extends State<SelectGenderWidget> {
       children: [
         Text(
           LocaleKeys.gender.tr(),
-          style: Theme.of(context).textTheme.bodySmall,
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
         Radio<String>(
           value: LocaleKeys.femaleValue.tr(),
@@ -37,7 +38,12 @@ class _SelectGenderWidgetState extends State<SelectGenderWidget> {
             bloc.doIntent(GenderChangedEvent(gender: value));
           },
         ),
-        Text(LocaleKeys.femaleGender.tr()),
+        Text(
+          LocaleKeys.femaleGender.tr(),
+          style: Theme.of(
+            context,
+          ).textTheme.labelSmall!.copyWith(color: AppColors.blackColor),
+        ),
         const SizedBox(width: 20),
         Radio<String>(
           value: LocaleKeys.maleValue.tr(),
@@ -49,7 +55,12 @@ class _SelectGenderWidgetState extends State<SelectGenderWidget> {
             bloc.doIntent(GenderChangedEvent(gender: value));
           },
         ),
-        Text(LocaleKeys.maleGender.tr()),
+        Text(
+          LocaleKeys.maleGender.tr(),
+          style: Theme.of(
+            context,
+          ).textTheme.labelSmall!.copyWith(color: AppColors.blackColor),
+        ),
       ],
     );
   }

@@ -29,7 +29,7 @@ Future<ApiResult<T>> safeApiCall<T>({
     } else {
       errorDetail = 'Unknown Dio error';
     }
-    return ErrorApiResult(error: "Dio error: $errorDetail");
+    return ErrorApiResult(error: errorDetail);
   } catch (e) {
     return ErrorApiResult(error: "Unexpected error: $e");
   }

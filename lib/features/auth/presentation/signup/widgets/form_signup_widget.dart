@@ -45,7 +45,7 @@ class FormSignupWidget extends StatelessWidget {
                           },
                         ),
                       ),
-                      const SizedBox(width: 1),
+                      const SizedBox(width: 17),
                       Expanded(
                         child: TextFormFieldWidget(
                           label: LocaleKeys.lastName.tr(),
@@ -87,7 +87,7 @@ class FormSignupWidget extends StatelessWidget {
                           },
                         ),
                       ),
-                      const SizedBox(width: 1),
+                      const SizedBox(width: 17),
                       Expanded(
                         child: TextFormFieldWidget(
                           obscureText: true,
@@ -119,7 +119,7 @@ class FormSignupWidget extends StatelessWidget {
                       bloc.doIntent(PhoneChangedEvent(phone: value.toString()));
                     },
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 18),
                   const SelectGenderWidget(),
                   if (bloc.state.signupState?.genderError != null)
                     Padding(
@@ -128,18 +128,36 @@ class FormSignupWidget extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           bloc.state.signupState!.genderError!,
-                          style: Theme.of(context).textTheme.headlineSmall!
+                          style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(
                                 color: AppColors.red,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w400,
                               ),
                         ),
                       ),
                     ),
                   const SizedBox(height: 8),
-                  Text(
-                    LocaleKeys.createAccount.tr(),
-                    style: Theme.of(context).textTheme.headlineSmall,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          text: LocaleKeys.createAccount.tr(),
+                          style: Theme.of(context).textTheme.headlineSmall,
+                          children: [
+                            TextSpan(
+                              text: LocaleKeys.termsAndConditions.tr(),
+                              style: const TextStyle(
+                                decoration: TextDecoration.underline,
+                                decorationColor: AppColors.blackColor,
+                                color: AppColors.blackColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 48),
                   SizedBox(
@@ -151,8 +169,9 @@ class FormSignupWidget extends StatelessWidget {
                       },
                       child: Text(
                         LocaleKeys.signUp.tr(),
-                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: AppColors.white,
+                          fontSize: 16,
                         ),
                       ),
                     ),

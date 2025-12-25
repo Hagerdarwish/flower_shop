@@ -35,7 +35,7 @@ class LoginOptions extends StatelessWidget {
             context.push(RouteNames.forgetPassword);
           },
           child: Text(
-            LocaleKeys.forgotPasswordWithMark.tr(),
+            LocaleKeys.forgotPassword.tr(),
             style: const TextStyle(decoration: TextDecoration.underline),
           ),
         ),

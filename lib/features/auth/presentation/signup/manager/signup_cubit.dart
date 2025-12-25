@@ -69,7 +69,7 @@ class AuthCubit extends Cubit<AuthStates> {
     emit(
       state.copywith(signupStateCopywith: SignupState(status: Status.loading)),
     );
-    _registerUiEventStream.add(ShowLoadingEvent());
+    // _registerUiEventStream.add(ShowLoadingEvent());
 
     ApiResult<SignupModel> response = await _authUsecase.call(
       firstName: fName,
@@ -80,7 +80,7 @@ class AuthCubit extends Cubit<AuthStates> {
       gender: gender,
       phone: phone,
     );
-    _registerUiEventStream.add(HideLoadingEvent());
+    // _registerUiEventStream.add(HideLoadingEvent());
 
     switch (response) {
       case SuccessApiResult<SignupModel>():

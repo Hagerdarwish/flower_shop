@@ -72,7 +72,7 @@ class ForgetPasswordForm extends StatelessWidget {
                 CustomButton(
                   isEnabled: state.isFormValid,
                   isLoading: state.resource.status == Status.loading,
-                  text: LocaleKeys.continueText.tr(),
+                  text: LocaleKeys.continueTxt.tr(),
                   onPressed:() => cubit.doIntent(const SubmitForgetPasswordIntent()),
                 ),
               ],

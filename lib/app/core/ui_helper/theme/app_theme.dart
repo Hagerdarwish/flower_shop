@@ -42,8 +42,11 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
       headlineSmall: TextStyle(fontSize: 14, color: AppColors.blackColor),
-      labelMedium: TextStyle(fontSize: 18, color: Colors.black),
+      labelMedium: TextStyle(fontSize: 18, color: AppColors.blackColor),
+      labelSmall: TextStyle(fontSize: 14, color: AppColors.grey),
+      bodyMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: AppColors.grey)
     ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.pink,

@@ -14,7 +14,7 @@ import '../../../features/nav_bar/pages/app_sections.dart';
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouteNames.signup, //  start here
+  initialLocation: RouteNames.login, //  start here
   routes: [
     GoRoute(
       path: RouteNames.signup,
@@ -58,12 +58,11 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: RouteNames.home,
       builder: (context, state) {
-return BlocProvider(
-create: (_) => getIt<NavCubit>(),
-child: const AppSections(),
-);
-}
+        return BlocProvider(
+          create: (_) => getIt<NavCubit>(),
+          child: const AppSections(),
+        );
+      },
     ),
-
   ],
 );

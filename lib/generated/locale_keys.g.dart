@@ -21,6 +21,7 @@ abstract class  LocaleKeys {
   static const femaleValue = 'femaleValue';
   static const maleValue = 'maleValue';
   static const createAccount = 'createAccount';
+  static const termsAndConditions = 'termsAndConditions';
   static const alreadyHaveAccount = 'alreadyHaveAccount';
   static const login = 'login';
   static const signup = 'signup';
@@ -47,8 +48,8 @@ abstract class  LocaleKeys {
   static const success = 'success';
   static const emailVerification = 'emailVerification';
   static const rememberMe = 'rememberMe';
-  static const forgotPasswordWithMark = 'forgotPassword?';
   static const forgotPassword = 'forgotPassword';
+  static const forgotPasswordTitle = 'forgotPasswordTitle';
   static const continueAsGuest = 'continueAsGuest';
   static const dontHaveAnAccount = 'dontHaveAnAccount';
   static const dontHaveAccount = 'dontHaveAccount';
@@ -59,7 +60,7 @@ abstract class  LocaleKeys {
   static const userName = 'userName';
   static const newPassword = 'newPassword';
   static const confirm = 'confirm';
-  static const continueText = 'continue';
+  static const continueTxt = 'continueTxt';
   static const instruction = 'instruction';
   static const didNotReceive = 'didNotReceive';
   static const resend = 'resend';
