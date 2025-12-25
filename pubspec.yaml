@@ -34,19 +34,17 @@ dependencies:
   json_annotation: ^4.9.0
   flutter_bloc: ^9.1.1
 
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^5.5.0
-  bloc_test: ^10.0.0
   flutter_lints: ^5.0.0
-  build_runner: ^2.7.1
-  flutter_svg: ^2.2.0
+  build_runner: ^2.6.0
   injectable_generator: ^2.4.1
   retrofit_generator: ^10.2.0
   json_serializable: ^6.8.0
+  mockito: ^5.5.0
+  bloc_test: ^10.0.0
+  flutter_svg: ^2.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -61,10 +59,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/
+    # - assets/images/
     - assets/translations/
-    - assets/icons/
-    - assets/fonts/
+    # - assets/icons/
+    # - assets/fonts/
 
 easy_localization:
   path: assets/translations
