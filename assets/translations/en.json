@@ -11,13 +11,15 @@
     "dontHaveAccount": "Don't have an account?",
     "alreadyHaveAccount": "Already have an account?",
     "continue": "Continue",
-    "ok": "OK"
+    "ok": "OK",
+    "passwordUpdated": "Password Updated Successfully"
   },
   "user": {
     "userName": "User name",
     "firstName": "First name",
     "lastName": "Last name",
-    "phoneNumber": "Phone number"
+    "phoneNumber": "Phone number",
+    "confirm": "Confirm"
   },
   "hints": {
     "enterEmail": "Enter your email",

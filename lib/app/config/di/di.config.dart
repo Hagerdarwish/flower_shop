@@ -20,10 +20,14 @@ import '../../features/auth/data/repos/auth_repo_imp.dart' as _i97;
 import '../../features/auth/domain/repos/auth_repo.dart' as _i877;
 import '../../features/auth/domain/usecase/forgot_password_usecase.dart'
     as _i749;
+import '../../features/auth/domain/usecase/reset_password_usecase.dart'
+    as _i1029;
 import '../../features/auth/domain/usecase/verify_reset_code_usecase.dart'
     as _i827;
 import '../../features/auth/presentation/forget_password/manager/forget_password_cubit.dart'
     as _i332;
+import '../../features/auth/presentation/reset_password/manager/reset_password_cubit.dart'
+    as _i326;
 import '../../features/auth/presentation/verify_reset_code/manager/verify_reset_code_cubit.dart'
     as _i938;
 import '../network/network_module.dart' as _i200;
@@ -52,6 +56,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i827.VerifyResetCodeUseCase>(
       () => _i827.VerifyResetCodeUseCase(gh<_i877.AuthRepo>()),
     );
+    gh.lazySingleton<_i1029.ResetPasswordUseCase>(
+      () => _i1029.ResetPasswordUseCase(gh<_i877.AuthRepo>()),
+    );
     gh.factoryParam<_i938.VerifyResetCodeCubit, String, dynamic>(
       (email, _) => _i938.VerifyResetCodeCubit(
         gh<_i827.VerifyResetCodeUseCase>(),
@@ -61,6 +68,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i332.ForgetPasswordCubit>(
       () => _i332.ForgetPasswordCubit(gh<_i749.ForgotPasswordUseCase>()),
+    );
+    gh.factory<_i326.ResetPasswordCubit>(
+      () => _i326.ResetPasswordCubit(gh<_i1029.ResetPasswordUseCase>()),
     );
     return this;
   }

@@ -1,13 +1,56 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../../../generated/locale_keys.g.dart';
+import '../../../../../config/base_state/base_state.dart';
+import '../../../../../core/router/route_names.dart';
+import '../../../../../core/widgets/show_app_dialog.dart';
+import '../../../../../core/widgets/show_snak_bar.dart';
+import '../manager/reset_password_cubit.dart';
+import '../widgets/reset_password_form.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("Reset Password Page"),
+    return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 0,
+        title: Text(LocaleKeys.auth_password.tr()),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => context.pop(),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
+          listenWhen: (previous, current) =>
+          previous.resource.status != current.resource.status,
+          listener: (context, state) {
+            if (state.resource.status == Status.success) {
+              showAppSnackbar(
+                context,
+                LocaleKeys.auth_passwordUpdated.tr(),
+              );
+              context.push(RouteNames.forgetPassword);
+            }
+
+            if (state.resource.status == Status.error) {
+              showAppDialog(
+                context,
+                message: state.resource.error ??
+                    LocaleKeys.errors_an_error_occurred.tr(),
+                isError: true,
+              );
+            }
+          },
+          builder: (context, state) {
+            return const ResetPasswordForm();
+          },
+        ),
       ),
     );
   }

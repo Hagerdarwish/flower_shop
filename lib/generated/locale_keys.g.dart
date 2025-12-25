@@ -15,11 +15,13 @@ abstract class  LocaleKeys {
   static const auth_alreadyHaveAccount = 'auth.alreadyHaveAccount';
   static const auth_continue = 'auth.continue';
   static const auth_ok = 'auth.ok';
+  static const auth_passwordUpdated = 'auth.passwordUpdated';
   static const auth = 'auth';
   static const user_userName = 'user.userName';
   static const user_firstName = 'user.firstName';
   static const user_lastName = 'user.lastName';
   static const user_phoneNumber = 'user.phoneNumber';
+  static const user_confirm = 'user.confirm';
   static const user = 'user';
   static const hints_enterEmail = 'hints.enterEmail';
   static const hints_enterFirstName = 'hints.enterFirstName';

@@ -11,14 +11,18 @@
     "dontHaveAccount": "ليس لديك حساب؟",
     "alreadyHaveAccount": "لديك حساب بالفعل؟",
     "continue": "متابعة",
-    "ok": "موافق"
+    "ok": "موافق",
+    "passwordUpdated": "تم تجديد كلمة المرور بنجاح"
+
   },
 
   "user": {
     "userName": "اسم المستخدم",
     "firstName": "الاسم الأول",
     "lastName": "اسم العائلة",
-    "phoneNumber": "رقم الهاتف"
+    "phoneNumber": "رقم الهاتف",
+    "confirm": "تأكيد"
+
   },
 
   "hints": {
