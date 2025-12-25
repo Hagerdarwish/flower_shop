@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flower_shop/features/nav_bar/manager/nav_state.dart';
+import 'package:injectable/injectable.dart';
 
-
+@injectable
 class NavCubit extends Cubit<NavState> {
   NavCubit() : super(const NavInitial(selectedIndex: 0));
 

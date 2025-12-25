@@ -1,8 +1,7 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class NavState extends Equatable {
+class NavState  {
   final int selectedIndex;
   
   const NavState({required this.selectedIndex});

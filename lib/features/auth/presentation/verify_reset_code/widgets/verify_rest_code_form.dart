@@ -8,10 +8,7 @@ import '../../../../../app/core/widgets/custom_action_text.dart';
 import '../manager/verify_reset_code_cubit.dart';
 import '../manager/verify_reset_code_intent.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-<<<<<<< HEAD
-=======
 
->>>>>>> 1586b8a4f223ad97105789d8d0a2a87229fcd297
 class VerifyResetCodeForm extends StatelessWidget {
   const VerifyResetCodeForm({super.key});
 
