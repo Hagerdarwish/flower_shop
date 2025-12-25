@@ -28,11 +28,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
-  get_it: ^9.2.0
-  go_router: ^17.0.0
-  injectable: ^2.7.1+2
-  json_annotation: ^4.9.0
-  retrofit: ^4.9.0
+  flutter_otp_text_field: ^1.5.1+1
+  go_router: ^17.0.1
+  retrofit: ^4.9.1
 
 dev_dependencies:
   bloc_test: ^10.0.0
@@ -43,9 +41,8 @@ dev_dependencies:
     sdk: flutter
   injectable_generator: ^2.4.1
   json_serializable: ^6.8.0
-  mockito: ^5.6.1
-  retrofit_generator: ^10.2.0
-  test: ^1.26.3
+  mockito: ^5.5.0
+  flutter_svg: ^2.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -58,10 +55,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/
+    # - assets/images/
     - assets/translations/
-    - assets/icons/
-    - assets/fonts/
+    # - assets/icons/
+    # - assets/fonts/
 
 easy_localization:
   path: assets/translations
@@ -90,3 +87,11 @@ easy_localization:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_assets:
+  assets_path: assets/images/
+  output_path: lib/app/core/ui_helper/assets
+  filename: images.dart
+  field_prefix: null
+flutter_intl:
+  enabled: true

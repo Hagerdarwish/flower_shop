@@ -19,4 +19,9 @@ class Resource<T> {
   factory Resource.initial() {
     return Resource<T>(status: Status.initial);
   }
+
+  bool get isSuccess => status == Status.success;
+  bool get isLoading => status == Status.loading;
+  bool get isError => status == Status.error;
+  bool get isInitial => status == Status.initial;
 }

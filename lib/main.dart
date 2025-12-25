@@ -4,8 +4,6 @@ import 'package:flower_shop/app/core/router/app_router.dart';
 import 'package:flower_shop/features/nav_bar/manager/nav_cubit.dart';
 import 'package:flower_shop/features/nav_bar/pages/app_sections.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'app/config/di/di.dart';
 import 'app/core/ui_helper/theme/app_theme.dart';
 
@@ -28,16 +26,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => NavCubit())],
-      child: MaterialApp.router(
-        title: AppConstants.appName,
-        theme: AppTheme.lightTheme,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        debugShowCheckedModeBanner: false,
-        routerConfig: appRouter,
-      ),
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      theme: AppTheme.lightTheme,
+      routerConfig: appRouter,
     );
   }
 }

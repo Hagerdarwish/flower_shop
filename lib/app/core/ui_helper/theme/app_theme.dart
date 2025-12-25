@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
+    scaffoldBackgroundColor: AppColors.white,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: AppColors.primaryColor,
-      primary: AppColors.primaryColor,
+      seedColor: AppColors.pink,
+      primary: AppColors.pink,
       secondary: AppColors.secondaryColor,
       tertiary: AppColors.blueColor,
     ),
 
-    scaffoldBackgroundColor: AppColors.white,
-
     appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.white,
       iconTheme: IconThemeData(color: AppColors.blackColor),
       titleTextStyle: TextStyle(
         color: AppColors.blackColor,
@@ -21,27 +21,45 @@ class AppTheme {
       ),
     ),
 
+    inputDecorationTheme: InputDecorationTheme(
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      labelStyle: TextStyle(color: AppColors.blackColor, fontSize: 20),
+      hintStyle: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+      filled: true,
+      fillColor: Colors.white,
+      errorStyle: TextStyle(color: Colors.red, fontSize: 12, height: 1.3),
+      enabledBorder: _border(Color(0xFF8C8C8C)),
+      focusedBorder: _border(AppColors.pink),
+      errorBorder: _border(Colors.red),
+      focusedErrorBorder: _border(Colors.red),
+    ),
+
     textTheme: TextTheme(
       headlineMedium: TextStyle(
         fontSize: 18,
-        color: AppColors.blackColor,
+        color: AppColors.pink,
         fontWeight: FontWeight.bold,
       ),
       headlineSmall: TextStyle(fontSize: 14, color: AppColors.blackColor),
-      displayMedium: TextStyle(
-        fontSize: 16,
-        color: Colors.blue,
-        fontWeight: FontWeight.w600,
-      ),
-      labelSmall: TextStyle(fontSize: 16, color: Colors.black54),
       labelMedium: TextStyle(fontSize: 18, color: Colors.black),
     ),
-
-    navigationBarTheme: NavigationBarThemeData(
-      elevation: 0,
-      backgroundColor: AppColors.white,
-      iconTheme: WidgetStateProperty.all(
-        IconThemeData(color: AppColors.pink),      // indicatorColor: AppColors.pink,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.pink,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        minimumSize: const Size(double.infinity, 52),
+        shape: const StadiumBorder(),
+        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+      ),
     ),
-  ));
+  );
+
+  static OutlineInputBorder _border(Color color) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(6),
+      borderSide: BorderSide(color: color, width: 1.2),
+    );
+  }
 }

@@ -7,37 +7,37 @@ class AppStyles {
   static final font32BlackSemiBold = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 32,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
     fontWeight: FontWeight.w500,
   );
   static final black24SemiBold = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 24,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
     fontWeight: FontWeight.w600,
   );
   static final font16Black = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 16,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
   );
   static final black16Medium = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 16,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
     fontWeight: FontWeight.w500,
   );
   static final black14Medium = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 14,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
     fontWeight: FontWeight.w500,
   );
 
   static final font14Black = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 14,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
     fontWeight: FontWeight.normal,
   );
   static final font14White = TextStyle(
@@ -63,32 +63,32 @@ class AppStyles {
   static final black10Medium = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 10,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
     fontWeight: FontWeight.w500,
   );
 
   static final font12Black = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 12,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
     fontWeight: FontWeight.normal,
   );
   static final font20BlackSemiBold = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 20,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
     fontWeight: FontWeight.w500,
   );
   static final black18Medium = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 18,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
     fontWeight: FontWeight.w500,
   );
   static final font12White = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 12,
-    color: AppColors.blackText,
+    color: AppColors.blackColor,
     fontWeight: FontWeight.normal,
   );
   static final font24WhiteSemiBold = TextStyle(
