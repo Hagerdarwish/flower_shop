@@ -3,11 +3,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/config/validation/app_validation.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_cubit.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_intent.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_states.dart';
-import 'package:flower_shop/features/auth/presentation/widgets/select_gender_widget.dart';
-import 'package:flower_shop/features/auth/presentation/widgets/text_form_field_widget.dart';
+import 'package:flower_shop/features/auth/presentation/signup/manager/signup_cubit.dart';
+import 'package:flower_shop/features/auth/presentation/signup/manager/signup_intent.dart';
+import 'package:flower_shop/features/auth/presentation/signup/manager/signup_states.dart';
+import 'package:flower_shop/features/auth/presentation/signup/widgets/select_gender_widget.dart';
+import 'package:flower_shop/features/auth/presentation/signup/widgets/text_form_field_widget.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -150,7 +150,7 @@ class FormSignupWidget extends StatelessWidget {
                         bloc.doIntent(SignupEvent());
                       },
                       child: Text(
-                        LocaleKeys.signupTitle.tr(),
+                        LocaleKeys.signUp.tr(),
                         style: Theme.of(context).textTheme.labelSmall!.copyWith(
                           color: AppColors.white,
                         ),
@@ -174,8 +174,8 @@ class FormSignupWidget extends StatelessWidget {
                                 text: LocaleKeys.login.tr(),
                                 style: const TextStyle(
                                   decoration: TextDecoration.underline,
-                                  decorationColor: AppColors.pink,
-                                  color: AppColors.pink,
+                                  decorationColor: AppColors.primaryColor,
+                                  color: AppColors.primaryColor,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),

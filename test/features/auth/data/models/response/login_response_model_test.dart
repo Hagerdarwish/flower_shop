@@ -1,6 +1,6 @@
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flower_shop/features/auth/data/models/user_model.dart' as data;
+import 'package:flower_shop/features/auth/data/models/response/user_model.dart' as data;
 import 'package:flower_shop/features/auth/domain/models/login_model.dart';
 import 'package:flower_shop/features/auth/domain/models/user_model.dart';
 

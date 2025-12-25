@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/config/di/di.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flower_shop/app/core/utils/dialog_utils.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_cubit.dart';
-import 'package:flower_shop/features/auth/presentation/manager/auth_intent.dart';
-import 'package:flower_shop/features/auth/presentation/widgets/form_signup_widget.dart';
+import 'package:flower_shop/features/auth/presentation/signup/manager/signup_cubit.dart';
+import 'package:flower_shop/features/auth/presentation/signup/manager/signup_intent.dart';
+import 'package:flower_shop/features/auth/presentation/signup/widgets/form_signup_widget.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +31,7 @@ class _SignupScreenState extends State<SignupScreen> {
           DialogUtils.showLoading(
             context,
             LocaleKeys.loading.tr(),
-            AppColors.pink,
+            AppColors.primaryColor,
           );
         case HideLoadingEvent():
           DialogUtils.hideLoading(context);
@@ -44,7 +44,7 @@ class _SignupScreenState extends State<SignupScreen> {
             posAction: () {
               context.go('/login');
             },
-            actionColor: AppColors.pink,
+            actionColor: AppColors.primaryColor,
           );
         case ShowErrorDialogEvent():
           DialogUtils.showMessage(
@@ -52,7 +52,7 @@ class _SignupScreenState extends State<SignupScreen> {
             event.errorMessage.toString(),
             titleMessage: LocaleKeys.error.tr(),
             posActionName: LocaleKeys.ok.tr(),
-            actionColor: AppColors.pink,
+            actionColor: AppColors.primaryColor,
           );
       }
     });
@@ -69,7 +69,7 @@ class _SignupScreenState extends State<SignupScreen> {
             bloc.doUiIntent(NavigateToLoginEvent());
           },
         ),
-        title: Text(LocaleKeys.signupTitle.tr()),
+        title: Text(LocaleKeys.signUp.tr()),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

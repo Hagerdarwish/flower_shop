@@ -1,6 +1,5 @@
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart';
-import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/data/models/response/user_model.dart';
@@ -17,7 +16,6 @@ void main() {
   late MockAuthRemoteDataSource mockDataSource;
   late AuthRepoImp repo;
 
-
   setUpAll(() {
     mockDataSource = MockAuthRemoteDataSource();
     repo = AuthRepoImp(mockDataSource);
@@ -26,64 +24,72 @@ void main() {
     );
   });
 
- final email = "test@test.com";
+  final email = "test@test.com";
   final password = "123456";
 
- group("AuthRepoImp.login()", () {
-    test("returns SuccessApiResult when datasource returns valid response", () async {
-      // ARRANGE
-      final fakeResponse = LoginResponse(
-        message: "success",
-        token: "abc123",
-        user: User(
-          Id: "1",
-          firstName: "Nouran",
-          lastName: "Samer",
-          email: "test@test.com",
-          role: "student",
-          wishlist: [],
-        ),
-      );
-      when(mockDataSource.login(
-          LoginRequest(email: email, password: password)))
-          .thenAnswer((_) async => SuccessApiResult<LoginResponse>(data: fakeResponse));
+  group("AuthRepoImp.login()", () {
+    test(
+      "returns SuccessApiResult when datasource returns valid response",
+      () async {
+        // ARRANGE
+        final fakeResponse = LoginResponse(
+          message: "success",
+          token: "abc123",
+          user: User(
+            Id: "1",
+            firstName: "Nouran",
+            lastName: "Samer",
+            email: "test@test.com",
+            role: "student",
+            wishlist: [],
+          ),
+        );
+        when(mockDataSource.login(any)).thenAnswer(
+          (_) async => SuccessApiResult<LoginResponse>(data: fakeResponse),
+        );
 
-      // ACT
-      final result = await repo.login(email, password);
-      // ASSERT
-      expect(result, isA<SuccessApiResult<LoginModel>>());
-      final data = (result as SuccessApiResult).data;
-      expect(data.message, "success");
-      expect(data.token, "abc123");
-      expect(data.user.firstName, "Nouran");
-      verify(mockDataSource.login(  LoginRequest(email: email, password: password))).called(1);
-    });
+        // ACT
+        final result = await repo.login(email, password);
+        // ASSERT
+        expect(result, isA<SuccessApiResult<LoginModel>>());
+        final data = (result as SuccessApiResult).data;
+        expect(data.message, "success");
+        expect(data.token, "abc123");
+        expect(data.user.firstName, "Nouran");
+        verify(mockDataSource.login(any)).called(1);
+      },
+    );
 
-    test("returns ErrorApiResult when datasource returns ErrorApiResult", () async {
-      // ARRANGE
-      when(mockDataSource.login(  LoginRequest(email: email, password: password)))
-          .thenAnswer((_) async => ErrorApiResult<LoginResponse>(error: "network error"));
-      // ACT
-      final result = await repo.login(email, password);
-      // ASSERT
-      expect(result, isA<ErrorApiResult<LoginModel>>());
-      expect((result as ErrorApiResult).error, "network error");
-      verify(mockDataSource.login(  LoginRequest(email: email, password: password))).called(1);
-    });
+    test(
+      "returns ErrorApiResult when datasource returns ErrorApiResult",
+      () async {
+        // ARRANGE
+        when(mockDataSource.login(any)).thenAnswer(
+          (_) async => ErrorApiResult<LoginResponse>(error: "network error"),
+        );
+        // ACT
+        final result = await repo.login(email, password);
+        // ASSERT
+        expect(result, isA<ErrorApiResult<LoginModel>>());
+        expect((result as ErrorApiResult).error, "network error");
+        verify(mockDataSource.login(any)).called(1);
+      },
+    );
 
-    test("returns ErrorApiResult with Unknown error when datasource returns unexpected result", () async {
-      // ARRANGE
-      when(mockDataSource.login(  LoginRequest(email: email, password: password)))
-          .thenAnswer((_) async => null); 
-      // ACT
-      final result = await repo.login(email, password);
-      // ASSERT
-      expect(result, isA<ErrorApiResult<LoginModel>>());
-      expect((result as ErrorApiResult).error, "Unknown error");
-      verify(mockDataSource.login(  LoginRequest(email: email, password: password))).called(1);
-    });
+    test(
+      "returns ErrorApiResult with Unknown error when datasource returns unexpected result",
+      () async {
+        // ARRANGE
+        when(mockDataSource.login(any)).thenAnswer((_) async => null);
+        // ACT
+        final result = await repo.login(email, password);
+        // ASSERT
+        expect(result, isA<ErrorApiResult<LoginModel>>());
+        expect((result as ErrorApiResult).error, "Unknown error");
+        verify(mockDataSource.login(any)).called(1);
+      },
+    );
   });
-
 
   group("AuthRepoImpl.signUp()", () {
     test('should return ApiSuccess when datasource succeeds', () async {

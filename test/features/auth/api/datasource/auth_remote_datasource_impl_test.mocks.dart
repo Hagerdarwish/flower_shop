@@ -6,7 +6,12 @@
 import 'dart:async' as _i4;
 
 import 'package:flower_shop/app/core/api_manger/api_client.dart' as _i3;
-import 'package:flower_shop/features/auth/data/models/signup_dto.dart' as _i5;
+import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart'
+    as _i7;
+import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart'
+    as _i6;
+import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart'
+    as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:retrofit/retrofit.dart' as _i2;
 
@@ -52,4 +57,19 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
             ),
           )
           as _i4.Future<_i2.HttpResponse<_i5.SignupDto>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i6.LoginResponse>> login(
+    _i7.LoginRequest? loginRequest,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#login, [loginRequest]),
+            returnValue: _i4.Future<_i2.HttpResponse<_i6.LoginResponse>>.value(
+              _FakeHttpResponse_0<_i6.LoginResponse>(
+                this,
+                Invocation.method(#login, [loginRequest]),
+              ),
+            ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i6.LoginResponse>>);
 }

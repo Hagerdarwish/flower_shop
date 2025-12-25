@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flower_shop/features/auth/data/models/user_model.dart';
+import 'package:flower_shop/features/auth/data/models/response/user_model.dart';
 import 'package:flower_shop/features/auth/domain/models/user_model.dart' as domain;
 
 void main() {
