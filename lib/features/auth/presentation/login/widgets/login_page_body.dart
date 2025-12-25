@@ -1,3 +1,4 @@
+import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/features/auth/presentation/login/widgets/dont_have_an_account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,6 +39,7 @@ class _LoginPageBodyState extends State<LoginPageBody> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Login Successful :)")),
           );
+       //   context.go(RouteNames.home)
         } else if (state.loginResource.isError == true) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

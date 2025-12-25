@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DontHaveAnAccount extends StatelessWidget {
   const DontHaveAnAccount({super.key});
@@ -22,10 +24,12 @@ class DontHaveAnAccount extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
               decoration: TextDecoration.underline,
               decorationThickness: 2,
+              decorationColor: Colors.pink
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-              },
+              context.push(RouteNames.signup);
+              }
           ),
         ],
       ),
