@@ -73,6 +73,11 @@ class AppStyles {
     color: AppColors.blackColor,
     fontWeight: FontWeight.normal,
   );
+  static final font12BlackBold = TextStyle(
+    fontSize: 12,
+    color: AppColors.blackColor,
+    fontWeight: FontWeight.bold,
+  );
   static final font20BlackSemiBold = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 20,
@@ -109,6 +114,11 @@ class AppStyles {
     color: AppColors.grey,
     fontWeight: FontWeight.w400,
   );
+  static final black14bold = TextStyle(
+    fontSize: 14,
+    color: AppColors.blackColor,
+    fontWeight: FontWeight.w900,
+  );
   static final grey16Medium = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 16,
@@ -132,5 +142,17 @@ class AppStyles {
     color: AppColors.purple,
     fontWeight: FontWeight.w600,
   );
+
+  static final white13medium = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 13,
+    color: AppColors.white,
+    fontWeight: FontWeight.w500,
+  );
+  static final green14regular = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: AppColors.green);
+
 
 }

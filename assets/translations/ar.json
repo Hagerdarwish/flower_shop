@@ -81,5 +81,6 @@
   "least6Characters": "مطلوب 6 أحرف على الأقل",
   "invalidName": "اسم غير صالح",
   "phoneNumber": "رقم الهاتف",
-  "passwordUpdated": "تم تحديث كلمة المرور بنجاح"
+  "passwordUpdated": "تم تحديث كلمة المرور بنجاح",
+  "addToCard": "اضافه الي السله"
 }

@@ -81,5 +81,7 @@
   "least6Characters": "At least 6 characters required",
   "invalidName": "Invalid name",
   "phoneNumber": "Phone number",
-  "passwordUpdated": "Password Updated Successfully"
+  "passwordUpdated": "Password Updated Successfully",
+  "addToCard": "Add to card"
+
 }

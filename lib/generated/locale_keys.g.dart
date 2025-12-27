@@ -86,5 +86,6 @@ abstract class  LocaleKeys {
   static const invalidName = 'invalidName';
   static const phoneNumber = 'phoneNumber';
   static const passwordUpdated = 'passwordUpdated';
+  static const addToCard = 'addToCard';
 
 }

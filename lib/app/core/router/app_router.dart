@@ -27,6 +27,7 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const LoginPage(),
     ),
 
+
     GoRoute(
       path: RouteNames.appStart,
       builder: (context, state) => const AppStartPage(),
