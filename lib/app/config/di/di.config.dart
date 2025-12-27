@@ -39,6 +39,11 @@ import '../../../features/auth/presentation/signup/manager/signup_cubit.dart'
     as _i392;
 import '../../../features/auth/presentation/verify_reset_code/manager/verify_reset_code_cubit.dart'
     as _i303;
+import '../../../features/home/api/home_remote_data_source_imp.dart' as _i874;
+import '../../../features/home/data/datasource/home_remote_data_source.dart'
+    as _i701;
+import '../../../features/home/data/repos/home_repo_imp.dart' as _i401;
+import '../../../features/home/domain/repos/home_repo.dart' as _i520;
 import '../../../features/nav_bar/manager/nav_cubit.dart' as _i137;
 import '../../core/api_manger/api_client.dart' as _i890;
 import '../auth_storage/auth_storage.dart' as _i603;
@@ -61,9 +66,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i708.AuthRemoteDataSource>(
       () => _i777.AuthRemoteDataSourceImpl(gh<_i890.ApiClient>()),
     );
+    gh.factory<_i701.HomeRemoteDataSource>(
+      () => _i874.HomeRemoteDataSourceImp(gh<_i890.ApiClient>()),
+    );
     gh.factory<_i858.AppCubit>(() => _i858.AppCubit(gh<_i603.AuthStorage>()));
     gh.factory<_i712.AuthRepo>(
       () => _i866.AuthRepoImp(gh<_i708.AuthRemoteDataSource>()),
+    );
+    gh.factory<_i520.HomeRepo>(
+      () => _i401.HomeRepoImp(gh<_i701.HomeRemoteDataSource>()),
     );
     gh.lazySingleton<_i280.ResetPasswordUseCase>(
       () => _i280.ResetPasswordUseCase(gh<_i712.AuthRepo>()),
