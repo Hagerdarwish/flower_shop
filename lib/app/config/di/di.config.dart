@@ -90,11 +90,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i75.LoginUseCase>(
       () => _i75.LoginUseCase(gh<_i712.AuthRepo>()),
     );
-    gh.factory<_i378.ResetPasswordCubit>(
-      () => _i378.ResetPasswordCubit(gh<_i280.ResetPasswordUseCase>()),
-    );
     gh.factory<_i392.AuthCubit>(
       () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
+    );
+    gh.factoryParam<_i378.ResetPasswordCubit, String, dynamic>(
+      (email, _) =>
+          _i378.ResetPasswordCubit(email, gh<_i280.ResetPasswordUseCase>()),
     );
     gh.factory<_i810.LoginCubit>(
       () => _i810.LoginCubit(gh<_i75.LoginUseCase>(), gh<_i603.AuthStorage>()),

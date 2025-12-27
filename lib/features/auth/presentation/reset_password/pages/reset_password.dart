@@ -17,7 +17,6 @@ class ResetPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        titleSpacing: 0,
         title: Text(LocaleKeys.password.tr()),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
@@ -27,8 +26,7 @@ class ResetPasswordPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
-          listenWhen: (previous, current) =>
-          previous.resource.status != current.resource.status,
+          listenWhen: (p, c) => p.resource.status != c.resource.status,
           listener: (context, state) {
             if (state.resource.status == Status.success) {
               showAppSnackbar(
@@ -37,7 +35,6 @@ class ResetPasswordPage extends StatelessWidget {
               );
               context.push(RouteNames.login);
             }
-
             if (state.resource.status == Status.error) {
               showAppDialog(
                 context,

@@ -10,7 +10,6 @@ import '../../../../../app/core/widgets/show_snak_bar.dart';
 import '../manager/verify_reset_code_cubit.dart';
 import '../widgets/verify_rest_code_form.dart';
 
-
 class VerifyResetCodePage extends StatelessWidget {
   final String email;
   const VerifyResetCodePage({super.key, required this.email});
@@ -20,9 +19,7 @@ class VerifyResetCodePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
-        title: Text(
-          LocaleKeys.emailVerification.tr(),
-        ),
+        title: Text(LocaleKeys.emailVerification.tr()),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => Navigator.of(context).pop(),
@@ -32,21 +29,21 @@ class VerifyResetCodePage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: BlocConsumer<VerifyResetCodeCubit, VerifyResetCodeState>(
           listenWhen: (previous, current) =>
-          previous.resource.status != current.resource.status,
+              previous.resource.status != current.resource.status,
           listener: (context, state) {
             if (state.resource.status == Status.success &&
                 state.code.isNotEmpty) {
-              showAppSnackbar(
-                context,
-                LocaleKeys.yourEmailVerified.tr(),
+              showAppSnackbar(context, LocaleKeys.yourEmailVerified.tr());
+              context.push(
+                RouteNames.resetPassword,
+                extra: email,
               );
-              context.push(RouteNames.resetPassword);
             }
             if (state.resource.status == Status.error) {
               showAppDialog(
                 context,
-                message: state.resource.error ??
-                    LocaleKeys.an_error_occurred.tr(),
+                message:
+                    state.resource.error ?? LocaleKeys.an_error_occurred.tr(),
                 isError: true,
               );
             }

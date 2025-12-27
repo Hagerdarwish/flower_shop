@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../app/config/base_state/base_state.dart';
 import '../../../../../app/core/network/api_result.dart';
+import '../../../../../app/core/utils/validators_helper.dart';
 import '../../../data/models/request/reset_password_request_model/reset_password_request_model.dart';
 import '../../../domain/models/reset_password_entity.dart';
 import '../../../domain/usecase/reset_password_usecase.dart';
@@ -12,9 +13,10 @@ part 'reset_password_state.dart';
 @injectable
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   final ResetPasswordUseCase _resetPasswordUseCase;
+  final String email;
 
-  ResetPasswordCubit(this._resetPasswordUseCase)
-      : super(ResetPasswordState.initial());
+  ResetPasswordCubit( @factoryParam this.email, this._resetPasswordUseCase)
+      : super(ResetPasswordState.initial(email: email));
 
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -35,25 +37,25 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   }
 
   void _validateForm() {
-    final isValid = formKey.currentState?.validate() ?? false;
+    final isValid = newPasswordController.text.trim().isNotEmpty &&
+        Validators.validatePassword(newPasswordController.text.trim()) == null;
+
     emit(state.copyWith(isFormValid: isValid));
   }
 
   void _togglePasswordVisibility() {
     emit(state.copyWith(
-      togglePasswordVisibility:
-      !state.togglePasswordVisibility,
+      togglePasswordVisibility: !state.togglePasswordVisibility,
     ));
   }
 
   Future<void> _submitResetPassword() async {
-    final isValid = formKey.currentState?.validate() ?? false;
-    if (!isValid) return;
+    if (!state.isFormValid) return;
 
     emit(state.copyWith(resource: Resource.loading()));
 
     final dto = ResetPasswordRequest(
-      email: emailController.text.trim(),
+      email: email, // Use the stored email
       newPassword: newPasswordController.text.trim(),
     );
 

@@ -54,9 +54,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: RouteNames.resetPassword,
       builder: (context, state) {
+        final email = state.extra as String;
         return BlocProvider(
-          create: (_) => getIt<ResetPasswordCubit>(),
-          child: const ResetPasswordPage(),
+          create: (_) => getIt<ResetPasswordCubit>(param1: email),
+          child:  ResetPasswordPage(),
         );
       },
     ),
