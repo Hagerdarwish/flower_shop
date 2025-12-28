@@ -82,6 +82,7 @@
   "invalidName": "Invalid name",
   "phoneNumber": "Phone number",
   "passwordUpdated": "Password Updated Successfully",
-  "addToCard": "Add to card"
+  "addToCard": "Add to card",
+  "search" : "Search"
 
 }

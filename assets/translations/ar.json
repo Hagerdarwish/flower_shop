@@ -82,5 +82,7 @@
   "invalidName": "اسم غير صالح",
   "phoneNumber": "رقم الهاتف",
   "passwordUpdated": "تم تحديث كلمة المرور بنجاح",
-  "addToCard": "اضافه الي السله"
+  "addToCard": "اضافه الي السله",
+  "search" : "بحث"
+
 }
