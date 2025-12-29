@@ -2,10 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
-class SectionRow extends StatelessWidget {
+class RowSection extends StatelessWidget {
   final String title;
   VoidCallback onTap;
-   SectionRow({ required this.title,required this.onTap});
+   RowSection({ required this.title,required this.onTap});
 
   @override
   Widget build(BuildContext context) {

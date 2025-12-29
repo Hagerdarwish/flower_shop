@@ -24,7 +24,7 @@ class HomeSection<T> extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionRow(title: title, onTap: onTap),
+        RowSection(title: title, onTap: onTap),
         const SizedBox(height: 10),
 
         if (resource.isLoading)
@@ -89,8 +89,6 @@ class HomeSection<T> extends StatelessWidget {
               },
             ),
           ),
-
-        const SizedBox(height: 20),
       ],
     );
   }
