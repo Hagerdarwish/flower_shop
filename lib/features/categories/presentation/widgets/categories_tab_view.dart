@@ -1,3 +1,4 @@
+import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flower_shop/features/categories/presentation/manager/all_categories_cubit.dart';
 import 'package:flower_shop/features/categories/presentation/manager/all_categories_intent.dart';
@@ -20,6 +21,9 @@ class _CategoriesTabViewState extends State<CategoriesTabView>
   Widget build(BuildContext context) {
     return BlocBuilder<AllCategoriesCubit, AllCategoriesStates>(
       builder: (context, state) {
+        if (state.allCategories?.status == Status.loading) {
+          return const Center(child: CircularProgressIndicator());
+        }
         final cubit = context.watch<AllCategoriesCubit>();
         final categories = cubit.categoriesList;
 
@@ -33,9 +37,9 @@ class _CategoriesTabViewState extends State<CategoriesTabView>
           );
 
           _tabController!.addListener(() {
-            if (_tabController!.indexIsChanging) {
+            if (!_tabController!.indexIsChanging) {
               cubit.doIntent(
-                SelectCategoryEvent(selectedIndex: (_tabController!.index)),
+                SelectCategoryEvent(selectedIndex: _tabController!.index),
               );
             }
           });
@@ -47,9 +51,8 @@ class _CategoriesTabViewState extends State<CategoriesTabView>
             tabAlignment: TabAlignment.start,
             controller: _tabController,
             isScrollable: true,
-            labelPadding: EdgeInsets.only(right: 24),
+            labelPadding: const EdgeInsets.only(right: 24),
             splashFactory: NoSplash.splashFactory,
-            padding: EdgeInsets.only(left: 24),
             indicator: const BoxDecoration(),
             labelColor: AppColors.pink,
             unselectedLabelColor: AppColors.white70,

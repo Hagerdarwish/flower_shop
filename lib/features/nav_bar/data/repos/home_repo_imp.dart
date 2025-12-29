@@ -17,7 +17,10 @@ class HomeRepoImp implements HomeRepo {
     String? occasion,
     String? category,
   }) async {
-    final result = await homeDatasource.getProduct();
+    final result = await homeDatasource.getProduct(
+      occasion: occasion,
+      category: category,
+    );
     switch (result) {
       case SuccessApiResult<ProductsResponse>():
         return SuccessApiResult(

@@ -24,15 +24,12 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
         _getAllCategories();
       case SelectCategoryEvent():
         _selectCategory(intent.selectedIndex);
-      case GetCategoriesProductsEvent():
-        _getProducts();
     }
   }
 
   Future<void> _getAllCategories() async {
     emit(state.copyWith(allCategoriesCopyWith: Resource.loading()));
     ApiResult<AllCategoriesModel> response = await _allCategoriesUsecase.call();
-
     switch (response) {
       case SuccessApiResult<AllCategoriesModel>():
         categoriesList = [
@@ -44,6 +41,7 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
             allCategoriesCopyWith: Resource.success(response.data),
           ),
         );
+        _getProducts(category: null);
 
       case ErrorApiResult<AllCategoriesModel>():
         emit(
@@ -55,6 +53,12 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
   void _selectCategory(int index) {
     if (selectedIndex == index) return;
     selectedIndex = index;
+    final selectedCategory = categoriesList[index];
+    if (selectedCategory.id == '0') {
+      _getProducts(category: null);
+    } else {
+      _getProducts(category: selectedCategory.id);
+    }
     emit(state.copyWith(allCategoriesCopyWith: state.allCategories));
   }
 
@@ -65,7 +69,8 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
     );
     switch (result) {
       case SuccessApiResult<List<ProductModel>>():
-        emit(state.copyWith(products: Resource.success(result.data)));
+        final newList = List<ProductModel>.from(result.data);
+        emit(state.copyWith(products: Resource.success(newList)));
       case ErrorApiResult<List<ProductModel>>():
         emit(state.copyWith(products: Resource.error(result.error)));
     }
