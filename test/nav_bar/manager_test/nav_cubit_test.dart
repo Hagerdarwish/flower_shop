@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flower_shop/features/nav_bar/manager/nav_cubit.dart';
-import 'package:flower_shop/features/nav_bar/manager/nav_state.dart';
+import 'package:flower_shop/features/nav_bar/ui/pages/nav_bar/manager/nav_cubit.dart';
+import 'package:flower_shop/features/nav_bar/ui/pages/nav_bar/manager/nav_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

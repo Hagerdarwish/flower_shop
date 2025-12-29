@@ -51,7 +51,18 @@ import '../../../features/categories/domain/usecase/all_categories_usecase.dart'
     as _i543;
 import '../../../features/categories/presentation/manager/all_categories_cubit.dart'
     as _i986;
-import '../../../features/nav_bar/manager/nav_cubit.dart' as _i137;
+import '../../../features/nav_bar/data/datasource/home_remote_datasouce/home_remote_datasource.dart'
+    as _i662;
+import '../../../features/nav_bar/data/datasource/home_remote_datasouce/home_remote_datasource_impl.dart'
+    as _i105;
+import '../../../features/nav_bar/data/repos/home_repo_imp.dart' as _i255;
+import '../../../features/nav_bar/domain/repos/home_repo.dart' as _i864;
+import '../../../features/nav_bar/domain/usecase/get_product_usecase.dart'
+    as _i329;
+import '../../../features/nav_bar/ui/pages/nav_bar/manager/nav_cubit.dart'
+    as _i355;
+import '../../../features/nav_bar/ui/pages/occasion/manager/occasion_cubit.dart'
+    as _i652;
 import '../../core/api_manger/api_client.dart' as _i890;
 import '../auth_storage/auth_storage.dart' as _i603;
 import '../network/network_module.dart' as _i200;
@@ -64,7 +75,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final networkModule = _$NetworkModule();
-    gh.factory<_i137.NavCubit>(() => _i137.NavCubit());
+    gh.factory<_i355.NavCubit>(() => _i355.NavCubit());
     gh.lazySingleton<_i603.AuthStorage>(() => _i603.AuthStorage());
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio());
     gh.lazySingleton<_i890.ApiClient>(
@@ -76,6 +87,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i858.AppCubit>(() => _i858.AppCubit(gh<_i603.AuthStorage>()));
     gh.factory<_i712.AuthRepo>(
       () => _i866.AuthRepoImp(gh<_i708.AuthRemoteDataSource>()),
+    );
+    gh.factory<_i662.HomeRemoteDatasource>(
+      () => _i105.HomeRemoteDatasourceImpl(gh<_i890.ApiClient>()),
     );
     gh.factory<_i932.AllCategoriesRemoteDatasource>(
       () => _i646.AllCategoriesRemoteDatasourceImpl(gh<_i890.ApiClient>()),
@@ -117,14 +131,23 @@ extension GetItInjectableX on _i174.GetIt {
       (email, _) =>
           _i378.ResetPasswordCubit(email, gh<_i280.ResetPasswordUseCase>()),
     );
+    gh.factory<_i864.HomeRepo>(
+      () => _i255.HomeRepoImp(gh<_i662.HomeRemoteDatasource>()),
+    );
     gh.factory<_i543.AllCategoriesUsecase>(
       () => _i543.AllCategoriesUsecase(gh<_i599.AllCategoriesRepo>()),
+    );
+    gh.factory<_i329.GetProductUsecase>(
+      () => _i329.GetProductUsecase(gh<_i864.HomeRepo>()),
     );
     gh.factory<_i810.LoginCubit>(
       () => _i810.LoginCubit(gh<_i75.LoginUseCase>(), gh<_i603.AuthStorage>()),
     );
     gh.factory<_i986.AllCategoriesCubit>(
       () => _i986.AllCategoriesCubit(gh<_i543.AllCategoriesUsecase>()),
+    );
+    gh.factory<_i652.OccasionCubit>(
+      () => _i652.OccasionCubit(gh<_i329.GetProductUsecase>()),
     );
     return this;
   }

@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flower_shop/app/config/di/di.dart';
 import 'package:flower_shop/features/app_start/presentation/manager/app_cubit.dart';
 import 'package:flower_shop/features/app_start/presentation/manager/app_states.dart';
-import 'package:flower_shop/features/nav_bar/manager/nav_cubit.dart';
-import 'package:flower_shop/features/nav_bar/pages/app_sections.dart';
 import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
+import '../../../nav_bar/ui/pages/nav_bar/manager/nav_cubit.dart';
+import '../../../nav_bar/ui/pages/nav_bar/pages/app_sections.dart';
 
 class AppStartPage extends StatelessWidget {
   const AppStartPage({super.key});

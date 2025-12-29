@@ -7,6 +7,8 @@ abstract class RouteNames {
   static const home="/home";
   static const appStart="/appStart";
   static const categories="/categories";
+  static const occasionPage="/occasionPage";
+
 
 
 

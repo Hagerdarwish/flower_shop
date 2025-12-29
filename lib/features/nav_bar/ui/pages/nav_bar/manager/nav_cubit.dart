@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:flower_shop/features/nav_bar/manager/nav_state.dart';
 import 'package:injectable/injectable.dart';
+
+import 'nav_state.dart';
 
 @injectable
 class NavCubit extends Cubit<NavState> {
