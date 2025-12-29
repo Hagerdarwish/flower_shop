@@ -32,36 +32,31 @@ class AppSections extends StatelessWidget {
       default:
         bodyWidget = HomeScreen();
     }
-
     return Scaffold(
       body: bodyWidget,
       bottomNavigationBar: BlocBuilder<NavCubit, NavState>(
         builder: (context, state) {
-          return NavigationBar(
-            destinations: [
-              NavigationDestination(
+          return BottomNavigationBar(
+            currentIndex: state.selectedIndex,
+            onTap: navCubit.updateIndex,
+            items: [
+              BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: AppConstants.home,
-                enabled: true,
               ),
-              NavigationDestination(
+              BottomNavigationBarItem(
                 icon: Icon(Icons.category_outlined),
                 label: AppConstants.category,
               ),
-              NavigationDestination(
+              BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_cart),
                 label: AppConstants.cart,
               ),
-              NavigationDestination(
+              BottomNavigationBarItem(
                 icon: Icon(Icons.person),
                 label: AppConstants.profile,
-                enabled: true,
               ),
             ],
-            selectedIndex: state.selectedIndex,
-            onDestinationSelected: (index) {
-              context.read<NavCubit>().updateIndex(index);
-            },
           );
         },
       ),
