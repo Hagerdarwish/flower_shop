@@ -2,7 +2,7 @@ import 'package:flower_shop/app/config/di/di.dart';
 import 'package:flower_shop/features/categories/presentation/manager/all_categories_cubit.dart';
 import 'package:flower_shop/features/categories/presentation/manager/all_categories_intent.dart';
 import 'package:flower_shop/features/categories/presentation/manager/all_categories_states.dart';
-import 'package:flower_shop/features/categories/presentation/widgets/all_categories_list.dart';
+import 'package:flower_shop/features/categories/presentation/widgets/categories_tab_view.dart';
 import 'package:flower_shop/features/categories/presentation/widgets/search_with_filter_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +21,7 @@ class CategoriesPage extends StatelessWidget {
               children: [
                 SizedBox(height: 40),
                 SearchWithFilter(),
-                AllCategoriesList(),
+                CategoriesTabView(),
               ],
             );
           },

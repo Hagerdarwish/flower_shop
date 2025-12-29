@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/ui_helper/assets/images.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
@@ -19,7 +20,7 @@ class SearchWithFilter extends StatelessWidget {
                 height: 48,
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: LocaleKeys.search,
+                    hintText: LocaleKeys.search.tr(),
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
