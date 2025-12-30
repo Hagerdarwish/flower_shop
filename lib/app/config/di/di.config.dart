@@ -57,7 +57,7 @@ import '../../../features/home/presentation/manager/factory/home_factory.dart'
 import '../../../features/home/presentation/manager/factory/home_factory_imp.dart'
     as _i73;
 import '../../../features/home/presentation/manager/home_cubit.dart' as _i682;
-import '../../../features/nav_bar/manager/nav_cubit.dart' as _i137;
+import '../../../features/nav_bar/manager/nav_cubit/nav_cubit.dart' as _i235;
 import '../../core/api_manger/api_client.dart' as _i890;
 import '../auth_storage/auth_storage.dart' as _i603;
 import '../network/network_module.dart' as _i200;
@@ -70,7 +70,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final networkModule = _$NetworkModule();
-    gh.factory<_i137.NavCubit>(() => _i137.NavCubit());
+    gh.factory<_i235.NavCubit>(() => _i235.NavCubit());
     gh.lazySingleton<_i603.AuthStorage>(() => _i603.AuthStorage());
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio());
     gh.lazySingleton<_i890.ApiClient>(

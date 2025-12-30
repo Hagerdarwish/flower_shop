@@ -3,15 +3,6 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i7;
-
-import 'package:flower_shop/app/core/network/api_result.dart' as _i8;
-import 'package:flower_shop/features/home/domain/models/best_seller_model.dart'
-    as _i9;
-import 'package:flower_shop/features/home/domain/models/category_model.dart'
-    as _i11;
-import 'package:flower_shop/features/home/domain/models/occasion_model.dart'
-    as _i12;
 import 'package:flower_shop/features/home/domain/usecase/get_best_seller_usecase.dart'
     as _i4;
 import 'package:flower_shop/features/home/domain/usecase/get_categories_usecase.dart'
@@ -23,7 +14,6 @@ import 'package:flower_shop/features/home/domain/usecase/get_products_usecase.da
 import 'package:flower_shop/features/home/presentation/manager/factory/home_factory.dart'
     as _i6;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i10;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -114,76 +104,4 @@ class MockHomeFactory extends _i1.Mock implements _i6.HomeFactory {
             ),
           )
           as _i5.GetOccasionsUseCase);
-}
-
-/// A class which mocks [GetBestSellerUseCase].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockGetBestSellerUseCase extends _i1.Mock
-    implements _i4.GetBestSellerUseCase {
-  MockGetBestSellerUseCase() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i7.Future<_i8.ApiResult<List<_i9.BestSellerModel>>> call() =>
-      (super.noSuchMethod(
-            Invocation.method(#call, []),
-            returnValue:
-                _i7.Future<_i8.ApiResult<List<_i9.BestSellerModel>>>.value(
-                  _i10.dummyValue<_i8.ApiResult<List<_i9.BestSellerModel>>>(
-                    this,
-                    Invocation.method(#call, []),
-                  ),
-                ),
-          )
-          as _i7.Future<_i8.ApiResult<List<_i9.BestSellerModel>>>);
-}
-
-/// A class which mocks [GetCategoriesUseCase].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockGetCategoriesUseCase extends _i1.Mock
-    implements _i3.GetCategoriesUseCase {
-  MockGetCategoriesUseCase() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i7.Future<_i8.ApiResult<List<_i11.CategoryModel>>> call() =>
-      (super.noSuchMethod(
-            Invocation.method(#call, []),
-            returnValue:
-                _i7.Future<_i8.ApiResult<List<_i11.CategoryModel>>>.value(
-                  _i10.dummyValue<_i8.ApiResult<List<_i11.CategoryModel>>>(
-                    this,
-                    Invocation.method(#call, []),
-                  ),
-                ),
-          )
-          as _i7.Future<_i8.ApiResult<List<_i11.CategoryModel>>>);
-}
-
-/// A class which mocks [GetOccasionsUseCase].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockGetOccasionsUseCase extends _i1.Mock
-    implements _i5.GetOccasionsUseCase {
-  MockGetOccasionsUseCase() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i7.Future<_i8.ApiResult<List<_i12.OccasionModel>>> call() =>
-      (super.noSuchMethod(
-            Invocation.method(#call, []),
-            returnValue:
-                _i7.Future<_i8.ApiResult<List<_i12.OccasionModel>>>.value(
-                  _i10.dummyValue<_i8.ApiResult<List<_i12.OccasionModel>>>(
-                    this,
-                    Invocation.method(#call, []),
-                  ),
-                ),
-          )
-          as _i7.Future<_i8.ApiResult<List<_i12.OccasionModel>>>);
 }
