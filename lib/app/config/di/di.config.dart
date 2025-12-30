@@ -50,6 +50,8 @@ import '../../../features/nav_bar/domain/product_details/repos/product_details_r
 import '../../../features/nav_bar/domain/product_details/usecase/get_product_details_usecase.dart'
     as _i1056;
 import '../../../features/nav_bar/manager/nav_cubit/nav_cubit.dart' as _i235;
+import '../../../features/nav_bar/presentation/manger/product_details_cubit/product_details_cubit.dart'
+    as _i634;
 import '../../core/api_manger/api_client.dart' as _i890;
 import '../auth_storage/auth_storage.dart' as _i603;
 import '../network/network_module.dart' as _i200;
@@ -120,6 +122,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i810.LoginCubit>(
       () => _i810.LoginCubit(gh<_i75.LoginUseCase>(), gh<_i603.AuthStorage>()),
+    );
+    gh.factoryParam<_i634.ProductDetailsCubit, String, dynamic>(
+      (productId, _) => _i634.ProductDetailsCubit(
+        gh<_i1056.GetProductDetailsUseCase>(),
+        productId,
+      ),
     );
     return this;
   }

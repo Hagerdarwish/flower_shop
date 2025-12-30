@@ -12,10 +12,12 @@ import '../../../features/auth/presentation/reset_password/pages/reset_password.
 import '../../../features/auth/presentation/verify_reset_code/manager/verify_reset_code_cubit.dart';
 import '../../../features/auth/presentation/verify_reset_code/pages/verify_reset_code_page.dart';
 import '../../../features/nav_bar/pages/app_sections.dart';
+import '../../../features/nav_bar/presentation/manger/product_details_cubit/product_details_cubit.dart';
+import '../../../features/nav_bar/presentation/pages/product_details_page.dart';
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouteNames.appStart, //  start here
+  initialLocation: RouteNames.productDetails,
   routes: [
     GoRoute(
       path: RouteNames.signup,
@@ -26,7 +28,6 @@ final GoRouter appRouter = GoRouter(
       name: 'login',
       builder: (context, state) => const LoginPage(),
     ),
-
 
     GoRoute(
       path: RouteNames.appStart,
@@ -58,7 +59,7 @@ final GoRouter appRouter = GoRouter(
         final email = state.extra as String;
         return BlocProvider(
           create: (_) => getIt<ResetPasswordCubit>(param1: email),
-          child:  ResetPasswordPage(),
+          child: ResetPasswordPage(),
         );
       },
     ),
@@ -72,5 +73,19 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
+
+    GoRoute(
+      path: RouteNames.productDetails,
+      builder: (context, state) {
+       // final email = state.extra as String;
+        const productId = '673e1cd711599201718280fb';
+
+        return BlocProvider(
+          create: (_) => getIt<ProductDetailsCubit>(param1: productId),
+          child: ProductDetailsPage(productId: productId),
+        );
+      },
+    ),
+
   ],
 );

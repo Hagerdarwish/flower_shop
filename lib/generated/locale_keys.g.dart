@@ -86,6 +86,8 @@ abstract class  LocaleKeys {
   static const invalidName = 'invalidName';
   static const phoneNumber = 'phoneNumber';
   static const passwordUpdated = 'passwordUpdated';
-  static const addToCard = 'addToCard';
+  static const addToCard = 'Add To Card';
+  static const allPricesIncludeTax = 'allPricesIncludeTax';
+  static const productAddedToCart = 'productAddedToCart';
 
 }

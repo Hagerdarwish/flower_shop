@@ -18,6 +18,8 @@ ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
       price: (json['price'] as num).toInt(),
       priceAfterDiscount: (json['priceAfterDiscount'] as num).toInt(),
       isInWishlist: json['isInWishlist'] as bool,
+      favoriteId: json['favoriteId'] as String?,
+      isSuperAdmin: json['isSuperAdmin'] as bool?,
     );
 
 Map<String, dynamic> _$ProductDetailsModelToJson(
@@ -31,4 +33,6 @@ Map<String, dynamic> _$ProductDetailsModelToJson(
   'price': instance.price,
   'priceAfterDiscount': instance.priceAfterDiscount,
   'isInWishlist': instance.isInWishlist,
+  'favoriteId': instance.favoriteId,
+  'isSuperAdmin': instance.isSuperAdmin,
 };

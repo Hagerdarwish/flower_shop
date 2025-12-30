@@ -7,6 +7,8 @@ class ProductDetailsEntity {
   final int price;
   final int priceAfterDiscount;
   final bool isInWishlist;
+  final String? favoriteId; // Keep it nullable
+  final bool? isSuperAdmin;
 
   ProductDetailsEntity({
     required this.id,
@@ -17,5 +19,7 @@ class ProductDetailsEntity {
     required this.price,
     required this.priceAfterDiscount,
     required this.isInWishlist,
+    this.favoriteId, // Remove default value
+    this.isSuperAdmin,
   });
 }

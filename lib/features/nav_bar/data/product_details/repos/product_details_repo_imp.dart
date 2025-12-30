@@ -6,7 +6,6 @@ import '../datasource/product_details_remote_datasource.dart';
 import 'package:injectable/injectable.dart';
 
 import '../models/response/product_details_response.dart';
-
 @LazySingleton(as: ProductDetailsRepo)
 class ProductDetailsRepoImpl implements ProductDetailsRepo {
   final ProductDetailsRemoteDataSource remoteDataSource;
@@ -16,8 +15,7 @@ class ProductDetailsRepoImpl implements ProductDetailsRepo {
   @override
   Future<ApiResult<ProductDetailsEntity>> getProductDetails(
       String productId) async {
-    final result =
-    await remoteDataSource.getProductDetails(productId);
+    final result = await remoteDataSource.getProductDetails(productId);
 
     if (result is SuccessApiResult<ProductDetailsResponse>) {
       final product = result.data.product;
@@ -32,6 +30,8 @@ class ProductDetailsRepoImpl implements ProductDetailsRepo {
           price: product.price,
           priceAfterDiscount: product.priceAfterDiscount,
           isInWishlist: product.isInWishlist,
+          favoriteId: product.favoriteId, // Pass null if it's null
+          isSuperAdmin: product.isSuperAdmin,
         ),
       );
     }
