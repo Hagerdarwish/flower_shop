@@ -39,7 +39,7 @@ import '../../../features/auth/presentation/signup/manager/signup_cubit.dart'
     as _i392;
 import '../../../features/auth/presentation/verify_reset_code/manager/verify_reset_code_cubit.dart'
     as _i303;
-import '../../../features/nav_bar/manager/nav_cubit.dart' as _i137;
+import '../../../features/nav_bar/manager/nav_cubit/nav_cubit.dart' as _i137;
 import '../../core/api_manger/api_client.dart' as _i890;
 import '../auth_storage/auth_storage.dart' as _i603;
 import '../network/network_module.dart' as _i200;
