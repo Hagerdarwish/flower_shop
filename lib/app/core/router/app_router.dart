@@ -17,7 +17,7 @@ import '../../../features/nav_bar/presentation/pages/product_details_page.dart';
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouteNames.productDetails,
+  initialLocation: RouteNames.login,
   routes: [
     GoRoute(
       path: RouteNames.signup,
@@ -77,8 +77,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: RouteNames.productDetails,
       builder: (context, state) {
-       // final email = state.extra as String;
-        const productId = '673e1cd711599201718280fb';
+       final productId = state.extra as String;
+       // const hardcodedProductId = '673e1cd711599201718280fb';
 
         return BlocProvider(
           create: (_) => getIt<ProductDetailsCubit>(param1: productId),
