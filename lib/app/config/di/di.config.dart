@@ -57,7 +57,19 @@ import '../../../features/home/presentation/manager/factory/home_factory.dart'
 import '../../../features/home/presentation/manager/factory/home_factory_imp.dart'
     as _i73;
 import '../../../features/home/presentation/manager/home_cubit.dart' as _i682;
+import '../../../features/nav_bar/api/datasource/product_details_datasource_imp.dart'
+    as _i749;
+import '../../../features/nav_bar/data/product_details/datasource/product_details_remote_datasource.dart'
+    as _i555;
+import '../../../features/nav_bar/data/product_details/repos/product_details_repo_imp.dart'
+    as _i737;
+import '../../../features/nav_bar/domain/product_details/repos/product_details_repo.dart'
+    as _i618;
+import '../../../features/nav_bar/domain/product_details/usecase/get_product_details_usecase.dart'
+    as _i1056;
 import '../../../features/nav_bar/manager/nav_cubit/nav_cubit.dart' as _i235;
+import '../../../features/nav_bar/presentation/manger/product_details_cubit/product_details_cubit.dart'
+    as _i634;
 import '../../core/api_manger/api_client.dart' as _i890;
 import '../auth_storage/auth_storage.dart' as _i603;
 import '../network/network_module.dart' as _i200;
@@ -108,11 +120,19 @@ extension GetItInjectableX on _i174.GetIt {
         email,
       ),
     );
+    gh.lazySingleton<_i555.ProductDetailsRemoteDataSource>(
+      () => _i749.ProductDetailsRemoteDataSourceImpl(gh<_i890.ApiClient>()),
+    );
     gh.factory<_i543.SignupUsecase>(
       () => _i543.SignupUsecase(gh<_i712.AuthRepo>()),
     );
     gh.factory<_i75.LoginUseCase>(
       () => _i75.LoginUseCase(gh<_i712.AuthRepo>()),
+    );
+    gh.lazySingleton<_i618.ProductDetailsRepo>(
+      () => _i737.ProductDetailsRepoImpl(
+        gh<_i555.ProductDetailsRemoteDataSource>(),
+      ),
     );
     gh.factory<_i392.AuthCubit>(
       () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
@@ -141,8 +161,17 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i386.GetOccasionsUseCase>(),
       ),
     );
+    gh.lazySingleton<_i1056.GetProductDetailsUseCase>(
+      () => _i1056.GetProductDetailsUseCase(gh<_i618.ProductDetailsRepo>()),
+    );
     gh.factory<_i810.LoginCubit>(
       () => _i810.LoginCubit(gh<_i75.LoginUseCase>(), gh<_i603.AuthStorage>()),
+    );
+    gh.factoryParam<_i634.ProductDetailsCubit, String, dynamic>(
+      (productId, _) => _i634.ProductDetailsCubit(
+        gh<_i1056.GetProductDetailsUseCase>(),
+        productId,
+      ),
     );
     gh.factory<_i682.HomeCubit>(() => _i682.HomeCubit(gh<_i94.HomeFactory>()));
     return this;

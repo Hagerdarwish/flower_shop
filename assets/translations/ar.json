@@ -87,6 +87,8 @@
   "search": "بحث",
   "categories": "الفئات",
   "bestSelling": "الأكثر مبيعًا",
-  "occasions": "المناسبات"
+  "occasions": "المناسبات",
+  "allPricesIncludeTax":"كل الاسعار شامله الضرائب",
+  "productAddedToCart":"تم اضافة المنتج الي العربه"
 
 }

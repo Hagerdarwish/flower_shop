@@ -3,6 +3,7 @@ import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
 import 'package:flower_shop/features/home/data/models/response/home_response.dart';
+import 'package:flower_shop/features/nav_bar/data/product_details/models/response/product_details_response.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../../features/auth/data/models/request/forget_password_request_model/forget_password_request_model.dart';
 import '../../../features/auth/data/models/request/reset_password_request_model/reset_password_request_model.dart';
@@ -23,21 +24,26 @@ abstract class ApiClient {
   @POST(AppEndpointString.loginEndpoint)
   Future<HttpResponse<LoginResponse>> login(@Body() LoginRequest loginRequest);
 
-
   @POST(AppEndpointString.sendEmail)
   Future<HttpResponse<ForgotPasswordResponse>> forgotPassword(
-      @Body() ForgotPasswordRequest request,
-      );
+    @Body() ForgotPasswordRequest request,
+  );
 
   @POST(AppEndpointString.verifyResetCode)
   Future<HttpResponse<VerifyResetCodeResponse>> verifyResetCode(
-      @Body() VerifyResetCodeRequest request,
-      );
+    @Body() VerifyResetCodeRequest request,
+  );
 
   @PUT(AppEndpointString.resetPassword)
   Future<HttpResponse<ResetPasswordResponse>> resetPassword(
-      @Body() ResetPasswordRequest request);
+    @Body() ResetPasswordRequest request,
+  );
 
   @GET(AppEndpointString.home)
   Future<HttpResponse<HomeResponse>> getHomeData();
-  }
+
+  @GET(AppEndpointString.productDetails)
+  Future<HttpResponse<ProductDetailsResponse>> getProductDetails(
+    @Path('id') String productId,
+  );
+}
