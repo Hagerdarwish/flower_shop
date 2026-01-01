@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 @immutable
-class NavStatexx  {
+class NavState  {
   final int selectedIndex;
   
   const NavState({required this.selectedIndex});

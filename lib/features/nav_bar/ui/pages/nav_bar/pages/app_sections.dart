@@ -3,15 +3,9 @@ import 'package:flower_shop/features/nav_bar/ui/pages/nav_bar/pages/profie.dart'
 import 'package:flower_shop/features/home/presentation/pages/home_page.dart';
 import 'package:flower_shop/features/nav_bar/manager/nav_cubit/nav_cubit.dart';
 import 'package:flower_shop/features/nav_bar/manager/nav_cubit/nav_state.dart';
-import 'package:flower_shop/features/nav_bar/pages/cart.dart';
-import 'package:flower_shop/features/nav_bar/pages/category.dart';
-import 'package:flower_shop/features/nav_bar/pages/home_screen.dart';
-import 'package:flower_shop/features/nav_bar/pages/profie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../manager/nav_cubit.dart';
-import '../manager/nav_state.dart';
 import 'cart.dart';
 import 'category.dart';
 import 'home_screen.dart';

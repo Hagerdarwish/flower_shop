@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:flower_shop/features/nav_bar/manager/nav_cubit/nav_state.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../manager/nav_cubit/nav_state.dart';
 import 'nav_state.dart';
 
 @injectable
