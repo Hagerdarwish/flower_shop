@@ -15,10 +15,12 @@ import '../../../features/auth/presentation/verify_reset_code/manager/verify_res
 import '../../../features/auth/presentation/verify_reset_code/pages/verify_reset_code_page.dart';
 import '../../../features/e_commerce/pages/occasion/pages/occasion_page.dart';
 import '../../../features/nav_bar/ui/pages/nav_bar/pages/app_sections.dart';
+import '../../../features/nav_bar/presentation/manger/product_details_cubit/product_details_cubit.dart';
+import '../../../features/nav_bar/presentation/pages/product_details_page.dart';
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouteNames.home, //  start here
+  initialLocation: RouteNames.appStart, //  start here
   routes: [
     GoRoute(
       path: RouteNames.signup,
@@ -34,7 +36,6 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) =>
           OccasionPage(occasions: state.extra as List<OccasionModel>),
     ),
-
     GoRoute(
       path: RouteNames.appStart,
       builder: (context, state) => const AppStartPage(),
@@ -79,5 +80,19 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
+
+    GoRoute(
+      path: RouteNames.productDetails,
+      builder: (context, state) {
+       final productId = state.extra as String;
+       // const hardcodedProductId = '673e1cd711599201718280fb';
+
+        return BlocProvider(
+          create: (_) => getIt<ProductDetailsCubit>(param1: productId),
+          child: ProductDetailsPage(productId: productId),
+        );
+      },
+    ),
+
   ],
 );

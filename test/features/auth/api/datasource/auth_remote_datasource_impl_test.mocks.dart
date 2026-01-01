@@ -24,10 +24,6 @@ import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart'
     as _i5;
 import 'package:flower_shop/features/auth/data/models/response/verify_reset_code_response_model/verify_reset_code_response_model.dart'
     as _i10;
-import 'package:flower_shop/features/e_commerce/data/models/response/products_response.dart'
-    as _i14;
-import 'package:flower_shop/features/home/data/models/response/home_response.dart'
-    as _i14;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:retrofit/retrofit.dart' as _i2;
 
@@ -138,40 +134,4 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
                 ),
           )
           as _i4.Future<_i2.HttpResponse<_i12.ResetPasswordResponse>>);
-
-  @override
-  _i4.Future<_i2.HttpResponse<_i14.HomeResponse>> getHomeData() =>
-      (super.noSuchMethod(
-            Invocation.method(#getHomeData, []),
-            returnValue: _i4.Future<_i2.HttpResponse<_i14.HomeResponse>>.value(
-              _FakeHttpResponse_0<_i14.HomeResponse>(
-                this,
-                Invocation.method(#getHomeData, []),
-              ),
-            ),
-          )
-          as _i4.Future<_i2.HttpResponse<_i14.HomeResponse>>);
-
-  @override
-  _i4.Future<_i2.HttpResponse<_i14.ProductsResponse>> getProducts({
-    String? occasion,
-    String? category,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getProducts, [], {
-              #occasion: occasion,
-              #category: category,
-            }),
-            returnValue:
-                _i4.Future<_i2.HttpResponse<_i14.ProductsResponse>>.value(
-                  _FakeHttpResponse_0<_i14.ProductsResponse>(
-                    this,
-                    Invocation.method(#getProducts, [], {
-                      #occasion: occasion,
-                      #category: category,
-                    }),
-                  ),
-                ),
-          )
-          as _i4.Future<_i2.HttpResponse<_i14.ProductsResponse>>);
 }

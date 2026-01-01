@@ -92,6 +92,8 @@ abstract class  LocaleKeys {
   static const categories = 'categories';
   static const bestSelling = 'bestSelling';
   static const occasions = 'occasions';
+  static const allPricesIncludeTax = 'allPricesIncludeTax';
+  static const productAddedToCart = 'productAddedToCart';
   static const something_went_wrong = 'something_went_wrong';
   static const no_products_found = 'no_products_found';
 

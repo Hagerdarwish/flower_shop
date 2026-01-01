@@ -1,10 +1,10 @@
 import 'package:flower_shop/app/core/network/api_result.dart';
+import 'package:flower_shop/features/e_commerce/data/datasource/home_remote_datasource/home_remote_datasource.dart';
 import 'package:flower_shop/features/e_commerce/data/mappers/products_mapper.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/models/product_model.dart';
 import '../../domain/repos/home_repo.dart';
-import '../datasource/home_remote_datasouce/home_remote_datasource.dart';
 import '../models/response/products_response.dart';
 
 @Injectable(as: HomeRepo)

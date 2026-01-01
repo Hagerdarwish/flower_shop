@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flower_shop/features/e_commerce/data/datasource/product_remote_datasource/product_remote_datasource_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -6,7 +7,6 @@ import 'package:retrofit/retrofit.dart';
 
 import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
-import 'package:flower_shop/features/e_commerce/data/datasource/home_remote_datasouce/home_remote_datasource_impl.dart';
 import 'package:flower_shop/features/e_commerce/data/models/response/meta_data.dart';
 import 'package:flower_shop/features/e_commerce/data/models/response/products_response.dart';
 import 'package:flower_shop/features/e_commerce/data/models/response/remote_product.dart';
@@ -17,11 +17,11 @@ import '../../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart
 @GenerateMocks([ApiClient])
 void main() {
   late MockApiClient apiClient;
-  late HomeRemoteDatasourceImpl datasource;
+  late ProductRemoteDatasourceImpl datasource;
 
   setUp(() {
     apiClient = MockApiClient();
-    datasource = HomeRemoteDatasourceImpl(apiClient);
+    datasource = ProductRemoteDatasourceImpl(apiClient);
   });
 
   group('HomeRemoteDatasourceImpl.getProduct', () {

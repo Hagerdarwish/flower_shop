@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/router/route_names.dart';
+import 'package:flower_shop/features/home/data/models/best_seller_model.dart';
 import 'package:flower_shop/features/e_commerce/pages/occasion/pages/occasion_page.dart';
 import 'package:flower_shop/features/home/presentation/widgets/Category_item.dart';
 import 'package:flower_shop/features/home/presentation/widgets/home_header.dart';
@@ -72,19 +73,13 @@ class HomePageBody extends StatelessWidget {
                 },
                 height: size.height * 0.30,
                 resource: state.bestSeller,
-                itemBuilder: (context, product) {
+                itemBuilder: (context, BestSeller) {
                   return ProductItem(
-                    imageUrl: product.imgCover ?? "",
-                    title: product.title ?? "",
-                    price: product.price?.toString(),
+                    imageUrl: BestSeller.imgCover ?? "",
+                    title: BestSeller.title ?? "",
+                    price: BestSeller.price?.toString(),
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (_) =>
-                      //         ProductDetailsPage(product: product),
-                      //   ),
-                      // );
+                      context.push(RouteNames.productDetails, extra: BestSeller.id);
                     },
                   );
                 },

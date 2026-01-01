@@ -88,6 +88,8 @@
   "categories": "الفئات",
   "bestSelling": "الأكثر مبيعًا",
   "occasions": "المناسبات",
+  "allPricesIncludeTax":"كل الاسعار شامله الضرائب",
+  "productAddedToCart":"تم اضافة المنتج الي العربه",
   "something_went_wrong": "حدث خطأ ما",
   "no_products_found": "لم يتم العثور على منتجات"
 

@@ -1,9 +1,9 @@
 import 'package:flower_shop/app/core/network/api_result.dart';
-import 'package:flower_shop/features/e_commerce/data/datasource/home_remote_datasouce/home_remote_datasource.dart';
+import 'package:flower_shop/features/e_commerce/data/datasource/product_remote_datasource/product_remote_datasource.dart';
 import 'package:flower_shop/features/e_commerce/data/models/response/meta_data.dart';
 import 'package:flower_shop/features/e_commerce/data/models/response/products_response.dart';
 import 'package:flower_shop/features/e_commerce/data/models/response/remote_product.dart';
-import 'package:flower_shop/features/e_commerce/data/repos/home_repo_imp.dart';
+import 'package:flower_shop/features/e_commerce/data/repos/product_repo_imp.dart';
 import 'package:flower_shop/features/e_commerce/domain/models/product_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -11,13 +11,13 @@ import 'package:mockito/mockito.dart';
 
 import 'home_repo_imp_test.mocks.dart';
 
-@GenerateMocks([HomeRemoteDatasource])
+@GenerateMocks([ProductRemoteDatasource])
 void main() {
   late MockHomeRemoteDatasource datasource;
-  late HomeRepoImp homeRepoImp;
+  late ProductRepoImp homeRepoImp;
   setUp(() {
     datasource = MockHomeRemoteDatasource();
-    homeRepoImp = HomeRepoImp(datasource);
+    homeRepoImp = ProductRepoImp(datasource);
   });
   group("get product", () {
     test("return SuccessApiResult", () async {
