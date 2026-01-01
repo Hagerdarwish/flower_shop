@@ -126,101 +126,97 @@ void main() {
   });
 
   group('Select category', () {
-   blocTest<AllCategoriesCubit, AllCategoriesStates>(
-  'calls getProducts when selecting All category',
-  build: () {
-    when(
-      mockGetProductUsecase.call(category: anyNamed('category')),
-    ).thenAnswer(
-      (_) async => SuccessApiResult<List<ProductModel>>(data: []),
+    blocTest<AllCategoriesCubit, AllCategoriesStates>(
+      'calls getProducts when selecting All category',
+      build: () {
+        when(
+          mockGetProductUsecase.call(category: anyNamed('category')),
+        ).thenAnswer(
+          (_) async => SuccessApiResult<List<ProductModel>>(data: []),
+        );
+        return cubit;
+      },
+      seed: () {
+        cubit.selectedIndex = 1;
+        cubit.categoriesList = [
+          CategoryItemModel(id: '0', name: 'All'),
+          CategoryItemModel(id: '1', name: 'Flowers'),
+        ];
+        return AllCategoriesStates(
+          allCategories: Resource.success(AllCategoriesModel()),
+        );
+      },
+      act: (cubit) {
+        clearInteractions(mockGetProductUsecase);
+        cubit.doIntent(SelectCategoryEvent(selectedIndex: 0));
+      },
+      verify: (_) {
+        verify(
+          mockGetProductUsecase.call(category: anyNamed('category')),
+        ).called(1);
+      },
     );
-    return cubit;
-  },
-  seed: () {
-     cubit.selectedIndex = 1;
-    cubit.categoriesList = [
-      CategoryItemModel(id: '0', name: 'All'),
-      CategoryItemModel(id: '1', name: 'Flowers'),
-    ];
-    return AllCategoriesStates(
-      allCategories: Resource.success(AllCategoriesModel()),
+
+    blocTest<AllCategoriesCubit, AllCategoriesStates>(
+      'does nothing when selecting same category index',
+      build: () => cubit,
+      seed: () {
+        cubit.selectedIndex = 1;
+        cubit.categoriesList = [
+          CategoryItemModel(id: '0', name: 'All'),
+          CategoryItemModel(id: '1', name: 'Flowers'),
+        ];
+        return AllCategoriesStates(
+          allCategories: Resource.success(AllCategoriesModel()),
+        );
+      },
+      act: (cubit) => cubit.doIntent(SelectCategoryEvent(selectedIndex: 1)),
+      expect: () => [],
+      verify: (_) {
+        verifyNever(mockGetProductUsecase.call(category: anyNamed('category')));
+      },
     );
-  },
-  act: (cubit) {
-        clearInteractions(mockGetProductUsecase); 
-      cubit.doIntent(SelectCategoryEvent(selectedIndex: 0));
+  });
 
-  },
-  verify: (_) {
-    verify(
-      mockGetProductUsecase.call(category: anyNamed('category')),
-    ).called(1);
-  },
-);
-
-blocTest<AllCategoriesCubit, AllCategoriesStates>(
-  'does nothing when selecting same category index',
-  build: () => cubit,
-  seed: () {
-    cubit.selectedIndex = 1;
-    cubit.categoriesList = [
-      CategoryItemModel(id: '0', name: 'All'),
-      CategoryItemModel(id: '1', name: 'Flowers'),
-    ];
-    return AllCategoriesStates(
-      allCategories: Resource.success(AllCategoriesModel()),
+  group('Get products method', () {
+    blocTest<AllCategoriesCubit, AllCategoriesStates>(
+      'emits products loading then success when selecting category',
+      build: () {
+        when(mockGetProductUsecase.call(category: '1')).thenAnswer(
+          (_) async => SuccessApiResult<List<ProductModel>>(data: []),
+        );
+        return cubit;
+      },
+      seed: () {
+        cubit.categoriesList = [
+          CategoryItemModel(id: '0', name: 'All'),
+          CategoryItemModel(id: '1', name: 'Flowers'),
+        ];
+        return AllCategoriesStates(
+          allCategories: Resource.success(AllCategoriesModel()),
+        );
+      },
+      act: (cubit) => cubit.doIntent(SelectCategoryEvent(selectedIndex: 1)),
+      expect: () => [
+        isA<AllCategoriesStates>(),
+        isA<AllCategoriesStates>(),
+        isA<AllCategoriesStates>().having(
+          (s) => s.products?.status,
+          'products status',
+          Status.success,
+        ),
+      ],
+      verify: (_) {
+        verify(mockGetProductUsecase.call(category: '1')).called(1);
+      },
     );
-  },
-  act: (cubit) => cubit.doIntent(
-    SelectCategoryEvent(selectedIndex: 1),
-  ),
-  expect: () => [],
-  verify: (_) {
-    verifyNever(mockGetProductUsecase.call(category: anyNamed('category')));
-  },
-);
-  },);
-
-    group('Get products method', () {
-      blocTest<AllCategoriesCubit, AllCategoriesStates>(
-        'emits products loading then success when selecting category',
-        build: () {
-          when(mockGetProductUsecase.call(category: '1')).thenAnswer(
-            (_) async => SuccessApiResult<List<ProductModel>>(data: []),
-          );
-          return cubit;
-        },
-        seed: () {
-          cubit.categoriesList = [
-            CategoryItemModel(id: '0', name: 'All'),
-            CategoryItemModel(id: '1', name: 'Flowers'),
-          ];
-          return AllCategoriesStates(
-            allCategories: Resource.success(AllCategoriesModel()),
-          );
-        },
-        act: (cubit) => cubit.doIntent(SelectCategoryEvent(selectedIndex: 1)),
-        expect: () => [
-          isA<AllCategoriesStates>(),
-          isA<AllCategoriesStates>(),
-          isA<AllCategoriesStates>().having(
-            (s) => s.products?.status,
-            'products status',
-            Status.success,
-          ),
-        ],
-        verify: (_) {
-          verify(mockGetProductUsecase.call(category: '1')).called(1);
-        },
-      );
-     blocTest<AllCategoriesCubit, AllCategoriesStates>(
+    blocTest<AllCategoriesCubit, AllCategoriesStates>(
       'emits products error when getProducts fails',
       build: () {
         when(
           mockGetProductUsecase.call(category: anyNamed('category')),
         ).thenAnswer(
-          (_) async =>
-              ErrorApiResult<List<ProductModel>>(error: 'error'),
+          (_) async => ErrorApiResult<List<ProductModel>>(error: 'error'),
         );
 
         return cubit;
@@ -234,8 +230,7 @@ blocTest<AllCategoriesCubit, AllCategoriesStates>(
           allCategories: Resource.success(AllCategoriesModel()),
         );
       },
-      act: (cubit) =>
-          cubit.doIntent(SelectCategoryEvent(selectedIndex: 1)),
+      act: (cubit) => cubit.doIntent(SelectCategoryEvent(selectedIndex: 1)),
       expect: () => [
         isA<AllCategoriesStates>(),
         isA<AllCategoriesStates>(),
@@ -249,5 +244,5 @@ blocTest<AllCategoriesCubit, AllCategoriesStates>(
         expect(cubit.state.products?.error, 'error');
       },
     );
-    });
+  });
 }

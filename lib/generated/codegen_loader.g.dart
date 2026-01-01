@@ -1,4 +1,20 @@
-{
+// DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
+
+// ignore_for_file: prefer_single_quotes, avoid_renaming_method_parameters, constant_identifier_names
+
+import 'dart:ui';
+
+import 'package:easy_localization/easy_localization.dart' show AssetLoader;
+
+class CodegenLoader extends AssetLoader{
+  const CodegenLoader();
+
+  @override
+  Future<Map<String, dynamic>?> load(String path, Locale locale) {
+    return Future.value(mapLocales[locale.toString()]);
+  }
+
+  static const Map<String,dynamic> _ar = {
   "firstName": "الاسم الأول",
   "lastName": "الاسم الأخير",
   "email": "البريد الإلكتروني",
@@ -17,7 +33,7 @@
   "femaleValue": "female",
   "maleValue": "male",
   "createAccount": "بإنشاء حساب، فإنك توافق على",
-  "termsAndConditions" : "الشروط والاحكام الخاصة بنا",
+  "termsAndConditions": "الشروط والاحكام الخاصة بنا",
   "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
   "login": "تسجيل الدخول",
   "signup": "إنشاء حساب",
@@ -83,8 +99,96 @@
   "phoneNumber": "رقم الهاتف",
   "passwordUpdated": "تم تحديث كلمة المرور بنجاح",
   "addToCard": "اضافه الي السله",
-  "search" : "بحث",
-  "noProductsfound" : "لا يوجد منتجات"
-
-
+  "search": "بحث",
+  "noProductsfound": "لا يوجد منتجات"
+};
+static const Map<String,dynamic> _en = {
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "phone": "Phone Number",
+  "gender": "Gender",
+  "enterFirstName": "Enter first name",
+  "enterLastName": "Enter last name",
+  "enterEmail": "Enter your email",
+  "enterPassword": "Enter password",
+  "enterPhoneNumber": "Enter phone number",
+  "enterRePassword": "Re-enter password",
+  "femaleGender": "Female",
+  "maleGender": "Male",
+  "femaleValue": "female",
+  "maleValue": "male",
+  "createAccount": "Create an account, you agree to our ",
+  "termsAndConditions": "Terms&Conditions",
+  "alreadyHaveAccount": "Already have an account? ",
+  "login": "Login",
+  "signup": "Sign Up",
+  "emailRequired": "Email is required",
+  "emailInvalid": "This Email is not valid",
+  "passwordRequired": "Password is required",
+  "passwordLengthInvalid": "Pass at least 6 characters",
+  "passwordUpperLetterInvalid": "Use uppercase letter",
+  "passwordLowerLetterInvalid": "Use lowercase letter",
+  "passwordNumbersInvalid": "Use numeric character",
+  "passwordSpecialCharInvalid": "Use special character",
+  "confirmPasswordRequired": "Confirm pass is required",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "phoneRequired": "Phone number is required",
+  "phoneInvalid": "Invalid number, must be in the format +201XXXXXXXXX",
+  "firstNameRequired": "First name is required",
+  "lastNameRequired": "Last name is required",
+  "nameInvalid": "Must be 3-50 characters",
+  "genderRequired": "Gender is required",
+  "loading": "Loading...",
+  "registrationSuccessful": "Registration Successful",
+  "ok": "OK",
+  "error": "Error",
+  "success": "Success",
+  "emailVerification": "Email verification",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot Password?",
+  "forgotPasswordTitle": "Forgot Password",
+  "continueAsGuest": "Continue as Guest",
+  "dontHaveAnAccount": "Don't have an account? ",
+  "dontHaveAccount": "Don't have an account?",
+  "signUp": "Sign Up",
+  "enterYourEmail": "Enter your email",
+  "enterYourPassword": "Enter your password",
+  "associatedEmail": "Please enter your email associated with your account",
+  "userName": "User name",
+  "newPassword": "New Password",
+  "confirm": "Confirm",
+  "continueTxt": "Continue",
+  "instruction": "Please enter the code that was sent to your email address",
+  "didNotReceive": "Didn't receive code?",
+  "resend": "Resend",
+  "resetPassword": "Reset password",
+  "yourEmailVerified": "Your Email Verified",
+  "check_email_for_verification_code": "Check your email for Verification Code",
+  "passwordValidation": "Password must not be empty and must contain at least 6 characters, including one uppercase letter and one number.",
+  "connectionTimeout": "Connection timed out",
+  "noInternet": "No Internet connection",
+  "unauthorized": "Unauthorized request",
+  "serverError": "Server error occurred",
+  "unknownError": "Something went wrong, please try again later",
+  "an_error_occurred": "An Error Occurred",
+  "weakPassword": "Password too weak",
+  "passwordWithCapital": "Must contain a capital letter",
+  "passwordWithNumber": "Must contain a number",
+  "passwordDontMatch": "Passwords do not match",
+  "confirmPasswordMsg": "Confirm your password",
+  "invalidNumber": "Invalid Egyptian phone number",
+  "required": "Required",
+  "least3Characters": "Must be at least 3 characters",
+  "least6Characters": "At least 6 characters required",
+  "invalidName": "Invalid name",
+  "phoneNumber": "Phone number",
+  "passwordUpdated": "Password Updated Successfully",
+  "addToCard": "Add to card",
+  "search": "Search",
+  "noProductsfound": "No Products found"
+};
+static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en};
 }

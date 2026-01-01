@@ -88,5 +88,6 @@ abstract class  LocaleKeys {
   static const passwordUpdated = 'passwordUpdated';
   static const addToCard = 'addToCard';
   static const search = 'search';
+  static const noProductsfound = 'noProductsfound';
 
 }

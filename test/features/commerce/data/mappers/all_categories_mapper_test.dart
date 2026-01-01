@@ -3,7 +3,8 @@ import 'package:flower_shop/features/commerce/data/models/all_categories_dto.dar
 import 'package:flower_shop/features/commerce/domain/models/all_categories_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main() { group('AllCategoriesMapper', () {
+void main() {
+  group('AllCategoriesMapper', () {
     test('should map AllCategoriesDto to AllCategoriesModel correctly', () {
       final dto = AllCategoriesDto(
         message: 'success',

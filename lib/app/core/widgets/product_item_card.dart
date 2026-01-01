@@ -27,8 +27,9 @@ class ProductItemCard extends StatelessWidget {
     double originalPrice = product.oldPrice ?? 0;
     double discountedPrice = product.price;
 
-    double discountPercentage =
-        ((originalPrice - discountedPrice) / originalPrice) * 100;
+    double discountPercentage = originalPrice > 0
+        ? ((originalPrice - discountedPrice) / originalPrice) * 100
+        : 0;
 
     return InkWell(
       borderRadius: BorderRadius.circular(14),

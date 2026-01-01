@@ -83,6 +83,7 @@
   "phoneNumber": "Phone number",
   "passwordUpdated": "Password Updated Successfully",
   "addToCard": "Add to card",
-  "search" : "Search"
+  "search" : "Search",
+  "noProductsfound" : "No Products found"
 
 }

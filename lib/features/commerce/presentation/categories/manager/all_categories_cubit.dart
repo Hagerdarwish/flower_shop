@@ -28,7 +28,7 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
   }
 
   Future<void> _getAllCategories() async {
-    emit(state.copyWith(allCategoriesCopyWith: Resource.loading()));
+    emit(state.copyWith(allCategories: Resource.loading()));
     ApiResult<AllCategoriesModel> response = await _allCategoriesUsecase.call();
     switch (response) {
       case SuccessApiResult<AllCategoriesModel>():
@@ -38,14 +38,14 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
         ];
         emit(
           state.copyWith(
-            allCategoriesCopyWith: Resource.success(response.data),
+            allCategories: Resource.success(response.data),
           ),
         );
         _getProducts(category: null);
 
       case ErrorApiResult<AllCategoriesModel>():
         emit(
-          state.copyWith(allCategoriesCopyWith: Resource.error(response.error)),
+          state.copyWith(allCategories: Resource.error(response.error)),
         );
     }
   }
@@ -59,7 +59,7 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
     } else {
       _getProducts(category: selectedCategory.id);
     }
-    emit(state.copyWith(allCategoriesCopyWith: state.allCategories));
+    emit(state.copyWith(allCategories: state.allCategories));
   }
 
   Future<void> _getProducts({String? category}) async {

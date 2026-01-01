@@ -8,11 +8,11 @@ class AllCategoriesStates {
 
   AllCategoriesStates({this.allCategories, this.products});
   AllCategoriesStates copyWith({
-    Resource<AllCategoriesModel>? allCategoriesCopyWith,
+    Resource<AllCategoriesModel>? allCategories,
     Resource<List<ProductModel>>? products,
   }) {
     return AllCategoriesStates(
-      allCategories: allCategoriesCopyWith ?? allCategories,
+      allCategories: allCategories ?? this.allCategories,
       products: products ?? this.products,
     );
   }

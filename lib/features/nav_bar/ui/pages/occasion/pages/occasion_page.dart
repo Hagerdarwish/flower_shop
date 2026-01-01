@@ -8,22 +8,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../app/config/base_state/base_state.dart';
 import '../../../../domain/models/product_model.dart';
-import '../manager/occasion_cubit.dart';
-import '../manager/occasion_state.dart';
 
 class OccasionPage extends StatelessWidget {
   const OccasionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (_) => getIt<OccasionCubit>()..doIntent(LoadInitialEvent()),
       child: Scaffold(
         body: BlocBuilder<OccasionCubit, OccasionState>(
           builder: (context, state) {
             final status = state.products.status;
-            if (state == Status.loading) {
+            if (state.products.status == Status.loading) {
               return const Center(child: CircularProgressIndicator());
             }
             if (status == Status.error) {
@@ -45,19 +42,19 @@ class OccasionPage extends StatelessWidget {
             return GridView.builder(
               itemCount: items.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 0.72,
-            ),
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 0.72,
+              ),
               itemBuilder: (BuildContext context, int index) {
-                final product =items[index];
-                return ProductItemCard(product: product, onAddToCart: (){});
-              },);
+                final product = items[index];
+                return ProductItemCard(product: product, onAddToCart: () {});
+              },
+            );
           },
         ),
       ),
     );
   }
-
 }
