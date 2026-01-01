@@ -83,6 +83,14 @@
   "phoneNumber": "Phone number",
   "passwordUpdated": "Password Updated Successfully",
   "addToCard": "Add to card",
+
+  "viewAll": "View All",
+  "search": "Search",
+  "categories": "Categories",
+  "bestSelling": "Best Selling",
+  "occasions": "Occasions",
+
   "allPricesIncludeTax": "All prices include tax",
   "productAddedToCart": "Product Added To Cart"
+
 }

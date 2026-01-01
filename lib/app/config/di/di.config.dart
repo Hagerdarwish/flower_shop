@@ -39,6 +39,24 @@ import '../../../features/auth/presentation/signup/manager/signup_cubit.dart'
     as _i392;
 import '../../../features/auth/presentation/verify_reset_code/manager/verify_reset_code_cubit.dart'
     as _i303;
+import '../../../features/home/api/home_remote_data_source_imp.dart' as _i874;
+import '../../../features/home/data/datasource/home_remote_data_source.dart'
+    as _i701;
+import '../../../features/home/data/repos/home_repo_imp.dart' as _i401;
+import '../../../features/home/domain/repos/home_repo.dart' as _i520;
+import '../../../features/home/domain/usecase/get_best_seller_usecase.dart'
+    as _i534;
+import '../../../features/home/domain/usecase/get_categories_usecase.dart'
+    as _i576;
+import '../../../features/home/domain/usecase/get_occasions_usecase.dart'
+    as _i386;
+import '../../../features/home/domain/usecase/get_products_usecase.dart'
+    as _i498;
+import '../../../features/home/presentation/manager/factory/home_factory.dart'
+    as _i94;
+import '../../../features/home/presentation/manager/factory/home_factory_imp.dart'
+    as _i73;
+import '../../../features/home/presentation/manager/home_cubit.dart' as _i682;
 import '../../../features/nav_bar/api/datasource/product_details_datasource_imp.dart'
     as _i749;
 import '../../../features/nav_bar/data/product_details/datasource/product_details_remote_datasource.dart'
@@ -73,9 +91,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i708.AuthRemoteDataSource>(
       () => _i777.AuthRemoteDataSourceImpl(gh<_i890.ApiClient>()),
     );
+    gh.factory<_i701.HomeRemoteDataSource>(
+      () => _i874.HomeRemoteDataSourceImp(gh<_i890.ApiClient>()),
+    );
     gh.factory<_i858.AppCubit>(() => _i858.AppCubit(gh<_i603.AuthStorage>()));
     gh.factory<_i712.AuthRepo>(
       () => _i866.AuthRepoImp(gh<_i708.AuthRemoteDataSource>()),
+    );
+    gh.factory<_i520.HomeRepo>(
+      () => _i401.HomeRepoImp(gh<_i701.HomeRemoteDataSource>()),
     );
     gh.lazySingleton<_i280.ResetPasswordUseCase>(
       () => _i280.ResetPasswordUseCase(gh<_i712.AuthRepo>()),
@@ -117,6 +141,26 @@ extension GetItInjectableX on _i174.GetIt {
       (email, _) =>
           _i378.ResetPasswordCubit(email, gh<_i280.ResetPasswordUseCase>()),
     );
+    gh.factory<_i534.GetBestSellerUseCase>(
+      () => _i534.GetBestSellerUseCase(gh<_i520.HomeRepo>()),
+    );
+    gh.factory<_i576.GetCategoriesUseCase>(
+      () => _i576.GetCategoriesUseCase(gh<_i520.HomeRepo>()),
+    );
+    gh.factory<_i386.GetOccasionsUseCase>(
+      () => _i386.GetOccasionsUseCase(gh<_i520.HomeRepo>()),
+    );
+    gh.factory<_i498.GetProductsUseCase>(
+      () => _i498.GetProductsUseCase(gh<_i520.HomeRepo>()),
+    );
+    gh.lazySingleton<_i94.HomeFactory>(
+      () => _i73.RemoteHomeFactory(
+        gh<_i498.GetProductsUseCase>(),
+        gh<_i576.GetCategoriesUseCase>(),
+        gh<_i534.GetBestSellerUseCase>(),
+        gh<_i386.GetOccasionsUseCase>(),
+      ),
+    );
     gh.lazySingleton<_i1056.GetProductDetailsUseCase>(
       () => _i1056.GetProductDetailsUseCase(gh<_i618.ProductDetailsRepo>()),
     );
@@ -129,6 +173,7 @@ extension GetItInjectableX on _i174.GetIt {
         productId,
       ),
     );
+    gh.factory<_i682.HomeCubit>(() => _i682.HomeCubit(gh<_i94.HomeFactory>()));
     return this;
   }
 }

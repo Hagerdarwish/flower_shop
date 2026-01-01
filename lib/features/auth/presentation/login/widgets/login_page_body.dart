@@ -68,7 +68,7 @@ class _LoginPageBodyState extends State<LoginPageBody> {
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 15),
                 ),
-                child: Text(LocaleKeys.continueAsGuest.tr()),
+                child: Text(LocaleKeys.continueAsGuest.tr(), style: const TextStyle(fontSize: 16)),
               ),
             ),
             const SizedBox(height: 15),

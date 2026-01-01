@@ -1,4 +1,5 @@
 import 'package:flower_shop/app/core/app_constants.dart';
+import 'package:flower_shop/features/home/presentation/pages/home_page.dart';
 import 'package:flower_shop/features/nav_bar/manager/nav_cubit/nav_cubit.dart';
 import 'package:flower_shop/features/nav_bar/manager/nav_cubit/nav_state.dart';
 import 'package:flower_shop/features/nav_bar/pages/cart.dart';
@@ -18,7 +19,7 @@ class AppSections extends StatelessWidget {
     Widget bodyWidget;
     switch (navCubit.state.selectedIndex) {
       case 0:
-        bodyWidget = HomeScreen();
+        bodyWidget = HomePage();
         break;
       case 1:
         bodyWidget = CategoryScreen();
