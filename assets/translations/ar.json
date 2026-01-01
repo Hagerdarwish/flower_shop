@@ -83,8 +83,12 @@
   "phoneNumber": "رقم الهاتف",
   "passwordUpdated": "تم تحديث كلمة المرور بنجاح",
   "addToCard": "اضافه الي السله",
-  "search" : "بحث",
-  "noProductsfound" : "لا يوجد منتجات"
-
-
+  "noProductsfound" : "لا يوجد منتجات",
+  "viewAll": "عرض الكل",
+  "search": "بحث",
+  "categories": "الفئات",
+  "bestSelling": "الأكثر مبيعًا",
+  "occasions": "المناسبات",
+  "allPricesIncludeTax":"كل الاسعار شامله الضرائب",
+  "productAddedToCart":"تم اضافة المنتج الي العربه"
 }

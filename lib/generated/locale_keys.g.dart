@@ -87,7 +87,13 @@ abstract class  LocaleKeys {
   static const phoneNumber = 'phoneNumber';
   static const passwordUpdated = 'passwordUpdated';
   static const addToCard = 'addToCard';
-  static const search = 'search';
   static const noProductsfound = 'noProductsfound';
+  static const viewAll = 'viewAll';
+  static const search = 'search';
+  static const categories = 'categories';
+  static const bestSelling = 'bestSelling';
+  static const occasions = 'occasions';
+  static const allPricesIncludeTax = 'allPricesIncludeTax';
+  static const productAddedToCart = 'productAddedToCart';
 
 }
