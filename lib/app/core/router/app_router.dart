@@ -11,9 +11,12 @@ import '../../../features/auth/presentation/reset_password/manager/reset_passwor
 import '../../../features/auth/presentation/reset_password/pages/reset_password.dart';
 import '../../../features/auth/presentation/verify_reset_code/manager/verify_reset_code_cubit.dart';
 import '../../../features/auth/presentation/verify_reset_code/pages/verify_reset_code_page.dart';
-import '../../../features/nav_bar/pages/app_sections.dart';
+import '../../../features/commerce/presentation/categories/pages/categories_page.dart';
+import '../../../features/e_commerce/pages/occasion/pages/occasion_page.dart';
+import '../../../features/home/domain/models/occasion_model.dart';
 import '../../../features/nav_bar/presentation/manger/product_details_cubit/product_details_cubit.dart';
 import '../../../features/nav_bar/presentation/pages/product_details_page.dart';
+import '../../../features/nav_bar/ui/pages/nav_bar/pages/app_sections.dart';
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(

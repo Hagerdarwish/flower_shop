@@ -14,7 +14,7 @@ class ProductRepoImp implements ProductRepo {
   ProductRepoImp(this.homeDatasource);
 
   @override
-  Future<ApiResult<List<ProductModel>>> getProducts({String? occasion}) async {
+  Future<ApiResult<List<ProductModel>>> getProducts({String? occasion,String? category}) async {
     final result = await homeDatasource.getProduct(occasion: occasion);
     switch (result) {
       case SuccessApiResult<ProductsResponse>():

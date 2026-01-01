@@ -6,13 +6,15 @@ import 'package:flower_shop/features/commerce/domain/usecase/all_categories_usec
 import 'package:flower_shop/features/commerce/presentation/categories/manager/all_categories_cubit.dart';
 import 'package:flower_shop/features/commerce/presentation/categories/manager/all_categories_intent.dart';
 import 'package:flower_shop/features/commerce/presentation/categories/manager/all_categories_states.dart';
-import 'package:flower_shop/features/nav_bar/domain/models/product_model.dart';
-import 'package:flower_shop/features/nav_bar/domain/usecase/get_product_usecase.dart';
+import 'package:flower_shop/features/e_commerce/domain/models/product_model.dart';
+import 'package:flower_shop/features/e_commerce/domain/usecase/get_product_usecase.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'all_categories_cubit_test.mocks.dart';
+import '../../../../e_commerce/pages/occasion/manager/occasion_cubit_test.mocks.dart';
+import 'all_categories_cubit_test.mocks.dart' hide MockGetProductUsecase;
 
 @GenerateMocks([AllCategoriesUsecase, GetProductUsecase])
 void main() {

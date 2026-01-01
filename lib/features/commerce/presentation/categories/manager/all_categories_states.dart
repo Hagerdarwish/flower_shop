@@ -1,6 +1,7 @@
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/features/commerce/domain/models/all_categories_model.dart';
-import 'package:flower_shop/features/nav_bar/domain/models/product_model.dart';
+
+import '../../../../e_commerce/domain/models/product_model.dart';
 
 class AllCategoriesStates {
   final Resource<AllCategoriesModel>? allCategories;

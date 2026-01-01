@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import '../../../features/nav_bar/domain/models/product_model.dart';
+import '../../../features/e_commerce/domain/models/product_model.dart';
 import '../ui_helper/color/colors.dart';
 import '../ui_helper/style/font_style.dart';
 

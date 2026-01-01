@@ -4,10 +4,11 @@ import 'package:flower_shop/features/commerce/domain/models/all_categories_model
 import 'package:flower_shop/features/commerce/domain/usecase/all_categories_usecase.dart';
 import 'package:flower_shop/features/commerce/presentation/categories/manager/all_categories_intent.dart';
 import 'package:flower_shop/features/commerce/presentation/categories/manager/all_categories_states.dart';
-import 'package:flower_shop/features/nav_bar/domain/models/product_model.dart';
-import 'package:flower_shop/features/nav_bar/domain/usecase/get_product_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../../e_commerce/domain/models/product_model.dart';
+import '../../../../e_commerce/domain/usecase/get_product_usecase.dart';
 
 @injectable
 class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
