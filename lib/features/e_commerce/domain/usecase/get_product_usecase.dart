@@ -2,11 +2,11 @@ import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:injectable/injectable.dart';
 
 import '../models/product_model.dart';
-import '../repos/home_repo.dart';
+import '../repos/product_repo.dart';
 
 @injectable
 class GetProductUsecase {
-  final HomeRepo _homeRepo;
+  final ProductRepo _homeRepo;
 
   GetProductUsecase(this._homeRepo);
 

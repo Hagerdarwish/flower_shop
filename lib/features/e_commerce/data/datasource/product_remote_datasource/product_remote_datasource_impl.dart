@@ -4,13 +4,13 @@ import 'package:flower_shop/app/core/network/safe_api_call.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../models/response/products_response.dart';
-import 'home_remote_datasource.dart';
+import 'product_remote_datasource.dart';
 
-@Injectable(as: HomeRemoteDatasource)
-class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
+@Injectable(as: ProductRemoteDatasource)
+class ProductRemoteDatasourceImpl implements ProductRemoteDatasource {
   ApiClient apiClient;
 
-  HomeRemoteDatasourceImpl(this.apiClient);
+  ProductRemoteDatasourceImpl(this.apiClient);
 
   @override
   Future<ApiResult<ProductsResponse>> getProduct({String? occasion}) {

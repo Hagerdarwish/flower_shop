@@ -9,14 +9,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'home_repo_imp_test.mocks.dart';
+import 'product_repo_imp_test.mocks.dart';
+
 
 @GenerateMocks([ProductRemoteDatasource])
 void main() {
-  late MockHomeRemoteDatasource datasource;
+  late ProductRemoteDatasource datasource;
   late ProductRepoImp homeRepoImp;
   setUp(() {
-    datasource = MockHomeRemoteDatasource();
+    datasource = MockProductRemoteDatasource();
     homeRepoImp = ProductRepoImp(datasource);
   });
   group("get product", () {
