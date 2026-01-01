@@ -1,8 +1,7 @@
 import 'package:flower_shop/app/core/network/api_result.dart';
-import 'package:flower_shop/features/auth/domain/repos/auth_repo.dart';
 import 'package:flower_shop/features/e_commerce/data/mappers/products_mapper.dart';
-
 import 'package:injectable/injectable.dart';
+
 import '../../domain/models/product_model.dart';
 import '../../domain/repos/home_repo.dart';
 import '../datasource/home_remote_datasouce/home_remote_datasource.dart';

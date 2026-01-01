@@ -87,6 +87,8 @@
   "search": "بحث",
   "categories": "الفئات",
   "bestSelling": "الأكثر مبيعًا",
-  "occasions": "المناسبات"
+  "occasions": "المناسبات",
+  "something_went_wrong": "حدث خطأ ما",
+  "no_products_found": "لم يتم العثور على منتجات"
 
 }

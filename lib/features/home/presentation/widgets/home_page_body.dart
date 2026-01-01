@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_shop/app/core/router/route_names.dart';
+import 'package:flower_shop/features/e_commerce/pages/occasion/pages/occasion_page.dart';
 import 'package:flower_shop/features/home/presentation/widgets/Category_item.dart';
 import 'package:flower_shop/features/home/presentation/widgets/home_header.dart';
 import 'package:flower_shop/features/home/presentation/widgets/home_section.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flower_shop/features/home/presentation/manager/home_cubit.dart';
 import 'package:flower_shop/features/home/presentation/manager/home_states.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePageBody extends StatelessWidget {
   const HomePageBody({super.key});
@@ -91,18 +94,7 @@ class HomePageBody extends StatelessWidget {
               HomeSection(
                 title: LocaleKeys.occasions.tr(),
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => OccasionScreen(
-                  //       title: LocaleKeys.categories.tr(),
-                  //       items: state.categories.data ?? [],
-                  //       itemBuilder: (context, occasion) {
-                  //         return 
-                  //       },
-                  //     ),
-                  //   ),
-                  // );
+                  context.push(RouteNames.occasionPage, extra:state.occasions.data ?? [] );
                 },
                 height: size.height * 0.28,
                 resource: state.occasions,

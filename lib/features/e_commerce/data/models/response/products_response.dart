@@ -1,4 +1,3 @@
-
 import 'package:flower_shop/features/e_commerce/data/models/response/remote_product.dart';
 
 import 'meta_data.dart';
@@ -8,11 +7,7 @@ class ProductsResponse {
   final Metadata? metadata;
   final List<RemoteProduct>? products;
 
-  ProductsResponse({
-    this.message,
-    this.metadata,
-    this.products,
-  });
+  ProductsResponse({this.message, this.metadata, this.products});
 
   factory ProductsResponse.fromJson(Map<String, dynamic> json) {
     return ProductsResponse(
@@ -34,5 +29,3 @@ class ProductsResponse {
     };
   }
 }
-
-

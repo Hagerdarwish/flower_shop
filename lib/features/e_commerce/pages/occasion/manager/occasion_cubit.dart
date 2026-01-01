@@ -4,7 +4,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../app/config/base_state/base_state.dart';
 import '../../../../../../app/core/network/api_result.dart';
-
 import '../../../domain/models/product_model.dart';
 import '../../../domain/usecase/get_product_usecase.dart';
 import 'occasion_event.dart';
@@ -46,7 +45,11 @@ class OccasionCubit extends Cubit<OccasionState> {
           emit(state.copyWith(products: Resource.error(result.error)));
       }
     } catch (e) {
-      emit(state.copyWith(products: Resource.error(AppConstants.defaultErrorMessage)));
+      emit(
+        state.copyWith(
+          products: Resource.error(AppConstants.defaultErrorMessage),
+        ),
+      );
     }
   }
 

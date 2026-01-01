@@ -1,10 +1,12 @@
 import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/features/app_start/presentation/pages/app_start_page.dart';
-import 'package:flower_shop/features/auth/presentation/signup/pages/signup_screen.dart';
 import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
+import 'package:flower_shop/features/auth/presentation/signup/pages/signup_screen.dart';
+import 'package:flower_shop/features/home/domain/models/occasion_model.dart';
 import 'package:flower_shop/features/nav_bar/manager/nav_cubit/nav_cubit.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
 import '../../../features/auth/presentation/forget_password/manager/forget_password_cubit.dart';
 import '../../../features/auth/presentation/forget_password/pages/forget_password_page.dart';
 import '../../../features/auth/presentation/reset_password/manager/reset_password_cubit.dart';
@@ -16,7 +18,7 @@ import '../../../features/nav_bar/ui/pages/nav_bar/pages/app_sections.dart';
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouteNames.occasionPage, //  start here
+  initialLocation: RouteNames.home, //  start here
   routes: [
     GoRoute(
       path: RouteNames.signup,
@@ -29,7 +31,8 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: RouteNames.occasionPage,
-      builder: (context, state) => const OccasionPage(),
+      builder: (context, state) =>
+          OccasionPage(occasions: state.extra as List<OccasionModel>),
     ),
 
     GoRoute(
@@ -62,7 +65,7 @@ final GoRouter appRouter = GoRouter(
         final email = state.extra as String;
         return BlocProvider(
           create: (_) => getIt<ResetPasswordCubit>(param1: email),
-          child:  ResetPasswordPage(),
+          child: ResetPasswordPage(),
         );
       },
     ),

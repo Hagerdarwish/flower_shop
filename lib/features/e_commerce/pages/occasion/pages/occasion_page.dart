@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_shop/app/config/base_state/base_state.dart';
+import 'package:flower_shop/app/config/di/di.dart';
+import 'package:flower_shop/app/core/widgets/default_error_widget.dart';
+import 'package:flower_shop/app/core/widgets/product_item_card.dart';
+import 'package:flower_shop/features/e_commerce/pages/occasion/pages/shimmer_grid_loading.dart';
+import 'package:flower_shop/features/home/domain/models/occasion_model.dart';
+import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:flower_shop/app/config/di/di.dart';
-import 'package:flower_shop/app/core/widgets/product_item_card.dart';
-
-import 'package:flower_shop/app/config/base_state/base_state.dart';
 
 import '../../../domain/models/product_model.dart';
 import '../manager/occasion_cubit.dart';
@@ -12,45 +15,37 @@ import '../manager/occasion_event.dart';
 import '../manager/occasion_state.dart';
 
 class OccasionPage extends StatelessWidget {
-  const OccasionPage({super.key});
+  final List<OccasionModel> occasions;
 
-  static const List<Map<String, String>> occasionsMap = [
-    {"name": "Wedding", "id": "673b34c21159920171827ae0"},
-    {"name": "Graduation", "id": "673b351e1159920171827ae5"},
-    {"name": "Birthday", "id": "673b354b1159920171827ae8"},
-    {"name": "Anniversary", "id": "673b35c01159920171827aed"},
-    {"name": "New Year", "id": "673b364e1159920171827af9"},
-    {"name": "Valentine's Day", "id": "673b368c1159920171827afc"},
-  ];
+  const OccasionPage({super.key, required this.occasions});
 
   @override
   Widget build(BuildContext context) {
-    final initialId = occasionsMap.first["id"]!;
-
     return BlocProvider(
       create: (_) =>
           getIt<OccasionCubit>()
-            ..doIntent(LoadInitialEvent(initialOccasion: initialId)),
+            ..doIntent(LoadInitialEvent(initialOccasion: occasions[0].id)),
       child: DefaultTabController(
-        length: occasionsMap.length,
+        length: occasions.length,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Occasions'),
-
-            // ✅ Use Builder to get context under BlocProvider
+            title: Text(LocaleKeys.occasions.tr()),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(48),
               child: Builder(
-                builder: (ctx) {
+                builder: (context) {
                   return TabBar(
                     isScrollable: true,
-                    tabs: occasionsMap
-                        .map((e) => Tab(text: e["name"]))
+                    tabs: occasions
+                        .map((occasion) => Tab(text: occasion.name))
                         .toList(),
+                    tabAlignment: TabAlignment.start,
                     onTap: (index) {
-                      final id = occasionsMap[index]["id"]!;
-                      ctx.read<OccasionCubit>().doIntent(TabChangedEvent(id));
+                      context.read<OccasionCubit>().doIntent(
+                        TabChangedEvent(occasions[index].id ?? ""),
+                      );
                     },
+                    padding: EdgeInsets.zero,
                   );
                 },
               ),
@@ -60,37 +55,34 @@ class OccasionPage extends StatelessWidget {
           body: BlocBuilder<OccasionCubit, OccasionState>(
             builder: (context, state) {
               final status = state.products.status;
-
               if (status == Status.loading) {
-                return const Center(child: CircularProgressIndicator());
+                return const ShimmerGridLoading();
               }
-
               if (status == Status.error) {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Text(
-                      state.products.error ?? 'Something went wrong',
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                return DefaultErrorWidget(
+                  message: state.products.error,
+                  onRetry: () {
+                    context.read<OccasionCubit>().doIntent(
+                      TabChangedEvent(state.selectedItem ?? ""),
+                    );
+                  },
                 );
               }
 
               final List<ProductModel> items = state.products.data ?? [];
 
               if (items.isEmpty) {
-                return const Center(child: Text('No products found'));
+                return Center(child: Text(LocaleKeys.no_products_found.tr()));
               }
 
               return GridView.builder(
                 padding: const EdgeInsets.all(16),
                 itemCount: items.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
-                  childAspectRatio: 0.72,
+                  mainAxisExtent: MediaQuery.of(context).size.height * .3,
                 ),
                 itemBuilder: (context, index) {
                   final product = items[index];

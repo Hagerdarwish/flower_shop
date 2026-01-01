@@ -1,4 +1,3 @@
-
 import '../../domain/models/product_model.dart';
 import '../models/response/remote_product.dart';
 
