@@ -39,6 +39,8 @@ import '../../../features/auth/presentation/signup/manager/signup_cubit.dart'
     as _i392;
 import '../../../features/auth/presentation/verify_reset_code/manager/verify_reset_code_cubit.dart'
     as _i303;
+import '../../../features/best_seller/menager/best_sell_cubit.dart' as _i627;
+import '../../../features/bset_sell/cubit/best_sell_cubit.dart' as _i207;
 import '../../../features/commerce/api/datasource/commerce_remote_datasource_impl.dart'
     as _i574;
 import '../../../features/commerce/data/datasource/commerce_remote_datasource.dart'
@@ -104,8 +106,8 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final networkModule = _$NetworkModule();
-    gh.factory<_i355.NavCubit>(() => _i355.NavCubit());
     gh.factory<_i235.NavCubit>(() => _i235.NavCubit());
+    gh.factory<_i355.NavCubit>(() => _i355.NavCubit());
     gh.lazySingleton<_i603.AuthStorage>(() => _i603.AuthStorage());
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio());
     gh.lazySingleton<_i890.ApiClient>(
@@ -179,14 +181,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i534.GetBestSellerUseCase>(
       () => _i534.GetBestSellerUseCase(gh<_i520.HomeRepo>()),
     );
+    gh.factory<_i576.GetCategoriesUseCase>(
+      () => _i576.GetCategoriesUseCase(gh<_i520.HomeRepo>()),
+    );
     gh.factory<_i386.GetOccasionsUseCase>(
       () => _i386.GetOccasionsUseCase(gh<_i520.HomeRepo>()),
     );
     gh.factory<_i498.GetProductsUseCase>(
       () => _i498.GetProductsUseCase(gh<_i520.HomeRepo>()),
-    );
-    gh.factory<_i576.GetCategoriesUseCase>(
-      () => _i576.GetCategoriesUseCase(gh<_i520.HomeRepo>()),
     );
     gh.lazySingleton<_i94.HomeFactory>(
       () => _i73.RemoteHomeFactory(
@@ -210,6 +212,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i177.AllCategoriesUsecase>(
       () => _i177.AllCategoriesUsecase(gh<_i796.CommerceRepo>()),
+    );
+    gh.factory<_i627.BestSellerCubit>(
+      () => _i627.BestSellerCubit(gh<_i534.GetBestSellerUseCase>()),
+    );
+    gh.factory<_i207.BestSellerCubit>(
+      () => _i207.BestSellerCubit(gh<_i534.GetBestSellerUseCase>()),
     );
     gh.factoryParam<_i634.ProductDetailsCubit, String, dynamic>(
       (productId, _) => _i634.ProductDetailsCubit(
