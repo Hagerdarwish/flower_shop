@@ -4,7 +4,7 @@ import 'package:flower_shop/features/best_seller/menager/best_seller_intent.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flower_shop/app/core/widgets/product_item_card.dart';
-import 'package:flower_shop/features/best_seller/best_seller_card.dart';
+import 'package:flower_shop/features/best_seller/best_seller_card_item/best_seller_card.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_state.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';

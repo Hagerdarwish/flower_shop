@@ -40,7 +40,6 @@ import '../../../features/auth/presentation/signup/manager/signup_cubit.dart'
 import '../../../features/auth/presentation/verify_reset_code/manager/verify_reset_code_cubit.dart'
     as _i303;
 import '../../../features/best_seller/menager/best_sell_cubit.dart' as _i627;
-import '../../../features/bset_sell/cubit/best_sell_cubit.dart' as _i207;
 import '../../../features/commerce/api/datasource/commerce_remote_datasource_impl.dart'
     as _i574;
 import '../../../features/commerce/data/datasource/commerce_remote_datasource.dart'
@@ -215,9 +214,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i627.BestSellerCubit>(
       () => _i627.BestSellerCubit(gh<_i534.GetBestSellerUseCase>()),
-    );
-    gh.factory<_i207.BestSellerCubit>(
-      () => _i207.BestSellerCubit(gh<_i534.GetBestSellerUseCase>()),
     );
     gh.factoryParam<_i634.ProductDetailsCubit, String, dynamic>(
       (productId, _) => _i634.ProductDetailsCubit(
