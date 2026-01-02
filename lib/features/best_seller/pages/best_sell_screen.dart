@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
+import 'package:flower_shop/app/core/app_constants.dart';
+import 'package:flower_shop/features/best_seller/menager/best_seller_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flower_shop/app/core/widgets/product_item_card.dart';
@@ -7,14 +9,25 @@ import 'package:flower_shop/features/best_seller/best_seller_card.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_state.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
-
-class BestSellerScreen extends StatelessWidget {
+class BestSellerScreen extends StatefulWidget {
   const BestSellerScreen({super.key});
+
+  @override
+  State<BestSellerScreen> createState() => _BestSellerScreenState();
+}
+
+class _BestSellerScreenState extends State<BestSellerScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Trigger the load
+    context.read<BestSellerCubit>().doIntent(LoadBestSellersEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Best seller')),
+      appBar: AppBar(title: const Text(AppConstants.bestseller)),
       body: BlocBuilder<BestSellerCubit, BestSellerState>(
         builder: (context, state) {
           final productsResource = state.products;
@@ -49,7 +62,7 @@ class BestSellerScreen extends StatelessWidget {
               );
 
             case Status.error:
-              return Center(child: Text(productsResource.message ?? 'Error'));
+              return Center(child: Text(productsResource.message ?? AppConstants.defaultErrorMessage));
           }
         },
       ),

@@ -5,6 +5,8 @@ class Resource<T> {
   final Status status;
   T? data;
   String? error;
+
+  var message;
   Resource({required this.status, this.data, this.error});
 
   factory Resource.success(T? data) {
