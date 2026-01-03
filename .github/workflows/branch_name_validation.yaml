@@ -1,8 +1,11 @@
 name: Validate Branch Name
 
 on:
-  pull_request:
-    types: [opened, edited, reopened, synchronize]
+ push:
+    branches-ignore:
+      - main
+      - master
+      - dev
 
 jobs:
   validate-pr-name:
@@ -11,4 +14,4 @@ jobs:
       - name: Validate Branch Name
         uses: goshencollege/validate-branch-name@v1.0.1
         with:
-            pattern: "^(feature|bugfix|hotfix|release|github-actions)\\/[a-z]+(-[a-z]+)*$"
+          pattern: "^(feature|bugfix|hotfix|release|github-actions)\\/[a-z]+(-[a-z]+)*$"
