@@ -1,4 +1,3 @@
-import 'package:flower_shop/features/home/data/models/best_seller_model.dart';
 
 abstract class RouteNames {
   static const signup = '/signup';

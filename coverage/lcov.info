@@ -53,6 +53,7 @@ LF:1
 LH:1
 end_of_record
 SF:lib\app\config\base_state\base_state.dart
+<<<<<<< HEAD
 DA:10,10
 DA:12,9
 DA:13,9
@@ -62,6 +63,19 @@ DA:18,8
 DA:19,8
 DA:21,8
 DA:22,8
+=======
+DA:8,6
+DA:10,5
+DA:11,5
+DA:13,5
+DA:14,5
+DA:16,4
+DA:17,4
+DA:19,4
+DA:20,4
+DA:23,0
+DA:24,3
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:25,0
 DA:26,3
 DA:27,0
@@ -92,8 +106,13 @@ LF:5
 LH:4
 end_of_record
 SF:lib\app\core\network\api_result.dart
+<<<<<<< HEAD
 DA:5,22
 DA:10,21
+=======
+DA:5,18
+DA:10,17
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 LF:2
 LH:2
 end_of_record
@@ -107,6 +126,7 @@ DA:13,0
 LF:6
 LH:5
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\best_seller\menager\best_sell_cubit.dart
 DA:15,6
 DA:17,2
@@ -170,6 +190,33 @@ DA:14,3
 LF:4
 LH:4
 end_of_record
+=======
+SF:lib\features\home\domain\models\best_seller_model.dart
+DA:23,3
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+LF:21
+LH:1
+end_of_record
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 SF:lib\features\home\domain\models\category_model.dart
 DA:12,4
 DA:22,0
@@ -235,6 +282,100 @@ DA:62,0
 DA:63,0
 LF:21
 LH:1
+<<<<<<< HEAD
+=======
+end_of_record
+SF:lib\features\home\domain\usecase\get_best_seller_usecase.dart
+DA:10,1
+DA:12,1
+DA:13,2
+DA:14,3
+LF:4
+LH:4
+end_of_record
+SF:lib\features\home\domain\usecase\get_categories_usecase.dart
+DA:11,1
+DA:13,1
+DA:14,2
+DA:15,3
+LF:4
+LH:4
+end_of_record
+SF:lib\features\home\domain\usecase\get_occasions_usecase.dart
+DA:10,1
+DA:12,1
+DA:13,2
+DA:14,3
+LF:4
+LH:4
+end_of_record
+SF:lib\features\home\domain\usecase\get_products_usecase.dart
+DA:10,1
+DA:12,1
+DA:13,2
+DA:14,3
+LF:4
+LH:4
+end_of_record
+SF:lib\features\home\presentation\manager\home_cubit.dart
+DA:17,3
+DA:19,1
+DA:20,1
+DA:21,1
+DA:22,1
+DA:27,1
+DA:28,1
+DA:29,2
+DA:30,1
+DA:31,1
+DA:32,1
+DA:35,2
+DA:36,1
+DA:37,1
+DA:38,1
+DA:39,1
+DA:43,1
+DA:44,2
+DA:46,0
+DA:47,0
+DA:49,0
+DA:50,0
+DA:55,1
+DA:56,3
+DA:58,1
+DA:59,5
+DA:61,0
+DA:62,0
+DA:67,1
+DA:68,3
+DA:70,1
+DA:71,5
+DA:73,0
+DA:74,0
+DA:79,1
+DA:80,3
+DA:82,1
+DA:83,5
+DA:85,0
+DA:86,0
+LF:40
+LH:30
+end_of_record
+SF:lib\features\home\presentation\manager\home_states.dart
+DA:13,1
+DA:18,1
+DA:19,1
+DA:20,1
+DA:21,1
+DA:23,1
+DA:29,1
+DA:30,1
+DA:31,1
+DA:32,1
+DA:33,1
+LF:11
+LH:11
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 end_of_record
 SF:lib\app\core\api_manger\api_client.g.dart
 DA:14,0
@@ -617,7 +758,11 @@ DA:15,0
 LF:4
 LH:0
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\commerce\data\models\all_categories_dto.dart
+=======
+SF:lib\features\e_commerce\data\models\response\all_categories_dto.dart
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:14,4
 DA:16,1
 DA:17,1
@@ -633,7 +778,11 @@ DA:71,2
 LF:12
 LH:11
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\commerce\data\models\all_categories_dto.g.dart
+=======
+SF:lib\features\e_commerce\data\models\response\all_categories_dto.g.dart
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:9,1
 DA:10,1
 DA:11,1
@@ -683,6 +832,31 @@ DA:67,1
 LF:46
 LH:41
 end_of_record
+<<<<<<< HEAD
+=======
+SF:lib\features\e_commerce\data\models\response\product_details_response.dart
+DA:10,0
+DA:15,0
+DA:16,0
+DA:18,0
+DA:19,0
+LF:5
+LH:0
+end_of_record
+SF:lib\features\e_commerce\data\models\response\product_details_response.g.dart
+DA:9,0
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+DA:18,0
+DA:20,0
+DA:21,0
+DA:22,0
+LF:9
+LH:0
+end_of_record
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 SF:lib\features\e_commerce\data\models\response\products_response.dart
 DA:10,2
 DA:12,0
@@ -742,6 +916,7 @@ DA:31,0
 LF:21
 LH:0
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\nav_bar\data\product_details\models\response\product_details_response.dart
 DA:12,0
 DA:17,0
@@ -774,6 +949,18 @@ DA:16,8
 DA:18,0
 DA:19,0
 DA:22,4
+=======
+SF:lib\app\core\network\safe_api_call.dart
+DA:7,3
+DA:11,6
+DA:13,3
+DA:14,9
+DA:15,9
+DA:16,6
+DA:18,0
+DA:19,0
+DA:22,3
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:23,1
 DA:25,1
 DA:26,0
@@ -856,7 +1043,75 @@ DA:27,0
 DA:28,0
 LF:13
 LH:1
+<<<<<<< HEAD
 end_of_record
+=======
+end_of_record
+SF:lib\features\e_commerce\data\models\response\product_details_model.dart
+DA:7,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:48,0
+LF:25
+LH:0
+end_of_record
+SF:lib\features\e_commerce\data\models\response\product_details_model.g.dart
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:25,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+LF:26
+LH:0
+end_of_record
+SF:lib\features\e_commerce\domain\models\product_details_entity.dart
+DA:13,0
+LF:1
+LH:0
+end_of_record
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 SF:lib\features\e_commerce\data\models\response\remote_product.dart
 DA:23,2
 DA:46,0
@@ -1129,6 +1384,7 @@ DA:48,0
 DA:49,0
 DA:50,0
 LF:40
+<<<<<<< HEAD
 LH:0
 end_of_record
 SF:lib\features\nav_bar\data\product_details\models\response\product_details_model.dart
@@ -1193,6 +1449,8 @@ end_of_record
 SF:lib\features\nav_bar\domain\product_details\models\product_details_entity.dart
 DA:13,0
 LF:1
+=======
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 LH:0
 end_of_record
 SF:lib\features\auth\data\repos\auth_repo_imp.dart
@@ -1494,6 +1752,7 @@ DA:84,0
 LF:46
 LH:2
 end_of_record
+<<<<<<< HEAD
 SF:lib\app\core\ui_helper\style\font_style.dart
 DA:7,0
 DA:13,0
@@ -1718,13 +1977,121 @@ LF:9
 LH:9
 end_of_record
 SF:lib\features\commerce\domain\usecase\all_categories_usecase.dart
+=======
+SF:lib\features\e_commerce\data\datasource\ecommerce_remote_datasource_impl.dart
+DA:14,1
+DA:16,1
+DA:21,1
+DA:22,3
+DA:26,1
+DA:28,4
+DA:31,0
+DA:35,0
+LF:8
+LH:6
+end_of_record
+SF:lib\features\e_commerce\data\mappers\all_categories_mapper.dart
+DA:5,2
+DA:6,2
+DA:7,2
+DA:8,10
+DA:9,3
+DA:15,2
+DA:16,2
+DA:17,2
+DA:18,2
+DA:19,2
+DA:20,2
+DA:21,2
+DA:22,2
+DA:23,2
+DA:24,2
+DA:30,1
+DA:31,1
+DA:32,1
+DA:33,1
+DA:34,1
+DA:35,1
+LF:21
+LH:21
+end_of_record
+SF:lib\features\e_commerce\domain\models\all_categories_model.dart
+DA:6,5
+DA:19,5
+DA:37,2
+LF:3
+LH:3
+end_of_record
+SF:lib\features\e_commerce\data\repos\ecommerce_repo_imp.dart
+DA:18,1
+DA:20,1
+DA:25,2
+DA:30,1
+DA:31,1
+DA:32,4
+DA:33,1
+DA:34,1
+DA:36,1
+DA:37,2
+DA:41,1
+DA:43,2
+DA:45,1
+DA:46,1
+DA:47,1
+DA:48,1
+DA:49,1
+DA:50,2
+DA:54,0
+DA:58,0
+DA:60,0
+DA:61,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:79,0
+DA:80,0
+DA:83,0
+LF:37
+LH:18
+end_of_record
+SF:lib\features\e_commerce\domain\models\product_model.dart
+DA:9,2
+LF:1
+LH:1
+end_of_record
+SF:lib\features\e_commerce\data\mappers\products_mapper.dart
+DA:5,1
+DA:6,1
+DA:7,1
+DA:8,1
+DA:9,2
+DA:10,1
+DA:11,1
+LF:7
+LH:7
+end_of_record
+SF:lib\features\e_commerce\domain\usecase\all_categories_usecase.dart
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:9,1
 DA:11,1
 DA:12,2
 LF:3
 LH:3
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\commerce\presentation\categories\manager\all_categories_cubit.dart
+=======
+SF:lib\features\e_commerce\presentation\categories\manager\all_categories_cubit.dart
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:17,1
 DA:18,2
 DA:22,1
@@ -1765,17 +2132,30 @@ DA:76,5
 LF:37
 LH:37
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\commerce\presentation\categories\manager\all_categories_intent.dart
+=======
+SF:lib\features\e_commerce\presentation\categories\manager\all_categories_intent.dart
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:7,1
 LF:1
 LH:1
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\commerce\presentation\categories\manager\all_categories_states.dart
 DA:10,1
 DA:11,1
 DA:15,1
 DA:16,1
 DA:17,1
+=======
+SF:lib\features\e_commerce\presentation\categories\manager\all_categories_states.dart
+DA:9,1
+DA:10,1
+DA:14,1
+DA:15,1
+DA:16,1
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 LF:5
 LH:5
 end_of_record
@@ -1786,6 +2166,7 @@ DA:15,0
 LF:3
 LH:0
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\e_commerce\data\datasource\product_remote_datasource\product_remote_datasource_impl.dart
 DA:13,1
 DA:15,1
@@ -1819,6 +2200,9 @@ LF:7
 LH:7
 end_of_record
 SF:lib\features\e_commerce\pages\occasion\manager\occasion_cubit.dart
+=======
+SF:lib\features\e_commerce\presentation\occasion\manager\occasion_cubit.dart
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:16,3
 DA:18,1
 DA:20,1
@@ -1852,13 +2236,21 @@ DA:68,4
 LF:30
 LH:29
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\e_commerce\pages\occasion\manager\occasion_event.dart
+=======
+SF:lib\features\e_commerce\presentation\occasion\manager\occasion_event.dart
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:6,1
 DA:12,1
 LF:2
 LH:2
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\e_commerce\pages\occasion\manager\occasion_state.dart
+=======
+SF:lib\features\e_commerce\presentation\occasion\manager\occasion_state.dart
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:8,1
 DA:10,1
 DA:11,2
@@ -1889,6 +2281,7 @@ DA:21,1
 LF:8
 LH:8
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\home\domain\usecase\get_categories_usecase.dart
 DA:11,1
 DA:13,1
@@ -1913,6 +2306,8 @@ DA:14,3
 LF:4
 LH:4
 end_of_record
+=======
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 SF:lib\features\home\presentation\manager\factory\home_factory_imp.dart
 DA:15,1
 DA:22,1
@@ -1926,6 +2321,7 @@ DA:32,1
 LF:9
 LH:9
 end_of_record
+<<<<<<< HEAD
 SF:lib\features\home\presentation\manager\home_cubit.dart
 DA:17,3
 DA:19,1
@@ -1993,6 +2389,16 @@ LF:3
 LH:3
 end_of_record
 SF:lib\features\nav_bar\manager\nav_cubit\nav_state.dart
+=======
+SF:lib\features\nav_bar\presentation\manager\nav_cubit.dart
+DA:7,2
+DA:9,1
+DA:10,2
+LF:3
+LH:3
+end_of_record
+SF:lib\features\nav_bar\presentation\manager\nav_state.dart
+>>>>>>> f05a1c503dd5d969de57497d21f06d521f666d02
 DA:7,1
 DA:9,0
 DA:10,0

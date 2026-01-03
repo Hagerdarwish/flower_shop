@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_shop/features/home/domain/models/product_model.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import '../../../features/e_commerce/domain/models/product_model.dart';
 import '../ui_helper/color/colors.dart';
 import '../ui_helper/style/font_style.dart';
 
@@ -21,14 +21,13 @@ class ProductItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasOldPrice =
-        product.oldPrice != null && product.oldPrice! > product.price;
+    final originalPrice = product.price ?? 0;
+    final priceAfterDiscount = product.priceAfterDiscount;
 
-    double originalPrice = product.oldPrice ?? 0;
-    double discountedPrice = product.price;
+    final hasOldPrice = originalPrice > (priceAfterDiscount ?? 0);
 
-    double discountPercentage = originalPrice > 0
-        ? ((originalPrice - discountedPrice) / originalPrice) * 100
+    final discountPercentage = originalPrice > 0
+        ? ((originalPrice - priceAfterDiscount!.toInt()) / originalPrice) * 100
         : 0;
 
     return InkWell(
@@ -45,16 +44,18 @@ class ProductItemCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Image
-            ClipRRect(
-              child: AspectRatio(
-                aspectRatio: 1.15,
-                child: Container(
-                  color: const Color(0xFFF7E9EE),
-                  child: Image.network(
-                    product.imageUrl,
-                    fit: BoxFit.fill,
-                    errorBuilder: (_, __, ___) =>
-                    const Center(child: Icon(Icons.image_not_supported)),
+            Expanded(
+              child: ClipRRect(
+                child: AspectRatio(
+                  aspectRatio: 1.15,
+                  child: Container(
+                    color: const Color(0xFFF7E9EE),
+                    child: Image.network(
+                      product.imgCover.toString(),
+                      fit: BoxFit.fill,
+                      errorBuilder: (_, __, ___) =>
+                          const Center(child: Icon(Icons.image_not_supported)),
+                    ),
                   ),
                 ),
               ),
@@ -63,12 +64,12 @@ class ProductItemCard extends StatelessWidget {
 
             // Name
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
-               crossAxisAlignment: CrossAxisAlignment.start ,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.name,
+                    product.title.toString(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppStyles.font12BlackBold,
@@ -80,13 +81,13 @@ class ProductItemCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        'EGP ${_format(product.price)}',
-                        style:AppStyles.black14bold,
+                        'EGP ${_format(priceAfterDiscount)}',
+                        style: AppStyles.black14bold,
                       ),
                       const SizedBox(width: 8),
                       if (hasOldPrice)
                         Text(
-                          _format(product.oldPrice!),
+                          _format(originalPrice),
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey.shade600,
@@ -95,14 +96,15 @@ class ProductItemCard extends StatelessWidget {
                         ),
                       const SizedBox(width: 8),
 
-                      if (product.discountPercent != null && product.discountPercent! > 0)
-                        Text(
-                          '$product.discountPercent %',
-                          style: AppStyles.green14regular,
-                        ),
+                      // if (product.discountPercent != null &&
+                      //     product.discountPercent! > 0)
+                      if (discountPercentage > 0)
+                      Text(
+                        '${discountPercentage.round()} %',
+                        style: AppStyles.green14regular,
+                      ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -116,7 +118,10 @@ class ProductItemCard extends StatelessWidget {
               child: ElevatedButton.icon(
                 onPressed: onAddToCart,
                 icon: const Icon(Icons.shopping_cart_outlined, size: 20),
-                label:  Text(LocaleKeys.addToCard.tr(),style:AppStyles.white13medium,),
+                label: Text(
+                  LocaleKeys.addToCard.tr(),
+                  style: AppStyles.white13medium,
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.pink,
                   foregroundColor: Colors.white,
@@ -133,6 +138,6 @@ class ProductItemCard extends StatelessWidget {
     );
   }
 
-  String _format(double v) =>
+  String _format(final v) =>
       v == v.roundToDouble() ? v.toInt().toString() : v.toStringAsFixed(2);
 }
