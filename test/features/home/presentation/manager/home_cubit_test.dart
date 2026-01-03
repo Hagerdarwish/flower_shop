@@ -105,7 +105,6 @@ void main() {
       },
       wait: const Duration(milliseconds: 200),
       verify: (cubit) {
-        // التحقق من الحالة النهائية بعد اكتمال جميع العمليات
         final finalState = cubit.state;
         expect(finalState.categories.data, equals(categories));
         expect(finalState.bestSeller.data, equals(bestSellers));
