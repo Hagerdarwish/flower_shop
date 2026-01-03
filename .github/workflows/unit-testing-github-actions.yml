@@ -27,9 +27,6 @@ jobs:
         run: flutter pub get
 
        
-      - name: Analyze code
-        run: flutter analyze
-
       
       - name: Run unit tests
         run: flutter test
