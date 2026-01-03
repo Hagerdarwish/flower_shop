@@ -8,5 +8,5 @@ abstract class RouteNames {
   static const appStart = "/appStart";
   static const categories = "/categories";
   static const occasionPage = "/occasionPage";
-  static const productDetails = "/productDetails";
+  static const productDetails="/productDetails";
 }

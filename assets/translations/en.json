@@ -17,7 +17,7 @@
   "femaleValue": "female",
   "maleValue": "male",
   "createAccount": "Create an account, you agree to our ",
-  "termsAndConditions" : "Terms&Conditions",
+  "termsAndConditions": "Terms&Conditions",
   "alreadyHaveAccount": "Already have an account? ",
   "login": "Login",
   "signup": "Sign Up",
@@ -89,6 +89,8 @@
   "categories": "Categories",
   "bestSelling": "Best Selling",
   "occasions": "Occasions",
+  "something_went_wrong": "Something went wrong",
+  "no_products_found": "No products found",
   "allPricesIncludeTax": "All prices include tax",
   "productAddedToCart": "Product Added To Cart"
 

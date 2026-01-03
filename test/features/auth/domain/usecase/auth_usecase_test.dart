@@ -33,7 +33,7 @@ void main() {
         gender: 'female',
       ),
     );
-    test("returns SuccessApiResult when repo returns success", () async {
+    test("returns SuccessApiResult when repos returns success", () async {
       when(
         mockRepo.signup(
           firstName: anyNamed('firstName'),
@@ -75,7 +75,7 @@ void main() {
       ).called(1);
     });
 
-    test("returns ErrorApiResult when repo returns error", () async {
+    test("returns ErrorApiResult when repos returns error", () async {
       when(
         mockRepo.signup(
           firstName: anyNamed('firstName'),

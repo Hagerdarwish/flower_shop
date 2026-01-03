@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class RowSection extends StatelessWidget {
   final String title;
   VoidCallback onTap;
-   RowSection({ required this.title,required this.onTap});
+  RowSection({required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class RowSection extends StatelessWidget {
           title,
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.black87
+            color: Colors.black87,
           ),
         ),
         TextButton(

@@ -24,14 +24,14 @@ import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart'
     as _i5;
 import 'package:flower_shop/features/auth/data/models/response/verify_reset_code_response_model/verify_reset_code_response_model.dart'
     as _i10;
-import 'package:flower_shop/features/commerce/data/models/all_categories_dto.dart'
+import 'package:flower_shop/features/e_commerce/data/models/response/all_categories_dto.dart'
+    as _i15;
+import 'package:flower_shop/features/e_commerce/data/models/response/product_details_response.dart'
+    as _i17;
+import 'package:flower_shop/features/e_commerce/data/models/response/products_response.dart'
     as _i14;
 import 'package:flower_shop/features/home/data/models/response/home_response.dart'
     as _i16;
-import 'package:flower_shop/features/nav_bar/data/models/response/products_response.dart'
-    as _i15;
-import 'package:flower_shop/features/nav_bar/data/product_details/models/response/product_details_response.dart'
-    as _i17;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:retrofit/retrofit.dart' as _i2;
 
@@ -144,21 +144,7 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
           as _i4.Future<_i2.HttpResponse<_i12.ResetPasswordResponse>>);
 
   @override
-  _i4.Future<_i2.HttpResponse<_i14.AllCategoriesDto>> getAllCategories() =>
-      (super.noSuchMethod(
-            Invocation.method(#getAllCategories, []),
-            returnValue:
-                _i4.Future<_i2.HttpResponse<_i14.AllCategoriesDto>>.value(
-                  _FakeHttpResponse_0<_i14.AllCategoriesDto>(
-                    this,
-                    Invocation.method(#getAllCategories, []),
-                  ),
-                ),
-          )
-          as _i4.Future<_i2.HttpResponse<_i14.AllCategoriesDto>>);
-
-  @override
-  _i4.Future<_i2.HttpResponse<_i15.ProductsResponse>> getProducts({
+  _i4.Future<_i2.HttpResponse<_i14.ProductsResponse>> getProducts({
     String? occasion,
     String? category,
   }) =>
@@ -168,8 +154,8 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
               #category: category,
             }),
             returnValue:
-                _i4.Future<_i2.HttpResponse<_i15.ProductsResponse>>.value(
-                  _FakeHttpResponse_0<_i15.ProductsResponse>(
+                _i4.Future<_i2.HttpResponse<_i14.ProductsResponse>>.value(
+                  _FakeHttpResponse_0<_i14.ProductsResponse>(
                     this,
                     Invocation.method(#getProducts, [], {
                       #occasion: occasion,
@@ -178,7 +164,21 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
                   ),
                 ),
           )
-          as _i4.Future<_i2.HttpResponse<_i15.ProductsResponse>>);
+          as _i4.Future<_i2.HttpResponse<_i14.ProductsResponse>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i15.AllCategoriesDto>> getAllCategories() =>
+      (super.noSuchMethod(
+            Invocation.method(#getAllCategories, []),
+            returnValue:
+                _i4.Future<_i2.HttpResponse<_i15.AllCategoriesDto>>.value(
+                  _FakeHttpResponse_0<_i15.AllCategoriesDto>(
+                    this,
+                    Invocation.method(#getAllCategories, []),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i15.AllCategoriesDto>>);
 
   @override
   _i4.Future<_i2.HttpResponse<_i16.HomeResponse>> getHomeData() =>

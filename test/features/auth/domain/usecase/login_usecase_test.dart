@@ -36,7 +36,7 @@ void main() {
   );
 
   group("LoginUseCase", () {
-    test("returns SuccessApiResult when repo returns success", () async {
+    test("returns SuccessApiResult when repos returns success", () async {
       // ARRANGE
       provideDummy<ApiResult<LoginModel>>(SuccessApiResult(data: loginModel));
       when(mockRepo.login(email, password))
@@ -53,7 +53,7 @@ void main() {
       verify(mockRepo.login(email, password)).called(1);
     });
 
-    test("returns ErrorApiResult when repo returns error", () async {
+    test("returns ErrorApiResult when repos returns error", () async {
       // ARRANGE
       provideDummy<ApiResult<LoginModel>>(ErrorApiResult(error: "login failed"));
       final error = Exception("login failed");

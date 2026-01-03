@@ -32,6 +32,7 @@ dependencies:
   retrofit: ^4.9.1
   shimmer: ^3.0.0
   flutter_otp_text_field:
+  pretty_dio_logger: ^1.4.0
   json_annotation: ^4.9.0
 
 dev_dependencies:
