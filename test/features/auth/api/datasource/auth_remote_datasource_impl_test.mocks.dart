@@ -24,14 +24,14 @@ import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart'
     as _i5;
 import 'package:flower_shop/features/auth/data/models/response/verify_reset_code_response_model/verify_reset_code_response_model.dart'
     as _i10;
-import 'package:flower_shop/features/commerce/data/models/all_categories_dto.dart'
+import 'package:flower_shop/features/e_commerce/data/models/response/all_categories_dto.dart'
     as _i15;
+import 'package:flower_shop/features/e_commerce/data/models/response/product_details_response.dart'
+    as _i17;
 import 'package:flower_shop/features/e_commerce/data/models/response/products_response.dart'
     as _i14;
 import 'package:flower_shop/features/home/data/models/response/home_response.dart'
     as _i16;
-import 'package:flower_shop/features/nav_bar/data/product_details/models/response/product_details_response.dart'
-    as _i17;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:retrofit/retrofit.dart' as _i2;
 
