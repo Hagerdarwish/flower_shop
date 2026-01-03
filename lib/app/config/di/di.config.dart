@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -39,6 +39,7 @@ import '../../../features/auth/presentation/signup/manager/signup_cubit.dart'
     as _i392;
 import '../../../features/auth/presentation/verify_reset_code/manager/verify_reset_code_cubit.dart'
     as _i303;
+import '../../../features/best_seller/menager/best_sell_cubit.dart' as _i627;
 import '../../../features/e_commerce/data/datasource/ecommerce_remote_datasource.dart'
     as _i152;
 import '../../../features/e_commerce/data/datasource/ecommerce_remote_datasource_impl.dart'
@@ -177,6 +178,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i129.GetProductDetailsUseCase>(
       () => _i129.GetProductDetailsUseCase(gh<_i332.EcommerceRepo>()),
+    );
+    gh.factory<_i627.BestSellerCubit>(
+      () => _i627.BestSellerCubit(gh<_i534.GetBestSellerUseCase>()),
     );
     gh.factoryParam<_i50.ProductDetailsCubit, String, dynamic>(
       (productId, _) => _i50.ProductDetailsCubit(

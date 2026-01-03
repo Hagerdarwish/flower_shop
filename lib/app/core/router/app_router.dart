@@ -2,6 +2,8 @@ import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/features/app_start/presentation/pages/app_start_page.dart';
 import 'package:flower_shop/features/auth/presentation/signup/pages/signup_screen.dart';
 import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
+import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
+import 'package:flower_shop/features/best_seller/pages/best_sell_screen.dart';
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,6 +99,17 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
+
+  GoRoute(
+  path: RouteNames.BestSeller,
+  builder: (context, state) {
+    return BlocProvider(
+      create: (_) => getIt<BestSellerCubit>(),
+      child: BestSellerScreen(),
+    );
+  },
+),
+
 
   ],
 );

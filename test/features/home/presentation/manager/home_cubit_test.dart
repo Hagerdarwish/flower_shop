@@ -84,5 +84,6 @@ setUp(() {
     isA<HomeState>().having((s) => s.occasions.data, 'occasions', occasions),
   ],
 );
-  });
+  }
+  );
 }
