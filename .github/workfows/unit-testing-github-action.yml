@@ -5,11 +5,12 @@ on:
     branches:
       - main
       - dev
+      - Github-Actions
   push:
     branches:
       - main
       - dev
-
+      - Github-Actions
 jobs:
   test:
     name: Run Flutter Unit Tests
