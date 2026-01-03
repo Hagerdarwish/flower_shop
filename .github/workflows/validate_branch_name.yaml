@@ -1,0 +1,14 @@
+name: Validate Branch Name
+
+on:
+ push:
+    branches-ignore:
+      - main
+      - dev
+
+jobs:
+  validate-pr-name:
+      - name: Validate Branch Name
+        uses: goshencollege/validate-branch-name@v1.0.1
+        with:
+          pattern: "^(feature|bugfix|hotfix|release|github-actions)\\/[a-z]+(-[a-z]+)*$"
