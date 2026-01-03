@@ -2,15 +2,10 @@ name: Flutter Unit Tests Validation
 
 on:
   pull_request:
-    branches:
-      - main
-      - dev
-      - Github-Actions
+    
   push:
-    branches:
-      - main
-      - dev
-      - Github-Actions
+     
+    
 jobs:
   test:
     name: Run Flutter Unit Tests
@@ -22,7 +17,6 @@ jobs:
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
-        # removed flutter-version to allow any version for team flexibility
 
       - name: Install dependencies
         run: flutter pub get
