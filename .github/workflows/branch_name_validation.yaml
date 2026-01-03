@@ -1,0 +1,14 @@
+name: Validate Branch Name
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  validate-pr-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Branch Name
+        uses: goshencollege/validate-branch-name@v1.0.1
+        with:
+            pattern: "^(feature|bugfix|hotfix|release)\\/[a-z]+(-[a-z]+)*$"
