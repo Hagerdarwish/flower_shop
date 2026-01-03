@@ -1,11 +1,8 @@
 name: Flutter Unit Tests Validation
 
-on:
-  pull_request:
-    
-  push:
-     
-    
+ 
+on: [push, pull_request]
+
 jobs:
   test:
     name: Run Flutter Unit Tests
