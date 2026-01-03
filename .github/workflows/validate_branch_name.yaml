@@ -1,14 +1,32 @@
 name: Validate Branch Name
 
 on:
- push:
+  push:
     branches-ignore:
       - main
       - dev
 
 jobs:
   validate-pr-name:
-      - name: Validate Branch Name
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Branch Name
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "Checking branch name: $BRANCH_NAME"
+
+          REGEX="^(feature|bugfix|hotfix|release|github)\/[a-z]+(-[a-z]+)*$"
+
+          if [[ ! "$BRANCH_NAME" =~ $REGEX ]]; then
+            echo "❌ Invalid branch name!"
+            echo "Expected format: <prefix>/<task-name>"
+            echo "Allowed prefixes: feature, bugfix, hotfix, release, github"
+            echo "Example: feature/init-project"
+            exit 1
+          fi
+
+      - name: Validate Branch Name Action
         uses: goshencollege/validate-branch-name@v1.0.1
         with:
           pattern: "^(feature|bugfix|hotfix|release|github)\\/[a-z]+(-[a-z]+)*$"
