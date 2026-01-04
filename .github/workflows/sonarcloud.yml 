@@ -2,7 +2,7 @@ name: SonarCloud Scan
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "release/SCRUM-34-github-actions" ]
   pull_request:
 
 jobs:
