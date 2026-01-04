@@ -2,7 +2,7 @@ name: SonarCloud Scan
 
 on:
   push:
-    branches: [ "release/SCRUM-45-test" ]
+    branches: [ "dev" ]
   pull_request:
 
 jobs:
