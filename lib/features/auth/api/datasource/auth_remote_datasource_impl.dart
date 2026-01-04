@@ -50,24 +50,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<ApiResult<ForgotPasswordResponse>> forgotPassword(
-      ForgotPasswordRequest request,
-      ) {
+    ForgotPasswordRequest request,
+  ) {
     return safeApiCall(call: () => apiClient.forgotPassword(request));
   }
 
   @override
   Future<ApiResult<VerifyResetCodeResponse>> verifyResetCode(
-      VerifyResetCodeRequest request) {
-    return safeApiCall(
-      call: () => apiClient.verifyResetCode(request),
-    );
+    VerifyResetCodeRequest request,
+  ) {
+    return safeApiCall(call: () => apiClient.verifyResetCode(request));
   }
 
   @override
   Future<ApiResult<ResetPasswordResponse>> resetPassword(
-      ResetPasswordRequest request) {
-    return safeApiCall(
-      call: () => apiClient.resetPassword(request),
-    );
+    ResetPasswordRequest request,
+  ) {
+    return safeApiCall(call: () => apiClient.resetPassword(request));
   }
 }

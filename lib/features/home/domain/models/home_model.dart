@@ -21,10 +21,10 @@ class HomeModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        message,
-        products,
-        categories,
-        bestSeller,
-        occasions,
-      ];
+    message,
+    products,
+    categories,
+    bestSeller,
+    occasions,
+  ];
 }

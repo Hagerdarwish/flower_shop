@@ -23,7 +23,9 @@ class ProductDetailsBody extends StatelessWidget {
           );
         }
         if (resource.isError) {
-          return Center(child: Text(resource.error ?? LocaleKeys.an_error_occurred));
+          return Center(
+            child: Text(resource.error ?? LocaleKeys.an_error_occurred),
+          );
         }
         final product = resource.data!;
         return SingleChildScrollView(
@@ -44,9 +46,7 @@ class ProductDetailsBody extends StatelessWidget {
               ),
               const SizedBox(height: 50),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -54,18 +54,18 @@ class ProductDetailsBody extends StatelessWidget {
                       children: [
                         Text(
                           "EGP${product.priceAfterDiscount}",
-                          style: Theme.of(
-                            context,
-                          ).textTheme.headlineMedium?.copyWith(color: Colors.pink),
+                          style: Theme.of(context).textTheme.headlineMedium
+                              ?.copyWith(color: Colors.pink),
                         ),
                         const SizedBox(width: 8),
                         if (product.priceAfterDiscount != product.price)
                           Text(
                             "EGP ${product.price}",
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              decoration: TextDecoration.lineThrough,
-                              color: Colors.grey,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                  color: Colors.grey,
+                                ),
                           ),
                       ],
                     ),
@@ -74,19 +74,24 @@ class ProductDetailsBody extends StatelessWidget {
                     Text(
                       LocaleKeys.allPricesIncludeTax,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 16
-                      ),),
+                        color: Colors.grey,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 16,
+                      ),
+                    ),
                     const SizedBox(height: 16),
                     Text(
                       product.title,
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.black),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineMedium?.copyWith(color: Colors.black),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       product.description,
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 16),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall?.copyWith(fontSize: 16),
                     ),
                     const SizedBox(height: 120),
                     CustomButton(
@@ -95,7 +100,7 @@ class ProductDetailsBody extends StatelessWidget {
                       text: LocaleKeys.addToCard,
                       onPressed: () {
                         cubit.doIntent(const AddToCartIntent());
-                        showAppSnackbar(context,LocaleKeys.productAddedToCart);
+                        showAppSnackbar(context, LocaleKeys.productAddedToCart);
                       },
                     ),
                   ],

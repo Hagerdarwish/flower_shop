@@ -11,4 +11,3 @@ class FormChangedIntent extends ForgetPasswordIntents {
 class SubmitForgetPasswordIntent extends ForgetPasswordIntents {
   const SubmitForgetPasswordIntent();
 }
-

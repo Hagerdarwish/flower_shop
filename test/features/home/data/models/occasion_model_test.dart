@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flower_shop/features/home/data/models/occasion_model.dart';
-import 'package:flower_shop/features/home/domain/models/occasion_model.dart' as entity;
+import 'package:flower_shop/features/home/domain/models/occasion_model.dart'
+    as entity;
 
 void main() {
   group('Occasion.toEntity', () {

@@ -10,10 +10,7 @@ class ProductDetailsState {
   });
 
   factory ProductDetailsState.initial() =>
-      ProductDetailsState(
-        resource: Resource.initial(),
-        selectedImageIndex: 0,
-      );
+      ProductDetailsState(resource: Resource.initial(), selectedImageIndex: 0);
 
   ProductDetailsState copyWith({
     Resource<ProductDetailsEntity>? resource,

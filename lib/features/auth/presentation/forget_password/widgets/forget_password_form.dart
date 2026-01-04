@@ -12,7 +12,6 @@ import '../../../../../app/core/widgets/show_app_dialog.dart';
 import '../../../../../app/core/widgets/show_snak_bar.dart';
 import '../manager/forget_password_cubit.dart';
 
-
 class ForgetPasswordForm extends StatelessWidget {
   const ForgetPasswordForm({super.key});
 
@@ -20,22 +19,25 @@ class ForgetPasswordForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
       listenWhen: (previous, current) =>
-      previous.resource.status != current.resource.status,
+          previous.resource.status != current.resource.status,
       listener: (context, state) {
-        final email = context.read<ForgetPasswordCubit>().emailController.text.trim();
+        final email = context
+            .read<ForgetPasswordCubit>()
+            .emailController
+            .text
+            .trim();
         if (state.resource.status == Status.success) {
           showAppSnackbar(
             context,
             LocaleKeys.check_email_for_verification_code.tr(),
           );
-          context.push(RouteNames.verifyResetCode,extra: email,);
+          context.push(RouteNames.verifyResetCode, extra: email);
         }
 
         if (state.resource.status == Status.error) {
           showAppDialog(
             context,
-            message: state.resource.error ??
-                LocaleKeys.an_error_occurred.tr(),
+            message: state.resource.error ?? LocaleKeys.an_error_occurred.tr(),
             isError: true,
           );
         }
@@ -73,7 +75,8 @@ class ForgetPasswordForm extends StatelessWidget {
                   isEnabled: state.isFormValid,
                   isLoading: state.resource.status == Status.loading,
                   text: LocaleKeys.continueTxt.tr(),
-                  onPressed:() => cubit.doIntent(const SubmitForgetPasswordIntent()),
+                  onPressed: () =>
+                      cubit.doIntent(const SubmitForgetPasswordIntent()),
                 ),
               ],
             ),

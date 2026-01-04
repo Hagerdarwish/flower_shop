@@ -23,5 +23,6 @@ abstract class AuthRepo {
   Future<ApiResult<ForgotPasswordEntity>> forgotPassword(String email);
   Future<ApiResult<VerifyResetCodeEntity>> verifyResetCode(String code);
   Future<ApiResult<ResetPasswordEntity>> resetPassword(
-      ResetPasswordRequest request);
+    ResetPasswordRequest request,
+  );
 }

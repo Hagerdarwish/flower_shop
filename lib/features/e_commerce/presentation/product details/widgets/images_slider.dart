@@ -5,10 +5,10 @@ import '../../../domain/models/product_details_entity.dart';
 import '../manger/product_details_cubit/product_details_cubit.dart';
 
 Widget ImageSlider(
-    BuildContext context,
-    ProductDetailsEntity product,
-    int selectedIndex,
-    ) {
+  BuildContext context,
+  ProductDetailsEntity product,
+  int selectedIndex,
+) {
   final cubit = context.read<ProductDetailsCubit>();
 
   return SizedBox(
@@ -19,13 +19,9 @@ Widget ImageSlider(
         PageView.builder(
           itemCount: product.images.length,
           controller: PageController(initialPage: selectedIndex),
-          onPageChanged: (index) =>
-              cubit.doIntent(ChangeImageIntent(index)),
+          onPageChanged: (index) => cubit.doIntent(ChangeImageIntent(index)),
           itemBuilder: (_, index) => SizedBox.expand(
-            child: Image.network(
-              product.images[index],
-              fit: BoxFit.cover,
-            ),
+            child: Image.network(product.images[index], fit: BoxFit.cover),
           ),
         ),
         Positioned(
@@ -34,14 +30,13 @@ Widget ImageSlider(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               product.images.length,
-                  (index) => Container(
+              (index) => Container(
                 margin: const EdgeInsets.symmetric(horizontal: 4),
                 width: 12,
                 height: 10,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color:
-                  selectedIndex == index ? Colors.pink : Colors.white70,
+                  color: selectedIndex == index ? Colors.pink : Colors.white70,
                 ),
               ),
             ),

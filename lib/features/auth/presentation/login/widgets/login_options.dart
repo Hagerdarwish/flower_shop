@@ -22,12 +22,12 @@ class LoginOptions extends StatelessWidget {
       children: [
         Row(
           children: [
-            CustomCheckBox(
-              isChecked: isChecked,
-              onChecked: onChanged,
-            ),
+            CustomCheckBox(isChecked: isChecked, onChecked: onChanged),
             const SizedBox(width: 10),
-            Text(LocaleKeys.rememberMe.tr(), style: Theme.of(context).textTheme.labelSmall),
+            Text(
+              LocaleKeys.rememberMe.tr(),
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
           ],
         ),
         InkWell(
@@ -36,7 +36,10 @@ class LoginOptions extends StatelessWidget {
           },
           child: Text(
             LocaleKeys.forgotPassword.tr(),
-            style: const TextStyle(decoration: TextDecoration.underline, fontSize: 15),
+            style: const TextStyle(
+              decoration: TextDecoration.underline,
+              fontSize: 15,
+            ),
           ),
         ),
       ],

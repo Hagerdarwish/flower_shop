@@ -9,10 +9,12 @@ import '../../../domain/usecase/forgot_password_usecase.dart';
 
 part 'forget_password_state.dart';
 part 'forget_password_intents.dart';
+
 @injectable
 class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   final ForgotPasswordUseCase _forgetPasswordUseCase;
-  ForgetPasswordCubit(this._forgetPasswordUseCase) : super(ForgetPasswordState.initial());
+  ForgetPasswordCubit(this._forgetPasswordUseCase)
+    : super(ForgetPasswordState.initial());
 
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -25,7 +27,6 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
       case SubmitForgetPasswordIntent():
         _submitForgetPassword();
         break;
-
     }
   }
 
@@ -44,7 +45,6 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     if (result is SuccessApiResult<ForgotPasswordEntity>) {
       final entity = result.data;
 
-
       if (entity.message.toLowerCase().contains('success')) {
         emit(state.copyWith(resource: Resource.success(entity)));
       } else {
@@ -56,7 +56,6 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
       emit(state.copyWith(resource: Resource.error('Unexpected error')));
     }
   }
-
 
   @override
   Future<void> close() {

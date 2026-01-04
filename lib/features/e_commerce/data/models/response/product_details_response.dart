@@ -7,14 +7,10 @@ class ProductDetailsResponse {
   final String message;
   final ProductDetailsModel product;
 
-  ProductDetailsResponse({
-    required this.message,
-    required this.product,
-  });
+  ProductDetailsResponse({required this.message, required this.product});
 
   factory ProductDetailsResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductDetailsResponseFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$ProductDetailsResponseToJson(this);
+  Map<String, dynamic> toJson() => _$ProductDetailsResponseToJson(this);
 }

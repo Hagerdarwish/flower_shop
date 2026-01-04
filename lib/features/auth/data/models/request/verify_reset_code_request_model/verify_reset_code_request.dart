@@ -11,6 +11,5 @@ class VerifyResetCodeRequest {
   factory VerifyResetCodeRequest.fromJson(Map<String, dynamic> json) =>
       _$VerifyResetCodeRequestFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$VerifyResetCodeRequestToJson(this);
+  Map<String, dynamic> toJson() => _$VerifyResetCodeRequestToJson(this);
 }

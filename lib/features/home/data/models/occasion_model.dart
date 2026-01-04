@@ -2,6 +2,7 @@ import 'package:flower_shop/features/home/domain/models/occasion_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'occasion_model.g.dart';
+
 @JsonSerializable()
 class Occasion {
   @JsonKey(name: "_id")
@@ -37,18 +38,16 @@ class Occasion {
     return _$OccasionToJson(this);
   }
 
-    OccasionModel toEntity() {
+  OccasionModel toEntity() {
     return OccasionModel(
       id: Id ?? '',
       name: name ?? '',
       slug: slug ?? '',
       image: image ?? '',
-      createdAt:
-          createdAt != null ? DateTime.tryParse(createdAt!) : null,
-      updatedAt:
-          updatedAt != null ? DateTime.tryParse(updatedAt!) : null,
+      createdAt: createdAt != null ? DateTime.tryParse(createdAt!) : null,
+      updatedAt: updatedAt != null ? DateTime.tryParse(updatedAt!) : null,
       isSuperAdmin: isSuperAdmin ?? false,
-      productsCount:null, 
+      productsCount: null,
     );
   }
 }

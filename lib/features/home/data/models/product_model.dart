@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'product_model.g.dart';
 
-
 @JsonSerializable()
 class Product {
   @JsonKey(name: "_id")
@@ -75,7 +74,7 @@ class Product {
     return _$ProductToJson(this);
   }
 
-    ProductModel toEntity() {
+  ProductModel toEntity() {
     return ProductModel(
       id: id ?? Id ?? '',
       title: title ?? '',
@@ -88,10 +87,8 @@ class Product {
       quantity: quantity ?? 0,
       category: category ?? '',
       occasion: occasion ?? '',
-      createdAt:
-          createdAt != null ? DateTime.tryParse(createdAt!) : null,
-      updatedAt:
-          updatedAt != null ? DateTime.tryParse(updatedAt!) : null,
+      createdAt: createdAt != null ? DateTime.tryParse(createdAt!) : null,
+      updatedAt: updatedAt != null ? DateTime.tryParse(updatedAt!) : null,
       v: v,
       isSuperAdmin: isSuperAdmin ?? false,
       sold: sold ?? 0,

@@ -8,7 +8,7 @@ abstract class EcommerceRepo {
     String? occasion,
     String? category,
   });
-  
+
   Future<ApiResult<AllCategoriesModel>> getAllCategories();
 
   Future<ApiResult<ProductDetailsEntity>> getProductDetails(String productId);

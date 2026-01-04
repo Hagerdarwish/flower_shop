@@ -19,21 +19,21 @@ class HomeScreen extends StatelessWidget {
             Text(AppConstants.welcomeMessage),
             Text(AppConstants.home),
             const SizedBox(height: 16),
-TextButton(
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => BlocProvider(
-          create: (_) => BestSellerCubit(getIt<GetBestSellerUseCase>()),
-          child: const BestSellerScreen(),
-        ),
-      ),
-    );
-  },
-  child: const Text('Go to Best Seller screen'),
-),
-
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => BlocProvider(
+                      create: (_) =>
+                          BestSellerCubit(getIt<GetBestSellerUseCase>()),
+                      child: const BestSellerScreen(),
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Go to Best Seller screen'),
+            ),
           ],
         ),
       ),

@@ -13,7 +13,7 @@ import 'occasion_state.dart';
 class OccasionCubit extends Cubit<OccasionState> {
   final GetProductUsecase _getProductUsecase;
 
-  OccasionCubit(  this._getProductUsecase) : super(OccasionState.initial());
+  OccasionCubit(this._getProductUsecase) : super(OccasionState.initial());
 
   void doIntent(OccasionEvents event) {
     switch (event) {

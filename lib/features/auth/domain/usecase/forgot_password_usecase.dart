@@ -8,4 +8,6 @@ class ForgotPasswordUseCase {
   final AuthRepo repo;
   ForgotPasswordUseCase(this.repo);
   Future<ApiResult<ForgotPasswordEntity>> call(String email) {
-    return repo.forgotPassword(email);}}
+    return repo.forgotPassword(email);
+  }
+}

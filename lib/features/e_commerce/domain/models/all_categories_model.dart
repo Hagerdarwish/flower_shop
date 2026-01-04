@@ -34,5 +34,10 @@ class MetadataModel {
   final int? totalPages;
   final int? totalItems;
 
-  MetadataModel({this.currentPage, this.limit, this.totalPages, this.totalItems});
+  MetadataModel({
+    this.currentPage,
+    this.limit,
+    this.totalPages,
+    this.totalItems,
+  });
 }

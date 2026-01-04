@@ -8,7 +8,6 @@ import '../manager/verify_reset_code_cubit.dart';
 import '../manager/verify_reset_code_intent.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
-
 class VerifyResetCodeForm extends StatelessWidget {
   const VerifyResetCodeForm({super.key});
 
@@ -18,7 +17,7 @@ class VerifyResetCodeForm extends StatelessWidget {
 
     return BlocBuilder<VerifyResetCodeCubit, VerifyResetCodeState>(
       buildWhen: (previous, current) =>
-      previous.canResend != current.canResend ||
+          previous.canResend != current.canResend ||
           previous.resendCountdown != current.resendCountdown ||
           previous.resource.status != current.resource.status,
       builder: (context, state) {
@@ -33,11 +32,7 @@ class VerifyResetCodeForm extends StatelessWidget {
                 const SizedBox(height: 40),
                 Text(
                   LocaleKeys.emailVerification.tr(),
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headlineMedium
-                      ?.copyWith(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -45,44 +40,23 @@ class VerifyResetCodeForm extends StatelessWidget {
                 Text(
                   LocaleKeys.instruction.tr(),
                   textAlign: TextAlign.center,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(
-                    color: Theme
-                        .of(context)
-                        .colorScheme
-                        .onSurfaceVariant,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
                 const SizedBox(height: 48),
 
                 OtpTextField(
                   numberOfFields: 6,
-                  borderColor: Theme
-                      .of(context)
-                      .colorScheme
-                      .primary,
-                  enabledBorderColor: Theme
-                      .of(context)
-                      .colorScheme
-                      .outline,
-                  focusedBorderColor: Theme
-                      .of(context)
-                      .colorScheme
-                      .primary,
+                  borderColor: Theme.of(context).colorScheme.primary,
+                  enabledBorderColor: Theme.of(context).colorScheme.outline,
+                  focusedBorderColor: Theme.of(context).colorScheme.primary,
                   showFieldAsBox: true,
                   fieldWidth: 52,
                   fieldHeight: 64,
                   borderRadius: BorderRadius.circular(12),
-                  textStyle: Theme
-                      .of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                  textStyle: Theme.of(context).textTheme.headlineSmall
+                      ?.copyWith(fontWeight: FontWeight.w600),
                   onCodeChanged: (code) =>
                       cubit.doIntent(FormChangedIntent(code)),
                   onSubmit: (code) {
@@ -95,10 +69,7 @@ class VerifyResetCodeForm extends StatelessWidget {
 
                 if (isLoading)
                   CircularProgressIndicator(
-                    color: Theme
-                        .of(context)
-                        .colorScheme
-                        .primary,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
 
                 if (!isLoading) const SizedBox(height: 32),
@@ -107,15 +78,8 @@ class VerifyResetCodeForm extends StatelessWidget {
                 const SizedBox(height: 20),
                 Text(
                   'Code sent to: ${cubit.email}',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(
-                    color: Theme
-                        .of(context)
-                        .colorScheme
-                        .outline,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.outline,
                     fontStyle: FontStyle.italic,
                   ),
                   textAlign: TextAlign.center,
@@ -128,5 +92,3 @@ class VerifyResetCodeForm extends StatelessWidget {
     );
   }
 }
-
-

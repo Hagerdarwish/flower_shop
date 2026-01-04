@@ -15,10 +15,10 @@ class HomeState {
     Resource<List<CategoryModel>>? categories,
     Resource<List<BestSellerModel>>? bestSeller,
     Resource<List<OccasionModel>>? occasions,
-  })  : products = products ?? Resource.initial(),
-        categories = categories ?? Resource.initial(),
-        bestSeller = bestSeller ?? Resource.initial(),
-        occasions = occasions ?? Resource.initial();
+  }) : products = products ?? Resource.initial(),
+       categories = categories ?? Resource.initial(),
+       bestSeller = bestSeller ?? Resource.initial(),
+       occasions = occasions ?? Resource.initial();
 
   HomeState copyWith({
     Resource<List<ProductModel>>? products,

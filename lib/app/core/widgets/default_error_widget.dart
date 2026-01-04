@@ -14,11 +14,7 @@ class DefaultErrorWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
-            Icons.error_outline,
-            color: Colors.red,
-            size: 60,
-          ),
+          const Icon(Icons.error_outline, color: Colors.red, size: 60),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
@@ -30,7 +26,9 @@ class DefaultErrorWidget extends StatelessWidget {
           if (onRetry != null)
             ElevatedButton(
               onPressed: onRetry,
-              child: Text(LocaleKeys.resend.tr()), // Assuming you have a 'retry' key
+              child: Text(
+                LocaleKeys.resend.tr(),
+              ), // Assuming you have a 'retry' key
             ),
         ],
       ),

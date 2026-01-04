@@ -2,7 +2,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const firstName = 'firstName';
   static const lastName = 'lastName';
   static const email = 'email';
@@ -66,7 +66,8 @@ abstract class  LocaleKeys {
   static const resend = 'resend';
   static const resetPassword = 'resetPassword';
   static const yourEmailVerified = 'yourEmailVerified';
-  static const check_email_for_verification_code = 'check_email_for_verification_code';
+  static const check_email_for_verification_code =
+      'check_email_for_verification_code';
   static const passwordValidation = 'passwordValidation';
   static const connectionTimeout = 'connectionTimeout';
   static const noInternet = 'noInternet';
@@ -97,5 +98,4 @@ abstract class  LocaleKeys {
   static const productAddedToCart = 'productAddedToCart';
   static const something_went_wrong = 'something_went_wrong';
   static const no_products_found = 'no_products_found';
-
 }

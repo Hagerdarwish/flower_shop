@@ -14,7 +14,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   final String productId;
 
   ProductDetailsCubit(this._useCase, @factoryParam this.productId)
-      : super(ProductDetailsState.initial()) {
+    : super(ProductDetailsState.initial()) {
     // Automatically load product details on creation
     doIntent(LoadProductDetailsIntent(productId));
   }

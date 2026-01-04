@@ -54,10 +54,7 @@ class Validators {
     return null;
   }
 
-  static String? confirmPasswordValidator(
-    String? val,
-    String? pass,
-  ) {
+  static String? confirmPasswordValidator(String? val, String? pass) {
     if (val == null || val.isEmpty) {
       return LocaleKeys.confirmPasswordRequired.tr();
     } else if (val != pass) {
@@ -79,7 +76,7 @@ class Validators {
     }
   }
 
-static String? genderValidator(String? val) {
+  static String? genderValidator(String? val) {
     if (val == null || val.isEmpty) {
       return LocaleKeys.genderRequired.tr();
     } else {

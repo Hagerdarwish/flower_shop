@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+
 class ProductItem extends StatelessWidget {
   final String imageUrl;
   final String title;
@@ -42,9 +42,9 @@ class ProductItem extends StatelessWidget {
             if (price != null)
               Text(
                 "${price!} EGP",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: 15,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(fontSize: 15),
               ),
           ],
         ),

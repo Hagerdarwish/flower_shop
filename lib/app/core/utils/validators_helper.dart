@@ -1,26 +1,29 @@
-
 import '../values/user_error_mesagges.dart';
 
 class Validators {
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) return UserErrorMessages.emailRequired;
-    final emailRegex =
-    RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    final emailRegex = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
     if (!emailRegex.hasMatch(value)) return UserErrorMessages.invalidEmail;
     return null;
   }
 
   static String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) return UserErrorMessages.passwordRequired;
+    if (value == null || value.isEmpty)
+      return UserErrorMessages.passwordRequired;
     if (value.length < 6) return UserErrorMessages.least6Characters;
     if (!RegExp(r'[A-Z]').hasMatch(value))
       return UserErrorMessages.passwordWithCapital;
-    if (!RegExp(r'[0-9]').hasMatch(value)) return UserErrorMessages.passwordWithNumber;
+    if (!RegExp(r'[0-9]').hasMatch(value))
+      return UserErrorMessages.passwordWithNumber;
     return null;
   }
 
   static String? validateRePassword(String? value, String password) {
-    if (value == null || value.isEmpty) return UserErrorMessages.confirmPassword;
+    if (value == null || value.isEmpty)
+      return UserErrorMessages.confirmPassword;
     if (value != password) return UserErrorMessages.passwordDontMatch;
     return null;
   }

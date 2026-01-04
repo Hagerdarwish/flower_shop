@@ -85,7 +85,8 @@ class AuthRepoImp implements AuthRepo {
 
     if (result is ErrorApiResult<ForgotPasswordResponse>) {
       return ErrorApiResult<ForgotPasswordEntity>(error: result.error);
-    };
+    }
+    ;
 
     return ErrorApiResult<ForgotPasswordEntity>(error: 'Unexpected error');
   }
@@ -103,16 +104,16 @@ class AuthRepoImp implements AuthRepo {
     }
     if (result is ErrorApiResult<VerifyResetCodeResponse>) {
       return ErrorApiResult(error: result.error);
-    };
+    }
+    ;
     return ErrorApiResult(error: 'Unexpected error');
-
   }
 
   @override
-  Future<ApiResult<ResetPasswordEntity>> resetPassword(ResetPasswordRequest request) async {
-    final result = await authDatasource.resetPassword(
-      request,
-    );
+  Future<ApiResult<ResetPasswordEntity>> resetPassword(
+    ResetPasswordRequest request,
+  ) async {
+    final result = await authDatasource.resetPassword(request);
 
     if (result is SuccessApiResult<ResetPasswordResponse>) {
       return SuccessApiResult(
@@ -121,8 +122,8 @@ class AuthRepoImp implements AuthRepo {
     }
     if (result is ErrorApiResult<ResetPasswordResponse>) {
       return ErrorApiResult(error: result.error);
-    };
+    }
+    ;
     return ErrorApiResult(error: 'Unexpected error');
-
   }
 }

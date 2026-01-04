@@ -43,11 +43,7 @@ void main() {
       seed: () => const NavState(selectedIndex: 3),
       act: (cubit) => cubit.updateIndex(3),
       expect: () => [
-        isA<NavState>().having(
-          (s) => s.selectedIndex,
-          'selectedIndex',
-          3,
-        ),
+        isA<NavState>().having((s) => s.selectedIndex, 'selectedIndex', 3),
       ],
     );
 
@@ -65,7 +61,7 @@ void main() {
         isA<NavState>().having((s) => s.selectedIndex, 'index', 1),
         isA<NavState>().having((s) => s.selectedIndex, 'index', 2),
         isA<NavState>().having((s) => s.selectedIndex, 'index', 3),
-    ],
+      ],
     );
 
     test('NavState equality works correctly', () {

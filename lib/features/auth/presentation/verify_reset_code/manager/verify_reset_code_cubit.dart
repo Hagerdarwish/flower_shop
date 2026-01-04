@@ -19,10 +19,10 @@ class VerifyResetCodeCubit extends Cubit<VerifyResetCodeState> {
   Timer? _cooldownTimer;
 
   VerifyResetCodeCubit(
-      this._verifyUseCase,
-      this._resendUseCase,
-      @factoryParam this.email,
-      ) : super(VerifyResetCodeState.initial()) {
+    this._verifyUseCase,
+    this._resendUseCase,
+    @factoryParam this.email,
+  ) : super(VerifyResetCodeState.initial()) {
     _startCooldown(30);
   }
 
@@ -41,10 +41,7 @@ class VerifyResetCodeCubit extends Cubit<VerifyResetCodeState> {
   }
 
   void _validateForm(String code) {
-    emit(state.copyWith(
-      code: code,
-      isFormValid: code.length == 6,
-    ));
+    emit(state.copyWith(code: code, isFormValid: code.length == 6));
   }
 
   Future<void> _submitCode() async {
@@ -66,16 +63,12 @@ class VerifyResetCodeCubit extends Cubit<VerifyResetCodeState> {
   Future<void> _resendCode() async {
     if (!state.canResend) return;
     _startCooldown(30);
-    emit(state.copyWith(
-      resource: Resource.loading(),
-      canResend: false,
-    ));
+    emit(state.copyWith(resource: Resource.loading(), canResend: false));
 
     final result = await _resendUseCase(email);
 
     if (result is SuccessApiResult<ForgotPasswordEntity>) {
       emit(state.copyWith(resource: Resource.success(result.data)));
-
     } else if (result is ErrorApiResult<ForgotPasswordEntity>) {
       emit(state.copyWith(resource: Resource.error(result.error)));
     } else {
@@ -85,30 +78,22 @@ class VerifyResetCodeCubit extends Cubit<VerifyResetCodeState> {
 
   void _startCooldown(int seconds) {
     _cooldownTimer?.cancel();
-    emit(state.copyWith(
-      resendCountdown: seconds,
-      canResend: false,
-    ));
+    emit(state.copyWith(resendCountdown: seconds, canResend: false));
 
     _cooldownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       final remaining = state.resendCountdown - 1;
       if (remaining <= 0) {
         timer.cancel();
-        emit(state.copyWith(
-          resendCountdown: 0,
-          canResend: true,
-        ));
+        emit(state.copyWith(resendCountdown: 0, canResend: true));
       } else {
         emit(state.copyWith(resendCountdown: remaining));
       }
     });
   }
 
-
   @override
   Future<void> close() {
     _cooldownTimer?.cancel();
     return super.close();
   }
-
 }

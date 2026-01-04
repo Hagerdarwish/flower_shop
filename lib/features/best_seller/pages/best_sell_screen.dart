@@ -23,13 +23,15 @@ class _BestSellerScreenState extends State<BestSellerScreen> {
     // Trigger the load
     context.read<BestSellerCubit>().doIntent(LoadBestSellersEvent());
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        titleSpacing: 0,centerTitle: true,
+        titleSpacing: 0,
+        centerTitle: true,
         elevation: 0,
-        title:  SearchTextField(),
+        title: SearchTextField(),
       ),
       body: BlocBuilder<BestSellerCubit, BestSellerState>(
         builder: (context, state) {

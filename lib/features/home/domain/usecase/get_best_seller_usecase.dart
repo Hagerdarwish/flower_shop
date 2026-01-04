@@ -9,7 +9,7 @@ class GetBestSellerUseCase {
   final HomeRepo _repo;
   GetBestSellerUseCase(this._repo);
 
-  Future<ApiResult<List<BestSellerModel>>> call() async{
+  Future<ApiResult<List<BestSellerModel>>> call() async {
     final result = await _repo.getHomeData();
     return result.pick((home) => home.bestSeller ?? []);
   }

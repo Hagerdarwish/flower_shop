@@ -2,7 +2,6 @@ import 'package:flower_shop/app/core/network/api_result.dart';
 
 extension ApiResultPick<T> on ApiResult<T> {
   ApiResult<R> pick<R>(R Function(T) selector) {
-
     if (this is SuccessApiResult<T>) {
       final success = this as SuccessApiResult<T>;
       return SuccessApiResult<R>(data: selector(success.data));
@@ -12,6 +11,5 @@ extension ApiResultPick<T> on ApiResult<T> {
     } else {
       return ErrorApiResult<R>(error: "Unknown error");
     }
-  
   }
 }

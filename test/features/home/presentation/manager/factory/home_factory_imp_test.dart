@@ -7,12 +7,11 @@ import 'package:flower_shop/features/home/domain/usecase/get_occasions_usecase.d
 import 'package:flower_shop/features/home/domain/usecase/get_products_usecase.dart';
 import 'home_factory_imp_test.mocks.dart';
 
-
 @GenerateMocks([
   GetProductsUseCase,
   GetCategoriesUseCase,
   GetBestSellerUseCase,
-  GetOccasionsUseCase
+  GetOccasionsUseCase,
 ])
 void main() {
   late MockGetProductsUseCase mockProducts;

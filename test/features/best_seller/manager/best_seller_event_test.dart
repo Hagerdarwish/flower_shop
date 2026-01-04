@@ -12,7 +12,7 @@ void main() {
   group('BestSellerState', () {
     test('initial() should create state with initial status', () {
       final state = BestSellerState.initial();
-      
+
       expect(state.products.status, Status.initial);
       expect(state.products.data, isNull);
       expect(state.selectedIndex, 0);
@@ -22,7 +22,7 @@ void main() {
       final initialState = BestSellerState.initial();
       final loadingProducts = Resource<List<BestSellerModel>>.loading();
       final newState = initialState.copyWith(products: loadingProducts);
-      
+
       expect(newState.products.status, Status.loading);
       expect(newState.selectedIndex, initialState.selectedIndex);
     });
@@ -30,19 +30,21 @@ void main() {
     test('copyWith should update selectedIndex', () {
       final initialState = BestSellerState.initial();
       final newState = initialState.copyWith(selectedIndex: 5);
-      
+
       expect(newState.selectedIndex, 5);
       expect(newState.products.status, initialState.products.status);
     });
 
     test('copyWith should update both properties', () {
       final initialState = BestSellerState.initial();
-      final successProducts = Resource<List<BestSellerModel>>.success(productsList);
+      final successProducts = Resource<List<BestSellerModel>>.success(
+        productsList,
+      );
       final newState = initialState.copyWith(
         products: successProducts,
         selectedIndex: 2,
       );
-      
+
       expect(newState.products.status, Status.success);
       expect(newState.products.data, productsList);
       expect(newState.selectedIndex, 2);
@@ -51,7 +53,7 @@ void main() {
     test('copyWith without changes should return similar state', () {
       final state = BestSellerState.initial();
       final copiedState = state.copyWith();
-      
+
       // Check properties individually
       expect(copiedState.products.status, state.products.status);
       expect(copiedState.selectedIndex, state.selectedIndex);
@@ -60,10 +62,10 @@ void main() {
     test('states with same values have different instances by default', () {
       final state1 = BestSellerState.initial();
       final state2 = BestSellerState.initial();
-      
+
       // These are different instances (identity equality)
       expect(identical(state1, state2), isFalse);
-      
+
       // But they have the same property values
       expect(state1.products.status, state2.products.status);
       expect(state1.selectedIndex, state2.selectedIndex);
@@ -75,7 +77,7 @@ void main() {
         products: Resource<List<BestSellerModel>>.loading(),
         selectedIndex: 3,
       );
-      
+
       expect(state.products.status, Status.loading);
       expect(state.selectedIndex, 3);
     });
@@ -85,7 +87,7 @@ void main() {
         products: Resource<List<BestSellerModel>>.success(productsList),
         selectedIndex: 1,
       );
-      
+
       expect(state.products.status, Status.success);
       expect(state.products.data, productsList);
       expect(state.selectedIndex, 1);
@@ -96,7 +98,7 @@ void main() {
         products: Resource<List<BestSellerModel>>.error('Error message'),
         selectedIndex: 0,
       );
-      
+
       expect(state.products.status, Status.error);
       expect(state.products.error, 'Error message');
       expect(state.selectedIndex, 0);

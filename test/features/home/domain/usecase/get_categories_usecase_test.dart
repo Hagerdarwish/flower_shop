@@ -20,45 +20,65 @@ void main() {
   });
 
   group('GetCategoriesUseCase', () {
-    test('should return list of CategoryModel when repo returns SuccessApiResult', () async {
-      // ARRANGE
-      final fakeHomeModel = HomeModel(
-        message: "Welcome",
-        products: [],
-        categories: [
-          CategoryModel(id: "1", name: "Flowers", slug: "flowers", image: "", createdAt: null, updatedAt: null, isSuperAdmin: false),
-        ],
-        bestSeller: [],
-        occasions: [],
-      );
-      provideDummy<ApiResult<HomeModel>>(SuccessApiResult(data: fakeHomeModel));
-      when(mockRepo.getHomeData())
-          .thenAnswer((_) async => SuccessApiResult<HomeModel>(data: fakeHomeModel));
+    test(
+      'should return list of CategoryModel when repo returns SuccessApiResult',
+      () async {
+        // ARRANGE
+        final fakeHomeModel = HomeModel(
+          message: "Welcome",
+          products: [],
+          categories: [
+            CategoryModel(
+              id: "1",
+              name: "Flowers",
+              slug: "flowers",
+              image: "",
+              createdAt: null,
+              updatedAt: null,
+              isSuperAdmin: false,
+            ),
+          ],
+          bestSeller: [],
+          occasions: [],
+        );
+        provideDummy<ApiResult<HomeModel>>(
+          SuccessApiResult(data: fakeHomeModel),
+        );
+        when(mockRepo.getHomeData()).thenAnswer(
+          (_) async => SuccessApiResult<HomeModel>(data: fakeHomeModel),
+        );
 
-      // ACT
-      final result = await useCase.call();
+        // ACT
+        final result = await useCase.call();
 
-      // ASSERT
-      expect(result, isA<SuccessApiResult<List<CategoryModel>>>());
-      final data = (result as SuccessApiResult).data;
-      expect(data.length, 1);
-      expect(data.first.name, "Flowers");
-      verify(mockRepo.getHomeData()).called(1);
-    });
+        // ASSERT
+        expect(result, isA<SuccessApiResult<List<CategoryModel>>>());
+        final data = (result as SuccessApiResult).data;
+        expect(data.length, 1);
+        expect(data.first.name, "Flowers");
+        verify(mockRepo.getHomeData()).called(1);
+      },
+    );
 
-    test('should return ErrorApiResult when repo returns ErrorApiResult', () async {
-      // ARRANGE
-      provideDummy<ApiResult<HomeModel>>(ErrorApiResult(error: 'Network error'));
-      when(mockRepo.getHomeData())
-          .thenAnswer((_) async => ErrorApiResult(error: 'Network error'));
+    test(
+      'should return ErrorApiResult when repo returns ErrorApiResult',
+      () async {
+        // ARRANGE
+        provideDummy<ApiResult<HomeModel>>(
+          ErrorApiResult(error: 'Network error'),
+        );
+        when(
+          mockRepo.getHomeData(),
+        ).thenAnswer((_) async => ErrorApiResult(error: 'Network error'));
 
-      // ACT
-      final result = await useCase.call();
+        // ACT
+        final result = await useCase.call();
 
-      // ASSERT
-      expect(result, isA<ErrorApiResult<List<CategoryModel>>>());
-      expect((result as ErrorApiResult).error, 'Network error');
-      verify(mockRepo.getHomeData()).called(1);
-    });
+        // ASSERT
+        expect(result, isA<ErrorApiResult<List<CategoryModel>>>());
+        expect((result as ErrorApiResult).error, 'Network error');
+        verify(mockRepo.getHomeData()).called(1);
+      },
+    );
   });
 }

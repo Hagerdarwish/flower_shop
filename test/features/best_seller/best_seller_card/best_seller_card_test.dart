@@ -86,7 +86,7 @@ void main() {
 
     testWidgets('has tappable area', (WidgetTester tester) async {
       bool tapped = false;
-      
+
       await tester.pumpWidget(
         TestBestSellerCard(
           product: sampleProduct,
@@ -97,7 +97,7 @@ void main() {
 
       await tester.tap(find.byType(InkWell).first);
       await tester.pump();
-      
+
       expect(tapped, isTrue);
     });
   });
