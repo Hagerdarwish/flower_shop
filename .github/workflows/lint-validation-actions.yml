@@ -15,13 +15,13 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: stable   # يناسب الفريق بأي نسخة Flutter
+          channel: stable
 
       - name: Install dependencies
         run: flutter pub get
 
       - name: Check code formatting
-        run: flutter format --set-exit-if-changed .
+        run: dart format --output=none --set-exit-if-changed .
 
       - name: Run Flutter analyze (soft check)
         run: flutter analyze || true
