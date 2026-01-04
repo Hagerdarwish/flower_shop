@@ -40,3 +40,16 @@ jobs:
           args: >
             -Dsonar.projectKey=Hagerdarwish_flower_shop
             -Dsonar.organization=hagerdarwish
+            -Dsonar.sources=lib
+            -Dsonar.tests=test
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.dart.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.exclusions=**/*.g.dart,**/*.freezed.dart,**/generated/**,**/build/**,**/.dart_tool/**,**/android/**,**/ios/**,**/web/**,**/linux/**,**/macos/**,**/windows/**
+            -Dsonar.test.exclusions=**/*_test.mocks.dart
+            -Dsonar.javascript.enabled=false
+            -Dsonar.typescript.enabled=false
+            -Dsonar.css.enabled=false
+            -Dsonar.c.file.suffixes=-
+            -Dsonar.cpp.file.suffixes=-
+            -Dsonar.objc.file.suffixes=-
+      
