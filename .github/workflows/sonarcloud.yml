@@ -1,0 +1,61 @@
+name: SonarCloud Scan
+
+on:
+  push:
+    branches: [ "release/SCRUM-45-test" ]
+  pull_request:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.32.2'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze || true
+
+      - name: Run tests with coverage
+        run: flutter test --coverage
+
+      - name: Install SonarScanner
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
+          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip -q sonar-scanner.zip
+          echo "$(pwd)/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_PATH
+
+      - name: SonarCloud Scan (CLI)
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=Hagerdarwish_flower_shop \
+            -Dsonar.organization=hagerdarwish \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.sources=lib \
+            -Dsonar.tests=test \
+            -Dsonar.dart.lcov.reportPaths=coverage/lcov.info \
+            -Dsonar.exclusions=**/*.g.dart,**/*.freezed.dart,**/generated/**,**/build/**,**/.dart_tool/**,**/android/**,**/ios/**,**/web/**,**/linux/**,**/macos/**,**/windows/** \
+            -Dsonar.test.exclusions=**/*_test.mocks.dart \
+            -Dsonar.javascript.enabled=false \
+            -Dsonar.typescript.enabled=false \
+            -Dsonar.css.enabled=false \
+            -Dsonar.c.file.suffixes=- \
+            -Dsonar.cpp.file.suffixes=- \
+            -Dsonar.objc.file.suffixes=-
