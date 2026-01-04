@@ -3,15 +3,21 @@ sonar.organization=hagerdarwish
 
 sonar.sources=lib
 sonar.tests=test
-
 sonar.sourceEncoding=UTF-8
 
-# Flutter coverage output
 sonar.dart.lcov.reportPaths=coverage/lcov.info
 
-# Exclusions
-sonar.exclusions=**/*.g.dart,**/*.freezed.dart,**/generated/**,**/build/**,**/.dart_tool/**,**/ios/**,**/android/**,**/web/**
+# Ignore generated/platform folders
+sonar.exclusions=**/*.g.dart,**/*.freezed.dart,**/generated/**,**/build/**,**/.dart_tool/**,**/android/**,**/ios/**,**/web/**,**/linux/**,**/macos/**,**/windows/**
+
 sonar.test.exclusions=**/*_test.mocks.dart
 
-# Disable JS analysis (important)
+# Disable JavaScript/TypeScript/CSS/HTML scanners (fix baseline-browser-mapping)
 sonar.javascript.enabled=false
+sonar.typescript.enabled=false
+sonar.css.enabled=false
+
+# Disable C/C++/ObjC scanners (fix CFamily compile-commands error)
+sonar.c.file.suffixes=-
+sonar.cpp.file.suffixes=-
+sonar.objc.file.suffixes=-
