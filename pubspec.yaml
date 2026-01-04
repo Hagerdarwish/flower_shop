@@ -28,7 +28,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   provider: ^6.1.1  # ADD THIS if you use Provider
   retrofit: ^4.9.1
-  shared_preferences: ^2.5.4
+  shared_preferences: ^2.5.3
   shimmer: ^3.0.0
 
 dev_dependencies:
