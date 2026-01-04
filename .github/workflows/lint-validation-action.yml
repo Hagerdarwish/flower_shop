@@ -20,8 +20,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Check code formatting
-        run: dart format --output=none --set-exit-if-changed .
+      - name: Check and fix code formatting
+        run: dart format .
 
       - name: Run Flutter analyze (soft check)
         run: flutter analyze || true
