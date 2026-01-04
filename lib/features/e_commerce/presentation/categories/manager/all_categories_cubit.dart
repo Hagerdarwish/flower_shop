@@ -36,17 +36,11 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
           CategoryItemModel(id: '0', name: 'All'),
           ...?response.data.categories?.whereType<CategoryItemModel>(),
         ];
-        emit(
-          state.copyWith(
-            allCategories: Resource.success(response.data),
-          ),
-        );
+        emit(state.copyWith(allCategories: Resource.success(response.data)));
         _getProducts(category: null);
 
       case ErrorApiResult<AllCategoriesModel>():
-        emit(
-          state.copyWith(allCategories: Resource.error(response.error)),
-        );
+        emit(state.copyWith(allCategories: Resource.error(response.error)));
     }
   }
 

@@ -5,5 +5,4 @@ class Assets {
   static const String imagesCheck = 'assets/images/Check.svg';
   static const String translationsAr = 'assets/translations/ar.json';
   static const String translationsEn = 'assets/translations/en.json';
-
 }

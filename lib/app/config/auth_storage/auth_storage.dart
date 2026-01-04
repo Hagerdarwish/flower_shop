@@ -61,14 +61,14 @@ class AuthStorage {
   }
 
   Future<void> setRememberMe(bool value) async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setBool(_rememberMeKey, value);
-}
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_rememberMeKey, value);
+  }
 
-Future<bool> getRememberMe() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getBool(_rememberMeKey) ?? false;
-}
+  Future<bool> getRememberMe() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_rememberMeKey) ?? false;
+  }
 
   Future<void> clearAll() async {
     await clearToken();

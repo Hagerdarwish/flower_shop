@@ -19,7 +19,7 @@ Future<ApiResult<T>> safeApiCall<T>({
         error: "Failed with status code: ${response.response.statusCode}",
       );
     }
-  } on DioException catch (dioError) {    
+  } on DioException catch (dioError) {
     final responseData = dioError.response?.data;
     String errorDetail;
     if (responseData is Map && responseData['error'] != null) {

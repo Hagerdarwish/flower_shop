@@ -150,9 +150,8 @@ class AppStyles {
     fontWeight: FontWeight.w500,
   );
   static final green14regular = TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w600,
-      color: AppColors.green);
-
-
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.green,
+  );
 }

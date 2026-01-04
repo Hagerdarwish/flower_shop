@@ -24,19 +24,21 @@ class LoginResponse {
     return _$LoginResponseToJson(this);
   }
 
-LoginModel toEntity() {
-  return LoginModel(
-    message: message ?? '',
-    token: token ?? '',
-    user: user?.toEntity() ?? UserModel(
-      id: '',
-      firstName: '',
-      lastName: null,
-      email: '',
-      photo: null,
-      role: '',
-      wishlist: [],
-    ),
-  );
-}
+  LoginModel toEntity() {
+    return LoginModel(
+      message: message ?? '',
+      token: token ?? '',
+      user:
+          user?.toEntity() ??
+          UserModel(
+            id: '',
+            firstName: '',
+            lastName: null,
+            email: '',
+            photo: null,
+            role: '',
+            wishlist: [],
+          ),
+    );
+  }
 }

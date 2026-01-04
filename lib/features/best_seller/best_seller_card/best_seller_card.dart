@@ -72,10 +72,7 @@ class BestSellerCard extends StatelessWidget {
 
                   Row(
                     children: [
-                      Text(
-                        'EGP $price',
-                        style: AppStyles.black14bold,
-                      ),
+                      Text('EGP $price', style: AppStyles.black14bold),
                       const SizedBox(width: 8),
                       if (oldPrice != null)
                         Text(

@@ -62,7 +62,7 @@ class _CountdownTimerWidgetState extends State<CountdownTimerWidget> {
 
     return Text(
       isActive ? _formatTime() : '00:00',
-      style: ( Theme.of(context).textTheme.bodyMedium)?.copyWith(
+      style: (Theme.of(context).textTheme.bodyMedium)?.copyWith(
         color: isActive ? widget.activeColor : widget.inactiveColor,
       ),
     );

@@ -30,10 +30,9 @@ class BestSellerCubit extends Cubit<BestSellerState> {
       case SuccessApiResult<List<BestSellerModel>>():
         final products = result.data;
         if (products.isEmpty) {
-          emit(state.copyWith(
-              products: Resource.success(products,)));
+          emit(state.copyWith(products: Resource.success(products)));
         } else {
-          emit(state.copyWith(products: Resource.success(products,)));
+          emit(state.copyWith(products: Resource.success(products)));
         }
 
       case ErrorApiResult<List<BestSellerModel>>():

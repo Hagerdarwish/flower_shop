@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flower_shop/features/home/data/models/product_model.dart';
-import 'package:flower_shop/features/home/domain/models/product_model.dart' as entity;
+import 'package:flower_shop/features/home/domain/models/product_model.dart'
+    as entity;
 
 void main() {
   group('Product.toEntity', () {
@@ -30,7 +31,7 @@ void main() {
       final entityModel = product.toEntity();
 
       expect(entityModel, isA<entity.ProductModel>());
-      expect(entityModel.id, "456"); 
+      expect(entityModel.id, "456");
       expect(entityModel.title, "Red Rose");
       expect(entityModel.slug, "red-rose");
       expect(entityModel.description, "Beautiful red rose");

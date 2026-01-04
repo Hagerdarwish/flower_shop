@@ -57,5 +57,4 @@ abstract class ApiClient {
   Future<HttpResponse<ProductDetailsResponse>> getProductDetails(
     @Path('id') String productId,
   );
-
 }

@@ -1,4 +1,3 @@
-
 import 'package:flower_shop/features/e_commerce/presentation/product%20details/widgets/product_details_body.dart';
 import 'package:flutter/material.dart';
 
@@ -8,11 +7,6 @@ class ProductDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(child: ProductDetailsBody()),
-
-    );
+    return Scaffold(body: SafeArea(child: ProductDetailsBody()));
   }
-
 }
-

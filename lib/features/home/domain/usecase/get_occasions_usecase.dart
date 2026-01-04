@@ -9,7 +9,7 @@ class GetOccasionsUseCase {
   final HomeRepo _repo;
   GetOccasionsUseCase(this._repo);
 
-  Future<ApiResult<List<OccasionModel>>> call() async{
+  Future<ApiResult<List<OccasionModel>>> call() async {
     final result = await _repo.getHomeData();
     return result.pick((home) => home.occasions ?? []);
   }

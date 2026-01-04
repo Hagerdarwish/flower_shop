@@ -79,9 +79,7 @@ class _LoginFormState extends State<LoginForm> {
               hintText: LocaleKeys.enterYourPassword.tr(),
               suffixIcon: IconButton(
                 icon: Icon(
-                  _obscurePassword
-                      ? Icons.visibility_off
-                      : Icons.visibility,
+                  _obscurePassword ? Icons.visibility_off : Icons.visibility,
                 ),
                 onPressed: () {
                   setState(() => _obscurePassword = !_obscurePassword);
@@ -126,8 +124,7 @@ class _LoginFormState extends State<LoginForm> {
                       cubit.doIntent(
                         PerformLogin(
                           email: widget.emailController.text.trim(),
-                          password:
-                              widget.passwordController.text.trim(),
+                          password: widget.passwordController.text.trim(),
                           rememberMe: _rememberMe,
                         ),
                       );
@@ -144,4 +141,3 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 }
-

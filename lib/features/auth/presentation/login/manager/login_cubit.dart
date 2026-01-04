@@ -27,9 +27,7 @@ class LoginCubit extends Cubit<LoginStates> {
         break;
 
       case ToggleRememberMe:
-        emit(state.copyWith(
-          rememberMe: (intent as ToggleRememberMe).value,
-        ));
+        emit(state.copyWith(rememberMe: (intent as ToggleRememberMe).value));
         break;
     }
   }
@@ -39,34 +37,27 @@ class LoginCubit extends Cubit<LoginStates> {
     required String password,
     required bool rememberMe,
   }) async {
-    emit(state.copyWith(
-      loginResource: Resource.loading(),
-    ));
-      final result = await _loginUseCase.call(email, password);
+    emit(state.copyWith(loginResource: Resource.loading()));
+    final result = await _loginUseCase.call(email, password);
 
-      switch (result) {
-        case SuccessApiResult<LoginModel>():
-          if (rememberMe) {
-            await _saveUserData(result.data);
-          }
-          await _authStorage.saveToken(result.data.token);
-          await _authStorage.setRememberMe(rememberMe);
-          emit(state.copyWith(
-            loginResource: Resource.success(result.data),
-          ));
-          break;
+    switch (result) {
+      case SuccessApiResult<LoginModel>():
+        if (rememberMe) {
+          await _saveUserData(result.data);
+        }
+        await _authStorage.saveToken(result.data.token);
+        await _authStorage.setRememberMe(rememberMe);
+        emit(state.copyWith(loginResource: Resource.success(result.data)));
+        break;
 
-        case ErrorApiResult<LoginModel>():
-          //print('Login Error: ${result.error}');
-          emit(state.copyWith(
-            loginResource: Resource.error(result.error),
-          ));
-          break;
-      }
+      case ErrorApiResult<LoginModel>():
+        //print('Login Error: ${result.error}');
+        emit(state.copyWith(loginResource: Resource.error(result.error)));
+        break;
+    }
   }
 
   Future<void> _saveUserData(LoginModel model) async {
     await _authStorage.saveUser(model.user);
   }
 }
-

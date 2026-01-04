@@ -9,9 +9,8 @@ class GetProductsUseCase {
   final HomeRepo _repo;
   GetProductsUseCase(this._repo);
 
-  Future<ApiResult<List<ProductModel>>> call() async{
+  Future<ApiResult<List<ProductModel>>> call() async {
     final result = await _repo.getHomeData();
     return result.pick((home) => home.products ?? []);
   }
-  }
-
+}

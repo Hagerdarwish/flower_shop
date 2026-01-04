@@ -99,10 +99,10 @@ class ProductItemCard extends StatelessWidget {
                       // if (product.discountPercent != null &&
                       //     product.discountPercent! > 0)
                       if (discountPercentage > 0)
-                      Text(
-                        '${discountPercentage.round()} %',
-                        style: AppStyles.green14regular,
-                      ),
+                        Text(
+                          '${discountPercentage.round()} %',
+                          style: AppStyles.green14regular,
+                        ),
                     ],
                   ),
                 ],

@@ -100,16 +100,14 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-  GoRoute(
-  path: RouteNames.BestSeller,
-  builder: (context, state) {
-    return BlocProvider(
-      create: (_) => getIt<BestSellerCubit>(),
-      child: BestSellerScreen(),
-    );
-  },
-),
-
-
+    GoRoute(
+      path: RouteNames.BestSeller,
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => getIt<BestSellerCubit>(),
+          child: BestSellerScreen(),
+        );
+      },
+    ),
   ],
 );

@@ -29,17 +29,14 @@ class ResetPasswordPage extends StatelessWidget {
           listenWhen: (p, c) => p.resource.status != c.resource.status,
           listener: (context, state) {
             if (state.resource.status == Status.success) {
-              showAppSnackbar(
-                context,
-                LocaleKeys.passwordUpdated.tr(),
-              );
+              showAppSnackbar(context, LocaleKeys.passwordUpdated.tr());
               context.push(RouteNames.login);
             }
             if (state.resource.status == Status.error) {
               showAppDialog(
                 context,
-                message: state.resource.error ??
-                    LocaleKeys.an_error_occurred.tr(),
+                message:
+                    state.resource.error ?? LocaleKeys.an_error_occurred.tr(),
                 isError: true,
               );
             }

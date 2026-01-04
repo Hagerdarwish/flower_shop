@@ -23,13 +23,13 @@ class OccasionModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        slug,
-        image,
-        createdAt,
-        updatedAt,
-        isSuperAdmin,
-        productsCount,
-      ];
+    id,
+    name,
+    slug,
+    image,
+    createdAt,
+    updatedAt,
+    isSuperAdmin,
+    productsCount,
+  ];
 }

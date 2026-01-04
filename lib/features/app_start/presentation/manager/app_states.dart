@@ -7,11 +7,7 @@ class AppState {
 
   factory AppState.initial() => AppState(authResource: Resource.initial());
 
-  AppState copyWith({
-    Resource<bool>? authResource,
-  }) {
-    return AppState(
-      authResource: authResource ?? this.authResource,
-    );
+  AppState copyWith({Resource<bool>? authResource}) {
+    return AppState(authResource: authResource ?? this.authResource);
   }
 }

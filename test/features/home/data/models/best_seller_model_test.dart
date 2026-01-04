@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flower_shop/features/home/data/models/best_seller_model.dart';
-import 'package:flower_shop/features/home/domain/models/best_seller_model.dart' as entity;
+import 'package:flower_shop/features/home/domain/models/best_seller_model.dart'
+    as entity;
 
 void main() {
   group('BestSeller.toEntity', () {
@@ -50,7 +51,6 @@ void main() {
     });
 
     test('should handle null fields correctly', () {
-
       final bestSeller = BestSeller();
       final entityModel = bestSeller.toEntity();
 
