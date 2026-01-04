@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -78,6 +78,12 @@ import '../../../features/home/presentation/manager/factory/home_factory_imp.dar
     as _i73;
 import '../../../features/home/presentation/manager/home_cubit.dart' as _i682;
 import '../../../features/nav_bar/presentation/manager/nav_cubit.dart' as _i405;
+import '../../../features/orders/api/datasource/orders_remote_datasource_impl.dart'
+    as _i862;
+import '../../../features/orders/data/datasource/orders_remote_datasource.dart'
+    as _i646;
+import '../../../features/orders/data/repos/orders_repo_impl.dart' as _i895;
+import '../../../features/orders/domain/repos/orders_repo.dart' as _i867;
 import '../../core/api_manger/api_client.dart' as _i890;
 import '../auth_storage/auth_storage.dart' as _i603;
 import '../network/network_module.dart' as _i200;
@@ -99,6 +105,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i708.AuthRemoteDataSource>(
       () => _i777.AuthRemoteDataSourceImpl(gh<_i890.ApiClient>()),
     );
+    gh.factory<_i646.OrdersRemoteDatasource>(
+      () => _i862.OrdersRemoteDatasourceImpl(gh<_i890.ApiClient>()),
+    );
     gh.factory<_i701.HomeRemoteDataSource>(
       () => _i874.HomeRemoteDataSourceImp(gh<_i890.ApiClient>()),
     );
@@ -108,6 +117,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i520.HomeRepo>(
       () => _i401.HomeRepoImp(gh<_i701.HomeRemoteDataSource>()),
+    );
+    gh.factory<_i867.OrdersRepo>(
+      () => _i895.OrdersRepoImpl(gh<_i646.OrdersRemoteDatasource>()),
     );
     gh.factory<_i152.EcommerceRemoteDatasource>(
       () => _i396.EcommerceRemoteDatasourceImpl(gh<_i890.ApiClient>()),

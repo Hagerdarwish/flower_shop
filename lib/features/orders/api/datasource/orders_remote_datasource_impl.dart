@@ -1,0 +1,16 @@
+import 'package:flower_shop/app/core/api_manger/api_client.dart';
+import 'package:flower_shop/app/core/network/api_result.dart';
+import 'package:flower_shop/app/core/network/safe_api_call.dart';
+import 'package:flower_shop/features/orders/data/datasource/orders_remote_datasource.dart';
+import 'package:flower_shop/features/orders/data/models/user_carts_dto.dart';
+import 'package:injectable/injectable.dart';
+
+@Injectable(as: OrdersRemoteDatasource)
+class OrdersRemoteDatasourceImpl implements OrdersRemoteDatasource {
+  ApiClient apiClient;
+  OrdersRemoteDatasourceImpl(this.apiClient);
+  @override
+  Future<ApiResult<UserCartsDto>> getUserCarts() {
+    return safeApiCall<UserCartsDto>(call: () => apiClient.getUserCarts());
+  }
+}
