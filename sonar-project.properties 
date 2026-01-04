@@ -1,0 +1,12 @@
+sonar.projectKey=Hagerdarwish_flower_shop
+sonar.organization=hagerdarwish
+
+sonar.sources=lib
+sonar.tests=test
+
+sonar.sourceEncoding=UTF-8
+
+sonar.dart.lcov.reportPaths=coverage/lcov.info
+
+sonar.exclusions=**/*.g.dart,**/*.freezed.dart,**/generated/**,**/build/**,**/.dart_tool/**,**/ios/**,**/android/**
+sonar.test.exclusions=**/*_test.mocks.dart
