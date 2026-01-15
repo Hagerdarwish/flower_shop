@@ -1,9 +1,16 @@
-import 'package:easy_localization/easy_localization.dart';
+/*import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'app/config/di/di.dart';
 import 'app/core/ui_helper/theme/app_theme.dart';
 
+/// The main entry point of the application.
+///
+/// This function initializes the Flutter binding, localizes the application
+/// using EasyLocalization, configures the dependencies using the
+/// [configureDependencies] function, and runs the application using
+/// EasyLocalization with the supported locales, translation path, and
+/// fallback locale.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -32,4 +39,4 @@ class MyApp extends StatelessWidget {
       routerConfig: appRouter,
     );
   }
-}
+}*/

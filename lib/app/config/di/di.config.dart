@@ -59,6 +59,16 @@ import '../../../features/e_commerce/presentation/occasion/manager/occasion_cubi
     as _i25;
 import '../../../features/e_commerce/presentation/product%20details/manger/product_details_cubit/product_details_cubit.dart'
     as _i50;
+import '../../../features/edit_profile/api/datascources/editProfileDataScource_imp.dart'
+    as _i406;
+import '../../../features/edit_profile/data/datascources/editProfileDataScource.dart'
+    as _i558;
+import '../../../features/edit_profile/data/repos/editprofileRepoImpl.dart'
+    as _i544;
+import '../../../features/edit_profile/domain/repos/editProfile_repo.dart'
+    as _i725;
+import '../../../features/edit_profile/domain/usecases/edit_profile_usecase.dart'
+    as _i276;
 import '../../../features/home/api/home_remote_data_source_imp.dart' as _i874;
 import '../../../features/home/data/datasource/home_remote_data_source.dart'
     as _i701;
@@ -96,11 +106,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i890.ApiClient>(
       () => networkModule.authApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i558.EditProfileDataSource>(
+      () => _i406.EditprofiledatascourceImp(gh<_i890.ApiClient>()),
+    );
     gh.factory<_i708.AuthRemoteDataSource>(
       () => _i777.AuthRemoteDataSourceImpl(gh<_i890.ApiClient>()),
     );
     gh.factory<_i701.HomeRemoteDataSource>(
       () => _i874.HomeRemoteDataSourceImp(gh<_i890.ApiClient>()),
+    );
+    gh.factory<_i725.EditprofileRepo>(
+      () => _i544.EditprofileRepoImpl(gh<_i558.EditProfileDataSource>()),
     );
     gh.factory<_i858.AppCubit>(() => _i858.AppCubit(gh<_i603.AuthStorage>()));
     gh.factory<_i712.AuthRepo>(
@@ -108,6 +124,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i520.HomeRepo>(
       () => _i401.HomeRepoImp(gh<_i701.HomeRemoteDataSource>()),
+    );
+    gh.factory<_i276.EditProfileUseCase>(
+      () => _i276.EditProfileUseCase(gh<_i725.EditprofileRepo>()),
     );
     gh.factory<_i152.EcommerceRemoteDatasource>(
       () => _i396.EcommerceRemoteDatasourceImpl(gh<_i890.ApiClient>()),

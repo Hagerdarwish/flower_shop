@@ -30,6 +30,10 @@ import 'package:flower_shop/features/e_commerce/data/models/response/product_det
     as _i17;
 import 'package:flower_shop/features/e_commerce/data/models/response/products_response.dart'
     as _i14;
+import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart'
+    as _i19;
+import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart'
+    as _i18;
 import 'package:flower_shop/features/home/data/models/response/home_response.dart'
     as _i16;
 import 'package:mockito/mockito.dart' as _i1;
@@ -209,4 +213,27 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
                 ),
           )
           as _i4.Future<_i2.HttpResponse<_i17.ProductDetailsResponse>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i18.EditProfileResponse>> editProfile({
+    required String? token,
+    required _i19.EditProfileRequest? request,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#editProfile, [], {
+              #token: token,
+              #request: request,
+            }),
+            returnValue:
+                _i4.Future<_i2.HttpResponse<_i18.EditProfileResponse>>.value(
+                  _FakeHttpResponse_0<_i18.EditProfileResponse>(
+                    this,
+                    Invocation.method(#editProfile, [], {
+                      #token: token,
+                      #request: request,
+                    }),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i18.EditProfileResponse>>);
 }
