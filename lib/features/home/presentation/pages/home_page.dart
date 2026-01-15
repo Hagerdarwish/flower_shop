@@ -12,9 +12,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<HomeCubit>()..doIntent(LoadHomeData()),
-      child: const Scaffold(
-        body: HomePageBody(),
-      ),
+      child: const Scaffold(body: HomePageBody()),
     );
   }
 }

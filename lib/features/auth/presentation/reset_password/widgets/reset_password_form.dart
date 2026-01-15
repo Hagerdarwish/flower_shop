@@ -10,7 +10,6 @@ import '../../../../../app/core/widgets/password_text_form_field.dart';
 import '../manager/reset_password_cubit.dart';
 import '../manager/reset_password_intents.dart';
 
-
 class ResetPasswordForm extends StatelessWidget {
   const ResetPasswordForm({super.key});
 
@@ -32,7 +31,7 @@ class ResetPasswordForm extends StatelessWidget {
 
           BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
             buildWhen: (p, c) =>
-            p.togglePasswordVisibility != c.togglePasswordVisibility,
+                p.togglePasswordVisibility != c.togglePasswordVisibility,
             builder: (context, state) {
               return PasswordTextFormField(
                 controller: cubit.newPasswordController,
@@ -41,7 +40,8 @@ class ResetPasswordForm extends StatelessWidget {
                 onToggleVisibility: () => cubit.doIntent(
                   ResetPasswordIntent.togglePasswordVisibility,
                 ),
-                validator: Validators.validatePassword, hint: LocaleKeys.enterYourPassword,
+                validator: Validators.validatePassword,
+                hint: LocaleKeys.enterYourPassword,
               );
             },
           ),
@@ -50,15 +50,14 @@ class ResetPasswordForm extends StatelessWidget {
 
           BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
             buildWhen: (p, c) =>
-            p.isFormValid != c.isFormValid ||
+                p.isFormValid != c.isFormValid ||
                 p.resource.status != c.resource.status,
             builder: (context, state) {
               return CustomButton(
                 text: LocaleKeys.confirm.tr(),
                 isEnabled: state.isFormValid,
                 isLoading: state.resource.status == Status.loading,
-                onPressed: () =>
-                    cubit.doIntent(ResetPasswordIntent.submit),
+                onPressed: () => cubit.doIntent(ResetPasswordIntent.submit),
               );
             },
           ),
@@ -66,5 +65,4 @@ class ResetPasswordForm extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -11,7 +11,7 @@ void main() {
     test('LoadBestSellersEvent can be instantiated', () {
       final event1 = LoadBestSellersEvent();
       final event2 = LoadBestSellersEvent();
-      
+
       // Both should be valid instances
       expect(event1.runtimeType, LoadBestSellersEvent);
       expect(event2.runtimeType, LoadBestSellersEvent);

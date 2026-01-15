@@ -10,9 +10,9 @@ import 'package:flower_shop/features/home/domain/usecase/get_best_seller_usecase
 // Simple manual mock
 class TestGetBestSellerUseCase implements GetBestSellerUseCase {
   final ApiResult<List<BestSellerModel>> result;
-  
+
   TestGetBestSellerUseCase(this.result);
-  
+
   @override
   Future<ApiResult<List<BestSellerModel>>> call() async => result;
 }
@@ -29,7 +29,7 @@ void main() {
         SuccessApiResult<List<BestSellerModel>>(data: []),
       );
       final cubit = BestSellerCubit(useCase);
-      
+
       expect(cubit.state.products.status, Status.initial);
       expect(cubit.state.products.data, isNull);
       expect(cubit.state.selectedIndex, 0);
@@ -40,14 +40,14 @@ void main() {
         SuccessApiResult<List<BestSellerModel>>(data: productsList),
       );
       final cubit = BestSellerCubit(useCase);
-      
+
       final states = <BestSellerState>[];
       final subscription = cubit.stream.listen(states.add);
-      
+
       cubit.doIntent(LoadBestSellersEvent());
       await Future.delayed(Duration.zero);
       await subscription.cancel();
-      
+
       expect(states.length, 2);
       expect(states[0].products.status, Status.loading);
       expect(states[1].products.status, Status.success);
@@ -59,14 +59,14 @@ void main() {
         ErrorApiResult<List<BestSellerModel>>(error: 'Network error'),
       );
       final cubit = BestSellerCubit(useCase);
-      
+
       final states = <BestSellerState>[];
       final subscription = cubit.stream.listen(states.add);
-      
+
       cubit.doIntent(LoadBestSellersEvent());
       await Future.delayed(Duration.zero);
       await subscription.cancel();
-      
+
       expect(states.length, 2);
       expect(states[0].products.status, Status.loading);
       expect(states[1].products.status, Status.error);
@@ -78,14 +78,14 @@ void main() {
         SuccessApiResult<List<BestSellerModel>>(data: []),
       );
       final cubit = BestSellerCubit(useCase);
-      
+
       final states = <BestSellerState>[];
       final subscription = cubit.stream.listen(states.add);
-      
+
       cubit.doIntent(LoadBestSellersEvent());
       await Future.delayed(Duration.zero);
       await subscription.cancel();
-      
+
       expect(states.length, 2);
       expect(states[1].products.status, Status.success);
       expect(states[1].products.data, isEmpty);

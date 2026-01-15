@@ -36,7 +36,7 @@ class HomeResponse {
     return _$HomeResponseToJson(this);
   }
 
-    HomeModel toEntity() {
+  HomeModel toEntity() {
     return HomeModel(
       message: message ?? '',
       products: products?.map((e) => e.toEntity()).toList() ?? [],

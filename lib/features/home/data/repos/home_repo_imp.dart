@@ -6,12 +6,12 @@ import 'package:flower_shop/features/home/domain/repos/home_repo.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: HomeRepo)
-class HomeRepoImp extends HomeRepo{
+class HomeRepoImp extends HomeRepo {
   final HomeRemoteDataSource homeRemoteDataSource;
   HomeRepoImp(this.homeRemoteDataSource);
   @override
   Future<ApiResult<HomeModel>> getHomeData() async {
-    final result =await homeRemoteDataSource.getHomeData();
+    final result = await homeRemoteDataSource.getHomeData();
     if (result is SuccessApiResult<HomeResponse>) {
       return SuccessApiResult<HomeModel>(data: result.data.toEntity());
     }
@@ -22,8 +22,3 @@ class HomeRepoImp extends HomeRepo{
     }
   }
 }
-
-
-
-
-

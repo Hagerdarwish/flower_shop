@@ -24,11 +24,14 @@ abstract class AuthRemoteDataSource {
   });
 
   Future<ApiResult<ForgotPasswordResponse>?> forgotPassword(
-      ForgotPasswordRequest request);
+    ForgotPasswordRequest request,
+  );
 
   Future<ApiResult<VerifyResetCodeResponse>?> verifyResetCode(
-      VerifyResetCodeRequest request);
+    VerifyResetCodeRequest request,
+  );
 
   Future<ApiResult<ResetPasswordResponse>> resetPassword(
-      ResetPasswordRequest request);
+    ResetPasswordRequest request,
+  );
 }

@@ -10,13 +10,14 @@ import '../../../domain/models/reset_password_entity.dart';
 import '../../../domain/usecase/reset_password_usecase.dart';
 
 part 'reset_password_state.dart';
+
 @injectable
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   final ResetPasswordUseCase _resetPasswordUseCase;
   final String email;
 
-  ResetPasswordCubit( @factoryParam this.email, this._resetPasswordUseCase)
-      : super(ResetPasswordState.initial(email: email));
+  ResetPasswordCubit(@factoryParam this.email, this._resetPasswordUseCase)
+    : super(ResetPasswordState.initial(email: email));
 
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -37,16 +38,17 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   }
 
   void _validateForm() {
-    final isValid = newPasswordController.text.trim().isNotEmpty &&
+    final isValid =
+        newPasswordController.text.trim().isNotEmpty &&
         Validators.validatePassword(newPasswordController.text.trim()) == null;
 
     emit(state.copyWith(isFormValid: isValid));
   }
 
   void _togglePasswordVisibility() {
-    emit(state.copyWith(
-      togglePasswordVisibility: !state.togglePasswordVisibility,
-    ));
+    emit(
+      state.copyWith(togglePasswordVisibility: !state.togglePasswordVisibility),
+    );
   }
 
   Future<void> _submitResetPassword() async {
@@ -62,17 +64,11 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     final result = await _resetPasswordUseCase(dto);
 
     if (result is SuccessApiResult<ResetPasswordEntity>) {
-      emit(state.copyWith(
-        resource: Resource.success(result.data),
-      ));
+      emit(state.copyWith(resource: Resource.success(result.data)));
     } else if (result is ErrorApiResult<ResetPasswordEntity>) {
-      emit(state.copyWith(
-        resource: Resource.error(result.error),
-      ));
+      emit(state.copyWith(resource: Resource.error(result.error)));
     } else {
-      emit(state.copyWith(
-        resource: Resource.error('Unexpected error'),
-      ));
+      emit(state.copyWith(resource: Resource.error('Unexpected error')));
     }
   }
 

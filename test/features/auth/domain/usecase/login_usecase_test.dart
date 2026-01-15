@@ -39,8 +39,9 @@ void main() {
     test("returns SuccessApiResult when repos returns success", () async {
       // ARRANGE
       provideDummy<ApiResult<LoginModel>>(SuccessApiResult(data: loginModel));
-      when(mockRepo.login(email, password))
-          .thenAnswer((_) async => SuccessApiResult<LoginModel>(data: loginModel));
+      when(
+        mockRepo.login(email, password),
+      ).thenAnswer((_) async => SuccessApiResult<LoginModel>(data: loginModel));
 
       // ACT
       final result = await useCase.call(email, password);
@@ -55,17 +56,23 @@ void main() {
 
     test("returns ErrorApiResult when repos returns error", () async {
       // ARRANGE
-      provideDummy<ApiResult<LoginModel>>(ErrorApiResult(error: "login failed"));
+      provideDummy<ApiResult<LoginModel>>(
+        ErrorApiResult(error: "login failed"),
+      );
       final error = Exception("login failed");
-      when(mockRepo.login(email, password))
-          .thenAnswer((_) async => ErrorApiResult<LoginModel>(error: error.toString()));
+      when(mockRepo.login(email, password)).thenAnswer(
+        (_) async => ErrorApiResult<LoginModel>(error: error.toString()),
+      );
 
       // ACT
       final result = await useCase.call(email, password);
 
       // ASSERT
       expect(result, isA<ErrorApiResult<LoginModel>>());
-      expect((result as ErrorApiResult).error.toString(), contains("login failed"));
+      expect(
+        (result as ErrorApiResult).error.toString(),
+        contains("login failed"),
+      );
       verify(mockRepo.login(email, password)).called(1);
     });
   });

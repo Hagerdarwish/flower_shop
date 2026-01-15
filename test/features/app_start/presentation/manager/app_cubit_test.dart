@@ -34,11 +34,7 @@ void main() {
           "status",
           Status.loading,
         ),
-        isA<AppState>().having(
-          (s) => s.authResource.data,
-          "data",
-          true,
-        ),
+        isA<AppState>().having((s) => s.authResource.data, "data", true),
       ],
       verify: (_) {
         verify(mockAuthStorage.getRememberMe()).called(1);
@@ -58,11 +54,7 @@ void main() {
           "status",
           Status.loading,
         ),
-        isA<AppState>().having(
-          (s) => s.authResource.data,
-          "data",
-          false,
-        ),
+        isA<AppState>().having((s) => s.authResource.data, "data", false),
       ],
       verify: (_) {
         verify(mockAuthStorage.getRememberMe()).called(1);
@@ -72,8 +64,9 @@ void main() {
     blocTest<AppCubit, AppState>(
       'emits [loading, error] when getRememberMe throws exception',
       build: () {
-        when(mockAuthStorage.getRememberMe())
-            .thenThrow(Exception("Auth failed"));
+        when(
+          mockAuthStorage.getRememberMe(),
+        ).thenThrow(Exception("Auth failed"));
         return cubit;
       },
       act: (cubit) => cubit.doIntent(CheckAuth()),

@@ -11,9 +11,9 @@ import 'package:flower_shop/features/home/domain/usecase/get_best_seller_usecase
 // Simple test use case
 class TestGetBestSellerUseCase implements GetBestSellerUseCase {
   final ApiResult<List<BestSellerModel>> result;
-  
+
   TestGetBestSellerUseCase(this.result);
-  
+
   @override
   Future<ApiResult<List<BestSellerModel>>> call() async => result;
 }
@@ -34,7 +34,7 @@ void main() {
       final useCase = TestGetBestSellerUseCase(
         SuccessApiResult<List<BestSellerModel>>(data: productsList),
       );
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: BlocProvider(
@@ -51,7 +51,7 @@ void main() {
       final useCase = TestGetBestSellerUseCase(
         SuccessApiResult<List<BestSellerModel>>(data: productsList),
       );
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: BlocProvider(
@@ -64,11 +64,13 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('should show products when loaded', (WidgetTester tester) async {
+    testWidgets('should show products when loaded', (
+      WidgetTester tester,
+    ) async {
       final useCase = TestGetBestSellerUseCase(
         SuccessApiResult<List<BestSellerModel>>(data: productsList),
       );
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: BlocProvider(
@@ -79,16 +81,18 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      
+
       expect(find.byType(GridView), findsOneWidget);
       expect(find.byType(BestSellerCard), findsNWidgets(productsList.length));
     });
 
-    testWidgets('should show empty state for empty list', (WidgetTester tester) async {
+    testWidgets('should show empty state for empty list', (
+      WidgetTester tester,
+    ) async {
       final useCase = TestGetBestSellerUseCase(
         SuccessApiResult<List<BestSellerModel>>(data: []),
       );
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: BlocProvider(
@@ -99,7 +103,7 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      
+
       // Instead of looking for exact text, check that GridView is NOT shown
       expect(find.byType(GridView), findsNothing);
       expect(find.byType(CircularProgressIndicator), findsNothing);
@@ -107,11 +111,13 @@ void main() {
       expect(find.byType(Text), findsWidgets);
     });
 
-    testWidgets('should show error state when loading fails', (WidgetTester tester) async {
+    testWidgets('should show error state when loading fails', (
+      WidgetTester tester,
+    ) async {
       final useCase = TestGetBestSellerUseCase(
         ErrorApiResult<List<BestSellerModel>>(error: 'Test error'),
       );
-      
+
       await tester.pumpWidget(
         MaterialApp(
           home: BlocProvider(
@@ -122,7 +128,7 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      
+
       // Should show error text
       expect(find.byType(Text), findsWidgets);
       expect(find.byType(GridView), findsNothing);

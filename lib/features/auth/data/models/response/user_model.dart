@@ -2,6 +2,7 @@ import 'package:flower_shop/features/auth/domain/models/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
+
 @JsonSerializable()
 class User {
   @JsonKey(name: "_id")
@@ -49,7 +50,7 @@ class User {
     return _$UserToJson(this);
   }
 
-    UserModel toEntity() {
+  UserModel toEntity() {
     return UserModel(
       id: Id ?? '',
       firstName: firstName ?? '',

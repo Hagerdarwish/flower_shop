@@ -24,12 +24,12 @@ class DontHaveAnAccount extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
               decoration: TextDecoration.underline,
               decorationThickness: 2,
-              decorationColor: Colors.pink
+              decorationColor: Colors.pink,
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-              context.push(RouteNames.signup);
-              }
+                context.push(RouteNames.signup);
+              },
           ),
         ],
       ),

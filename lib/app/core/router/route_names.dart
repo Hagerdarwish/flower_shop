@@ -1,4 +1,3 @@
-
 abstract class RouteNames {
   static const signup = '/signup';
   static const login = '/login';
@@ -9,7 +8,6 @@ abstract class RouteNames {
   static const appStart = "/appStart";
   static const categories = "/categories";
   static const occasionPage = "/occasionPage";
-  static const productDetails="/productDetails";
-   static const BestSeller="/bestseller";
- 
+  static const productDetails = "/productDetails";
+  static const BestSeller = "/bestseller";
 }

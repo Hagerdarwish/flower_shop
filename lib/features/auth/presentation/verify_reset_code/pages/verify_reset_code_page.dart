@@ -34,10 +34,7 @@ class VerifyResetCodePage extends StatelessWidget {
             if (state.resource.status == Status.success &&
                 state.code.isNotEmpty) {
               showAppSnackbar(context, LocaleKeys.yourEmailVerified.tr());
-              context.push(
-                RouteNames.resetPassword,
-                extra: email,
-              );
+              context.push(RouteNames.resetPassword, extra: email);
             }
             if (state.resource.status == Status.error) {
               showAppDialog(

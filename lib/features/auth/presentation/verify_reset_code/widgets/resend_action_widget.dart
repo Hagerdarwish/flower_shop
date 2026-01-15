@@ -6,10 +6,10 @@ import '../manager/verify_reset_code_cubit.dart';
 import '../manager/verify_reset_code_intent.dart';
 
 Widget buildResendSectionWithCountdown(
-    BuildContext context,
-    VerifyResetCodeCubit cubit,
-    VerifyResetCodeState state,
-    ) {
+  BuildContext context,
+  VerifyResetCodeCubit cubit,
+  VerifyResetCodeState state,
+) {
   final canResend = state.canResend;
   final cooldownSeconds = state.resendCountdown;
 
@@ -54,11 +54,7 @@ Widget buildResendSectionWithCountdown(
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.timer_outlined,
-                color: Colors.pink,
-                size: 20,
-              ),
+              Icon(Icons.timer_outlined, color: Colors.pink, size: 20),
               const SizedBox(width: 8),
               Text(
                 _formatTime(cooldownSeconds),
@@ -71,10 +67,7 @@ Widget buildResendSectionWithCountdown(
               const SizedBox(width: 4),
               Text(
                 'until you can resend',
-                style: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: 14,
-                ),
+                style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
               ),
             ],
           ),

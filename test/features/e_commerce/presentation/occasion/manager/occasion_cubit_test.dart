@@ -37,7 +37,12 @@ void main() {
       });
       test(" emits success when usecase returns success", () async {
         List<ProductModel> products = [
-          ProductModel(id: "id", title: "name", imgCover: "imageUrl", price: 20),
+          ProductModel(
+            id: "id",
+            title: "name",
+            imgCover: "imageUrl",
+            price: 20,
+          ),
         ];
         ApiResult<List<ProductModel>> result = SuccessApiResult(data: products);
         provideDummy(result);
@@ -87,64 +92,80 @@ void main() {
     group("_onTabChanged", () {
       const tTab = 'new_tab';
       final tProducts = [
-        ProductModel(id: '1', title: 'Test Product', imgCover: 'image.png', price: 10),
+        ProductModel(
+          id: '1',
+          title: 'Test Product',
+          imgCover: 'image.png',
+          price: 10,
+        ),
       ];
 
-      test('does not call usecase if tab is the same as the current one', () async {
-        // arrange
-        cubit.emit(cubit.state.copyWith(selectedItem: tTab));
-        reset(usecase); // reset interactions after setting initial state.
+      test(
+        'does not call usecase if tab is the same as the current one',
+        () async {
+          // arrange
+          cubit.emit(cubit.state.copyWith(selectedItem: tTab));
+          reset(usecase); // reset interactions after setting initial state.
 
-        // act
-        cubit.doIntent(TabChangedEvent(tTab));
-        await Future.delayed(Duration.zero);
+          // act
+          cubit.doIntent(TabChangedEvent(tTab));
+          await Future.delayed(Duration.zero);
 
-        // assert
-        verifyNever(usecase.call(occasion: anyNamed('occasion')));
-      });
+          // assert
+          verifyNever(usecase.call(occasion: anyNamed('occasion')));
+        },
+      );
 
-      test('emits loading and then success state on tab change with successful data fetch', () async {
-        // arrange
-        final result = SuccessApiResult(data: tProducts);
-        provideDummy(result);
-        when(usecase.call(occasion: tTab)).thenAnswer((_) async => result);
+      test(
+        'emits loading and then success state on tab change with successful data fetch',
+        () async {
+          // arrange
+          final result = SuccessApiResult(data: tProducts);
+          provideDummy(result);
+          when(usecase.call(occasion: tTab)).thenAnswer((_) async => result);
 
-        // act
-        cubit.doIntent(TabChangedEvent(tTab));
-        
-        // assert for loading state
-        expect(cubit.state.selectedItem, tTab);
-        expect(cubit.state.products.status, Status.loading);
+          // act
+          cubit.doIntent(TabChangedEvent(tTab));
 
-        await Future.delayed(Duration.zero);
+          // assert for loading state
+          expect(cubit.state.selectedItem, tTab);
+          expect(cubit.state.products.status, Status.loading);
 
-        // assert for success state
-        verify(usecase.call(occasion: tTab)).called(1);
-        expect(cubit.state.products.status, Status.success);
-        expect(cubit.state.products.data, tProducts);
-      });
+          await Future.delayed(Duration.zero);
 
-      test('emits loading and then error state on tab change with failed data fetch', () async {
-        // arrange
-        const errorMessage = 'Failed to fetch';
-        ApiResult<List<ProductModel>> result = ErrorApiResult(error: errorMessage);
-        provideDummy(result);
-        when(usecase.call(occasion: tTab)).thenAnswer((_) async => result);
+          // assert for success state
+          verify(usecase.call(occasion: tTab)).called(1);
+          expect(cubit.state.products.status, Status.success);
+          expect(cubit.state.products.data, tProducts);
+        },
+      );
 
-        // act
-        cubit.doIntent(TabChangedEvent(tTab));
+      test(
+        'emits loading and then error state on tab change with failed data fetch',
+        () async {
+          // arrange
+          const errorMessage = 'Failed to fetch';
+          ApiResult<List<ProductModel>> result = ErrorApiResult(
+            error: errorMessage,
+          );
+          provideDummy(result);
+          when(usecase.call(occasion: tTab)).thenAnswer((_) async => result);
 
-        // assert for loading state
-        expect(cubit.state.selectedItem, tTab);
-        expect(cubit.state.products.status, Status.loading);
-        
-        await Future.delayed(Duration.zero);
+          // act
+          cubit.doIntent(TabChangedEvent(tTab));
 
-        // assert for error state
-        verify(usecase.call(occasion: tTab)).called(1);
-        expect(cubit.state.products.status, Status.error);
-        expect(cubit.state.products.error, errorMessage);
-      });
+          // assert for loading state
+          expect(cubit.state.selectedItem, tTab);
+          expect(cubit.state.products.status, Status.loading);
+
+          await Future.delayed(Duration.zero);
+
+          // assert for error state
+          verify(usecase.call(occasion: tTab)).called(1);
+          expect(cubit.state.products.status, Status.error);
+          expect(cubit.state.products.error, errorMessage);
+        },
+      );
     });
   });
 }

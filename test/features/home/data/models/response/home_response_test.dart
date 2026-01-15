@@ -13,17 +13,11 @@ void main() {
       final homeResponse = HomeResponse(
         message: "Welcome",
         products: [
-          Product(id: "1", title: "Rose", price: 10, imgCover: "img.png")
+          Product(id: "1", title: "Rose", price: 10, imgCover: "img.png"),
         ],
-        categories: [
-          Category(Id: "1", name: "Flowers")
-        ],
-        bestSeller: [
-          BestSeller(id: "1", title: "Rose Bouquet")
-        ],
-        occasions: [
-          Occasion(Id: "1", name: "Birthday")
-        ],
+        categories: [Category(Id: "1", name: "Flowers")],
+        bestSeller: [BestSeller(id: "1", title: "Rose Bouquet")],
+        occasions: [Occasion(Id: "1", name: "Birthday")],
       );
 
       // ACT

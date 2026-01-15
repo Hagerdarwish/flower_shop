@@ -5,7 +5,6 @@ import '../models/reset_password_entity.dart';
 import '../repos/auth_repo.dart';
 
 @lazySingleton
-
 class ResetPasswordUseCase {
   final AuthRepo repo;
 

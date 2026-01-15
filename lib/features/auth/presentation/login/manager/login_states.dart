@@ -5,10 +5,8 @@ class LoginStates {
   final Resource<LoginModel> loginResource;
   final bool rememberMe;
 
-  LoginStates({
-    Resource<LoginModel>? loginResource,
-    this.rememberMe = false,
-  }) : loginResource = loginResource ?? Resource.initial();
+  LoginStates({Resource<LoginModel>? loginResource, this.rememberMe = false})
+    : loginResource = loginResource ?? Resource.initial();
 
   LoginStates copyWith({
     Resource<LoginModel>? loginResource,

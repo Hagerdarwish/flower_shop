@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
+
 class AppInterceptor extends Interceptor {
   final AuthStorage tokenStorage;
   AppInterceptor(this.tokenStorage);
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final token = await tokenStorage.getToken();
     if (token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';

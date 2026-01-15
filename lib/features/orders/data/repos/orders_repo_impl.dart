@@ -14,15 +14,13 @@ class OrdersRepoImpl implements OrdersRepo {
   Future<ApiResult<UserCartsModel>> getUserCarts() async {
     ApiResult<UserCartsDto> response = await ordersDatasource.getUserCarts();
 
-     switch (response) {
+    switch (response) {
       case SuccessApiResult<UserCartsDto>():
         UserCartsDto dto = response.data;
         UserCartsModel cartsModel = dto.toUserCartsModel();
         return SuccessApiResult<UserCartsModel>(data: cartsModel);
       case ErrorApiResult<UserCartsDto>():
-        return ErrorApiResult<UserCartsModel>(
-          error: response.error,
-        );
+        return ErrorApiResult<UserCartsModel>(error: response.error);
     }
   }
 }

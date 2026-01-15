@@ -4,7 +4,12 @@ class CategoryItem extends StatelessWidget {
   final String image;
   final String label;
   final VoidCallback onTap;
-  const CategoryItem({super.key, required this.image, required this.label, required this.onTap});
+  const CategoryItem({
+    super.key,
+    required this.image,
+    required this.label,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,9 @@ class CategoryItem extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text(label, style: const TextStyle(fontSize: 12),
+            Text(
+              label,
+              style: const TextStyle(fontSize: 12),
               overflow: TextOverflow.ellipsis,
             ),
           ],

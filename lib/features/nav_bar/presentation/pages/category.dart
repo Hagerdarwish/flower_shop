@@ -6,10 +6,6 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text(AppConstants.category),
-      ),
-    );
+    return const Scaffold(body: Center(child: Text(AppConstants.category)));
   }
 }

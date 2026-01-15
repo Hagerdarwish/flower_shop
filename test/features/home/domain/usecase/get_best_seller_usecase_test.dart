@@ -30,7 +30,9 @@ void main() {
           bestSeller: [],
           occasions: [],
         );
-        provideDummy<ApiResult<HomeModel>>(SuccessApiResult(data: fakeHomeModel));
+        provideDummy<ApiResult<HomeModel>>(
+          SuccessApiResult(data: fakeHomeModel),
+        );
         when(mockRepo.getHomeData()).thenAnswer(
           (_) async => SuccessApiResult<HomeModel>(data: fakeHomeModel),
         );

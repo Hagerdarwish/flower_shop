@@ -2,6 +2,7 @@ import 'package:flower_shop/features/home/domain/models/best_seller_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'best_seller_model.g.dart';
+
 @JsonSerializable()
 class BestSeller {
   @JsonKey(name: "_id")
@@ -73,7 +74,7 @@ class BestSeller {
     return _$BestSellerToJson(this);
   }
 
-    BestSellerModel toEntity() {
+  BestSellerModel toEntity() {
     return BestSellerModel(
       id: id ?? Id ?? '',
       title: title ?? '',

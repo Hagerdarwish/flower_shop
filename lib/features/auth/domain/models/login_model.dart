@@ -1,4 +1,3 @@
-
 import 'package:flower_shop/features/auth/domain/models/user_model.dart';
 
 class LoginModel {

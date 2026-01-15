@@ -1,7 +1,5 @@
 part of 'reset_password_cubit.dart';
 
-
-
 class ResetPasswordState {
   final Resource<ResetPasswordEntity> resource;
   final bool isFormValid;
@@ -31,7 +29,8 @@ class ResetPasswordState {
     return ResetPasswordState(
       resource: resource ?? this.resource,
       isFormValid: isFormValid ?? this.isFormValid,
-      togglePasswordVisibility: togglePasswordVisibility ?? this.togglePasswordVisibility,
+      togglePasswordVisibility:
+          togglePasswordVisibility ?? this.togglePasswordVisibility,
       email: email ?? this.email,
     );
   }

@@ -13,14 +13,10 @@ class UserCartsDto {
   @JsonKey(name: 'cart')
   final CartDto? cart;
 
-  UserCartsDto({
-    this.message,
-    this.error,
-    this.numOfCartItems,
-    this.cart,
-  });
+  UserCartsDto({this.message, this.error, this.numOfCartItems, this.cart});
 
-  factory UserCartsDto.fromJson(Map<String, dynamic> json) => _$UserCartsDtoFromJson(json);
+  factory UserCartsDto.fromJson(Map<String, dynamic> json) =>
+      _$UserCartsDtoFromJson(json);
   Map<String, dynamic> toJson() => _$UserCartsDtoToJson(this);
 }
 
@@ -54,7 +50,8 @@ class CartDto {
     this.v,
   });
 
-  factory CartDto.fromJson(Map<String, dynamic> json) => _$CartDtoFromJson(json);
+  factory CartDto.fromJson(Map<String, dynamic> json) =>
+      _$CartDtoFromJson(json);
   Map<String, dynamic> toJson() => _$CartDtoToJson(this);
 }
 
@@ -69,14 +66,10 @@ class CartItemsDto {
   @JsonKey(name: '_id')
   final String? id;
 
-  CartItemsDto({
-    this.product,
-    this.price,
-    this.quantity,
-    this.id,
-  });
+  CartItemsDto({this.product, this.price, this.quantity, this.id});
 
-  factory CartItemsDto.fromJson(Map<String, dynamic> json) => _$CartItemsDtoFromJson(json);
+  factory CartItemsDto.fromJson(Map<String, dynamic> json) =>
+      _$CartItemsDtoFromJson(json);
   Map<String, dynamic> toJson() => _$CartItemsDtoToJson(this);
 }
 
@@ -143,6 +136,7 @@ class Product {
     this.idString,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
   Map<String, dynamic> toJson() => _$ProductToJson(this);
 }

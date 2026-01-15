@@ -21,12 +21,12 @@ class CategoryModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        slug,
-        image,
-        createdAt,
-        updatedAt,
-        isSuperAdmin,
-      ];
+    id,
+    name,
+    slug,
+    image,
+    createdAt,
+    updatedAt,
+    isSuperAdmin,
+  ];
 }

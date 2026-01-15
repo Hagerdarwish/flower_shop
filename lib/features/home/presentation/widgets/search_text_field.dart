@@ -37,9 +37,7 @@ class SearchTextField extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(
-              color: Theme.of(context).primaryColor,
-            ),
+            borderSide: BorderSide(color: Theme.of(context).primaryColor),
           ),
         ),
       ),

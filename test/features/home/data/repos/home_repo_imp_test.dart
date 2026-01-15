@@ -19,40 +19,52 @@ void main() {
   });
 
   group('HomeRepoImp.getHomeData', () {
-    test('returns SuccessApiResult<HomeModel> when remote datasource succeeds', () async {
-      final fakeResponse = HomeResponse(
-        message: "Welcome",
-        products: [],
-        categories: [],
-        bestSeller: [],
-        occasions: [],
-      );
+    test(
+      'returns SuccessApiResult<HomeModel> when remote datasource succeeds',
+      () async {
+        final fakeResponse = HomeResponse(
+          message: "Welcome",
+          products: [],
+          categories: [],
+          bestSeller: [],
+          occasions: [],
+        );
 
-      when(mockRemoteDataSource.getHomeData())
-          .thenAnswer((_) async => SuccessApiResult<HomeResponse>(data: fakeResponse));
+        when(mockRemoteDataSource.getHomeData()).thenAnswer(
+          (_) async => SuccessApiResult<HomeResponse>(data: fakeResponse),
+        );
 
-      final result = await homeRepo.getHomeData();
-      expect(result, isA<SuccessApiResult<HomeModel>>());
-      final data = (result as SuccessApiResult).data;
-      expect(data.message, "Welcome");
-      verify(mockRemoteDataSource.getHomeData()).called(1);
-    });
+        final result = await homeRepo.getHomeData();
+        expect(result, isA<SuccessApiResult<HomeModel>>());
+        final data = (result as SuccessApiResult).data;
+        expect(data.message, "Welcome");
+        verify(mockRemoteDataSource.getHomeData()).called(1);
+      },
+    );
 
-    test('returns ErrorApiResult<HomeModel> when remote datasource fails', () async {
-      when(mockRemoteDataSource.getHomeData()).thenAnswer((_) async => ErrorApiResult<HomeResponse>(error: 'Network error'));
-      final result = await homeRepo.getHomeData();
-      expect(result, isA<ErrorApiResult<HomeModel>>());
-      expect((result as ErrorApiResult).error, 'Network error');
-      verify(mockRemoteDataSource.getHomeData()).called(1);
-    });
+    test(
+      'returns ErrorApiResult<HomeModel> when remote datasource fails',
+      () async {
+        when(mockRemoteDataSource.getHomeData()).thenAnswer(
+          (_) async => ErrorApiResult<HomeResponse>(error: 'Network error'),
+        );
+        final result = await homeRepo.getHomeData();
+        expect(result, isA<ErrorApiResult<HomeModel>>());
+        expect((result as ErrorApiResult).error, 'Network error');
+        verify(mockRemoteDataSource.getHomeData()).called(1);
+      },
+    );
 
-    test('returns ErrorApiResult<HomeModel> with unknown error for unexpected result', () async {
-      when(mockRemoteDataSource.getHomeData()).thenAnswer((_) async => null);
+    test(
+      'returns ErrorApiResult<HomeModel> with unknown error for unexpected result',
+      () async {
+        when(mockRemoteDataSource.getHomeData()).thenAnswer((_) async => null);
 
-      final result = await homeRepo.getHomeData();
-      expect(result, isA<ErrorApiResult<HomeModel>>());
-      expect((result as ErrorApiResult).error, 'Unknown error');
-      verify(mockRemoteDataSource.getHomeData()).called(1);
-    });
+        final result = await homeRepo.getHomeData();
+        expect(result, isA<ErrorApiResult<HomeModel>>());
+        expect((result as ErrorApiResult).error, 'Unknown error');
+        verify(mockRemoteDataSource.getHomeData()).called(1);
+      },
+    );
   });
 }

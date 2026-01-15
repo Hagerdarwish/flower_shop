@@ -48,19 +48,22 @@ void main() {
       'emits loading then success when usecase returns SuccessApiResult',
       build: () {
         provideDummy<ApiResult<LoginModel>>(SuccessApiResult(data: loginModel));
-        when(mockUseCase.call(email, password))
-            .thenAnswer((_) async => SuccessApiResult<LoginModel>(data: loginModel));
+        when(mockUseCase.call(email, password)).thenAnswer(
+          (_) async => SuccessApiResult<LoginModel>(data: loginModel),
+        );
         when(mockAuthStorage.saveToken(any)).thenAnswer((_) async {});
         when(mockAuthStorage.saveUser(any)).thenAnswer((_) async {});
         return cubit;
       },
-      act: (cubit) => cubit.doIntent(PerformLogin(
-        email: email,
-        password: password,
-        rememberMe: true,
-      )),
+      act: (cubit) => cubit.doIntent(
+        PerformLogin(email: email, password: password, rememberMe: true),
+      ),
       expect: () => [
-        isA<LoginStates>().having((s) => s.loginResource.status, "status", Status.loading),
+        isA<LoginStates>().having(
+          (s) => s.loginResource.status,
+          "status",
+          Status.loading,
+        ),
         isA<LoginStates>().having(
           (s) => s.loginResource.data?.token,
           "token",
@@ -77,19 +80,23 @@ void main() {
     blocTest<LoginCubit, LoginStates>(
       'emits loading then error when usecase returns ErrorApiResult',
       build: () {
-
-        provideDummy<ApiResult<LoginModel>>(ErrorApiResult(error: "login failed"));
-        when(mockUseCase.call(email, password))
-            .thenAnswer((_) async => ErrorApiResult<LoginModel>(error: "Login failed"));
+        provideDummy<ApiResult<LoginModel>>(
+          ErrorApiResult(error: "login failed"),
+        );
+        when(mockUseCase.call(email, password)).thenAnswer(
+          (_) async => ErrorApiResult<LoginModel>(error: "Login failed"),
+        );
         return cubit;
       },
-      act: (cubit) => cubit.doIntent(PerformLogin(
-        email: email,
-        password: password,
-        rememberMe: false,
-      )),
+      act: (cubit) => cubit.doIntent(
+        PerformLogin(email: email, password: password, rememberMe: false),
+      ),
       expect: () => [
-        isA<LoginStates>().having((s) => s.loginResource.status, "status", Status.loading),
+        isA<LoginStates>().having(
+          (s) => s.loginResource.status,
+          "status",
+          Status.loading,
+        ),
         isA<LoginStates>().having(
           (s) => s.loginResource.error.toString(),
           "error",
