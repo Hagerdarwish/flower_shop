@@ -59,14 +59,24 @@ import '../../../features/e_commerce/presentation/occasion/manager/occasion_cubi
     as _i25;
 import '../../../features/e_commerce/presentation/product%20details/manger/product_details_cubit/product_details_cubit.dart'
     as _i50;
+import '../../../features/edit_profile/api/datascources/changePassDataScource_imp.dart'
+    as _i658;
 import '../../../features/edit_profile/api/datascources/editProfileDataScource_imp.dart'
     as _i406;
+import '../../../features/edit_profile/data/datascources/changePassDataScource.dart'
+    as _i474;
 import '../../../features/edit_profile/data/datascources/editProfileDataScource.dart'
     as _i558;
+import '../../../features/edit_profile/data/repos/changePassRepoImpl.dart'
+    as _i170;
 import '../../../features/edit_profile/data/repos/editprofileRepoImpl.dart'
     as _i544;
+import '../../../features/edit_profile/domain/repos/changePass_repo.dart'
+    as _i188;
 import '../../../features/edit_profile/domain/repos/editProfile_repo.dart'
     as _i725;
+import '../../../features/edit_profile/domain/usecases/changePass_usecase.dart'
+    as _i419;
 import '../../../features/edit_profile/domain/usecases/edit_profile_usecase.dart'
     as _i276;
 import '../../../features/home/api/home_remote_data_source_imp.dart' as _i874;
@@ -143,6 +153,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i702.ForgetPasswordCubit>(
       () => _i702.ForgetPasswordCubit(gh<_i878.ForgotPasswordUseCase>()),
     );
+    gh.factory<_i474.ChangepassDatascource>(
+      () => _i658.ChangepassDatascourceImp(gh<_i890.ApiClient>()),
+    );
     gh.factoryParam<_i303.VerifyResetCodeCubit, String, dynamic>(
       (email, _) => _i303.VerifyResetCodeCubit(
         gh<_i967.VerifyResetCodeUseCase>(),
@@ -153,8 +166,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i543.SignupUsecase>(
       () => _i543.SignupUsecase(gh<_i712.AuthRepo>()),
     );
+    gh.factory<_i188.ChangepassRepo>(
+      () => _i170.Changepassrepoimpl(gh<_i474.ChangepassDatascource>()),
+    );
     gh.factory<_i75.LoginUseCase>(
       () => _i75.LoginUseCase(gh<_i712.AuthRepo>()),
+    );
+    gh.factory<_i419.ChangepassUsecase>(
+      () => _i419.ChangepassUsecase(gh<_i188.ChangepassRepo>()),
     );
     gh.factory<_i332.EcommerceRepo>(
       () => _i670.EcommerceRepoImp(gh<_i152.EcommerceRemoteDatasource>()),

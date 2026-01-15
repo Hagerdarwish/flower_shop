@@ -3,7 +3,9 @@ import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
 import 'package:flower_shop/features/e_commerce/data/models/response/product_details_response.dart';
+import 'package:flower_shop/features/edit_profile/data/models/request/changepass_request/changePassrequest.dart';
 import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart';
+import 'package:flower_shop/features/edit_profile/data/models/response/changepass_response/changePassRespnse.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
 import 'package:flower_shop/features/home/data/models/response/home_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -65,4 +67,9 @@ abstract class ApiClient {
     @Header("Authorization") required String token,
     @Body() required EditProfileRequest request,
   });
+  @PATCH(AppEndpointString.changepassword)
+  Future<HttpResponse<ChangePassResponse>> changePassword(
+    @Header("Authorization") String token,
+    @Body() ChangePassRequest request,
+  );
 }
