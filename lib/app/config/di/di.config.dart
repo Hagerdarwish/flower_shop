@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -21,6 +21,8 @@ import '../../../features/auth/data/datasource/auth_remote_datasource.dart'
     as _i708;
 import '../../../features/auth/data/repos/auth_repo_imp.dart' as _i866;
 import '../../../features/auth/domain/repos/auth_repo.dart' as _i712;
+import '../../../features/auth/domain/usecase/change-password-usecase.dart'
+    as _i36;
 import '../../../features/auth/domain/usecase/forgot_password_usecase.dart'
     as _i878;
 import '../../../features/auth/domain/usecase/login_usecase.dart' as _i75;
@@ -111,6 +113,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i152.EcommerceRemoteDatasource>(
       () => _i396.EcommerceRemoteDatasourceImpl(gh<_i890.ApiClient>()),
+    );
+    gh.lazySingleton<_i36.ChangePasswordUseCase>(
+      () => _i36.ChangePasswordUseCase(gh<_i712.AuthRepo>()),
     );
     gh.lazySingleton<_i280.ResetPasswordUseCase>(
       () => _i280.ResetPasswordUseCase(gh<_i712.AuthRepo>()),

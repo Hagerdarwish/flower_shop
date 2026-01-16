@@ -27,7 +27,6 @@ import 'package:mockito/src/dummies.dart' as _i7;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
-// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeAuthRepo_0 extends _i1.SmartFake implements _i2.AuthRepo {
   _FakeAuthRepo_0(Object parent, Invocation parentInvocation)
@@ -51,8 +50,8 @@ class MockSignupUsecase extends _i1.Mock implements _i3.SignupUsecase {
           as _i2.AuthRepo);
 
   @override
-  set authRepo(_i2.AuthRepo? value) => super.noSuchMethod(
-    Invocation.setter(#authRepo, value),
+  set authRepo(_i2.AuthRepo? _authRepo) => super.noSuchMethod(
+    Invocation.setter(#authRepo, _authRepo),
     returnValueForMissingStub: null,
   );
 

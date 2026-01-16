@@ -4,7 +4,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:flower_shop/app/core/network/api_result.dart';
-import 'package:flower_shop/app/config/base_state/base_state.dart';
 
 import 'package:flower_shop/features/home/domain/models/category_model.dart';
 import 'package:flower_shop/features/home/domain/models/best_seller_model.dart';
@@ -22,7 +21,6 @@ import 'package:flower_shop/features/home/presentation/manager/home_states.dart'
 import 'package:flower_shop/features/home/presentation/manager/factory/home_factory.dart';
 
 import 'home_cubit_test.mocks.dart';
-import 'factory/home_factory_imp_test.mocks.dart';
 
 @GenerateMocks([
   HomeFactory,

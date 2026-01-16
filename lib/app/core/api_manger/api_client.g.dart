@@ -43,7 +43,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = SignupDto.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -72,7 +72,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = LoginResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -103,7 +103,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = ForgotPasswordResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -134,7 +134,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = VerifyResetCodeResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -165,7 +165,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = ResetPasswordResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -200,7 +200,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = ProductsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -228,7 +228,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = AllCategoriesDto.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -256,7 +256,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = HomeResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -286,7 +286,38 @@ class _ApiClient implements ApiClient {
     try {
       _value = ProductDetailsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
+      errorLogger?.logError(e, s, _options, _result);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<ChangePasswordResponse>> changePassword(
+    ChangePasswordRequest request,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _options = _setStreamType<HttpResponse<ChangePasswordResponse>>(
+      Options(method: 'PATCH', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/change-password',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ChangePasswordResponse _value;
+    try {
+      _value = ChangePasswordResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);

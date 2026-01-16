@@ -6,6 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:flower_shop/app/core/api_manger/api_client.dart' as _i3;
+import 'package:flower_shop/features/auth/data/models/request/change-password-request-models/change-password-request-model.dart'
+    as _i19;
 import 'package:flower_shop/features/auth/data/models/request/forget_password_request_model/forget_password_request_model.dart'
     as _i9;
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart'
@@ -14,6 +16,8 @@ import 'package:flower_shop/features/auth/data/models/request/reset_password_req
     as _i13;
 import 'package:flower_shop/features/auth/data/models/request/verify_reset_code_request_model/verify_reset_code_request.dart'
     as _i11;
+import 'package:flower_shop/features/auth/data/models/response/change-password-response-models/change-password-response-model.dart'
+    as _i18;
 import 'package:flower_shop/features/auth/data/models/response/forget_password_response_model/forget_password_response_model.dart'
     as _i8;
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart'
@@ -48,7 +52,6 @@ import 'package:retrofit/retrofit.dart' as _i2;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
-// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeHttpResponse_0<T> extends _i1.SmartFake
     implements _i2.HttpResponse<T> {
@@ -209,4 +212,20 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
                 ),
           )
           as _i4.Future<_i2.HttpResponse<_i17.ProductDetailsResponse>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i18.ChangePasswordResponse>> changePassword(
+    _i19.ChangePasswordRequest? request,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#changePassword, [request]),
+            returnValue:
+                _i4.Future<_i2.HttpResponse<_i18.ChangePasswordResponse>>.value(
+                  _FakeHttpResponse_0<_i18.ChangePasswordResponse>(
+                    this,
+                    Invocation.method(#changePassword, [request]),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i18.ChangePasswordResponse>>);
 }

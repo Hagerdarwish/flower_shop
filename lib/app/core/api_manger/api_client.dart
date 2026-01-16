@@ -5,9 +5,11 @@ import 'package:flower_shop/features/auth/data/models/response/login_response_mo
 import 'package:flower_shop/features/e_commerce/data/models/response/product_details_response.dart';
 import 'package:flower_shop/features/home/data/models/response/home_response.dart';
 import 'package:retrofit/retrofit.dart';
+import '../../../features/auth/data/models/request/change-password-request-models/change-password-request-model.dart';
 import '../../../features/auth/data/models/request/forget_password_request_model/forget_password_request_model.dart';
 import '../../../features/auth/data/models/request/reset_password_request_model/reset_password_request_model.dart';
 import '../../../features/auth/data/models/request/verify_reset_code_request_model/verify_reset_code_request.dart';
+import '../../../features/auth/data/models/response/change-password-response-models/change-password-response-model.dart';
 import '../../../features/auth/data/models/response/forget_password_response_model/forget_password_response_model.dart';
 import '../../../features/auth/data/models/response/reset_password_response_model/reset_password_response_model.dart';
 import '../../../features/auth/data/models/response/verify_reset_code_response_model/verify_reset_code_response_model.dart';
@@ -56,5 +58,9 @@ abstract class ApiClient {
   @GET(AppEndpointString.productDetails)
   Future<HttpResponse<ProductDetailsResponse>> getProductDetails(
     @Path('id') String productId,
+  );
+  @PATCH(AppEndpointString.changePassword)
+  Future<HttpResponse<ChangePasswordResponse>> changePassword(
+    @Body() ChangePasswordRequest request,
   );
 }

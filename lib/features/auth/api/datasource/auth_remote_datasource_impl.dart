@@ -7,9 +7,11 @@ import 'package:flower_shop/features/auth/data/models/response/login_response_mo
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../data/models/request/change-password-request-models/change-password-request-model.dart';
 import '../../data/models/request/forget_password_request_model/forget_password_request_model.dart';
 import '../../data/models/request/reset_password_request_model/reset_password_request_model.dart';
 import '../../data/models/request/verify_reset_code_request_model/verify_reset_code_request.dart';
+import '../../data/models/response/change-password-response-models/change-password-response-model.dart';
 import '../../data/models/response/forget_password_response_model/forget_password_response_model.dart';
 import '../../data/models/response/reset_password_response_model/reset_password_response_model.dart';
 import '../../data/models/response/verify_reset_code_response_model/verify_reset_code_response_model.dart';
@@ -67,5 +69,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     ResetPasswordRequest request,
   ) {
     return safeApiCall(call: () => apiClient.resetPassword(request));
+  }
+
+  @override
+  Future<ApiResult<ChangePasswordResponse>> changePassword(
+    ChangePasswordRequest request,
+  ) {
+    return safeApiCall(call: () => apiClient.changePassword(request));
   }
 }
