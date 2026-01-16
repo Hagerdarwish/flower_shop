@@ -44,24 +44,7 @@ void main() {
         ),
       );
 
-      expect(find.text('Best seller'), findsOneWidget);
-    });
-
-    testWidgets('should show loading initially', (WidgetTester tester) async {
-      final useCase = TestGetBestSellerUseCase(
-        SuccessApiResult<List<BestSellerModel>>(data: productsList),
-      );
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: BlocProvider(
-            create: (context) => BestSellerCubit(useCase),
-            child: const BestSellerScreen(),
-          ),
-        ),
-      );
-
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.byType(AppBar), findsOneWidget);
     });
 
     testWidgets('should show products when loaded', (

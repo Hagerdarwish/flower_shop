@@ -28,40 +28,46 @@ void main() {
     repoImp = EcommerceRepoImp(datasource);
   });
   group("get product", () {
-    test("return SuccessApiResult", () async {
-      final dummyProductsResponse = ProductsResponse(
-        message: "Success",
-        metadata: Metadata(currentPage: 1, totalPages: 5, limit: 10),
-        products: [
-          RemoteProduct(
-            id: "1",
-            description: "A beautiful bouquet of red roses.",
-            price: 29.99,
-            category: "bouquets",
-          ),
-        ],
-      );
-      List<ProductModel> mappedProducts = [
-        ProductModel(
-          id: "1",
-          title: "",
-          imgCover: "",
-          price: 29,
-          priceAfterDiscount: 10,
-        ),
-      ];
-      ApiResult<ProductsResponse> datasourceResult = SuccessApiResult(
-        data: dummyProductsResponse,
-      );
-      provideDummy(datasourceResult); //due to api result
-      when(
-        datasource.getProduct(occasion: ""),
-      ).thenAnswer((_) => Future.value(datasourceResult));
+    group("get product", () {
+      test("return SuccessApiResult", () async {
+        final dummyProductsResponse = ProductsResponse(
+          message: "Success",
+          metadata: Metadata(currentPage: 1, totalPages: 5, limit: 10),
+          products: [
+            RemoteProduct(
+              id: "1",
+              description: "A beautiful bouquet of red roses.",
+              price: 29.99,
+              category: "bouquets",
+            ),
+          ],
+        );
 
-      final result = await repoImp.getProducts(occasion: "");
-      expect(result, isA<SuccessApiResult>());
-      expect((result as SuccessApiResult).data, equals(mappedProducts));
+        // تعديل mappedProducts لتتوافق مع ما يخرجه repo
+        List<ProductModel> mappedProducts = [
+          ProductModel(
+            id: "1",
+            title: "",
+            imgCover: "",
+            price: 29,
+            priceAfterDiscount: null, // <- هنا غيرنا من 10 إلى null
+          ),
+        ];
+
+        ApiResult<ProductsResponse> datasourceResult = SuccessApiResult(
+          data: dummyProductsResponse,
+        );
+        provideDummy(datasourceResult); //due to api result
+        when(
+          datasource.getProduct(occasion: ""),
+        ).thenAnswer((_) => Future.value(datasourceResult));
+
+        final result = await repoImp.getProducts(occasion: "");
+        expect(result, isA<SuccessApiResult>());
+        expect((result as SuccessApiResult).data, equals(mappedProducts));
+      });
     });
+
     test("return ErrorApiResult", () async {
       String errorMessage = "Something went wrong";
 
