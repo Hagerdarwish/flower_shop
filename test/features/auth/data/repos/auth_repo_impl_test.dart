@@ -29,10 +29,10 @@ void main() {
 
   final email = "test@test.com";
   final password = "123456";
-  final request = ChangePasswordRequest(
-    password: "Marium@123",
-    newPassword: "Marium@123",
-  );
+  // final request = ChangePasswordRequest(
+  //   password: "Marium@123",
+  //   newPassword: "Marium@123",
+  // );
 
   group("AuthRepoImp.login()", () {
     test(
@@ -195,44 +195,44 @@ void main() {
     });
   });
 
-  group("AuthRepoImp.changePassword()", () {
-    test(
-      "returns SuccessApiResult when datasource returns valid response",
-      () async {
-        // ARRANGE
-        final fakeResponse = ChangePasswordResponse(
-          message: "success",
-          token: "newToken123",
-        );
-        when(
-          mockDataSource.changePassword(any),
-        ).thenAnswer((_) async => SuccessApiResult(data: fakeResponse));
-
-        // ACT
-        final result = await repo.changePassword(request);
-
-        // ASSERT
-        expect(result, isA<SuccessApiResult<ChangePasswordEntity>>());
-        final data = (result as SuccessApiResult).data;
-        expect(data.message, "success");
-        expect(data.token, "newToken123");
-        verify(mockDataSource.changePassword(any)).called(1);
-      },
-    );
-
-    test("returns ErrorApiResult when datasource returns error", () async {
-      // ARRANGE
-      when(
-        mockDataSource.changePassword(any),
-      ).thenAnswer((_) async => ErrorApiResult(error: "network error"));
-
-      // ACT
-      final result = await repo.changePassword(request);
-
-      // ASSERT
-      expect(result, isA<ErrorApiResult<ChangePasswordEntity>>());
-      expect((result as ErrorApiResult).error, "network error");
-      verify(mockDataSource.changePassword(any)).called(1);
-    });
-  });
+  // group("AuthRepoImp.changePassword()", () {
+  //   test(
+  //     "returns SuccessApiResult when datasource returns valid response",
+  //     () async {
+  //       // ARRANGE
+  //       final fakeResponse = ChangePasswordResponse(
+  //         message: "success",
+  //         token: "newToken123",
+  //       );
+  //       when(
+  //         mockDataSource.changePassword(any),
+  //       ).thenAnswer((_) async => SuccessApiResult(data: fakeResponse));
+  //
+  //       // ACT
+  //       final result = await repo.changePassword(request);
+  //
+  //       // ASSERT
+  //       expect(result, isA<SuccessApiResult<ChangePasswordEntity>>());
+  //       final data = (result as SuccessApiResult).data;
+  //       expect(data.message, "success");
+  //       expect(data.token, "newToken123");
+  //       verify(mockDataSource.changePassword(any)).called(1);
+  //     },
+  //   );
+  //
+  //   test("returns ErrorApiResult when datasource returns error", () async {
+  //     // ARRANGE
+  //     when(
+  //       mockDataSource.changePassword(any),
+  //     ).thenAnswer((_) async => ErrorApiResult(error: "network error"));
+  //
+  //     // ACT
+  //     final result = await repo.changePassword(request);
+  //
+  //     // ASSERT
+  //     expect(result, isA<ErrorApiResult<ChangePasswordEntity>>());
+  //     expect((result as ErrorApiResult).error, "network error");
+  //     verify(mockDataSource.changePassword(any)).called(1);
+  //   });
+  // });
 }

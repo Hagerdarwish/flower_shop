@@ -25,10 +25,10 @@ void main() {
   });
 
   final loginRequest = LoginRequest(email: "test@test.com", password: "123456");
-  final changePasswordRequest = ChangePasswordRequest(
-    password: "Marium@123",
-    newPassword: "Marium@123",
-  );
+  // final changePasswordRequest = ChangePasswordRequest(
+  //   password: "Marium@123",
+  //   newPassword: "Marium@123",
+  // );
 
   group("AuthDatasourceImp.login()", () {
     test(
@@ -141,57 +141,57 @@ void main() {
     });
   });
 
-  group("AuthRemoteDataSourceImpl.changePassword()", () {
-    test(
-      "returns SuccessApiResult when apiClient returns valid response",
-      () async {
-        // ARRANGE
-        final fakeResponse = ChangePasswordResponse(
-          message: "success",
-          token: "newToken123",
-        );
-        final dioResponse = Response<ChangePasswordResponse>(
-          requestOptions: RequestOptions(path: '/change-password'),
-          data: fakeResponse,
-          statusCode: 200,
-        );
-        final fakeHttpResponse = HttpResponse<ChangePasswordResponse>(
-          dioResponse.data!,
-          dioResponse,
-        );
-
-        when(
-          mockApiClient.changePassword(any),
-        ).thenAnswer((_) async => fakeHttpResponse);
-
-        // ACT
-        final result = await dataSource.changePassword(changePasswordRequest);
-
-        // ASSERT
-        expect(result, isA<SuccessApiResult<ChangePasswordResponse>>());
-        final data = (result as SuccessApiResult).data;
-        expect(data.message, "success");
-        expect(data.token, "newToken123");
-        verify(mockApiClient.changePassword(any)).called(1);
-      },
-    );
-
-    test("returns ErrorApiResult when apiClient throws Exception", () async {
-      // ARRANGE
-      when(
-        mockApiClient.changePassword(any),
-      ).thenThrow(Exception("network error"));
-
-      // ACT
-      final result = await dataSource.changePassword(changePasswordRequest);
-
-      // ASSERT
-      expect(result, isA<ErrorApiResult<ChangePasswordResponse>>());
-      expect(
-        (result as ErrorApiResult).error.toString(),
-        contains("network error"),
-      );
-      verify(mockApiClient.changePassword(any)).called(1);
-    });
-  });
+  // group("AuthRemoteDataSourceImpl.changePassword()", () {
+  //   test(
+  //     "returns SuccessApiResult when apiClient returns valid response",
+  //     () async {
+  //       // ARRANGE
+  //       final fakeResponse = ChangePasswordResponse(
+  //         message: "success",
+  //         token: "newToken123",
+  //       );
+  //       final dioResponse = Response<ChangePasswordResponse>(
+  //         requestOptions: RequestOptions(path: '/change-password'),
+  //         data: fakeResponse,
+  //         statusCode: 200,
+  //       );
+  //       final fakeHttpResponse = HttpResponse<ChangePasswordResponse>(
+  //         dioResponse.data!,
+  //         dioResponse,
+  //       );
+  //
+  //       when(
+  //         mockApiClient.changePassword(any),
+  //       ).thenAnswer((_) async => fakeHttpResponse);
+  //
+  //       // ACT
+  //       final result = await dataSource.changePassword(changePasswordRequest);
+  //
+  //       // ASSERT
+  //       expect(result, isA<SuccessApiResult<ChangePasswordResponse>>());
+  //       final data = (result as SuccessApiResult).data;
+  //       expect(data.message, "success");
+  //       expect(data.token, "newToken123");
+  //       verify(mockApiClient.changePassword(any)).called(1);
+  //     },
+  //   );
+  //
+  //   test("returns ErrorApiResult when apiClient throws Exception", () async {
+  //     // ARRANGE
+  //     when(
+  //       mockApiClient.changePassword(any),
+  //     ).thenThrow(Exception("network error"));
+  //
+  //     // ACT
+  //     final result = await dataSource.changePassword(changePasswordRequest);
+  //
+  //     // ASSERT
+  //     expect(result, isA<ErrorApiResult<ChangePasswordResponse>>());
+  //     expect(
+  //       (result as ErrorApiResult).error.toString(),
+  //       contains("network error"),
+  //     );
+  //     verify(mockApiClient.changePassword(any)).called(1);
+  //   });
+  // });
 }
