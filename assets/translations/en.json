@@ -92,6 +92,12 @@
   "something_went_wrong": "Something went wrong",
   "no_products_found": "No products found",
   "allPricesIncludeTax": "All prices include tax",
-  "productAddedToCart": "Product Added To Cart"
+  "productAddedToCart": "Product Added To Cart",
+  "currentPassword": "Current Password",
+  "enterCurrentPassword": "Enter current password",
+  "enterNewPassword": "Enter new password",
+  "confirmNewPassword": "Confirm new password",
+  "update": "Update",
+  "changePassword": "Change Password"
 
 }

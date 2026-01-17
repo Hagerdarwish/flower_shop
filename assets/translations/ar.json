@@ -92,6 +92,12 @@
   "allPricesIncludeTax":"كل الاسعار شامله الضرائب",
   "productAddedToCart":"تم اضافة المنتج الي العربه",
   "something_went_wrong": "حدث خطأ ما",
-  "no_products_found": "لم يتم العثور على منتجات"
+  "no_products_found": "لم يتم العثور على منتجات",
+  "currentPassword": "كلمة السر الحالية",
+  "enterCurrentPassword": "ادخل كلمة السر الحالية",
+  "enterNewPassword": "كلمة السر الجديدة",
+  "confirmNewPassword": "أكد كلمة السر الجديدة",
+  "update": "تحديث",
+  "changePassword": "تغييير كلمة السر"
 
 }

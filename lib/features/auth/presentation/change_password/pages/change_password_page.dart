@@ -17,7 +17,7 @@ class ChangePasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.password.tr()),
+        title: Text(LocaleKeys.changePassword.tr()),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => context.pop(),

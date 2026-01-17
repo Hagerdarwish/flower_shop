@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flower_shop/features/auth/presentation/change_password/manager/change_password_intents.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../app/config/base_state/base_state.dart';
@@ -7,7 +8,6 @@ import '../../../../../app/core/utils/validators_helper.dart';
 import '../../../data/models/request/change-password-request-models/change-password-request-model.dart';
 import '../../../domain/models/change_password_entity.dart';
 import '../../../domain/usecase/change_password_usecase.dart';
-import '../../reset_password/manager/reset_password_intents.dart';
 
 part 'change_password_state.dart';
 
@@ -27,6 +27,15 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     switch (intent.runtimeType) {
       case FormChangedIntent:
         _validateForm();
+        break;
+      case ToggleCurrentPasswordVisibility:
+        _toggleCurrentPasswordVisibility();
+        break;
+      case ToggleNewPasswordVisibility:
+        _toggleNewPasswordVisibility();
+        break;
+      case ToggleConfirmPasswordVisibility:
+        _toggleConfirmPasswordVisibility();
         break;
       case SubmitChangePasswordIntent:
         _submitChangePassword();
@@ -49,15 +58,15 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     emit(state.copyWith(isFormValid: isValid));
   }
 
-  void toggleCurrentPasswordVisibility() {
+  void _toggleCurrentPasswordVisibility() {
     emit(state.copyWith(currentPasswordVisible: !state.currentPasswordVisible));
   }
 
-  void toggleNewPasswordVisibility() {
+  void _toggleNewPasswordVisibility() {
     emit(state.copyWith(newPasswordVisible: !state.newPasswordVisible));
   }
 
-  void toggleConfirmPasswordVisibility() {
+  void _toggleConfirmPasswordVisibility() {
     emit(state.copyWith(confirmPasswordVisible: !state.confirmPasswordVisible));
   }
 

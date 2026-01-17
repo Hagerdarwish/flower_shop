@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_shop/features/auth/presentation/change_password/manager/change_password_intents.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,6 @@ import '../../../../../app/config/base_state/base_state.dart';
 import '../../../../../app/core/utils/validators_helper.dart';
 import '../../../../../app/core/widgets/custom_button.dart';
 import '../../../../../app/core/widgets/password_text_form_field.dart';
-import '../../reset_password/manager/reset_password_intents.dart';
 import '../manager/change_password_cubit.dart';
 
 class ChangePasswordForm extends StatelessWidget {
@@ -18,39 +18,38 @@ class ChangePasswordForm extends StatelessWidget {
 
     return Form(
       key: cubit.formKey,
-      onChanged: () => cubit.doIntent(const FormChangedIntent()),
+      onChanged: () => cubit.doIntent(FormChangedIntent()),
       child: Column(
         children: [
           const SizedBox(height: 20),
-
-          // Current Password
           BlocBuilder<ChangePasswordCubit, ChangePasswordState>(
             buildWhen: (p, c) =>
                 p.currentPasswordVisible != c.currentPasswordVisible,
             builder: (context, state) {
               return PasswordTextFormField(
                 controller: cubit.currentPasswordController,
-                label: 'Current Password',
+                label: LocaleKeys.currentPassword.tr(),
                 isVisible: state.currentPasswordVisible,
-                onToggleVisibility: cubit.toggleCurrentPasswordVisibility,
+                onToggleVisibility: () =>
+                    cubit.doIntent(const ToggleCurrentPasswordVisibility()),
                 validator: Validators.validatePassword,
-                hint: 'Enter current password',
+                hint: LocaleKeys.enterCurrentPassword.tr(),
               );
             },
           ),
           const SizedBox(height: 20),
 
-          // New Password
           BlocBuilder<ChangePasswordCubit, ChangePasswordState>(
             buildWhen: (p, c) => p.newPasswordVisible != c.newPasswordVisible,
             builder: (context, state) {
               return PasswordTextFormField(
                 controller: cubit.newPasswordController,
-                label: 'New Password',
+                label: LocaleKeys.newPassword.tr(),
                 isVisible: state.newPasswordVisible,
-                onToggleVisibility: cubit.toggleNewPasswordVisibility,
+                onToggleVisibility: () =>
+                    cubit.doIntent(const ToggleNewPasswordVisibility()),
                 validator: Validators.validatePassword,
-                hint: 'Enter new password',
+                hint: LocaleKeys.enterNewPassword.tr(),
               );
             },
           ),
@@ -63,16 +62,17 @@ class ChangePasswordForm extends StatelessWidget {
             builder: (context, state) {
               return PasswordTextFormField(
                 controller: cubit.confirmPasswordController,
-                label: 'Confirm Password',
+                label: LocaleKeys.confirmPassword.tr(),
                 isVisible: state.confirmPasswordVisible,
-                onToggleVisibility: cubit.toggleConfirmPasswordVisibility,
+                onToggleVisibility: () =>
+                    cubit.doIntent(const ToggleConfirmPasswordVisibility()),
                 validator: (val) {
                   if (val != cubit.newPasswordController.text) {
-                    return 'Passwords do not match';
+                    return LocaleKeys.passwordDontMatch;
                   }
                   return null;
                 },
-                hint: 'Confirm new password',
+                hint: LocaleKeys.confirmNewPassword.tr(),
               );
             },
           ),
@@ -83,7 +83,7 @@ class ChangePasswordForm extends StatelessWidget {
                 p.resource.status != c.resource.status,
             builder: (context, state) {
               return CustomButton(
-                text: 'Update',
+                text: LocaleKeys.update.tr(),
                 isEnabled: state.isFormValid,
                 isLoading: state.resource.status == Status.loading,
                 onPressed: () =>
