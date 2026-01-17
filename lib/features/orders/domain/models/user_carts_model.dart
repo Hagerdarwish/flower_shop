@@ -1,5 +1,4 @@
 import 'package:flower_shop/features/home/domain/models/product_model.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 class UserCartsModel {
   final String? message;
@@ -32,7 +31,6 @@ class CartModel {
   });
 }
 
-@JsonSerializable()
 class CartItemsModel {
   final ProductModel? product;
   final int? price;

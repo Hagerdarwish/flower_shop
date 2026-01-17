@@ -5,6 +5,7 @@ import 'package:flower_shop/features/auth/presentation/login/pages/login_page.da
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/pages/best_sell_screen.dart';
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart';
+import 'package:flower_shop/features/orders/presentation/pages/cart_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../features/auth/presentation/forget_password/manager/forget_password_cubit.dart';
@@ -101,7 +102,7 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: RouteNames.BestSeller,
+      path: RouteNames.bestSeller,
       builder: (context, state) {
         return BlocProvider(
           create: (_) => getIt<BestSellerCubit>(),
@@ -109,5 +110,7 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
+
+    GoRoute(path: RouteNames.cartPage, builder: (context, state) => CartPage()),
   ],
 );

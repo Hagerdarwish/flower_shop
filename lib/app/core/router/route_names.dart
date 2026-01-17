@@ -9,5 +9,6 @@ abstract class RouteNames {
   static const categories = "/categories";
   static const occasionPage = "/occasionPage";
   static const productDetails = "/productDetails";
-  static const BestSeller = "/bestseller";
+  static const bestSeller = "/bestseller";
+  static const cartPage = "/cart";
 }

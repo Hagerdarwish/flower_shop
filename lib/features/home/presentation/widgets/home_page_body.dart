@@ -54,7 +54,7 @@ class HomePageBody extends StatelessWidget {
               HomeSection(
                 title: LocaleKeys.bestSelling.tr(),
                 onTap: () {
-                  context.push(RouteNames.BestSeller);
+                  context.push(RouteNames.bestSeller);
 
                   // Navigator.push(
                   //   context,
