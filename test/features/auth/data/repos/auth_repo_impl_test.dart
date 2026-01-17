@@ -1,12 +1,9 @@
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart';
-import 'package:flower_shop/features/auth/data/models/request/change-password-request-models/change-password-request-model.dart';
-import 'package:flower_shop/features/auth/data/models/response/change-password-response-models/change-password-response-model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/data/models/response/user_model.dart';
 import 'package:flower_shop/features/auth/data/repos/auth_repo_imp.dart';
-import 'package:flower_shop/features/auth/domain/models/change_password_entity.dart';
 import 'package:flower_shop/features/auth/domain/models/login_model.dart';
 import 'package:flower_shop/features/auth/domain/models/signup_model.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,10 +26,6 @@ void main() {
 
   final email = "test@test.com";
   final password = "123456";
-  // final request = ChangePasswordRequest(
-  //   password: "Marium@123",
-  //   newPassword: "Marium@123",
-  // );
 
   group("AuthRepoImp.login()", () {
     test(
@@ -194,45 +187,4 @@ void main() {
       ).called(1);
     });
   });
-
-  // group("AuthRepoImp.changePassword()", () {
-  //   test(
-  //     "returns SuccessApiResult when datasource returns valid response",
-  //     () async {
-  //       // ARRANGE
-  //       final fakeResponse = ChangePasswordResponse(
-  //         message: "success",
-  //         token: "newToken123",
-  //       );
-  //       when(
-  //         mockDataSource.changePassword(any),
-  //       ).thenAnswer((_) async => SuccessApiResult(data: fakeResponse));
-  //
-  //       // ACT
-  //       final result = await repo.changePassword(request);
-  //
-  //       // ASSERT
-  //       expect(result, isA<SuccessApiResult<ChangePasswordEntity>>());
-  //       final data = (result as SuccessApiResult).data;
-  //       expect(data.message, "success");
-  //       expect(data.token, "newToken123");
-  //       verify(mockDataSource.changePassword(any)).called(1);
-  //     },
-  //   );
-  //
-  //   test("returns ErrorApiResult when datasource returns error", () async {
-  //     // ARRANGE
-  //     when(
-  //       mockDataSource.changePassword(any),
-  //     ).thenAnswer((_) async => ErrorApiResult(error: "network error"));
-  //
-  //     // ACT
-  //     final result = await repo.changePassword(request);
-  //
-  //     // ASSERT
-  //     expect(result, isA<ErrorApiResult<ChangePasswordEntity>>());
-  //     expect((result as ErrorApiResult).error, "network error");
-  //     verify(mockDataSource.changePassword(any)).called(1);
-  //   });
-  // });
 }

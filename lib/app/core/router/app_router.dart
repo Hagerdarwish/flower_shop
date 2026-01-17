@@ -1,5 +1,7 @@
 import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/features/app_start/presentation/pages/app_start_page.dart';
+import 'package:flower_shop/features/auth/presentation/change_password/manager/change_password_cubit.dart';
+import 'package:flower_shop/features/auth/presentation/change_password/pages/change_password_page.dart';
 import 'package:flower_shop/features/auth/presentation/signup/pages/signup_screen.dart';
 import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
@@ -106,6 +108,16 @@ final GoRouter appRouter = GoRouter(
         return BlocProvider(
           create: (_) => getIt<BestSellerCubit>(),
           child: BestSellerScreen(),
+        );
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.changePassword,
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => getIt<ChangePasswordCubit>(),
+          child: ChangePasswordPage(),
         );
       },
     ),

@@ -306,7 +306,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/change-password',
+            'auth/change-password',
             queryParameters: queryParameters,
             data: _data,
           )

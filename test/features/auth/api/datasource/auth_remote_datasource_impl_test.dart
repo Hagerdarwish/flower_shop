@@ -2,9 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/auth/api/datasource/auth_remote_datasource_impl.dart';
-import 'package:flower_shop/features/auth/data/models/request/change-password-request-models/change-password-request-model.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
-import 'package:flower_shop/features/auth/data/models/response/change-password-response-models/change-password-response-model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,10 +23,6 @@ void main() {
   });
 
   final loginRequest = LoginRequest(email: "test@test.com", password: "123456");
-  // final changePasswordRequest = ChangePasswordRequest(
-  //   password: "Marium@123",
-  //   newPassword: "Marium@123",
-  // );
 
   group("AuthDatasourceImp.login()", () {
     test(
@@ -140,58 +134,4 @@ void main() {
       verify(mockApiClient.signUp(any)).called(1);
     });
   });
-
-  // group("AuthRemoteDataSourceImpl.changePassword()", () {
-  //   test(
-  //     "returns SuccessApiResult when apiClient returns valid response",
-  //     () async {
-  //       // ARRANGE
-  //       final fakeResponse = ChangePasswordResponse(
-  //         message: "success",
-  //         token: "newToken123",
-  //       );
-  //       final dioResponse = Response<ChangePasswordResponse>(
-  //         requestOptions: RequestOptions(path: '/change-password'),
-  //         data: fakeResponse,
-  //         statusCode: 200,
-  //       );
-  //       final fakeHttpResponse = HttpResponse<ChangePasswordResponse>(
-  //         dioResponse.data!,
-  //         dioResponse,
-  //       );
-  //
-  //       when(
-  //         mockApiClient.changePassword(any),
-  //       ).thenAnswer((_) async => fakeHttpResponse);
-  //
-  //       // ACT
-  //       final result = await dataSource.changePassword(changePasswordRequest);
-  //
-  //       // ASSERT
-  //       expect(result, isA<SuccessApiResult<ChangePasswordResponse>>());
-  //       final data = (result as SuccessApiResult).data;
-  //       expect(data.message, "success");
-  //       expect(data.token, "newToken123");
-  //       verify(mockApiClient.changePassword(any)).called(1);
-  //     },
-  //   );
-  //
-  //   test("returns ErrorApiResult when apiClient throws Exception", () async {
-  //     // ARRANGE
-  //     when(
-  //       mockApiClient.changePassword(any),
-  //     ).thenThrow(Exception("network error"));
-  //
-  //     // ACT
-  //     final result = await dataSource.changePassword(changePasswordRequest);
-  //
-  //     // ASSERT
-  //     expect(result, isA<ErrorApiResult<ChangePasswordResponse>>());
-  //     expect(
-  //       (result as ErrorApiResult).error.toString(),
-  //       contains("network error"),
-  //     );
-  //     verify(mockApiClient.changePassword(any)).called(1);
-  //   });
-  // });
 }

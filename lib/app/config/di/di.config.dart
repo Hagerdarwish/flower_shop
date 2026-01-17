@@ -31,6 +31,8 @@ import '../../../features/auth/domain/usecase/reset_password_usecase.dart'
 import '../../../features/auth/domain/usecase/signup_usecase.dart' as _i543;
 import '../../../features/auth/domain/usecase/verify_reset_code_usecase.dart'
     as _i967;
+import '../../../features/auth/presentation/change_password/manager/change_password_cubit.dart'
+    as _i115;
 import '../../../features/auth/presentation/forget_password/manager/forget_password_cubit.dart'
     as _i702;
 import '../../../features/auth/presentation/login/manager/login_cubit.dart'
@@ -94,7 +96,10 @@ extension GetItInjectableX on _i174.GetIt {
     final networkModule = _$NetworkModule();
     gh.factory<_i405.NavCubit>(() => _i405.NavCubit());
     gh.lazySingleton<_i603.AuthStorage>(() => _i603.AuthStorage());
-    gh.lazySingleton<_i361.Dio>(() => networkModule.dio());
+    gh.factory<_i858.AppCubit>(() => _i858.AppCubit(gh<_i603.AuthStorage>()));
+    gh.lazySingleton<_i361.Dio>(
+      () => networkModule.dio(gh<_i603.AuthStorage>()),
+    );
     gh.lazySingleton<_i890.ApiClient>(
       () => networkModule.authApiClient(gh<_i361.Dio>()),
     );
@@ -104,7 +109,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i701.HomeRemoteDataSource>(
       () => _i874.HomeRemoteDataSourceImp(gh<_i890.ApiClient>()),
     );
-    gh.factory<_i858.AppCubit>(() => _i858.AppCubit(gh<_i603.AuthStorage>()));
     gh.factory<_i712.AuthRepo>(
       () => _i866.AuthRepoImp(gh<_i708.AuthRemoteDataSource>()),
     );
@@ -117,8 +121,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i991.ChangePasswordUseCase>(
       () => _i991.ChangePasswordUseCase(gh<_i712.AuthRepo>()),
     );
-    gh.lazySingleton<_i280.ResetPasswordUseCase>(
-      () => _i280.ResetPasswordUseCase(gh<_i712.AuthRepo>()),
+    gh.lazySingleton<_i280.ChangePasswordUseCase>(
+      () => _i280.ChangePasswordUseCase(gh<_i712.AuthRepo>()),
     );
     gh.factory<_i878.ForgotPasswordUseCase>(
       () => _i878.ForgotPasswordUseCase(gh<_i712.AuthRepo>()),
@@ -145,12 +149,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i332.EcommerceRepo>(
       () => _i670.EcommerceRepoImp(gh<_i152.EcommerceRemoteDatasource>()),
     );
-    gh.factory<_i392.AuthCubit>(
-      () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
-    );
     gh.factoryParam<_i378.ResetPasswordCubit, String, dynamic>(
       (email, _) =>
-          _i378.ResetPasswordCubit(email, gh<_i280.ResetPasswordUseCase>()),
+          _i378.ResetPasswordCubit(email, gh<_i280.ChangePasswordUseCase>()),
+    );
+    gh.factory<_i115.ChangePasswordCubit>(
+      () => _i115.ChangePasswordCubit(gh<_i991.ChangePasswordUseCase>()),
+    );
+    gh.factory<_i392.AuthCubit>(
+      () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
     );
     gh.factory<_i534.GetBestSellerUseCase>(
       () => _i534.GetBestSellerUseCase(gh<_i520.HomeRepo>()),
