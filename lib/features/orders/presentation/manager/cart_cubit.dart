@@ -132,4 +132,19 @@ class CartCubit extends Cubit<CartStates> {
         emit(state.copyWith(cart: Resource.error(response.error)));
     }
   }
+
+  double get totalPriceAfterDiscount {
+    double total = 0;
+    for (final item in cartsList) {
+      final product = item.product;
+      if (product == null) continue;
+      final price =
+          (product.priceAfterDiscount != null &&
+              product.priceAfterDiscount! > 0)
+          ? product.priceAfterDiscount!
+          : product.price ?? 0;
+      total += price * (item.quantity ?? 1);
+    }
+    return total;
+  }
 }

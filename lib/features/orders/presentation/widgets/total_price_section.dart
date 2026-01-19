@@ -12,7 +12,11 @@ class TotalPriceSection extends StatelessWidget {
   final bool isLoading;
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<CartCubit>(context).state.cart?.data?.cart;
+    final subTotal = BlocProvider.of<CartCubit>(
+      context,
+    ).totalPriceAfterDiscount;
+    const deliveryFee = 10;
+    final total = subTotal + deliveryFee;
     return Skeletonizer(
       enabled: isLoading,
       child: Column(
@@ -28,7 +32,7 @@ class TotalPriceSection extends StatelessWidget {
                 ),
               ),
               Text(
-                ("${bloc?.totalPrice}\$"),
+                ("${subTotal.toStringAsFixed(0)}\$"),
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
@@ -47,7 +51,7 @@ class TotalPriceSection extends StatelessWidget {
                 ),
               ),
               Text(
-                ("10\$"),
+                ("$deliveryFee\$"),
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
@@ -66,7 +70,7 @@ class TotalPriceSection extends StatelessWidget {
                 ).textTheme.bodyMedium!.copyWith(color: AppColors.blackColor),
               ),
               Text(
-                ("${(bloc?.totalPrice ?? 0) + 10}\$"),
+                ("${(total.toStringAsFixed(0))}\$"),
                 style: Theme.of(
                   context,
                 ).textTheme.bodyMedium!.copyWith(color: AppColors.blackColor),

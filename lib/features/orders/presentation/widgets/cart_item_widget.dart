@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/ui_helper/assets/images.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
+import 'package:flower_shop/app/core/ui_helper/style/font_style.dart';
 import 'package:flower_shop/app/core/widgets/show_snak_bar.dart';
 import 'package:flower_shop/features/orders/domain/models/user_carts_model.dart';
 import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
@@ -137,13 +138,18 @@ class CartItemWidget extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              '${LocaleKeys.egp.tr()} ${cartModel!.price}',
-                              style: Theme.of(context).textTheme.bodyMedium!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: AppColors.blackColor,
-                                  ),
+                              '${LocaleKeys.egp.tr()} ${cartModel?.product?.priceAfterDiscount}',
+                              style: AppStyles.black14bold,
+                            ),
+                            const SizedBox(width: 8),
+
+                            Text(
+                              '${cartModel?.price}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade600,
+                                decoration: TextDecoration.lineThrough,
+                              ),
                             ),
                             const Spacer(),
                             IconButton(
@@ -192,7 +198,10 @@ class CartItemWidget extends StatelessWidget {
                                     increase: true,
                                   ),
                                 );
-                                showAppSnackbar(context, 'product updated');
+                                showAppSnackbar(
+                                  context,
+                                  LocaleKeys.productUpdated.tr(),
+                                );
                               },
                               icon: Icon(
                                 Icons.add,

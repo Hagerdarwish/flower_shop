@@ -44,6 +44,7 @@ extension ProductCartModelMapper on ProductCartDto {
       title: title,
       imgCover: imgCover,
       quantity: quantity,
+      priceAfterDiscount: priceAfterDiscount,
     );
   }
 }
