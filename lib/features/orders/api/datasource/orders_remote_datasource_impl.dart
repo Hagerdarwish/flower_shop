@@ -13,4 +13,17 @@ class OrdersRemoteDatasourceImpl implements OrdersRemoteDatasource {
   Future<ApiResult<UserCartsDto>> getUserCarts() {
     return safeApiCall<UserCartsDto>(call: () => apiClient.getUserCarts());
   }
+
+  @override
+  Future<ApiResult<UserCartsDto>> addProductToCart({
+    String? product,
+    int? quantity,
+  }) {
+    return safeApiCall<UserCartsDto>(
+      call: () => apiClient.addProductToCart({
+        'product': product,
+        'quantity': quantity,
+      }),
+    );
+  }
 }

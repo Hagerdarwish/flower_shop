@@ -75,7 +75,6 @@ class CategoriesPage extends StatelessWidget {
                                 );
                               },
                               product: product,
-                              onAddToCart: () {},
                             )
                           : const SizedBox.shrink();
                     },

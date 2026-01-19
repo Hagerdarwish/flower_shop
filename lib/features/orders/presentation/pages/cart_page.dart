@@ -24,7 +24,7 @@ class CartPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios_new_outlined),
           iconSize: 20,
           onPressed: () {
-            context.go(RouteNames.home);
+            context.push(RouteNames.home);
           },
         ),
         title: Row(

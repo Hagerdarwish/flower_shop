@@ -3,4 +3,9 @@ import 'package:flower_shop/features/orders/data/models/user_carts_dto.dart';
 
 abstract class OrdersRemoteDatasource {
   Future<ApiResult<UserCartsDto>> getUserCarts();
+
+  Future<ApiResult<UserCartsDto>> addProductToCart({
+    String? product,
+    int? quantity,
+  });
 }

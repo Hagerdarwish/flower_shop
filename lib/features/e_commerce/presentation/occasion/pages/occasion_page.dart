@@ -85,7 +85,7 @@ class OccasionPage extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   final product = items[index];
-                  return ProductItemCard(product: product, onAddToCart: () {});
+                  return ProductItemCard(product: product);
                 },
               );
             },

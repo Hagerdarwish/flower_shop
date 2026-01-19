@@ -3,4 +3,9 @@ import 'package:flower_shop/features/orders/domain/models/user_carts_model.dart'
 
 abstract class OrdersRepo {
   Future<ApiResult<UserCartsModel>> getUserCarts();
+
+  Future<ApiResult<UserCartsModel>> addProductToCart({
+    String? product,
+    int? quantity,
+  });
 }

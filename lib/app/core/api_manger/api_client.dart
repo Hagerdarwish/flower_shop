@@ -61,4 +61,9 @@ abstract class ApiClient {
 
   @GET(AppEndpointString.cartPage)
   Future<HttpResponse<UserCartsDto>> getUserCarts();
+
+  @POST(AppEndpointString.cartPage)
+  Future<HttpResponse<UserCartsDto>> addProductToCart(
+    @Body() Map<String, dynamic> body,
+  );
 }
