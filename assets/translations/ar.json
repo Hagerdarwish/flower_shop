@@ -101,5 +101,6 @@
   "deliveryFee": "رسوم التوصيل",
   "total": "المجموع",
   "checkout": "الدفع",
-  "productDeletedSuccessfully": "تم حذف المنتج بنجاح"
+  "productDeletedSuccessfully": "تم حذف المنتج بنجاح",
+  "productUpdated": "تم تحديث المنتج"
 }

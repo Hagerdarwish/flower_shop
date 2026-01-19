@@ -10,4 +10,9 @@ abstract class OrdersRemoteDatasource {
   });
 
   Future<ApiResult<UserCartsDto>> deleteCartItem({String? cartItemId});
+
+  Future<ApiResult<UserCartsDto>> updateCartItemQuantity({
+    String? cartItemId,
+    int? quantity,
+  });
 }

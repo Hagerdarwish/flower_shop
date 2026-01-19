@@ -10,4 +10,9 @@ abstract class OrdersRepo {
   });
 
   Future<ApiResult<UserCartsModel>> deleteCartItem({String? cartItemId});
+
+  Future<ApiResult<UserCartsModel>> updateCartItemQuantity({
+    String? cartItemId,
+    int? quantity,
+  });
 }

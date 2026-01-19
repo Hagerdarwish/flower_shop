@@ -33,4 +33,15 @@ class OrdersRemoteDatasourceImpl implements OrdersRemoteDatasource {
       call: () => apiClient.deleteCartItem(cartItemId!),
     );
   }
+
+  @override
+  Future<ApiResult<UserCartsDto>> updateCartItemQuantity({
+    String? cartItemId,
+    int? quantity,
+  }) {
+    return safeApiCall<UserCartsDto>(
+      call: () =>
+          apiClient.updateCartItemQuantity(cartItemId!, {'quantity': quantity}),
+    );
+  }
 }

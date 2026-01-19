@@ -4,6 +4,7 @@ import 'package:flower_shop/features/orders/domain/models/user_carts_model.dart'
 import 'package:flower_shop/features/orders/domain/usecase/add_product_to_cart_usecase.dart';
 import 'package:flower_shop/features/orders/domain/usecase/delete_cart_item_usecase.dart';
 import 'package:flower_shop/features/orders/domain/usecase/get_user_carts_usecase.dart';
+import 'package:flower_shop/features/orders/domain/usecase/update_cart_item_quantity_usecase.dart';
 import 'package:flower_shop/features/orders/presentation/manager/cart_intent.dart';
 import 'package:flower_shop/features/orders/presentation/manager/cart_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,10 +15,12 @@ class CartCubit extends Cubit<CartStates> {
   final GetUserCartsUsecase _getCarts;
   final AddProductToCartUsecase _addProductToCartUsecase;
   final DeleteCartItemUsecase _deleteCartItemUsecase;
+  final UpdateCartItemQuantityUsecase _updateCartItemQuantityUsecase;
   CartCubit(
     this._getCarts,
     this._addProductToCartUsecase,
     this._deleteCartItemUsecase,
+    this._updateCartItemQuantityUsecase,
   ) : super(CartStates());
 
   List<CartItemsModel> cartsList = [];
@@ -30,6 +33,12 @@ class CartCubit extends Cubit<CartStates> {
         _addProductToCart(product: intent.productId, quantity: intent.quantity);
       case DeleteCartItemIntent():
         _deleteCartItem(cartItemId: intent.cartItemId);
+      case UpdateCartItemQuantityIntent():
+        _updateCartItemQuantity(
+          cartItemId: intent.cartItemId,
+          quantity: intent.quantity,
+          increase: intent.increase,
+        );
     }
   }
 
@@ -89,6 +98,34 @@ class CartCubit extends Cubit<CartStates> {
             [];
 
         cartsList = updatedCartItems;
+        emit(state.copyWith(cart: Resource.success(response.data)));
+
+      case ErrorApiResult<UserCartsModel>():
+        emit(state.copyWith(cart: Resource.error(response.error)));
+    }
+  }
+
+  Future<void> _updateCartItemQuantity({
+    required String cartItemId,
+    required int quantity,
+    required bool increase,
+  }) async {
+    if (!increase && quantity == 1) {
+      await _deleteCartItem(cartItemId: cartItemId);
+      return;
+    }
+    final newQuantity = increase ? quantity + 1 : quantity - 1;
+    emit(state.copyWith(cart: Resource.loading()));
+    ApiResult<UserCartsModel> response = await _updateCartItemQuantityUsecase
+        .call(cartItemId: cartItemId, quantity: newQuantity);
+
+    switch (response) {
+      case SuccessApiResult<UserCartsModel>():
+        cartsList =
+            response.data.cart?.cartItems
+                ?.whereType<CartItemsModel>()
+                .toList() ??
+            [];
         emit(state.copyWith(cart: Resource.success(response.data)));
 
       case ErrorApiResult<UserCartsModel>():

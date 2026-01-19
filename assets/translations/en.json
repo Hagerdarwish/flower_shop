@@ -101,5 +101,6 @@
   "deliveryFee": "Delivery Fee",
   "total": "Total",
   "checkout": "Checkout",
-  "productDeletedSuccessfully": "Product Deleted Successfully"
+  "productDeletedSuccessfully": "Product Deleted Successfully",
+  "productUpdated": "Product Updated"
 }

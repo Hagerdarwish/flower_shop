@@ -71,4 +71,10 @@ abstract class ApiClient {
   Future<HttpResponse<UserCartsDto>> deleteCartItem(
     @Path('id') String cartItemId,
   );
+
+  @PUT('${AppEndpointString.cartPage}/{id}')
+  Future<HttpResponse<UserCartsDto>> updateCartItemQuantity(
+    @Path('id') String cartItemId,
+    @Body() Map<String, dynamic> body,
+  );
 }

@@ -147,7 +147,26 @@ class CartItemWidget extends StatelessWidget {
                             ),
                             const Spacer(),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                BlocProvider.of<CartCubit>(context).doIntent(
+                                  UpdateCartItemQuantityIntent(
+                                    cartItemId: cartModel!.product!.id
+                                        .toString(),
+                                    quantity: cartModel!.quantity!,
+                                    increase: false,
+                                  ),
+                                );
+                                cartModel!.quantity! > 1
+                                    ? showAppSnackbar(
+                                        context,
+                                        LocaleKeys.productUpdated.tr(),
+                                      )
+                                    : showAppSnackbar(
+                                        context,
+                                        LocaleKeys.productDeletedSuccessfully
+                                            .tr(),
+                                      );
+                              },
                               icon: Icon(
                                 Icons.minimize,
                                 color: AppColors.blackColor,
@@ -164,7 +183,17 @@ class CartItemWidget extends StatelessWidget {
                                   ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                BlocProvider.of<CartCubit>(context).doIntent(
+                                  UpdateCartItemQuantityIntent(
+                                    cartItemId: cartModel!.product!.id
+                                        .toString(),
+                                    quantity: cartModel!.quantity!,
+                                    increase: true,
+                                  ),
+                                );
+                                showAppSnackbar(context, 'product updated');
+                              },
                               icon: Icon(
                                 Icons.add,
                                 color: AppColors.blackColor,

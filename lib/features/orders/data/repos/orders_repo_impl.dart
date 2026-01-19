@@ -59,4 +59,22 @@ class OrdersRepoImpl implements OrdersRepo {
         return ErrorApiResult<UserCartsModel>(error: response.error);
     }
   }
+
+  @override
+  Future<ApiResult<UserCartsModel>> updateCartItemQuantity({
+    String? cartItemId,
+    int? quantity,
+  }) async {
+    ApiResult<UserCartsDto> response = await ordersDatasource
+        .updateCartItemQuantity(cartItemId: cartItemId, quantity: quantity);
+
+    switch (response) {
+      case SuccessApiResult<UserCartsDto>():
+        UserCartsDto dto = response.data;
+        UserCartsModel cartsModel = dto.toUserCartsModel();
+        return SuccessApiResult<UserCartsModel>(data: cartsModel);
+      case ErrorApiResult<UserCartsDto>():
+        return ErrorApiResult<UserCartsModel>(error: response.error);
+    }
+  }
 }

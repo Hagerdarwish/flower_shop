@@ -14,3 +14,15 @@ class DeleteCartItemIntent extends CartIntent {
 
   DeleteCartItemIntent({required this.cartItemId});
 }
+
+class UpdateCartItemQuantityIntent extends CartIntent {
+  final String cartItemId;
+  final int quantity;
+  final bool increase;
+
+  UpdateCartItemQuantityIntent({
+    required this.cartItemId,
+    required this.quantity,
+    required this.increase,
+  });
+}
