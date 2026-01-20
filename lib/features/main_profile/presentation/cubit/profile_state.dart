@@ -1,3 +1,4 @@
+// lib/features/main_profile/presentation/cubit/profile_state.dart
 part of 'profile_cubit.dart';
 
 sealed class ProfileState {
@@ -6,10 +7,14 @@ sealed class ProfileState {
 
 class ProfileInitial extends ProfileState {}
 
-class ProfileLoading extends ProfileState {}
+class ProfileLoading extends ProfileState {
+  final String? message;
+
+  const ProfileLoading([this.message]);
+}
 
 class ProfileLoaded extends ProfileState {
-  final UserModel user;
+  final ProfileUserModel user;
   final String language;
   final bool notificationsEnabled;
 
@@ -18,35 +23,6 @@ class ProfileLoaded extends ProfileState {
     required this.language,
     required this.notificationsEnabled,
   });
-
-  String get displayName {
-    final firstName = user.firstName ?? '';
-    final lastName = user.lastName ?? '';
-    final name = '$firstName $lastName'.trim();
-
-    if (name.isEmpty && user.email != null) {
-      return user.email!.split('@').first;
-    }
-
-    return name;
-  }
-
-  String get initials {
-    final firstName = user.firstName ?? '';
-    final lastName = user.lastName ?? '';
-
-    if (firstName.isNotEmpty && lastName.isNotEmpty) {
-      return '${firstName[0]}${lastName[0]}'.toUpperCase();
-    } else if (firstName.isNotEmpty) {
-      return firstName[0].toUpperCase();
-    } else if (lastName.isNotEmpty) {
-      return lastName[0].toUpperCase();
-    } else if (user.email != null && user.email!.isNotEmpty) {
-      return user.email![0].toUpperCase();
-    }
-
-    return 'U';
-  }
 }
 
 class ProfileError extends ProfileState {
@@ -57,14 +33,36 @@ class ProfileError extends ProfileState {
 
 class LogoutSuccess extends ProfileState {}
 
-class LanguageChanged extends ProfileState {
-  final String language;
+// Navigation states
+class NavigateToOrders extends ProfileState {}
 
-  const LanguageChanged(this.language);
+class NavigateToAddresses extends ProfileState {}
+
+class NavigateToAboutUs extends ProfileState {}
+
+class NavigateToTerms extends ProfileState {}
+
+// Dialog/BottomSheet states
+class ShowLanguageSelection extends ProfileState {
+  final String currentLanguage;
+
+  const ShowLanguageSelection(this.currentLanguage);
 }
 
-class NotificationToggled extends ProfileState {
-  final bool enabled;
+class ShowLogoutConfirmation extends ProfileState {
+  final ProfileUserModel user;
+  final String language;
+  final bool notificationsEnabled;
 
-  const NotificationToggled(this.enabled);
+  const ShowLogoutConfirmation({
+    required this.user,
+    required this.language,
+    required this.notificationsEnabled,
+  });
+}
+
+class ShowAppVersion extends ProfileState {
+  final String appVersion;
+
+  const ShowAppVersion(this.appVersion);
 }

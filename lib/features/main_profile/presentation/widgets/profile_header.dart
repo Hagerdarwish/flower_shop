@@ -1,9 +1,9 @@
 // lib/features/main_profile/presentation/widgets/profile_header.dart
-import 'package:flower_shop/features/auth/domain/models/signup_model.dart';
+import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
 import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
-  final UserModel user;
+  final ProfileUserModel user;
 
   const ProfileHeader({super.key, required this.user});
 

@@ -10,4 +10,5 @@ class AppConstants {
   static const String bestseller = 'Best Sellers';
   static const String sessionExpiredMessage =
       'Session expired. Please login again.';
+  static const String notificationsKey = 'notifications_enabled';
 }
