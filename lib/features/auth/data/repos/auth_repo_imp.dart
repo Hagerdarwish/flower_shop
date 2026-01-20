@@ -3,6 +3,7 @@ import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource
 import 'package:flower_shop/features/auth/data/mappers/signup_dto_mapper.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/domain/models/login_model.dart';
 import 'package:flower_shop/features/auth/domain/models/signup_model.dart';
@@ -125,5 +126,17 @@ class AuthRepoImp implements AuthRepo {
     }
     ;
     return ErrorApiResult(error: 'Unexpected error');
+  }
+
+  @override
+  Future<ApiResult<LogoutResponse>> logout({required String token}) async {
+    final result = await authDatasource.logout(token: token);
+    if (result is SuccessApiResult<LogoutResponse>) {
+      return SuccessApiResult<LogoutResponse>(data: result.data);
+    }
+    if (result is ErrorApiResult<LogoutResponse>) {
+      return ErrorApiResult<LogoutResponse>(error: result.error);
+    }
+    return ErrorApiResult<LogoutResponse>(error: 'Unexpected error');
   }
 }

@@ -1,3 +1,72 @@
+# name: flower_shop
+# description: "A new Flutter project."
+# publish_to: "none"
+
+# version: 1.0.0+1
+
+# environment:
+#   sdk: ">=3.8.1 <4.0.0"
+
+# dependencies:
+#   flutter:
+#     sdk: flutter
+
+#   # UI
+#   cupertino_icons: ^1.0.8
+#   flutter_svg: ^2.2.0
+#   shimmer: ^3.0.0
+#   flutter_otp_text_field: ^1.3.4
+
+#   # Networking
+#   dio: ^5.4.0
+#   retrofit: 4.9.1
+#   json_annotation: ^4.9.0
+
+#   # State Management
+#   flutter_bloc: ^9.1.1
+#   bloc: ^9.0.0
+#   equatable: ^2.0.7
+
+#   # Dependency Injection
+#   get_it: ^9.2.0
+#   injectable: ^2.4.1
+
+#   # Localization & Storage
+#   easy_localization: ^3.0.8
+#   intl: ^0.20.2
+#   shared_preferences: ^2.5.3
+
+#   # Navigation
+#   go_router: ^17.0.0
+
+# dev_dependencies:
+#   flutter_test:
+#     sdk: flutter
+
+#   flutter_lints: ^5.0.0
+
+#   # Code generation (متوافقة مع Dart 3)
+#   build_runner: ^2.5.4
+#   retrofit_generator: ^9.7.0
+#   injectable_generator: ^2.4.1
+#   json_serializable: ^6.8.0
+
+#   # Testing (نزلناها نسخة متوافقة)
+#   mockito: ^5.4.4
+#   bloc_test: ^10.0.0
+
+# flutter:
+#   uses-material-design: true
+#   assets:
+#     - assets/images/
+#     - assets/translations/
+
+# easy_localization:
+#   path: assets/translations
+#   fallback_locale: en
+#   supported_locales:
+#     - en
+#     - ar
 name: flower_shop
 description: "A new Flutter project."
 publish_to: "none"
@@ -7,7 +76,6 @@ version: 1.0.0+1
 environment:
   sdk: ">=3.8.1 <4.0.0"
   flutter: ">=3.10.0"  # ADD THIS LINE
-
 dependencies:
   bloc: ^9.0.0
   cupertino_icons: ^1.0.8
@@ -27,9 +95,10 @@ dependencies:
   matcher: ^0.12.17
   pretty_dio_logger: ^1.4.0
   provider: ^6.1.1  # ADD THIS if you use Provider
-  retrofit: ^4.9.1
+  retrofit: 4.9.1
   shared_preferences: ^2.5.3
   shimmer: ^3.0.0
+  skeletonizer: ^2.1.2
 
 dev_dependencies:
   bloc_test: ^10.0.0
@@ -40,7 +109,7 @@ dev_dependencies:
   injectable_generator: ^2.4.1
   json_serializable: ^6.8.0
   mockito: ^5.5.0
-  retrofit_generator: ^10.2.0
+  retrofit_generator: 10.0.1
 
 flutter:
   uses-material-design: true

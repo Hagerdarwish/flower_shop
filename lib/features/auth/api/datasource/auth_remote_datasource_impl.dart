@@ -4,6 +4,7 @@ import 'package:flower_shop/app/core/network/safe_api_call.dart';
 import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:injectable/injectable.dart';
 
@@ -67,5 +68,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     ResetPasswordRequest request,
   ) {
     return safeApiCall(call: () => apiClient.resetPassword(request));
+  }
+
+  @override
+  Future<ApiResult<LogoutResponse>> logout({required String token}) {
+    return safeApiCall(call: () => apiClient.logout(token: token));
   }
 }

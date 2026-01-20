@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -24,6 +24,7 @@ import '../../../features/auth/domain/repos/auth_repo.dart' as _i712;
 import '../../../features/auth/domain/usecase/forgot_password_usecase.dart'
     as _i878;
 import '../../../features/auth/domain/usecase/login_usecase.dart' as _i75;
+import '../../../features/auth/domain/usecase/logout_usecase.dart' as _i27;
 import '../../../features/auth/domain/usecase/reset_password_usecase.dart'
     as _i280;
 import '../../../features/auth/domain/usecase/signup_usecase.dart' as _i543;
@@ -33,6 +34,8 @@ import '../../../features/auth/presentation/forget_password/manager/forget_passw
     as _i702;
 import '../../../features/auth/presentation/login/manager/login_cubit.dart'
     as _i810;
+import '../../../features/auth/presentation/logout/manager/logout_cubit.dart'
+    as _i1023;
 import '../../../features/auth/presentation/reset_password/manager/reset_password_cubit.dart'
     as _i378;
 import '../../../features/auth/presentation/signup/manager/signup_cubit.dart'
@@ -137,6 +140,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i75.LoginUseCase>(
       () => _i75.LoginUseCase(gh<_i712.AuthRepo>()),
     );
+    gh.factory<_i27.LogoutUsecase>(
+      () => _i27.LogoutUsecase(gh<_i712.AuthRepo>()),
+    );
     gh.factory<_i332.EcommerceRepo>(
       () => _i670.EcommerceRepoImp(gh<_i152.EcommerceRemoteDatasource>()),
     );
@@ -166,6 +172,10 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i534.GetBestSellerUseCase>(),
         gh<_i386.GetOccasionsUseCase>(),
       ),
+    );
+    gh.factory<_i1023.LogoutCubit>(
+      () =>
+          _i1023.LogoutCubit(gh<_i27.LogoutUsecase>(), gh<_i603.AuthStorage>()),
     );
     gh.factory<_i710.AllCategoriesUsecase>(
       () => _i710.AllCategoriesUsecase(gh<_i332.EcommerceRepo>()),

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
@@ -57,4 +58,9 @@ abstract class ApiClient {
   Future<HttpResponse<ProductDetailsResponse>> getProductDetails(
     @Path('id') String productId,
   );
+
+  @GET(AppEndpointString.logout)
+  Future<HttpResponse<LogoutResponse>> logout({
+    @Header("Authorization") required String token,
+  });
 }

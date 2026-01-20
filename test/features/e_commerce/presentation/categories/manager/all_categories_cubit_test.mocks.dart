@@ -32,7 +32,6 @@ import 'package:mockito/src/dummies.dart' as _i7;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
-// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeEcommerceRepo_0 extends _i1.SmartFake implements _i2.EcommerceRepo {
   _FakeEcommerceRepo_0(Object parent, Invocation parentInvocation)
@@ -60,8 +59,8 @@ class MockAllCategoriesUsecase extends _i1.Mock
           as _i2.EcommerceRepo);
 
   @override
-  set categoriesRepo(_i2.EcommerceRepo? value) => super.noSuchMethod(
-    Invocation.setter(#categoriesRepo, value),
+  set categoriesRepo(_i2.EcommerceRepo? _categoriesRepo) => super.noSuchMethod(
+    Invocation.setter(#categoriesRepo, _categoriesRepo),
     returnValueForMissingStub: null,
   );
 

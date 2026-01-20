@@ -8,6 +8,8 @@ import 'dart:async' as _i3;
 import 'package:flower_shop/app/core/network/api_result.dart' as _i4;
 import 'package:flower_shop/features/auth/data/models/request/reset_password_request_model/reset_password_request_model.dart'
     as _i11;
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart'
+    as _i12;
 import 'package:flower_shop/features/auth/domain/models/forget_password_entity.dart'
     as _i8;
 import 'package:flower_shop/features/auth/domain/models/login_model.dart'
@@ -35,7 +37,6 @@ import 'package:mockito/src/dummies.dart' as _i6;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
-// ignore_for_file: invalid_use_of_internal_member
 
 /// A class which mocks [AuthRepo].
 ///
@@ -145,4 +146,19 @@ class MockAuthRepo extends _i1.Mock implements _i2.AuthRepo {
                 ),
           )
           as _i3.Future<_i4.ApiResult<_i10.ResetPasswordEntity>>);
+
+  @override
+  _i3.Future<_i4.ApiResult<_i12.LogoutResponse>> logout({
+    required String? token,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#logout, [], {#token: token}),
+            returnValue: _i3.Future<_i4.ApiResult<_i12.LogoutResponse>>.value(
+              _i6.dummyValue<_i4.ApiResult<_i12.LogoutResponse>>(
+                this,
+                Invocation.method(#logout, [], {#token: token}),
+              ),
+            ),
+          )
+          as _i3.Future<_i4.ApiResult<_i12.LogoutResponse>>);
 }

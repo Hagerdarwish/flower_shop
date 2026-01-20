@@ -55,22 +55,6 @@ class HomePageBody extends StatelessWidget {
                 title: LocaleKeys.bestSelling.tr(),
                 onTap: () {
                   context.push(RouteNames.BestSeller);
-
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => CatecoryScreen(
-                  //       title: LocaleKeys.categories.tr(),
-                  //       items: state.categories.data ?? [],
-                  //       itemBuilder: (context, category) {
-                  //         return CategoryItem(
-                  //           image: category.image ?? "",
-                  //           label: category.name ?? "",
-                  //         );
-                  //       },
-                  //     ),
-                  //   ),
-                  // );
                 },
                 height: size.height * 0.30,
                 resource: state.bestSeller,

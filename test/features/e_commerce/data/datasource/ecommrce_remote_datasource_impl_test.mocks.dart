@@ -18,6 +18,8 @@ import 'package:flower_shop/features/auth/data/models/response/forget_password_r
     as _i8;
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart'
     as _i6;
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart'
+    as _i18;
 import 'package:flower_shop/features/auth/data/models/response/reset_password_response_model/reset_password_response_model.dart'
     as _i12;
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart'
@@ -48,7 +50,6 @@ import 'package:retrofit/retrofit.dart' as _i2;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
-// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeHttpResponse_0<T> extends _i1.SmartFake
     implements _i2.HttpResponse<T> {
@@ -209,4 +210,20 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
                 ),
           )
           as _i4.Future<_i2.HttpResponse<_i17.ProductDetailsResponse>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i18.LogoutResponse>> logout({
+    required String? token,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#logout, [], {#token: token}),
+            returnValue:
+                _i4.Future<_i2.HttpResponse<_i18.LogoutResponse>>.value(
+                  _FakeHttpResponse_0<_i18.LogoutResponse>(
+                    this,
+                    Invocation.method(#logout, [], {#token: token}),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i18.LogoutResponse>>);
 }

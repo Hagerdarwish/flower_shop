@@ -22,7 +22,12 @@ import 'package:flower_shop/features/home/presentation/manager/home_states.dart'
 import 'package:flower_shop/features/home/presentation/manager/factory/home_factory.dart';
 
 import 'home_cubit_test.mocks.dart';
-import 'factory/home_factory_imp_test.mocks.dart';
+import 'factory/home_factory_imp_test.mocks.dart'
+    hide
+        MockGetCategoriesUseCase,
+        MockGetBestSellerUseCase,
+        MockGetOccasionsUseCase,
+        MockGetProductsUseCase;
 
 @GenerateMocks([
   HomeFactory,
