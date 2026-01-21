@@ -1,5 +1,3 @@
-import 'package:flower_shop/features/auth/presentation/signup/manager/signup_cubit.dart';
-import 'package:flower_shop/features/auth/presentation/signup/manager/signup_states.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,7 +13,7 @@ class ProfileContent extends StatelessWidget {
       context.read<ProfileCubit>().getProfile();
     });
 
-    return BlocBuilder<AuthCubit, AuthStates>(
+    return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         // Handle ProfileInitial state
         if (state is ProfileInitial) {
@@ -27,9 +25,7 @@ class ProfileContent extends StatelessWidget {
         }
 
         if (state is ProfileError) {
-          return Center(
-            child: Text(state.signupState.genderError ?? 'An error occurred'),
-          );
+          return Center(child: Text(state.message));
         }
 
         if (state is ProfileLoaded) {
