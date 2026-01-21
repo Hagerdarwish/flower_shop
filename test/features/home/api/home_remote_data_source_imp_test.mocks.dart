@@ -213,14 +213,16 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
           as _i4.Future<_i2.HttpResponse<_i17.ProductDetailsResponse>>);
 
   @override
-  _i4.Future<_i2.HttpResponse<_i18.ProfileResponse>> getProfileData() =>
+  _i4.Future<_i2.HttpResponse<_i18.ProfileResponse>> getProfileData(
+    String? token,
+  ) =>
       (super.noSuchMethod(
-            Invocation.method(#getProfileData, []),
+            Invocation.method(#getProfileData, [token]),
             returnValue:
                 _i4.Future<_i2.HttpResponse<_i18.ProfileResponse>>.value(
                   _FakeHttpResponse_0<_i18.ProfileResponse>(
                     this,
-                    Invocation.method(#getProfileData, []),
+                    Invocation.method(#getProfileData, [token]),
                   ),
                 ),
           )

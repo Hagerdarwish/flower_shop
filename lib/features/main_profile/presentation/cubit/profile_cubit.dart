@@ -1,4 +1,5 @@
 // presentation/cubit/profile_cubit.dart
+import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
 import 'package:flower_shop/features/main_profile/domain/usecase/get_current_user_usecase.dart';
@@ -12,16 +13,25 @@ part 'profile_state.dart';
 @injectable
 class ProfileCubit extends Cubit<ProfileState> {
   final GetCurrentUserUsecase getCurrentUserUsecase;
+  final AuthStorage authStorage;
 
-  ProfileCubit({required this.getCurrentUserUsecase}) : super(ProfileInitial());
+  ProfileCubit({required this.getCurrentUserUsecase, required this.authStorage})
+    : super(ProfileInitial());
 
   Future<void> getProfile() async {
     try {
       emit(ProfileLoading());
-      final apiResult = await getCurrentUserUsecase();
+
+      final token = await authStorage.getToken();
+      if (token == null) {
+        emit(const ProfileError('Token not found'));
+        return;
+      }
+
+      final apiResult = await getCurrentUserUsecase("Bearer $token");
 
       if (apiResult is SuccessApiResult<ProfileUserModel>) {
-        emit(ProfileLoaded(apiResult));
+        emit(ProfileLoaded(apiResult.data));
       } else if (apiResult is ErrorApiResult<ProfileUserModel>) {
         emit(ProfileError(apiResult.error));
       }
@@ -30,24 +40,16 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  // Helper method to get profile data if available
-  ProfileUserModel? getProfileData() {
-    final currentState = state;
-    if (currentState is ProfileLoaded) {
-      final apiResult = currentState.profile;
-      if (apiResult is SuccessApiResult<ProfileUserModel>) {
-        return apiResult.data;
-      }
+  ProfileUserModel? get profile {
+    if (state is ProfileLoaded) {
+      final result = (state as ProfileLoaded).user;
+      return result;
     }
     return null;
   }
 
-  // Helper method to get full name
-  String getFullName() {
-    final profile = getProfileData();
-    if (profile != null) {
-      return '${profile.firstName} ${profile.lastName}';
-    }
-    return '';
+  String get fullName {
+    final user = profile;
+    return user == null ? '' : '${user.firstName} ${user.lastName}';
   }
 }

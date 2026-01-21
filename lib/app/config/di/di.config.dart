@@ -12,7 +12,6 @@
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
-import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import '../../../features/app_start/presentation/manager/app_cubit.dart'
     as _i858;
@@ -80,13 +79,15 @@ import '../../../features/home/presentation/manager/factory/home_factory_imp.dar
 import '../../../features/home/presentation/manager/home_cubit.dart' as _i682;
 import '../../../features/main_profile/api/profile_remote_data_source_impl.dart'
     as _i381;
-import '../../../features/main_profile/data/profile_remote_data_source.dart'
-    as _i224;
+import '../../../features/main_profile/data/datasource/profile_remote_data_source.dart'
+    as _i955;
 import '../../../features/main_profile/data/repos/profile_repo_impl.dart'
     as _i562;
 import '../../../features/main_profile/domain/repos/profile_repo.dart' as _i866;
 import '../../../features/main_profile/domain/usecase/get_current_user_usecase.dart'
     as _i285;
+import '../../../features/main_profile/presentation/cubit/profile_cubit.dart'
+    as _i650;
 import '../../../features/nav_bar/presentation/manager/nav_cubit.dart' as _i405;
 import '../../core/api_manger/api_client.dart' as _i890;
 import '../auth_storage/auth_storage.dart' as _i603;
@@ -106,21 +107,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i890.ApiClient>(
       () => networkModule.authApiClient(gh<_i361.Dio>()),
     );
-    gh.factory<_i224.ProfileremoteDataSource>(
-      () => _i381.ProfileRemoteDataSourceImpl(gh<_i890.ApiClient>()),
-    );
     gh.factory<_i152.EcommerceRemoteDatasource>(
       () => _i396.EcommerceRemoteDatasourceImpl(gh<_i890.ApiClient>()),
     );
     gh.factory<_i858.AppCubit>(() => _i858.AppCubit(gh<_i603.AuthStorage>()));
     gh.factory<_i332.EcommerceRepo>(
       () => _i670.EcommerceRepoImp(gh<_i152.EcommerceRemoteDatasource>()),
-    );
-    gh.factory<_i866.ProfileRepo>(
-      () => _i562.ProfileRepoImpl(
-        profileRemoteDataSource: gh<_i224.ProfileremoteDataSource>(),
-        prefs: gh<_i460.SharedPreferences>(),
-      ),
     );
     gh.factory<_i708.AuthRemoteDataSource>(
       () => _i777.AuthRemoteDataSourceImpl(gh<_i890.ApiClient>()),
@@ -130,6 +122,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i701.HomeRemoteDataSource>(
       () => _i874.HomeRemoteDataSourceImp(gh<_i890.ApiClient>()),
+    );
+    gh.factory<_i955.ProfileremoteDataSource>(
+      () => _i381.ProfileRemoteDataSourceImpl(gh<_i890.ApiClient>()),
+    );
+    gh.factory<_i866.ProfileRepo>(
+      () => _i562.ProfileRepoImpl(
+        profileRemoteDataSource: gh<_i955.ProfileremoteDataSource>(),
+      ),
     );
     gh.factory<_i75.LoginUseCase>(
       () => _i75.LoginUseCase(gh<_i712.AuthRepo>()),
@@ -187,6 +187,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i702.ForgetPasswordCubit>(
       () => _i702.ForgetPasswordCubit(gh<_i878.ForgotPasswordUseCase>()),
+    );
+    gh.factory<_i650.ProfileCubit>(
+      () => _i650.ProfileCubit(
+        getCurrentUserUsecase: gh<_i285.GetCurrentUserUsecase>(),
+        authStorage: gh<_i603.AuthStorage>(),
+      ),
     );
     gh.factory<_i259.AllCategoriesCubit>(
       () => _i259.AllCategoriesCubit(

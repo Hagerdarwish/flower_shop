@@ -10,7 +10,7 @@ class GetCurrentUserUsecase {
 
   GetCurrentUserUsecase(this.repo);
 
-  Future<ApiResult<ProfileUserModel>> call() async {
-    return await repo.getCurrentUser();
+  Future<ApiResult<ProfileUserModel>> call(String token) async {
+    return await repo.getCurrentUser(token);
   }
 }

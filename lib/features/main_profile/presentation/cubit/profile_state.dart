@@ -10,15 +10,11 @@ class ProfileInitial extends ProfileState {}
 class ProfileLoading extends ProfileState {}
 
 class ProfileLoaded extends ProfileState {
-  final ApiResult<ProfileUserModel> profile;
-  const ProfileLoaded(this.profile);
+  final ProfileUserModel user;
+  const ProfileLoaded(this.user);
 }
 
 class ProfileError extends ProfileState {
   final String message;
   const ProfileError(this.message);
 }
-
-class LogoutLoading extends ProfileState {}
-
-class LogoutSuccess extends ProfileState {}

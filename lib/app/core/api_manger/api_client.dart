@@ -60,5 +60,7 @@ abstract class ApiClient {
   );
 
   @GET(AppEndpointString.profileData)
-  Future<HttpResponse<ProfileResponse>> getProfileData();
+  Future<HttpResponse<ProfileResponse>> getProfileData(
+    @Header("Authorization") String token,
+  );
 }
