@@ -4,8 +4,7 @@ import 'package:flower_shop/features/auth/presentation/signup/pages/signup_scree
 import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/pages/best_sell_screen.dart';
-import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cubit.dart';
-import 'package:flower_shop/features/main_profile/presentation/views/profile_screen.dart';
+import 'package:flower_shop/features/main_profile/presentation/screens/profile_screen.dart';
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -112,16 +111,9 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-    // Update your router file (app_router.dart):
     GoRoute(
       path: RouteNames.profile,
-      builder: (context, state) {
-        return BlocProvider(
-          // IMPORTANT: Use getIt() with the registered name
-          create: (_) => getIt<ProfileCubit>(),
-          child: const ProfileScreen(),
-        );
-      },
+      builder: (context, state) => const ProfileScreen(),
     ),
   ],
 );

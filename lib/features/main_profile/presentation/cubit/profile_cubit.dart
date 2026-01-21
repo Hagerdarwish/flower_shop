@@ -5,7 +5,6 @@ import 'package:flower_shop/features/main_profile/domain/models/profile_user_mod
 import 'package:flower_shop/features/main_profile/domain/usecase/get_current_user_usecase.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 part 'profile_state.dart';
@@ -38,18 +37,5 @@ class ProfileCubit extends Cubit<ProfileState> {
     } catch (e) {
       emit(ProfileError(e.toString()));
     }
-  }
-
-  ProfileUserModel? get profile {
-    if (state is ProfileLoaded) {
-      final result = (state as ProfileLoaded).user;
-      return result;
-    }
-    return null;
-  }
-
-  String get fullName {
-    final user = profile;
-    return user == null ? '' : '${user.firstName} ${user.lastName}';
   }
 }

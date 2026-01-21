@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/app/core/network/safe_api_call.dart';
@@ -10,9 +7,10 @@ import 'package:injectable/injectable.dart';
 
 @Injectable(as: ProfileremoteDataSource)
 class ProfileRemoteDataSourceImpl implements ProfileremoteDataSource {
-  ApiClient apiClient;
+  final ApiClient apiClient;
 
   ProfileRemoteDataSourceImpl(this.apiClient);
+
   @override
   Future<ApiResult<ProfileResponse>> getProfile(String token) {
     return safeApiCall(call: () => apiClient.getProfileData(token));

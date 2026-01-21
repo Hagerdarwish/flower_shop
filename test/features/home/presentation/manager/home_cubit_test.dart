@@ -2,20 +2,15 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
 import 'package:flower_shop/app/core/network/api_result.dart';
-import 'package:flower_shop/app/config/base_state/base_state.dart';
-
 import 'package:flower_shop/features/home/domain/models/category_model.dart';
 import 'package:flower_shop/features/home/domain/models/best_seller_model.dart';
 import 'package:flower_shop/features/home/domain/models/occasion_model.dart';
 import 'package:flower_shop/features/home/domain/models/product_model.dart';
-
 import 'package:flower_shop/features/home/domain/usecase/get_best_seller_usecase.dart';
 import 'package:flower_shop/features/home/domain/usecase/get_categories_usecase.dart';
 import 'package:flower_shop/features/home/domain/usecase/get_occasions_usecase.dart';
 import 'package:flower_shop/features/home/domain/usecase/get_products_usecase.dart';
-
 import 'package:flower_shop/features/home/presentation/manager/home_cubit.dart';
 import 'package:flower_shop/features/home/presentation/manager/home_intent.dart';
 import 'package:flower_shop/features/home/presentation/manager/home_states.dart';

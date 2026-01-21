@@ -20,7 +20,6 @@ class _BestSellerScreenState extends State<BestSellerScreen> {
   @override
   void initState() {
     super.initState();
-    // Trigger the load
     context.read<BestSellerCubit>().doIntent(LoadBestSellersEvent());
   }
 

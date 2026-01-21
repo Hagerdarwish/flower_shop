@@ -4,7 +4,6 @@ import 'package:flower_shop/features/main_profile/data/datasource/profile_remote
 import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
 import 'package:flower_shop/features/main_profile/domain/repos/profile_repo.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 @Injectable(as: ProfileRepo)
 class ProfileRepoImpl implements ProfileRepo {
@@ -18,6 +17,7 @@ class ProfileRepoImpl implements ProfileRepo {
 
     if (result is SuccessApiResult<ProfileResponse>) {
       final ProfileUserModel user = result.data.toDomain();
+
       return SuccessApiResult(data: user);
     } else if (result is ErrorApiResult<ProfileResponse>) {
       return ErrorApiResult(error: result.error);
