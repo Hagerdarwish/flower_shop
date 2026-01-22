@@ -89,7 +89,17 @@ class CartCubit extends Cubit<CartStates> {
     );
     switch (response) {
       case SuccessApiResult<UserCartsModel>():
+        cartsList.removeWhere((item) => item.id.toString() == cartItemId);
+
+        final updatedCartItems =
+            response.data.cart?.cartItems
+                ?.whereType<CartItemsModel>()
+                .toList() ??
+            [];
+
+        cartsList = updatedCartItems;
         emit(state.copyWith(cart: Resource.success(response.data)));
+
       case ErrorApiResult<UserCartsModel>():
         emit(state.copyWith(cart: Resource.error(response.error)));
     }
