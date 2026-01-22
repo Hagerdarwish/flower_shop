@@ -32,6 +32,8 @@ import 'package:flower_shop/features/e_commerce/data/models/response/products_re
     as _i14;
 import 'package:flower_shop/features/home/data/models/response/home_response.dart'
     as _i16;
+import 'package:flower_shop/features/main_profile/data/models/response/profile_response.dart'
+    as _i18;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:retrofit/retrofit.dart' as _i2;
 
@@ -209,4 +211,20 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
                 ),
           )
           as _i4.Future<_i2.HttpResponse<_i17.ProductDetailsResponse>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i18.ProfileResponse>> getProfileData(
+    String? token,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#getProfileData, [token]),
+            returnValue:
+                _i4.Future<_i2.HttpResponse<_i18.ProfileResponse>>.value(
+                  _FakeHttpResponse_0<_i18.ProfileResponse>(
+                    this,
+                    Invocation.method(#getProfileData, [token]),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i18.ProfileResponse>>);
 }

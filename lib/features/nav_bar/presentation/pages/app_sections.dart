@@ -1,8 +1,9 @@
 import 'package:flower_shop/app/core/app_constants.dart';
 import 'package:flower_shop/features/e_commerce/presentation/categories/pages/categories_page.dart';
+import 'package:flower_shop/features/main_profile/presentation/screens/profile_screen.dart';
+
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart';
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_state.dart';
-import 'package:flower_shop/features/nav_bar/presentation/pages/profie.dart';
 import 'package:flower_shop/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

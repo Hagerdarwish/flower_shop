@@ -4,6 +4,9 @@ import 'package:flower_shop/features/auth/presentation/signup/pages/signup_scree
 import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/pages/best_sell_screen.dart';
+import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cubit.dart';
+import 'package:flower_shop/features/main_profile/presentation/cubit/profile_intent.dart';
+import 'package:flower_shop/features/main_profile/presentation/screens/profile_screen.dart';
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -106,6 +109,16 @@ final GoRouter appRouter = GoRouter(
         return BlocProvider(
           create: (_) => getIt<BestSellerCubit>(),
           child: BestSellerScreen(),
+        );
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.profile,
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => getIt<ProfileCubit>()..doIntent(LoadProfileEvent()),
+          child: const ProfileScreen(),
         );
       },
     ),
