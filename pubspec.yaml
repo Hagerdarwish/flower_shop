@@ -37,7 +37,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  injectable_generator: ^2.4.1
+  injectable_generator: ^2.9.1
   json_serializable: ^6.8.0
   mockito: ^5.5.0
   retrofit_generator: ^10.2.0
