@@ -11,9 +11,16 @@ import '../../core/values/app_endpoint_strings.dart';
 abstract class NetworkModule {
   @lazySingleton
   Dio dio(AuthStorage authStorage) {
-    final dio = Dio(BaseOptions(baseUrl: AppEndpointString.baseUrl));
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: AppEndpointString.baseUrl,
+        headers: {'Content-Type': 'application/json'},
+      ),
+    );
+
     dio.interceptors.add(AppInterceptor(authStorage));
 
+    // Logger (keep it last)
     dio.interceptors.add(
       PrettyDioLogger(
         requestHeader: true,
@@ -25,10 +32,10 @@ abstract class NetworkModule {
         maxWidth: 90,
       ),
     );
+
     return dio;
   }
 
   @lazySingleton
-  ApiClient authApiClient(Dio dio) =>
-      ApiClient(dio, baseUrl: AppEndpointString.baseUrl);
+  ApiClient authApiClient(Dio dio) => ApiClient(dio);
 }

@@ -93,6 +93,7 @@
   "productAddedToCart":"تم اضافة المنتج الي العربه",
   "something_went_wrong": "حدث خطأ ما",
   "no_products_found": "لم يتم العثور على منتجات",
+<<<<<<< HEAD
   "cart": "المتجر",
   "items": "منتجات",
   "deliverTo": "توصيل الي",
@@ -103,4 +104,13 @@
   "checkout": "الدفع",
   "productDeletedSuccessfully": "تم حذف المنتج بنجاح",
   "productUpdated": "تم تحديث المنتج"
+=======
+  "currentPassword": "كلمة السر الحالية",
+  "enterCurrentPassword": "ادخل كلمة السر الحالية",
+  "enterNewPassword": "كلمة السر الجديدة",
+  "confirmNewPassword": "أكد كلمة السر الجديدة",
+  "update": "تحديث",
+  "changePassword": "تغييير كلمة السر"
+
+>>>>>>> 16429f8ebb794391023a00b68afb6ba37965698d
 }

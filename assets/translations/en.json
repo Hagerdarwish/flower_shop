@@ -82,8 +82,13 @@
   "invalidName": "Invalid name",
   "phoneNumber": "Phone number",
   "passwordUpdated": "Password Updated Successfully",
+<<<<<<< HEAD
   "addToCard": "Add to cart",
   "noProductsfound" : "No Products found",
+=======
+  "addToCard": "Add to card",
+  "noProductsfound": "No Products found",
+>>>>>>> 16429f8ebb794391023a00b68afb6ba37965698d
   "viewAll": "View All",
   "search": "Search",
   "categories": "Categories",
@@ -93,6 +98,7 @@
   "no_products_found": "No products found",
   "allPricesIncludeTax": "All prices include tax",
   "productAddedToCart": "Product Added To Cart",
+<<<<<<< HEAD
   "cart": "Cart",
   "items": "items",
   "deliverTo": "Deliver to",
@@ -103,4 +109,19 @@
   "checkout": "Checkout",
   "productDeletedSuccessfully": "Product Deleted Successfully",
   "productUpdated": "Product Updated"
+=======
+
+  "currentPassword": "Current Password",
+  "enterCurrentPassword": "Enter current password",
+  "enterNewPassword": "Enter new password",
+  "confirmNewPassword": "Confirm new password",
+  "update": "Update",
+  "changePassword": "Change Password",
+
+  "profileUpdatedSuccessfully": "Profile updated successfully",
+  "tokenNotFound": "Authentication token not found. Please login again.",
+
+  "editProfile": "Edit Profile"
+
+>>>>>>> 16429f8ebb794391023a00b68afb6ba37965698d
 }

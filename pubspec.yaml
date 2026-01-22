@@ -7,7 +7,6 @@ version: 1.0.0+1
 environment:
   sdk: ">=3.8.1 <4.0.0"
   flutter: ">=3.10.0"  # ADD THIS LINE
-
 dependencies:
   bloc: ^9.0.0
   cupertino_icons: ^1.0.8
@@ -31,6 +30,8 @@ dependencies:
   shared_preferences: ^2.5.3
   shimmer: ^3.0.0
   skeletonizer: ^2.1.2
+  image_picker: ^1.2.1
+
 
 dev_dependencies:
   bloc_test: ^10.0.0

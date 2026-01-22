@@ -5,7 +5,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:dio/dio.dart' as _i24;
 import 'package:flower_shop/app/core/api_manger/api_client.dart' as _i3;
+import 'package:flower_shop/features/auth/data/models/request/change-password-request-models/change-password-request-model.dart'
+    as _i20;
 import 'package:flower_shop/features/auth/data/models/request/forget_password_request_model/forget_password_request_model.dart'
     as _i9;
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart'
@@ -14,10 +17,14 @@ import 'package:flower_shop/features/auth/data/models/request/reset_password_req
     as _i13;
 import 'package:flower_shop/features/auth/data/models/request/verify_reset_code_request_model/verify_reset_code_request.dart'
     as _i11;
+import 'package:flower_shop/features/auth/data/models/response/change-password-response-models/change-password-response-model.dart'
+    as _i19;
 import 'package:flower_shop/features/auth/data/models/response/forget_password_response_model/forget_password_response_model.dart'
     as _i8;
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart'
     as _i6;
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart'
+    as _i25;
 import 'package:flower_shop/features/auth/data/models/response/reset_password_response_model/reset_password_response_model.dart'
     as _i12;
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart'
@@ -30,8 +37,14 @@ import 'package:flower_shop/features/e_commerce/data/models/response/product_det
     as _i17;
 import 'package:flower_shop/features/e_commerce/data/models/response/products_response.dart'
     as _i14;
+import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart'
+    as _i23;
+import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart'
+    as _i22;
 import 'package:flower_shop/features/home/data/models/response/home_response.dart'
     as _i16;
+import 'package:flower_shop/features/main_profile/data/models/response/profile_response.dart'
+    as _i21;
 import 'package:flower_shop/features/orders/data/models/user_carts_dto.dart'
     as _i18;
 import 'package:mockito/mockito.dart' as _i1;
@@ -269,4 +282,95 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
             ),
           )
           as _i4.Future<_i2.HttpResponse<_i18.UserCartsDto>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i19.ChangePasswordResponse>> changePassword(
+    _i20.ChangePasswordRequest? request,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#changePassword, [request]),
+            returnValue:
+                _i4.Future<_i2.HttpResponse<_i19.ChangePasswordResponse>>.value(
+                  _FakeHttpResponse_0<_i19.ChangePasswordResponse>(
+                    this,
+                    Invocation.method(#changePassword, [request]),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i19.ChangePasswordResponse>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i21.ProfileResponse>> getProfileData(
+    String? token,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#getProfileData, [token]),
+            returnValue:
+                _i4.Future<_i2.HttpResponse<_i21.ProfileResponse>>.value(
+                  _FakeHttpResponse_0<_i21.ProfileResponse>(
+                    this,
+                    Invocation.method(#getProfileData, [token]),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i21.ProfileResponse>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i22.EditProfileResponse>> editProfile({
+    required String? token,
+    required _i23.EditProfileRequest? request,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#editProfile, [], {
+              #token: token,
+              #request: request,
+            }),
+            returnValue:
+                _i4.Future<_i2.HttpResponse<_i22.EditProfileResponse>>.value(
+                  _FakeHttpResponse_0<_i22.EditProfileResponse>(
+                    this,
+                    Invocation.method(#editProfile, [], {
+                      #token: token,
+                      #request: request,
+                    }),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i22.EditProfileResponse>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i22.EditProfileResponse>> uploadPhoto({
+    required String? token,
+    required _i24.MultipartFile? photo,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#uploadPhoto, [], {#token: token, #photo: photo}),
+            returnValue:
+                _i4.Future<_i2.HttpResponse<_i22.EditProfileResponse>>.value(
+                  _FakeHttpResponse_0<_i22.EditProfileResponse>(
+                    this,
+                    Invocation.method(#uploadPhoto, [], {
+                      #token: token,
+                      #photo: photo,
+                    }),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i22.EditProfileResponse>>);
+
+  @override
+  _i4.Future<_i2.HttpResponse<_i25.LogoutResponse>> logout({
+    required String? token,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#logout, [], {#token: token}),
+            returnValue:
+                _i4.Future<_i2.HttpResponse<_i25.LogoutResponse>>.value(
+                  _FakeHttpResponse_0<_i25.LogoutResponse>(
+                    this,
+                    Invocation.method(#logout, [], {#token: token}),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.HttpResponse<_i25.LogoutResponse>>);
 }

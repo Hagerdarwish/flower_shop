@@ -4,6 +4,8 @@ import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 class SearchTextField extends StatelessWidget {
+  const SearchTextField({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

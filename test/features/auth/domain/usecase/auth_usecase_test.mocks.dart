@@ -6,8 +6,14 @@
 import 'dart:async' as _i3;
 
 import 'package:flower_shop/app/core/network/api_result.dart' as _i4;
+import 'package:flower_shop/features/auth/data/models/request/change-password-request-models/change-password-request-model.dart'
+    as _i14;
 import 'package:flower_shop/features/auth/data/models/request/reset_password_request_model/reset_password_request_model.dart'
     as _i11;
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart'
+    as _i12;
+import 'package:flower_shop/features/auth/domain/models/change_password_entity.dart'
+    as _i13;
 import 'package:flower_shop/features/auth/domain/models/forget_password_entity.dart'
     as _i8;
 import 'package:flower_shop/features/auth/domain/models/login_model.dart'
@@ -144,4 +150,35 @@ class MockAuthRepo extends _i1.Mock implements _i2.AuthRepo {
                 ),
           )
           as _i3.Future<_i4.ApiResult<_i10.ResetPasswordEntity>>);
+
+  @override
+  _i3.Future<_i4.ApiResult<_i12.LogoutResponse>> logout({
+    required String? token,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#logout, [], {#token: token}),
+            returnValue: _i3.Future<_i4.ApiResult<_i12.LogoutResponse>>.value(
+              _i6.dummyValue<_i4.ApiResult<_i12.LogoutResponse>>(
+                this,
+                Invocation.method(#logout, [], {#token: token}),
+              ),
+            ),
+          )
+          as _i3.Future<_i4.ApiResult<_i12.LogoutResponse>>);
+
+  @override
+  _i3.Future<_i4.ApiResult<_i13.ChangePasswordEntity>> changePassword(
+    _i14.ChangePasswordRequest? request,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#changePassword, [request]),
+            returnValue:
+                _i3.Future<_i4.ApiResult<_i13.ChangePasswordEntity>>.value(
+                  _i6.dummyValue<_i4.ApiResult<_i13.ChangePasswordEntity>>(
+                    this,
+                    Invocation.method(#changePassword, [request]),
+                  ),
+                ),
+          )
+          as _i3.Future<_i4.ApiResult<_i13.ChangePasswordEntity>>);
 }
