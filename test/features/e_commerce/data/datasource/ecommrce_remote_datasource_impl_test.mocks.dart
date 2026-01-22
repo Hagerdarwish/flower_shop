@@ -4,8 +4,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:io' as _i20;
 
+import 'package:dio/dio.dart' as _i20;
 import 'package:flower_shop/app/core/api_manger/api_client.dart' as _i3;
 import 'package:flower_shop/features/auth/data/models/request/forget_password_request_model/forget_password_request_model.dart'
     as _i9;
@@ -241,7 +241,7 @@ class MockApiClient extends _i1.Mock implements _i3.ApiClient {
   @override
   _i4.Future<_i2.HttpResponse<_i18.EditProfileResponse>> uploadPhoto({
     required String? token,
-    required _i20.File? photo,
+    required _i20.MultipartFile? photo,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#uploadPhoto, [], {#token: token, #photo: photo}),

@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flower_shop/features/edit_profile/data/datascources/editProfileDataScource.dart';
 import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
@@ -30,7 +30,7 @@ class EditprofiledatascourceImp extends EditProfileDataSource {
   @override
   Future<EditProfileResponse> uploadPhoto({
     required String token,
-    required File photo,
+    required MultipartFile photo,
   }) async {
     try {
       final response = await apiClient.uploadPhoto(token: token, photo: photo);

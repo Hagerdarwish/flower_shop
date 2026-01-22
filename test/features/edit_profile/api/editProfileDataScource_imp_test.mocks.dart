@@ -4,8 +4,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:io' as _i6;
 
+import 'package:dio/dio.dart' as _i6;
 import 'package:flower_shop/features/edit_profile/data/datascources/editProfileDataScource.dart'
     as _i3;
 import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart'
@@ -69,7 +69,7 @@ class MockEditProfileDataSource extends _i1.Mock
   @override
   _i4.Future<_i2.EditProfileResponse> uploadPhoto({
     required String? token,
-    required _i6.File? photo,
+    required _i6.MultipartFile? photo,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#uploadPhoto, [], {#token: token, #photo: photo}),

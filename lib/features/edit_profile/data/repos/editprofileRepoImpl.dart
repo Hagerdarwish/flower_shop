@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/edit_profile/data/datascources/editProfileDataScource.dart';
@@ -43,12 +44,18 @@ class EditprofileRepoImpl implements EditprofileRepo {
   @override
   Future<ApiResult<EditProfileResponse>> uploadPhoto({
     required String token,
-    required File photo,
+    required XFile photo,
   }) async {
     try {
+      final bytes = await photo.readAsBytes();
+      final multipartFile = MultipartFile.fromBytes(
+        bytes,
+        filename: photo.name,
+      );
+
       final response = await editProfileDataSource.uploadPhoto(
         token: token,
-        photo: photo,
+        photo: multipartFile,
       );
 
       return SuccessApiResult(data: response);

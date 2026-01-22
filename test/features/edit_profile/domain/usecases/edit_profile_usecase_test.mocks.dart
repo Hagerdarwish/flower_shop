@@ -4,13 +4,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
-import 'dart:io' as _i7;
 
 import 'package:flower_shop/app/core/network/api_result.dart' as _i4;
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart'
     as _i5;
 import 'package:flower_shop/features/edit_profile/domain/repos/editProfile_repo.dart'
     as _i2;
+import 'package:image_picker/image_picker.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
 
@@ -72,7 +72,7 @@ class MockEditprofileRepo extends _i1.Mock implements _i2.EditprofileRepo {
   @override
   _i3.Future<_i4.ApiResult<_i5.EditProfileResponse>> uploadPhoto({
     required String? token,
-    required _i7.File? photo,
+    required _i7.XFile? photo,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#uploadPhoto, [], {#token: token, #photo: photo}),

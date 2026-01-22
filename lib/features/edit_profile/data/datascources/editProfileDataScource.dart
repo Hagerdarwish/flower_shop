@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
 
@@ -10,6 +10,6 @@ abstract class EditProfileDataSource {
 
   Future<EditProfileResponse> uploadPhoto({
     required String token,
-    required File photo,
+    required MultipartFile photo,
   });
 }

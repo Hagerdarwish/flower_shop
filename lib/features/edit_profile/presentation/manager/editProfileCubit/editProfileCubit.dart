@@ -1,4 +1,6 @@
+import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
+import 'package:flower_shop/features/auth/domain/models/user_model.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
 import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileIntent.dart';
 import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileState.dart';
@@ -10,8 +12,10 @@ import 'package:flower_shop/features/edit_profile/domain/usecases/edit_profile_u
 @injectable
 class EditProfileCubit extends Cubit<EditProfileStates> {
   final EditProfileUseCase _editProfileUseCase;
+  final AuthStorage _authStorage;
 
-  EditProfileCubit(this._editProfileUseCase) : super(EditProfileStates());
+  EditProfileCubit(this._editProfileUseCase, this._authStorage)
+    : super(EditProfileStates());
 
   void doIntent(EditProfileIntent intent) {
     switch (intent.runtimeType) {
@@ -36,6 +40,12 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
     if (isClosed) return;
     switch (result) {
       case SuccessApiResult<EditProfileResponse>():
+        final updatedUser = result.data.user;
+        if (updatedUser != null) {
+          await _authStorage.saveUser(
+            UserModel.fromEditProfileUser(updatedUser),
+          );
+        }
         emit(
           state.copyWith(editProfileResource: Resource.success(result.data)),
         );

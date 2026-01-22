@@ -1,9 +1,9 @@
-import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 abstract class UploadPhotoIntent {}
 
 class SelectPhotoIntent extends UploadPhotoIntent {
-  final File photo;
+  final XFile photo;
   SelectPhotoIntent(this.photo);
 }
 

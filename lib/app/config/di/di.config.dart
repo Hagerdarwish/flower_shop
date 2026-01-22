@@ -137,6 +137,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1.UploadPhotoUseCase>(
       () => _i1.UploadPhotoUseCase(gh<_i725.EditprofileRepo>()),
     );
+    gh.factory<_i790.EditProfileCubit>(
+      () => _i790.EditProfileCubit(
+        gh<_i276.EditProfileUseCase>(),
+        gh<_i603.AuthStorage>(),
+      ),
+    );
     gh.factory<_i152.EcommerceRemoteDatasource>(
       () => _i396.EcommerceRemoteDatasourceImpl(gh<_i890.ApiClient>()),
     );
@@ -148,9 +154,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i967.VerifyResetCodeUseCase>(
       () => _i967.VerifyResetCodeUseCase(gh<_i712.AuthRepo>()),
-    );
-    gh.factory<_i790.EditProfileCubit>(
-      () => _i790.EditProfileCubit(gh<_i276.EditProfileUseCase>()),
     );
     gh.factory<_i702.ForgetPasswordCubit>(
       () => _i702.ForgetPasswordCubit(gh<_i878.ForgotPasswordUseCase>()),
@@ -168,11 +171,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i75.LoginUseCase>(
       () => _i75.LoginUseCase(gh<_i712.AuthRepo>()),
     );
-    gh.factory<_i231.UploadPhotoCubit>(
-      () => _i231.UploadPhotoCubit(gh<_i1.UploadPhotoUseCase>()),
-    );
     gh.factory<_i332.EcommerceRepo>(
       () => _i670.EcommerceRepoImp(gh<_i152.EcommerceRemoteDatasource>()),
+    );
+    gh.factory<_i231.UploadPhotoCubit>(
+      () => _i231.UploadPhotoCubit(
+        gh<_i1.UploadPhotoUseCase>(),
+        gh<_i603.AuthStorage>(),
+      ),
     );
     gh.factory<_i392.AuthCubit>(
       () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),

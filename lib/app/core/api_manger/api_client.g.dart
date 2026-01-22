@@ -329,22 +329,14 @@ class _ApiClient implements ApiClient {
   @override
   Future<HttpResponse<EditProfileResponse>> uploadPhoto({
     required String token,
-    required File photo,
+    required MultipartFile photo,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = FormData();
-    _data.files.add(
-      MapEntry(
-        'photo',
-        MultipartFile.fromFileSync(
-          photo.path,
-          filename: photo.path.split(Platform.pathSeparator).last,
-        ),
-      ),
-    );
+    _data.files.add(MapEntry('photo', photo));
     final _options = _setStreamType<HttpResponse<EditProfileResponse>>(
       Options(
             method: 'PUT',

@@ -70,6 +70,6 @@ abstract class ApiClient {
   @PUT(AppEndpointString.uploadPhoto)
   Future<HttpResponse<EditProfileResponse>> uploadPhoto({
     @Header("Authorization") required String token,
-    @Part(name: "photo") required File photo,
+    @Part(name: "photo") required MultipartFile photo,
   });
 }
