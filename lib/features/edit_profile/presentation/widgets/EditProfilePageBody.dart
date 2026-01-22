@@ -16,9 +16,11 @@ import 'package:flower_shop/features/edit_profile/presentation/manager/editProfi
 import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileIntent.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileState.dart';
+import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
 
 class EditProfilePageBody extends StatefulWidget {
-  const EditProfilePageBody({super.key});
+  final ProfileUserModel? user;
+  const EditProfilePageBody({super.key, this.user});
 
   @override
   State<EditProfilePageBody> createState() => _EditProfilePageBodyState();
@@ -34,14 +36,23 @@ class _EditProfilePageBodyState extends State<EditProfilePageBody> {
   @override
   void initState() {
     super.initState();
-    firstNameController = TextEditingController();
-    lastNameController = TextEditingController();
-    emailController = TextEditingController();
-    phoneController = TextEditingController();
+    firstNameController = TextEditingController(
+      text: widget.user?.firstName ?? 'ali',
+    );
+    lastNameController = TextEditingController(
+      text: widget.user?.lastName ?? 'besar',
+    );
+    emailController = TextEditingController(
+      text: widget.user?.email ?? 'alibesar@gmail.com',
+    );
+    phoneController = TextEditingController(
+      text: widget.user?.phone ?? '+201557689713',
+    );
     _loadUserData();
   }
 
   Future<void> _loadUserData() async {
+    if (widget.user != null) return;
     final user = await authStorage.getUser();
     if (user != null) {
       firstNameController.text = user.firstName ?? 'ali';
@@ -163,7 +174,8 @@ class _EditProfilePageBodyState extends State<EditProfilePageBody> {
                     } else {
                       String? photoUrl =
                           state.uploadPhotoResource.data?.user?.photo ??
-                          user?.photo;
+                          user?.photo ??
+                          widget.user?.photo;
                       if (photoUrl != null) {
                         if (!photoUrl.startsWith('http')) {
                           photoUrl =

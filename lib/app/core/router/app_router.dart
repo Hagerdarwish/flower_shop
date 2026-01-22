@@ -23,6 +23,7 @@ import '../../../features/e_commerce/presentation/product details/manger/product
 import '../../../features/e_commerce/presentation/product details/pages/product_details_page.dart';
 import '../../../features/nav_bar/presentation/pages/app_sections.dart';
 import 'package:flower_shop/features/edit_profile/presentation/pages/editProfileScreen.dart';
+import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -125,7 +126,10 @@ final GoRouter appRouter = GoRouter(
 
     GoRoute(
       path: RouteNames.editProfile,
-      builder: (context, state) => const EditProfilePage(),
+      builder: (context, state) {
+        final user = state.extra as ProfileUserModel?;
+        return EditProfilePage(user: user);
+      },
     ),
   ],
 );

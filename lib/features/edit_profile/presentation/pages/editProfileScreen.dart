@@ -2,12 +2,13 @@ import 'package:flower_shop/app/config/di/di.dart';
 import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileCubit.dart';
 import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/uploadPhotoCubit.dart';
 import 'package:flower_shop/features/edit_profile/presentation/widgets/EditProfilePageBody.dart';
-import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
+import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditProfilePage extends StatelessWidget {
-  const EditProfilePage({super.key});
+  final ProfileUserModel? user;
+  const EditProfilePage({super.key, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class EditProfilePage extends StatelessWidget {
           leading: const BackButton(color: Colors.black),
         ),
         backgroundColor: Colors.white,
-        body: const EditProfilePageBody(),
+        body: EditProfilePageBody(user: user),
       ),
     );
   }

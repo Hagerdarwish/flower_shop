@@ -1,6 +1,11 @@
 import 'package:flower_shop/app/core/app_constants.dart';
+import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
+import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cubit.dart';
+import 'package:flower_shop/features/main_profile/presentation/cubit/profile_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({super.key, required this.user});
@@ -17,18 +22,26 @@ class ProfileBody extends StatelessWidget {
           rowItem(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.grey.shade200,
-                child: ClipOval(
-                  child: Image.network(
-                    user.photo ?? '',
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) {
-                      return const Icon(Icons.person, size: 40);
-                    },
+              InkWell(
+                onTap: () async {
+                  await context.push(RouteNames.editProfile, extra: user);
+                  if (context.mounted) {
+                    context.read<ProfileCubit>().doIntent(LoadProfileEvent());
+                  }
+                },
+                child: CircleAvatar(
+                  radius: 40,
+                  backgroundColor: Colors.grey.shade200,
+                  child: ClipOval(
+                    child: Image.network(
+                      user.photo ?? '',
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) {
+                        return const Icon(Icons.person, size: 40);
+                      },
+                    ),
                   ),
                 ),
               ),
