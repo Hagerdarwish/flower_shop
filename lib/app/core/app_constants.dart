@@ -8,4 +8,12 @@ class AppConstants {
   static const String defaultErrorMessage =
       "Something went wrong please try again later ";
   static const String bestseller = 'Best Sellers';
+  static const String firstName = 'First Name';
+  static const String lastName = 'Last Name';
+  static const String email = 'Email';
+  static const String phone = 'Phone Number';
+  static const String gender = 'Gender';
+  static const String password = 'Password';
+  static const String update = 'Update';
+  static const String editProfile = 'Edit Profile';
 }

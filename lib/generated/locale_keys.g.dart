@@ -98,4 +98,8 @@ abstract class LocaleKeys {
   static const productAddedToCart = 'productAddedToCart';
   static const something_went_wrong = 'something_went_wrong';
   static const no_products_found = 'no_products_found';
+  static const profileUpdatedSuccessfully = 'profileUpdatedSuccessfully';
+  static const tokenNotFound = 'tokenNotFound';
+  static const update = 'update';
+  static const editProfile = 'editProfile';
 }

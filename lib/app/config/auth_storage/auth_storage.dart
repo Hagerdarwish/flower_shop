@@ -33,6 +33,8 @@ class AuthStorage {
       'email': user.email,
       'photo': user.photo,
       'role': user.role,
+      'phone': user.phone,
+      'gender': user.gender,
       'wishlist': user.wishlist,
     });
     await prefs.setString(_userKey, userJson);
@@ -51,6 +53,8 @@ class AuthStorage {
       email: json['email'],
       photo: json['photo'],
       role: json['role'],
+      phone: json['phone'],
+      gender: json['gender'],
       wishlist: json['wishlist']?.cast<dynamic>(),
     );
   }

@@ -19,6 +19,7 @@ import '../../../features/home/domain/models/occasion_model.dart';
 import '../../../features/e_commerce/presentation/product details/manger/product_details_cubit/product_details_cubit.dart';
 import '../../../features/e_commerce/presentation/product details/pages/product_details_page.dart';
 import '../../../features/nav_bar/presentation/pages/app_sections.dart';
+import 'package:flower_shop/features/edit_profile/presentation/pages/editProfileScreen.dart';
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -108,6 +109,10 @@ final GoRouter appRouter = GoRouter(
           child: BestSellerScreen(),
         );
       },
+    ),
+    GoRoute(
+      path: RouteNames.editProfile,
+      builder: (context, state) => const EditProfilePage(),
     ),
   ],
 );
