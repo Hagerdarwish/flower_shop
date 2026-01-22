@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flower_shop/features/edit_profile/data/datascources/edit_profile_datasource.dart';
+import 'package:flower_shop/features/edit_profile/data/datasources/edit_profile_datasource.dart';
 import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
 import 'package:injectable/injectable.dart';

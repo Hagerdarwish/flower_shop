@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
-import 'package:flower_shop/features/edit_profile/data/datascources/edit_profile_datasource.dart';
+import 'package:flower_shop/features/edit_profile/data/datasources/edit_profile_datasource.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
 import 'package:flower_shop/features/edit_profile/data/repos/edit_profile_repo_impl.dart';
 import 'package:flutter_test/flutter_test.dart';

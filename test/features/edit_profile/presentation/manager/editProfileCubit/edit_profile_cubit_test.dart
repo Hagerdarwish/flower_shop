@@ -12,7 +12,7 @@ import 'package:flower_shop/features/edit_profile/data/models/response/editprofi
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 
-import 'editProfileCubit_test.mocks.dart';
+import 'edit_profile_cubit_test.mocks.dart';
 
 @GenerateMocks([EditProfileUseCase, AuthStorage])
 void main() {
