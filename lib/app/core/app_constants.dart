@@ -25,4 +25,12 @@ class AppConstants {
   static const String myOrders = 'My Orders';
   static const String noName = 'No Name';
   static const String noEmail = 'No Email';
+  static const String firstName = 'First Name';
+  static const String lastName = 'Last Name';
+  static const String email = 'Email';
+  static const String phone = 'Phone Number';
+  static const String gender = 'Gender';
+  static const String password = 'Password';
+  static const String update = 'Update';
+  static const String editProfile = 'Edit Profile';
 }

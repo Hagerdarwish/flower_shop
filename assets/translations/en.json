@@ -83,7 +83,7 @@
   "phoneNumber": "Phone number",
   "passwordUpdated": "Password Updated Successfully",
   "addToCard": "Add to card",
-  "noProductsfound" : "No Products found",
+  "noProductsfound": "No Products found",
   "viewAll": "View All",
   "search": "Search",
   "categories": "Categories",
@@ -92,6 +92,9 @@
   "something_went_wrong": "Something went wrong",
   "no_products_found": "No products found",
   "allPricesIncludeTax": "All prices include tax",
-  "productAddedToCart": "Product Added To Cart"
-
+  "productAddedToCart": "Product Added To Cart",
+  "profileUpdatedSuccessfully": "Profile updated successfully",
+  "tokenNotFound": "Authentication token not found. Please login again.",
+  "update": "Update",
+  "editProfile": "Edit Profile"
 }

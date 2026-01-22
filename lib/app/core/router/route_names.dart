@@ -11,4 +11,5 @@ abstract class RouteNames {
   static const productDetails = "/productDetails";
   static const BestSeller = "/bestseller";
   static const profile = "/profile";
+  static const editProfile = "/editProfile";
 }
