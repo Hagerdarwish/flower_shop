@@ -1,3 +1,4 @@
+import 'package:flower_shop/app/core/app_constants.dart';
 import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
 import 'package:flutter/material.dart';
 
@@ -35,8 +36,8 @@ class ProfileBody extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(user.firstName ?? 'No Name'),
-                  Text(user.email ?? 'No Email'),
+                  Text(user.firstName ?? AppConstants.noName),
+                  Text(user.email ?? AppConstants.noEmail),
                 ],
               ),
             ],
@@ -44,7 +45,7 @@ class ProfileBody extends StatelessWidget {
 
           rowItem(
             children: [
-              const Text('My Orders'),
+              const Text(AppConstants.myOrders),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.arrow_forward_ios),
@@ -54,7 +55,7 @@ class ProfileBody extends StatelessWidget {
 
           rowItem(
             children: [
-              const Text('Saved Addresses'),
+              const Text(AppConstants.savedaddresses),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.arrow_forward_ios),
@@ -64,14 +65,14 @@ class ProfileBody extends StatelessWidget {
 
           rowItem(
             children: [
-              const Text('Notifications'),
+              const Text(AppConstants.notifications),
               Switch(value: true, onChanged: (_) {}),
             ],
           ),
 
           rowItem(
             children: [
-              const Text('Language'),
+              const Text(AppConstants.Language),
               DropdownButton<String>(
                 value: 'en',
                 items: const [
@@ -85,7 +86,7 @@ class ProfileBody extends StatelessWidget {
 
           rowItem(
             children: [
-              const Text('About Us'),
+              const Text(AppConstants.aboutUs),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.arrow_forward_ios),
@@ -95,7 +96,7 @@ class ProfileBody extends StatelessWidget {
 
           rowItem(
             children: [
-              const Text('Terms and Conditions'),
+              const Text(AppConstants.termsAndConditions),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.arrow_forward_ios),

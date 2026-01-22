@@ -1,3 +1,4 @@
+import 'package:flower_shop/app/core/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class GuestProfileScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class GuestProfileScreen extends StatelessWidget {
             Icon(Icons.person_outline, size: 100, color: Colors.grey.shade400),
             const SizedBox(height: 24),
             Text(
-              'No Profile Found',
+              AppConstants.noProfileFound,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -32,7 +33,7 @@ class GuestProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'You need to register or login to access your profile',
+              AppConstants.pleaseLoginToAccessProfile,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
             ),
@@ -45,7 +46,7 @@ class GuestProfileScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
                 child: const Text(
-                  'Login',
+                  AppConstants.login,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -59,7 +60,7 @@ class GuestProfileScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
                 child: const Text(
-                  'Register',
+                  AppConstants.register,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -68,7 +69,7 @@ class GuestProfileScreen extends StatelessWidget {
             TextButton(
               onPressed: onContinueAsGuest,
               child: const Text(
-                'Continue as Guest',
+                AppConstants.continueAsGuest,
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
             ),
