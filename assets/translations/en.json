@@ -92,6 +92,8 @@
   "something_went_wrong": "Something went wrong",
   "no_products_found": "No products found",
   "allPricesIncludeTax": "All prices include tax",
-  "productAddedToCart": "Product Added To Cart"
-
+  "productAddedToCart": "Product Added To Cart",
+  "change_language": "Change Language",
+  "arabic": "Arabic",
+  "english": "English"
 }
