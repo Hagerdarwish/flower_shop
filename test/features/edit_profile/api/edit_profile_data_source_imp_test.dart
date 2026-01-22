@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'editProfileDataScource_imp_test.mocks.dart';
+import 'edit_profile_data_source_imp_test.mocks.dart';
 
 @GenerateMocks([EditProfileDataSource])
 void main() {

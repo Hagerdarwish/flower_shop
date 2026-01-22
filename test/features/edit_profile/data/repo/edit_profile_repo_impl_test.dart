@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'editprofileRepoImpl_test.mocks.dart';
+import '../../api/edit_profile_data_source_imp_test.mocks.dart';
 
 @GenerateMocks([EditProfileDataSource])
 void main() {
