@@ -93,18 +93,17 @@
   "no_products_found": "No products found",
   "allPricesIncludeTax": "All prices include tax",
   "productAddedToCart": "Product Added To Cart",
-<<<<<<< HEAD
+
   "currentPassword": "Current Password",
   "enterCurrentPassword": "Enter current password",
   "enterNewPassword": "Enter new password",
   "confirmNewPassword": "Confirm new password",
   "update": "Update",
-  "changePassword": "Change Password"
+  "changePassword": "Change Password",
 
-=======
   "profileUpdatedSuccessfully": "Profile updated successfully",
   "tokenNotFound": "Authentication token not found. Please login again.",
-  "update": "Update",
+
   "editProfile": "Edit Profile"
->>>>>>> 122be6acf9aa5d18e002e50c0c13bad41dfd9d6b
+
 }
