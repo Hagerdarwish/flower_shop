@@ -8,6 +8,8 @@ import 'dart:async' as _i3;
 import 'package:flower_shop/app/core/network/api_result.dart' as _i4;
 import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart'
     as _i2;
+import 'package:flower_shop/features/auth/data/models/request/change-password-request-models/change-password-request-model.dart'
+    as _i16;
 import 'package:flower_shop/features/auth/data/models/request/forget_password_request_model/forget_password_request_model.dart'
     as _i10;
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart'
@@ -16,6 +18,8 @@ import 'package:flower_shop/features/auth/data/models/request/reset_password_req
     as _i14;
 import 'package:flower_shop/features/auth/data/models/request/verify_reset_code_request_model/verify_reset_code_request.dart'
     as _i12;
+import 'package:flower_shop/features/auth/data/models/response/change-password-response-models/change-password-response-model.dart'
+    as _i15;
 import 'package:flower_shop/features/auth/data/models/response/forget_password_response_model/forget_password_response_model.dart'
     as _i9;
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart'
@@ -42,7 +46,6 @@ import 'package:mockito/src/dummies.dart' as _i8;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
-// ignore_for_file: invalid_use_of_internal_member
 
 /// A class which mocks [AuthRemoteDataSource].
 ///
@@ -139,4 +142,20 @@ class MockAuthRemoteDataSource extends _i1.Mock
                 ),
           )
           as _i3.Future<_i4.ApiResult<_i13.ResetPasswordResponse>>);
+
+  @override
+  _i3.Future<_i4.ApiResult<_i15.ChangePasswordResponse>> changePassword(
+    _i16.ChangePasswordRequest? request,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#changePassword, [request]),
+            returnValue:
+                _i3.Future<_i4.ApiResult<_i15.ChangePasswordResponse>>.value(
+                  _i8.dummyValue<_i4.ApiResult<_i15.ChangePasswordResponse>>(
+                    this,
+                    Invocation.method(#changePassword, [request]),
+                  ),
+                ),
+          )
+          as _i3.Future<_i4.ApiResult<_i15.ChangePasswordResponse>>);
 }

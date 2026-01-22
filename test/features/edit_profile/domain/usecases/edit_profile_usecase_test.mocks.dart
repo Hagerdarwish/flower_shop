@@ -8,7 +8,7 @@ import 'dart:async' as _i3;
 import 'package:flower_shop/app/core/network/api_result.dart' as _i4;
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart'
     as _i5;
-import 'package:flower_shop/features/edit_profile/domain/repos/editProfile_repo.dart'
+import 'package:flower_shop/features/edit_profile/domain/repos/edit_profile_repo.dart'
     as _i2;
 import 'package:image_picker/image_picker.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
@@ -27,7 +27,6 @@ import 'package:mockito/src/dummies.dart' as _i6;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
-// ignore_for_file: invalid_use_of_internal_member
 
 /// A class which mocks [EditprofileRepo].
 ///

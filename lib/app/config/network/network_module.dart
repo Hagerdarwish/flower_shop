@@ -4,12 +4,23 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../core/api_manger/api_client.dart';
 import '../../core/values/app_endpoint_strings.dart';
+import '../auth_storage/auth_storage.dart';
+import 'interceptor.dart';
 
 @module
 abstract class NetworkModule {
   @lazySingleton
-  Dio dio() {
-    final dio = Dio(BaseOptions(baseUrl: AppEndpointString.baseUrl));
+  Dio dio(AuthStorage authStorage) {
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: AppEndpointString.baseUrl,
+        headers: {'Content-Type': 'application/json'},
+      ),
+    );
+
+    dio.interceptors.add(AppInterceptor(authStorage));
+
+    // Logger (keep it last)
     dio.interceptors.add(
       PrettyDioLogger(
         requestHeader: true,
@@ -21,6 +32,7 @@ abstract class NetworkModule {
         maxWidth: 90,
       ),
     );
+
     return dio;
   }
 

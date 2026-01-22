@@ -98,8 +98,13 @@ abstract class LocaleKeys {
   static const productAddedToCart = 'productAddedToCart';
   static const something_went_wrong = 'something_went_wrong';
   static const no_products_found = 'no_products_found';
+  static const currentPassword = 'currentPassword';
+  static const enterCurrentPassword = 'enterCurrentPassword';
+  static const enterNewPassword = 'enterNewPassword';
+  static const confirmNewPassword = 'confirmNewPassword';
+  static const update = 'update';
+  static const changePassword = 'changePassword';
   static const profileUpdatedSuccessfully = 'profileUpdatedSuccessfully';
   static const tokenNotFound = 'tokenNotFound';
-  static const update = 'update';
   static const editProfile = 'editProfile';
 }

@@ -5,10 +5,10 @@ import '../models/reset_password_entity.dart';
 import '../repos/auth_repo.dart';
 
 @lazySingleton
-class ResetPasswordUseCase {
+class ChangePasswordUseCase {
   final AuthRepo repo;
 
-  ResetPasswordUseCase(this.repo);
+  ChangePasswordUseCase(this.repo);
 
   Future<ApiResult<ResetPasswordEntity>> call(ResetPasswordRequest request) {
     return repo.resetPassword(request);

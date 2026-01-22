@@ -4,15 +4,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileCubit.dart';
-import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileState.dart';
-import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileIntent.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/edit_profile_cubit.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/edit_profile_state.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/edit_profile_intent.dart';
 import 'package:flower_shop/features/edit_profile/domain/usecases/edit_profile_usecase.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 
-import 'editProfileCubit_test.mocks.dart';
+import 'edit_profile_cubit_test.mocks.dart';
 
 @GenerateMocks([EditProfileUseCase, AuthStorage])
 void main() {

@@ -1,16 +1,16 @@
 // editprofile_repo_test.dart
 import 'dart:typed_data';
 import 'package:flower_shop/app/core/network/api_result.dart';
-import 'package:flower_shop/features/edit_profile/data/datascources/editProfileDataScource.dart';
+import 'package:flower_shop/features/edit_profile/data/datasources/edit_profile_datasource.dart';
 import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
-import 'package:flower_shop/features/edit_profile/data/repos/editprofileRepoImpl.dart';
+import 'package:flower_shop/features/edit_profile/data/repos/edit_profile_repo_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'editProfileDataScource_imp_test.mocks.dart';
+import 'edit_profile_data_source_imp_test.mocks.dart';
 
 @GenerateMocks([EditProfileDataSource])
 void main() {

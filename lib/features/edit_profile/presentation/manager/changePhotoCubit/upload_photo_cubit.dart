@@ -1,8 +1,8 @@
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
 import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
 import 'package:flower_shop/features/auth/domain/models/user_model.dart';
-import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/uploadPhotoIntent.dart';
-import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/uploadPhotoState.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/upload_photo_intent.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/upload_photo_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';

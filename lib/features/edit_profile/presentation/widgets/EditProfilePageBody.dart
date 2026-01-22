@@ -9,13 +9,13 @@ import 'package:flower_shop/app/config/di/di.dart';
 import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flower_shop/features/auth/presentation/signup/widgets/text_form_field_widget.dart';
-import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/uploadPhotoCubit.dart';
-import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/uploadPhotoIntent.dart';
-import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/uploadPhotoState.dart';
-import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileCubit.dart';
-import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileIntent.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/upload_photo_cubit.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/upload_photo_intent.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/changePhotoCubit/upload_photo_state.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/edit_profile_cubit.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/edit_profile_intent.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
-import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/editProfileState.dart';
+import 'package:flower_shop/features/edit_profile/presentation/manager/editProfileCubit/edit_profile_state.dart';
 import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
 
 class EditProfilePageBody extends StatefulWidget {
