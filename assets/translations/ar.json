@@ -30,7 +30,7 @@
   "passwordNumbersInvalid": "استخدم على الأقل رقمًا",
   "passwordSpecialCharInvalid": "استخدم على الأقل حرفًا خاصًا",
   "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
-  "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين",
+  "passwordsDoNotMatch": "كلمتا المرور غير متطabقتين",
   "phoneRequired": "رقم الهاتف مطلوب",
   "phoneInvalid": "رقم الهاتف غير صالح، يجب أن يكون بصيغة +201XXXXXXXXX",
   "firstNameRequired": "الاسم الأول مطلوب",
@@ -92,6 +92,8 @@
   "allPricesIncludeTax":"كل الاسعار شامله الضرائب",
   "productAddedToCart":"تم اضافة المنتج الي العربه",
   "something_went_wrong": "حدث خطأ ما",
-  "no_products_found": "لم يتم العثور على منتجات"
-
+  "no_products_found": "لم يتم العثور على منتجات",
+  "change_language": "تغيير اللغة",
+  "arabic": "العربية",
+  "english": "الإنجليزية"
 }
