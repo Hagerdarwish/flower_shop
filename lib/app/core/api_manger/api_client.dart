@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flower_shop/features/addresses/data/models/get_addresses_response.dart';
+import 'package:flower_shop/features/addresses/data/models/address_request.dart';
+import 'package:flower_shop/features/addresses/data/models/address_response.dart';
 import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
@@ -112,8 +113,21 @@ abstract class ApiClient {
     @Header("Authorization") required String token,
   });
 
-  @GET(AppEndpointString.getaddresses)
-  Future<HttpResponse<GetAddressesResponse>> getAddresses({
+  @GET(AppEndpointString.addresses)
+  Future<HttpResponse<AddressResponse>> getAddresses({
     @Header("Authorization") required String token,
+  });
+
+  @DELETE(AppEndpointString.addresses + '/{id}')
+  Future<HttpResponse<AddressResponse>> deleteAddress({
+    @Header("Authorization") required String token,
+    @Path('id') required String addressId,
+  });
+
+  @PATCH(AppEndpointString.addresses + '/{id}')
+  Future<HttpResponse<AddressResponse>> editAddress({
+    @Header("Authorization") required String token,
+    @Path('id') required String addressId,
+    @Body() required AddressRequest request,
   });
 }

@@ -17,6 +17,14 @@ import '../../../features/addresses/data/datasource/address_datasource.dart'
     as _i968;
 import '../../../features/addresses/data/datasource/address_datasource_impl.dart'
     as _i142;
+import '../../../features/addresses/data/repos/address_repo_imp.dart' as _i477;
+import '../../../features/addresses/domain/repos/address_repo.dart' as _i601;
+import '../../../features/addresses/domain/usecases/delete_user_address.dart'
+    as _i861;
+import '../../../features/addresses/domain/usecases/edit_user_address.dart'
+    as _i345;
+import '../../../features/addresses/domain/usecases/get_user_addresses.dart'
+    as _i974;
 import '../../../features/app_start/presentation/manager/app_cubit.dart'
     as _i858;
 import '../../../features/auth/api/datasource/auth_remote_datasource_impl.dart'
@@ -191,6 +199,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i968.AddressDatasource>(
       () => _i142.AddressDatasourceImpl(gh<_i890.ApiClient>()),
     );
+    gh.factory<_i601.AddressRepo>(
+      () => _i477.AddressRepoImp(
+        addressDatasource: gh<_i968.AddressDatasource>(),
+      ),
+    );
     gh.factory<_i986.EditProfileDataSource>(
       () => _i857.EditprofiledatascourceImp(gh<_i890.ApiClient>()),
     );
@@ -229,6 +242,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i392.AuthCubit>(
       () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
     );
+    gh.factory<_i974.GetUserAddresses>(
+      () => _i974.GetUserAddresses(addressRepo: gh<_i601.AddressRepo>()),
+    );
     gh.factory<_i276.EditProfileUseCase>(
       () => _i276.EditProfileUseCase(gh<_i485.EditprofileRepo>()),
     );
@@ -258,6 +274,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1023.LogoutCubit>(
       () =>
           _i1023.LogoutCubit(gh<_i27.LogoutUsecase>(), gh<_i603.AuthStorage>()),
+    );
+    gh.factory<_i861.DeleteUserAddress>(
+      () => _i861.DeleteUserAddress(gh<_i601.AddressRepo>()),
+    );
+    gh.factory<_i345.EditUserAddress>(
+      () => _i345.EditUserAddress(gh<_i601.AddressRepo>()),
     );
     gh.factory<_i710.AllCategoriesUsecase>(
       () => _i710.AllCategoriesUsecase(gh<_i332.EcommerceRepo>()),
