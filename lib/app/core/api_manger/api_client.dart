@@ -7,6 +7,8 @@ import 'package:flower_shop/features/e_commerce/data/models/response/product_det
 import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
 import 'package:flower_shop/features/home/data/models/response/home_response.dart';
+import 'package:flower_shop/features/orders/data/models/paymentRequest.dart';
+import 'package:flower_shop/features/orders/data/models/paymentResonse.dart';
 import 'package:flower_shop/features/orders/data/models/user_carts_dto.dart';
 import 'package:flower_shop/features/main_profile/data/models/response/profile_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -109,5 +111,11 @@ abstract class ApiClient {
   @GET(AppEndpointString.logout)
   Future<HttpResponse<LogoutResponse>> logout({
     @Header("Authorization") required String token,
+  });
+  @POST(AppEndpointString.checkout)
+  Future<HttpResponse<PaymentResponse>> checkoutOrder({
+    @Header("Authorization") required String token,
+    @Query("url") required String returnUrl,
+    @Body() PaymentRequest request,
   });
 }

@@ -10,6 +10,7 @@ class AppEndpointString {
   static const String logout = 'auth/logout';
   static const String updateRole = 'auth/update-role';
   static const String orders = 'orders';
+  static const String checkout = '$orders/checkout';
   static const String addresses = 'addresses';
 
   static const String signup = '/auth/signup';
