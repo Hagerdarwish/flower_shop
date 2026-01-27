@@ -22,4 +22,5 @@ class AppEndpointString {
   static const String tokenKey = 'token';
   static const String editProfile = 'auth/editProfile';
   static const String changepassword = 'auth/change-password';
+  static const String getaddresses = 'addresses';
 }

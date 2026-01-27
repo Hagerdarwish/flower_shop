@@ -60,6 +60,7 @@ class Validators {
     }
     return null;
   }
+
   static String? validateAddress(String? value) {
     if (value == null || value.isEmpty) {
       return UserErrorMessages.requiredAddress;
@@ -72,7 +73,4 @@ class Validators {
     }
     return null;
   }
-
-
-
 }
