@@ -7,7 +7,7 @@ import 'package:flower_shop/features/main_profile/domain/models/profile_user_mod
 import 'package:flower_shop/features/main_profile/domain/repos/profile_repo.dart';
 import 'package:flower_shop/features/main_profile/domain/usecase/get_current_user_usecase.dart';
 
-import 'get_current_user_usecase_test.mocks.dart';
+import 'usecase/get_current_user_usecase_test.mocks.dart';
 
 @GenerateMocks([ProfileRepo])
 void main() {

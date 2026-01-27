@@ -3,11 +3,11 @@ import 'package:flower_shop/features/main_profile/domain/models/profile_user_mod
 import 'package:flower_shop/features/main_profile/domain/models/about_and_terms_model.dart';
 
 class ProfileState {
-  final Resource<ProfileUserModel> user;
+  final Resource<ProfileUserModel>? user;
   final Resource<List<AboutAndTermsModel>>? about;
   final Resource<List<AboutAndTermsModel>>? terms;
 
-  ProfileState({required this.user, this.about, this.terms});
+  ProfileState({this.user, this.about, this.terms});
 
   factory ProfileState.initial() {
     return ProfileState(user: Resource.initial());

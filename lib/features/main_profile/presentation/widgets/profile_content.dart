@@ -16,7 +16,7 @@ class ProfileContent extends StatelessWidget {
       builder: (context, state) {
         final userState = state.user;
 
-        if (userState.isLoading) {
+        if (userState!.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
 
