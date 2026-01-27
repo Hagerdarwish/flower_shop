@@ -1,4 +1,5 @@
 import 'package:flower_shop/features/addresses/data/models/address_model.dart';
+import 'package:flower_shop/features/addresses/domain/models/address_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'address_response.g.dart';
@@ -20,5 +21,9 @@ class AddressResponse {
 
   Map<String, dynamic> toJson() {
     return _$AddressResponseToJson(this);
+  }
+
+  List<AddressEntity> toEntityList() {
+    return addresses?.map((e) => e.toEntity()).toList() ?? [];
   }
 }

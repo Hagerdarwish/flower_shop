@@ -1,3 +1,4 @@
+import 'package:flower_shop/features/addresses/domain/models/address_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'address_model.g.dart';
@@ -35,5 +36,17 @@ class Address {
 
   Map<String, dynamic> toJson() {
     return _$AddressToJson(this);
+  }
+
+  AddressEntity toEntity() {
+    return AddressEntity(
+      id: id ?? '',
+      street: street ?? '',
+      phone: phone ?? '',
+      city: city ?? '',
+      lat: lat ?? '',
+      long: long ?? '',
+      username: username ?? '',
+    );
   }
 }
