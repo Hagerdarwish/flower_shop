@@ -107,7 +107,12 @@ class OrdersRepoImpl implements OrdersRepo {
         request: paymentRequest,
       );
 
-      return SuccessApiResult(data: response as PaymentResponse);
+      switch (response) {
+        case SuccessApiResult<PaymentResponse>():
+          return SuccessApiResult(data: response.data);
+        case ErrorApiResult<PaymentResponse>():
+          return ErrorApiResult(error: response.error);
+      }
     } catch (e) {
       return ErrorApiResult(error: e.toString());
     }

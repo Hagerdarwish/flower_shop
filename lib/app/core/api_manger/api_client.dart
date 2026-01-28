@@ -116,6 +116,6 @@ abstract class ApiClient {
   Future<HttpResponse<PaymentResponse>> checkoutOrder({
     @Header("Authorization") required String token,
     @Query("url") required String returnUrl,
-    @Body() PaymentRequest request,
+    @Body() PaymentRequest? request,
   });
 }
