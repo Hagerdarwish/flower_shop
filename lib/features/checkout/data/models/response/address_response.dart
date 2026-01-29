@@ -3,10 +3,18 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'address_response.g.dart';
 
+double _safeDouble(dynamic value) {
+  if (value == null) return 0.0;
+  if (value is num) return value.toDouble();
+  return double.tryParse(value.toString()) ?? 0.0;
+}
+
+/// ---------------- RESPONSE ----------------
 @JsonSerializable()
 class AddressResponse {
   @JsonKey(name: "message")
   final String message;
+
   @JsonKey(name: "addresses")
   final List<Address> addresses;
 
@@ -20,13 +28,12 @@ class AddressResponse {
 
   Map<String, dynamic> toJson() => _$AddressResponseToJson(this);
 
-List<AddressModel> toDomain() {
-  return addresses.map((e) => e.toDomain()).toList();
+  List<AddressModel> toDomain() {
+    return addresses.map((e) => e.toDomain()).toList();
+  }
 }
 
-}
-
-
+/// ---------------- ADDRESS ----------------
 @JsonSerializable()
 class Address {
   @JsonKey(name: "street")
@@ -39,10 +46,10 @@ class Address {
   final String city;
 
   @JsonKey(name: "lat")
-  final String lat;
+  final dynamic lat; // <-- dynamic to handle bad backend values
 
   @JsonKey(name: "long")
-  final String long;
+  final dynamic long;
 
   @JsonKey(name: "username")
   final String username;
@@ -72,8 +79,8 @@ class Address {
       phone: phone,
       city: city,
       street: street,
-      lat: double.parse(lat),
-      long: double.parse(long),
+      lat: _safeDouble(lat),
+      long: _safeDouble(long),
     );
   }
 }

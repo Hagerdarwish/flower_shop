@@ -12,6 +12,7 @@ import 'package:flower_shop/features/checkout/presentation/cubit/payment_method.
 import 'package:injectable/injectable.dart';
 
 @injectable
+
 class CheckoutCubit extends Cubit<CheckoutState> {
   final GetAddressUsecase _getAddressUsecase;
   final PostCasheOrderUsecase _postOrderUsecase;
@@ -23,67 +24,63 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     this._authStorage,
   ) : super(CheckoutState());
 
-  void doIntent(intent) {
+void doIntent(dynamic intent) {
+  if (intent is GetAllCheckoutIntents || intent is GetAddressIntent) {
+    _loadAddresses();
+  } else if (intent is CashOrderIntent) {
+    _postOrder();
+  }
+}
 
-    switch (intent) {
-          case GetAllCheckoutIntents():
-      _loadAddresses();
+// Load addresses
+Future<void> _loadAddresses() async {
+  emit(state.copyWith(addresses: Resource.loading()));
+
+  final token = await _authStorage.getToken();
+  if (token == null) {
+    emit(state.copyWith(addresses: Resource.error('Token not found')));
+    return;
+  }
+
+  final result = await _getAddressUsecase("Bearer $token");
+  switch (result) {
+    case SuccessApiResult<List<AddressModel>>():
+      emit(state.copyWith(addresses: Resource.success(result.data)));
       break;
-      case GetAddressIntent():
-        _loadAddresses();
-        break;
-      case CashOrderIntent():
-        _postOrder();
-        break;
-    }
+    case ErrorApiResult<List<AddressModel>>():
+      emit(state.copyWith(addresses: Resource.error(result.error.toString())));
+      break;
+  }
+}
+
+// Post order
+Future<void> _postOrder() async {
+  emit(state.copyWith(isLoading: true, error: null));
+
+  final token = await _authStorage.getToken();
+  if (token == null) {
+    emit(state.copyWith(isLoading: false, error: 'Token not found'));
+    return;
   }
 
-  Future<void> _loadAddresses() async {
-    emit(state.copyWith(addresses: Resource.loading()));
-
-    final token = await _authStorage.getToken();
-
-    if (token == null) {
-      emit(state.copyWith(addresses: Resource.error('Token not found')));
-      return;
-    }
-
-    final result = await _getAddressUsecase("Bearer $token");
-
-    switch (result) {
-      case SuccessApiResult<List<AddressModel>>():
-        emit(state.copyWith(addresses: Resource.success(result.data)));
-        break;
-
-      case ErrorApiResult<List<AddressModel>>():
-        emit(
-          state.copyWith(addresses: Resource.error(result.error.toString())),
-        );
-        break;
-    }
+  final result = await _postOrderUsecase("Bearer $token");
+  switch (result) {
+    case SuccessApiResult<CashOrderModel>():
+      emit(state.copyWith(
+        isLoading: false,
+        order: Resource.success(result.data),
+      ));
+      break;
+    case ErrorApiResult<CashOrderModel>():
+      emit(state.copyWith(
+        isLoading: false,
+        error: result.error.toString(),
+        order: Resource.error(result.error.toString()),
+      ));
+      break;
   }
+}
 
-  Future<void> _postOrder() async {
-    emit(state.copyWith(isLoading: true, error: null));
-
-    final token = await _authStorage.getToken();
-    if (token == null) {
-      emit(state.copyWith(isLoading: false, error: 'Token not found'));
-      return;
-    }
-
-    final result = await _postOrderUsecase("Bearer$token");
-
-    switch (result) {
-      case SuccessApiResult<CashOrderModel>():
-        // You can also parse the returned order if your API gives full order info
-        emit(state.copyWith(isLoading: false));
-
-      case ErrorApiResult<CashOrderModel>():
-        emit(state.copyWith(isLoading: false, error: result.error.toString()));
-        break;
-    }
-  }
 
 
   void selectAddress(AddressModel address) {
@@ -97,5 +94,18 @@ void changePaymentMethod(PaymentMethod method) {
 void toggleGift(bool value) {
   emit(state.copyWith(isGift: value));
 }
+
+  // Update gift name
+  void updateGiftName(String name) {
+    emit(state.copyWith(giftName: name));
+  }
+
+  // Update gift phone
+  void updateGiftPhone(String phone) {
+    emit(state.copyWith(giftPhone: phone));
+  }
+
+
+
 
 }

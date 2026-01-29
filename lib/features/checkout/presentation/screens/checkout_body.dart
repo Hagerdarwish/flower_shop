@@ -1,192 +1,137 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_cubit.dart';
-import 'package:flower_shop/features/checkout/presentation/cubit/checkout_intents.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_state.dart';
-import 'package:flower_shop/features/checkout/presentation/cubit/payment_method.dart';
+import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
+import 'package:flower_shop/features/checkout/presentation/widgets/address.dart';
+import 'package:flower_shop/features/checkout/presentation/widgets/delivery_time.dart';
+import 'package:flower_shop/features/checkout/presentation/widgets/gifts.dart';
+import 'package:flower_shop/features/checkout/presentation/widgets/order_status.dart';
+import 'package:flower_shop/features/checkout/presentation/widgets/payment.dart';
+import 'package:flower_shop/features/checkout/presentation/widgets/place_order.dart';
+import 'package:flower_shop/features/orders/presentation/widgets/total_price_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CheckoutBody extends StatelessWidget {
+class CheckoutBody extends StatefulWidget {
   const CheckoutBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CheckoutCubit>().doIntent(GetAllCheckoutIntents());
-    });
-    return BlocBuilder<CheckoutCubit, CheckoutState>(
-      builder: (context, state) {
-        return SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// Delivery Time
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Row(
-                    children: [
-                      Icon(Icons.access_time_outlined, size: 18),
-                      SizedBox(width: 8),
-                      Text('Deliver today'),
-                    ],
-                  ),
-                  InkWell(child: Text('Schedule', style: TextStyle(color: Colors.pink))),
-                ],
-              ),
-
-              const SizedBox(height: 24),
-
-              /// Delivery Address
-              const Text(
-                'Delivery address',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-
-              if (state.addresses.isLoading)
-                const Center(child: CircularProgressIndicator()),
-
-              if (state.addresses.isError)
-                Text(
-                  state.addresses.error ?? 'Error',
-                  style: const TextStyle(color: Colors.red),
-                ),
-
-              if (state.addresses.isSuccess)
-                Column(
-                  children: state.addresses.data!.map((address) {
-                    return Card(
-                      child: RadioListTile(
-                        value: address,
-                        groupValue: state.selectedAddress,
-                        onChanged: (val) {
-                          context.read<CheckoutCubit>().selectAddress(val!);
-                        },
-                        title: Text(address.username),
-                        subtitle: Text('${address.street}, ${address.city}'),
-                      ),
-                    );
-                  }).toList(),
-                ),
-
-              const SizedBox(height: 24),
-
-              /// Payment Method
-              const Text(
-                'Payment method',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-
-              RadioListTile(
-                title: const Text('Cash on delivery'),
-                value: PaymentMethod.cash,
-                groupValue: state.paymentMethod,
-                onChanged: (val) =>
-                    context.read<CheckoutCubit>().changePaymentMethod(val!),
-              ),
-
-              RadioListTile(
-                title: const Text('Credit card'),
-                value: PaymentMethod.card,
-                groupValue: state.paymentMethod,
-                onChanged: (val) =>
-                    context.read<CheckoutCubit>().changePaymentMethod(val!),
-              ),
-
-              const SizedBox(height: 16),
-
-              /// Gift Option
-              SwitchListTile(
-                title: const Text('It is a gift'),
-                value: state.isGift,
-                onChanged: (val) =>
-                    context.read<CheckoutCubit>().toggleGift(val),
-              ),
-
-              const SizedBox(height: 24),
-
-              /// Order Summary
-              const Text(
-                'Order Summary',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-
-              const SummaryRow(label: 'Sub Total', value: 250),
-              const SummaryRow(label: 'Delivery Fee', value: 30),
-              const Divider(),
-              const SummaryRow(label: 'Total', value: 280, isBold: true),
-
-              const SizedBox(height: 24),
-
-              /// Place Order Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.pink,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
-                  onPressed: state.isLoading
-                      ? null
-                      : () => context.read<CheckoutCubit>().doIntent(
-                          CashOrderIntent(),
-                        ),
-                  child: state.isLoading
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text(
-                          'Place order',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                ),
-              ),
-
-              if (state.error != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 12),
-                  child: Text(
-                    state.error!,
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  State<CheckoutBody> createState() => _CheckoutBodyState();
 }
 
-class SummaryRow extends StatelessWidget {
-  final String label;
-  final double value;
-  final bool isBold;
+class _CheckoutBodyState extends State<CheckoutBody> {
+  final TextEditingController _giftNameController = TextEditingController();
+  final TextEditingController _giftPhoneController = TextEditingController();
 
-  const SummaryRow({
-    super.key,
-    required this.label,
-    required this.value,
-    this.isBold = false,
-  });
+  @override
+  void dispose() {
+    _giftNameController.dispose();
+    _giftPhoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: isBold ? const TextStyle(fontWeight: FontWeight.bold) : null,
-          ),
-          Text(
-            '\$${value.toStringAsFixed(2)}',
-            style: isBold ? const TextStyle(fontWeight: FontWeight.bold) : null,
-          ),
-        ],
+    return BlocListener<CheckoutCubit, CheckoutState>(
+      listenWhen: (prev, curr) =>
+          prev.order != curr.order || prev.error != curr.error,
+      listener: (context, state) {
+        if (state.order.isSuccess) {
+          showAppSnackbar(
+            context,
+            'order_success'.tr(),
+            backgroundColor: AppColors.green,
+          );
+        }
+
+        if (state.error != null) {
+          showAppSnackbar(context, state.error!, backgroundColor: Colors.red);
+        }
+      },
+      child: BlocBuilder<CheckoutCubit, CheckoutState>(
+        builder: (context, state) {
+          final addresses = state.addresses;
+
+          if (addresses.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (addresses.isError) {
+            return Center(
+              child: Text(
+                addresses.error ?? 'failed_load_addresses'.tr(),
+                style: const TextStyle(color: Colors.red),
+              ),
+            );
+          }
+
+          if (addresses.data?.isEmpty ?? true) {
+            return Center(child: Text('no_addresses'.tr()));
+          }
+
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const DeliveryTimeWidget(),
+                const SizedBox(height: 24),
+                AddressSection(state: state),
+                const SizedBox(height: 24),
+                PaymentMethodSection(state: state),
+                const SizedBox(height: 24),
+                GiftSection(
+                  isGift: state.isGift,
+                  giftNameController: _giftNameController,
+                  giftPhoneController: _giftPhoneController,
+                  onToggle: (val) =>
+                      context.read<CheckoutCubit>().toggleGift(val),
+                  onNameChanged: (val) =>
+                      context.read<CheckoutCubit>().updateGiftName(val),
+                  onPhoneChanged: (val) =>
+                      context.read<CheckoutCubit>().updateGiftPhone(val),
+                ),
+                const SizedBox(height: 24),
+
+                // Place Order Button
+                PlaceOrderButton(state: state),
+                const SizedBox(height: 24),
+
+                if (state.order.isSuccess) ...[
+                  OrderStatusSection(state: state),
+                  const SizedBox(height: 16),
+                  const SizedBox(height: 16),
+                  TotalPriceSection(isLoading: false),
+                ],
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 }
+
+
+
+
+  void showAppSnackbar(
+    BuildContext context,
+    String message, {
+    Color backgroundColor = AppColors.green,
+  }) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(message, style: Theme.of(context).textTheme.labelSmall),
+          backgroundColor: backgroundColor,
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+  }
