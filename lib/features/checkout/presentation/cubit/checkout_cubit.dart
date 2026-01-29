@@ -24,12 +24,17 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   ) : super(CheckoutState());
 
   void doIntent(intent) {
+
     switch (intent) {
+          case GetAllCheckoutIntents():
+      _loadAddresses();
+      break;
       case GetAddressIntent():
         _loadAddresses();
-
+        break;
       case CashOrderIntent():
         _postOrder();
+        break;
     }
   }
 
@@ -43,7 +48,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
       return;
     }
 
-    final result = await _getAddressUsecase(token);
+    final result = await _getAddressUsecase("Bearer $token");
 
     switch (result) {
       case SuccessApiResult<List<AddressModel>>():
@@ -58,33 +63,39 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     }
   }
 
-Future<void> _postOrder() async {
-  emit(state.copyWith(isLoading: true, error: null));
+  Future<void> _postOrder() async {
+    emit(state.copyWith(isLoading: true, error: null));
 
-  final token = await _authStorage.getToken();
-  if (token == null) {
-    emit(state.copyWith(
-      isLoading: false,
-      error: 'Token not found',
-    ));
-    return;
-  }
+    final token = await _authStorage.getToken();
+    if (token == null) {
+      emit(state.copyWith(isLoading: false, error: 'Token not found'));
+      return;
+    }
 
+    final result = await _postOrderUsecase("Bearer$token");
 
-  final result = await _postOrderUsecase("Bearer$token");
-
-  switch ( result) {
+    switch (result) {
       case SuccessApiResult<CashOrderModel>():
-      // You can also parse the returned order if your API gives full order info
-      emit(state.copyWith(isLoading: false));
+        // You can also parse the returned order if your API gives full order info
+        emit(state.copyWith(isLoading: false));
 
       case ErrorApiResult<CashOrderModel>():
-      emit(state.copyWith(
-        isLoading: false,
-        error: result.error.toString(),
-      ));
-      break;
+        emit(state.copyWith(isLoading: false, error: result.error.toString()));
+        break;
+    }
   }
+
+
+  void selectAddress(AddressModel address) {
+  emit(state.copyWith(selectedAddress: address));
+}
+
+void changePaymentMethod(PaymentMethod method) {
+  emit(state.copyWith(paymentMethod: method));
+}
+
+void toggleGift(bool value) {
+  emit(state.copyWith(isGift: value));
 }
 
 }

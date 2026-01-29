@@ -130,5 +130,7 @@
   "noEmail": "No Email",
   "editProfile": "Edit Profile",
   "logout": "Logout",
-  "logoutFailed": "Logout failed"
+  "logoutFailed": "Logout failed",
+  "checkout" : "Checkout"
+
 }
