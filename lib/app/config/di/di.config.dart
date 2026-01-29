@@ -124,9 +124,12 @@ import '../../../features/orders/domain/usecase/delete_cart_item_usecase.dart'
     as _i153;
 import '../../../features/orders/domain/usecase/get_user_carts_usecase.dart'
     as _i444;
+import '../../../features/orders/domain/usecase/payment_usecase.dart' as _i985;
 import '../../../features/orders/domain/usecase/update_cart_item_quantity_usecase.dart'
     as _i323;
 import '../../../features/orders/presentation/manager/cart_cubit.dart' as _i148;
+import '../../../features/orders/presentation/manager/paymentcubit/payment_cubit.dart'
+    as _i402;
 import '../../core/api_manger/api_client.dart' as _i890;
 import '../auth_storage/auth_storage.dart' as _i603;
 import '../network/network_module.dart' as _i200;
@@ -270,6 +273,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i444.GetUserCartsUsecase>(
       () => _i444.GetUserCartsUsecase(gh<_i867.OrdersRepo>()),
     );
+    gh.factory<_i985.PaymentUsecase>(
+      () => _i985.PaymentUsecase(gh<_i867.OrdersRepo>()),
+    );
     gh.factory<_i323.UpdateCartItemQuantityUsecase>(
       () => _i323.UpdateCartItemQuantityUsecase(gh<_i867.OrdersRepo>()),
     );
@@ -295,6 +301,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i129.GetProductDetailsUseCase>(),
         productId,
       ),
+    );
+    gh.factory<_i402.PaymentCubit>(
+      () => _i402.PaymentCubit(gh<_i985.PaymentUsecase>()),
     );
     gh.factory<_i924.UploadPhotoCubit>(
       () => _i924.UploadPhotoCubit(
