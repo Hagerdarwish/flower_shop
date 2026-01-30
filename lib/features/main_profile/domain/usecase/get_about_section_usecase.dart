@@ -4,10 +4,10 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetAboutSectionUsecase {
-  final ProfileRepo repo;
-  GetAboutSectionUsecase(this.repo);
+  final ProfileRepo _repo;
+  GetAboutSectionUsecase(this._repo);
 
   Future<List<AboutAndTermsModel>> call() {
-    return repo.getAboutData();
+    return _repo.getAboutData();
   }
 }

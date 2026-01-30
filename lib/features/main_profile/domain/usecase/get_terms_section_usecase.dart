@@ -4,10 +4,10 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetTermsSectionUsecase {
-  final ProfileRepo repo;
-  GetTermsSectionUsecase(this.repo);
+  final ProfileRepo _repo;
+  GetTermsSectionUsecase(this._repo);
 
   Future<List<AboutAndTermsModel>> call() async {
-    return await repo.getTerms();
+    return await _repo.getTerms();
   }
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/app/core/network/safe_api_call.dart';
+import 'package:flower_shop/app/core/values/paths.dart';
 import 'package:flower_shop/features/main_profile/data/models/response/profile_response.dart';
 import 'package:flower_shop/features/main_profile/data/datasource/profile_remote_data_source.dart';
 import 'package:flower_shop/features/main_profile/data/models/about_and_terms_dto.dart';
@@ -21,20 +22,18 @@ class ProfileRemoteDataSourceImpl implements ProfileremoteDataSource {
 
   @override
   Future<List<AboutAndTermsDto>> getAboutData() async {
-    final jsonString = await rootBundle.loadString(
-      'assets/files/about_section.json',
-    );
+    final jsonString = await rootBundle.loadString(AppPaths.aboutJsonFile);
     final decoded = json.decode(jsonString);
-    final List list = decoded['about_app'];
+    final List list = decoded[AppPaths.aboutUs];
 
     return list.map((e) => AboutAndTermsDto.fromJson(e)).toList();
   }
 
   @override
   Future<List<AboutAndTermsDto>> getTerms() async {
-    final jsonString = await rootBundle.loadString('assets/files/terms.json');
+    final jsonString = await rootBundle.loadString(AppPaths.termsJsonFile);
     final jsonMap = json.decode(jsonString);
-    final list = jsonMap['terms_and_conditions'] as List;
+    final list = jsonMap[AppPaths.terms] as List;
     return list.map((e) => AboutAndTermsDto.fromJson(e)).toList();
   }
 }
