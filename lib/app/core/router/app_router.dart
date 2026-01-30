@@ -1,4 +1,5 @@
 import 'package:flower_shop/app/core/router/route_names.dart';
+import 'package:flower_shop/features/addresses/presentation/categories/pages/add_address_page.dart';
 import 'package:flower_shop/features/app_start/presentation/pages/app_start_page.dart';
 import 'package:flower_shop/features/auth/presentation/change_password/manager/change_password_cubit.dart';
 import 'package:flower_shop/features/auth/presentation/change_password/pages/change_password_page.dart';
@@ -13,7 +14,6 @@ import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart
 import 'package:flower_shop/features/orders/presentation/pages/cart_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../features/addresses/presentation/add_address/pages/add_address_page.dart';
 import '../../../features/auth/presentation/forget_password/manager/forget_password_cubit.dart';
 import '../../../features/auth/presentation/forget_password/pages/forget_password_page.dart';
 import '../../../features/auth/presentation/reset_password/manager/reset_password_cubit.dart';
@@ -31,7 +31,7 @@ import 'package:flower_shop/features/main_profile/domain/models/profile_user_mod
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouteNames.appStart, //  start here
+  initialLocation: RouteNames.addAddressPage, //  start here
   routes: [
     GoRoute(
       path: RouteNames.signup,
@@ -151,6 +151,13 @@ final GoRouter appRouter = GoRouter(
       path: RouteNames.addAddressPage,
       builder: (context, state) {
         return AddAddressPage();
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.savedAddressesView,
+      builder: (context, state) {
+        return const SavedAddressView();
       },
     ),
   ],

@@ -24,4 +24,5 @@ class AppEndpointString {
   static const String changepassword = 'auth/change-password';
   static const String addAddress = 'addresses';
 
+  static const String getaddresses = 'addresses';
 }

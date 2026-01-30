@@ -136,5 +136,8 @@
   "allow_location": "السماح بالموقع",
   "move_map_to_choose_location": "حرك الخريطة لاختيار الموقع",
   "address_saved_successfully": "تم حفظ العنوان بنجاح",
-  "failed_to_save_address": "فشل حفظ العنوان"
+  "failed_to_save_address": "فشل حفظ العنوان",
+  "addNewAddress": "إضافة عنوان جديد",
+  "savedAddress": "تم حفظ العنوان"
+
 }

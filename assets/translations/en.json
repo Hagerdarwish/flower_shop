@@ -139,5 +139,8 @@
   "allow_location": "Allow Location",
   "move_map_to_choose_location": "Move map to choose location",
   "address_saved_successfully": "Address saved successfully",
-  "failed_to_save_address": "Failed to save address"
+  "failed_to_save_address": "Failed to save address",
+  "addNewAddress": "Add New Address",
+  "savedAddress": "Saved Address"
+
 }

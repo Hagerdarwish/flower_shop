@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flower_shop/features/addresses/data/models/response/add_address_response_model.dart';
-import 'package:flower_shop/features/addresses/data/models/response/address_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
@@ -117,5 +115,23 @@ abstract class ApiClient {
   Future<HttpResponse<AddAddressResponse>> addAddress({
     @Header("Authorization") required String token,
     @Body() required AddressModel request,
+  });
+
+  @GET(AppEndpointString.addresses)
+  Future<HttpResponse<GetAddressResponse>> getAddresses({
+    @Header("Authorization") required String token,
+  });
+
+  @DELETE(AppEndpointString.addresses + '/{id}')
+  Future<HttpResponse<AddressResponse>> deleteAddress({
+    @Header("Authorization") required String token,
+    @Path('id') required String addressId,
+  });
+
+  @PATCH(AppEndpointString.addresses + '/{id}')
+  Future<HttpResponse<AddressResponse>> editAddress({
+    @Header("Authorization") required String token,
+    @Path('id') required String addressId,
+    @Body() required AddressRequest request,
   });
 }
