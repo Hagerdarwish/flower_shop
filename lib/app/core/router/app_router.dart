@@ -8,7 +8,9 @@ import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/pages/best_sell_screen.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cubit.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_intent.dart';
+import 'package:flower_shop/features/main_profile/presentation/screens/about_screen.dart';
 import 'package:flower_shop/features/main_profile/presentation/screens/profile_screen.dart';
+import 'package:flower_shop/features/main_profile/presentation/screens/terms_screen.dart';
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart';
 import 'package:flower_shop/features/orders/presentation/pages/cart_page.dart';
 import 'package:go_router/go_router.dart';
@@ -144,6 +146,26 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final user = state.extra as ProfileUserModel?;
         return EditProfilePage(user: user);
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.aboutUs,
+      builder: (context, state) {
+        return BlocProvider<ProfileCubit>(
+          create: (context) => getIt<ProfileCubit>()..loadAboutData(),
+          child: AboutScreen(),
+        );
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.termsAndConditions,
+      builder: (context, state) {
+        return BlocProvider<ProfileCubit>(
+          create: (context) => getIt<ProfileCubit>()..loadTermsData(),
+          child: TermsScreen(),
+        );
       },
     ),
   ],

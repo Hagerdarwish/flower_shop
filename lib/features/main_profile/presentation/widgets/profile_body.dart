@@ -110,13 +110,17 @@ class ProfileBody extends StatelessWidget {
         _ProfileItem(
           title: AppConstants.aboutUs,
           icon: Icons.info_outline,
-          onTap: () {},
+          onTap: () {
+            context.push(RouteNames.aboutUs);
+          },
         ),
 
         _ProfileItem(
           title: AppConstants.termsAndConditions,
           icon: Icons.description_outlined,
-          onTap: () {},
+          onTap: () {
+            context.push(RouteNames.termsAndConditions);
+          },
         ),
 
         const Divider(),

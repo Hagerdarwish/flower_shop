@@ -17,7 +17,7 @@
   "femaleValue": "female",
   "maleValue": "male",
   "createAccount": "بإنشاء حساب، فإنك توافق على",
-  "termsAndConditions" : "الشروط والاحكام الخاصة بنا",
+  "termsAndConditions" : "الشروط والاحكام",
   "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
   "login": "تسجيل الدخول",
   "signup": "إنشاء حساب",
@@ -111,5 +111,6 @@
   "no_products_found": "لم يتم العثور على منتجات",
   "change_language": "تغيير اللغة",
   "arabic": "العربية",
-  "english": "الإنجليزية"
+  "english": "الإنجليزية",
+  "aboutUs": "عن التطبيق"
 }

@@ -107,8 +107,12 @@ import '../../../features/main_profile/data/datasource/profile_remote_data_sourc
 import '../../../features/main_profile/data/repos/profile_repo_impl.dart'
     as _i562;
 import '../../../features/main_profile/domain/repos/profile_repo.dart' as _i866;
+import '../../../features/main_profile/domain/usecase/get_about_section_usecase.dart'
+    as _i169;
 import '../../../features/main_profile/domain/usecase/get_current_user_usecase.dart'
     as _i285;
+import '../../../features/main_profile/domain/usecase/get_terms_section_usecase.dart'
+    as _i137;
 import '../../../features/main_profile/presentation/cubit/profile_cubit.dart'
     as _i650;
 import '../../../features/nav_bar/presentation/manager/nav_cubit.dart' as _i405;
@@ -311,8 +315,14 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.factory<_i682.HomeCubit>(() => _i682.HomeCubit(gh<_i94.HomeFactory>()));
+    gh.factory<_i169.GetAboutSectionUsecase>(
+      () => _i169.GetAboutSectionUsecase(gh<_i866.ProfileRepo>()),
+    );
     gh.factory<_i285.GetCurrentUserUsecase>(
       () => _i285.GetCurrentUserUsecase(gh<_i866.ProfileRepo>()),
+    );
+    gh.factory<_i137.GetTermsSectionUsecase>(
+      () => _i137.GetTermsSectionUsecase(gh<_i866.ProfileRepo>()),
     );
     gh.factory<_i259.AllCategoriesCubit>(
       () => _i259.AllCategoriesCubit(
@@ -327,6 +337,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i650.ProfileCubit(
         gh<_i285.GetCurrentUserUsecase>(),
         gh<_i603.AuthStorage>(),
+        gh<_i169.GetAboutSectionUsecase>(),
+        gh<_i137.GetTermsSectionUsecase>(),
       ),
     );
     return this;
