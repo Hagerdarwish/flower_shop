@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../main_profile/presentation/widgets/language_bottom_sheet.dart';
+
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
 
@@ -16,7 +18,16 @@ class HomeHeader extends StatelessWidget {
             SvgPicture.asset(Assets.imagesFlower),
             const SizedBox(width: 8),
             Text("Flowery", style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(width: 10),
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => const LanguageBottomSheet(),
+                );
+              },
+              icon: const Icon(Icons.language),
+            ),
             Expanded(child: SearchTextField()),
           ],
         ),

@@ -1,13 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
+import 'package:flower_shop/app/core/router/route_names.dart';
+import 'package:flower_shop/app/core/widgets/product_item_card.dart';
 import 'package:flower_shop/features/best_seller/menager/best_seller_intent.dart';
 import 'package:flower_shop/features/home/presentation/widgets/search_text_field.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flower_shop/features/best_seller/best_seller_card/best_seller_card.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_state.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
+import 'package:go_router/go_router.dart';
 
 class BestSellerScreen extends StatefulWidget {
   const BestSellerScreen({super.key});
@@ -20,7 +24,7 @@ class _BestSellerScreenState extends State<BestSellerScreen> {
   @override
   void initState() {
     super.initState();
-    // Trigger the load
+    context.read<CartCubit>().doIntent(GetAllCartsIntent());
     context.read<BestSellerCubit>().doIntent(LoadBestSellersEvent());
   }
 
@@ -57,12 +61,18 @@ class _BestSellerScreenState extends State<BestSellerScreen> {
                   childAspectRatio: 0.68,
                 ),
                 itemBuilder: (context, index) {
-                  final product = items[index];
-                  return BestSellerCard(
-                    product: product,
-                    onTap: () {},
-                    onAddToCart: () {},
-                  );
+                  final bestSeller = state.products.data?[index];
+                  return bestSeller != null
+                      ? ProductItemCard(
+                          product: bestSeller.toProductModel(),
+                          onTap: () {
+                            context.push(
+                              RouteNames.productDetails,
+                              extra: bestSeller.id,
+                            );
+                          },
+                        )
+                      : const SizedBox.shrink();
                 },
               );
 

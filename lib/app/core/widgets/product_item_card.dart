@@ -1,20 +1,26 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flower_shop/app/config/base_state/base_state.dart';
+import 'package:flower_shop/app/core/router/route_names.dart';
+import 'package:flower_shop/app/core/widgets/show_snak_bar.dart';
 import 'package:flower_shop/features/home/domain/models/product_model.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_intent.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_states.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../ui_helper/color/colors.dart';
 import '../ui_helper/style/font_style.dart';
 
 class ProductItemCard extends StatelessWidget {
   final ProductModel product;
-  final VoidCallback onAddToCart;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry padding;
 
   const ProductItemCard({
     super.key,
     required this.product,
-    required this.onAddToCart,
     this.onTap,
     this.padding = const EdgeInsets.all(8),
   });
@@ -112,25 +118,80 @@ class ProductItemCard extends StatelessWidget {
             const SizedBox(height: 10),
 
             // Button
-            SizedBox(
-              width: double.infinity,
-              height: 30,
-              child: ElevatedButton.icon(
-                onPressed: onAddToCart,
-                icon: const Icon(Icons.shopping_cart_outlined, size: 20),
-                label: Text(
-                  LocaleKeys.addToCard.tr(),
-                  style: AppStyles.white13medium,
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.pink,
-                  foregroundColor: Colors.white,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+            BlocConsumer<CartCubit, CartStates>(
+              listener: (context, state) {
+                if (state.cart?.status == Status.success &&
+                    state.lastAction == CartAction.adding) {
+                  showAppSnackbar(context, LocaleKeys.productAddedToCart.tr());
+                  BlocProvider.of<CartCubit>(context).resetAction();
+                } else if (state.cart?.status == Status.error &&
+                    state.lastAction == CartAction.adding) {
+                  showAppSnackbar(
+                    context,
+                    state.cart?.error.toString() ?? "Unknown error",
+                    backgroundColor: AppColors.red,
+                  );
+                  BlocProvider.of<CartCubit>(context).resetAction();
+                }
+              },
+
+              builder: (context, state) {
+                final cartCubit = context.read<CartCubit>();
+
+                if (state.cart?.status == Status.loading &&
+                    cartCubit.cartsList.isEmpty) {
+                  return const SizedBox(
+                    height: 30,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: AppColors.pink,
+                      ),
+                    ),
+                  );
+                }
+
+                final bool inCart = cartCubit.cartsList.any(
+                  (item) => item.product?.id == product.id,
+                );
+
+                return SizedBox(
+                  width: double.infinity,
+                  height: 30,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      if (inCart) {
+                        context.push(RouteNames.cartPage);
+                      } else {
+                        cartCubit.doIntent(
+                          AddProductToCartIntent(
+                            productId: product.id.toString(),
+                            quantity: 1,
+                          ),
+                        );
+                      }
+                    },
+                    icon: Icon(
+                      inCart
+                          ? Icons.check_circle
+                          : Icons.shopping_cart_outlined,
+                      size: 20,
+                    ),
+                    label: Text(
+                      inCart ? 'In cart' : LocaleKeys.addToCard.tr(),
+                      style: AppStyles.white13medium,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.pink,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),

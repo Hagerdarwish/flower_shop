@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/router/app_router.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app/config/di/di.dart';
 import 'app/core/ui_helper/theme/app_theme.dart';
 
@@ -13,7 +15,10 @@ Future<void> main() async {
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
-      child: const MyApp(),
+      child: BlocProvider<CartCubit>(
+        create: (context) => getIt.get<CartCubit>(),
+        child: const MyApp(),
+      ),
     ),
   );
 }

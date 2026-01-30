@@ -2,6 +2,8 @@
 *.class
 *.log
 *.pyc
+*.g.dart
+*.mocks.dart
 *.swp
 .DS_Store
 .atom/
@@ -43,3 +45,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+**/*.freezed.dart

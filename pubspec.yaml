@@ -7,7 +7,6 @@ version: 1.0.0+1
 environment:
   sdk: ">=3.8.1 <4.0.0"
   flutter: ">=3.10.0"  # ADD THIS LINE
-
 dependencies:
   bloc: ^9.0.0
   cupertino_icons: ^1.0.8
@@ -27,9 +26,14 @@ dependencies:
   matcher: ^0.12.17
   pretty_dio_logger: ^1.4.0
   provider: ^6.1.1  # ADD THIS if you use Provider
-  retrofit: ^4.9.1
+  retrofit: 4.9.1
   shared_preferences: ^2.5.3
   shimmer: ^3.0.0
+  skeletonizer: ^2.1.2
+  image_picker: ^1.2.1
+  google_maps_flutter: ^2.14.0
+  geolocator: ^10.1.0
+
 
 dev_dependencies:
   bloc_test: ^10.0.0
@@ -40,7 +44,7 @@ dev_dependencies:
   injectable_generator: ^2.4.1
   json_serializable: ^6.8.0
   mockito: ^5.5.0
-  retrofit_generator: ^10.2.0
+  retrofit_generator: 10.0.1
 
 flutter:
   uses-material-design: true
@@ -48,6 +52,8 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
+    - assets/data/states.json
+    - assets/data/cities.json
 
 easy_localization:
   path: assets/translations

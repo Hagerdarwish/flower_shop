@@ -10,14 +10,29 @@ import 'package:flower_shop/features/e_commerce/presentation/categories/manager/
 import 'package:flower_shop/features/e_commerce/presentation/categories/widgets/categories_tab_view.dart';
 import 'package:flower_shop/features/e_commerce/presentation/categories/widgets/search_with_filter_widget.dart';
 import 'package:flower_shop/features/e_commerce/presentation/occasion/pages/shimmer_grid_loading.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_intent.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class CategoriesPage extends StatelessWidget {
-  CategoriesPage({super.key});
+class CategoriesPage extends StatefulWidget {
+  const CategoriesPage({super.key});
+
+  @override
+  State<CategoriesPage> createState() => _CategoriesPageState();
+}
+
+class _CategoriesPageState extends State<CategoriesPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CartCubit>().doIntent(GetAllCartsIntent());
+  }
+
   final bloc = getIt<AllCategoriesCubit>();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AllCategoriesCubit>(
@@ -75,7 +90,6 @@ class CategoriesPage extends StatelessWidget {
                                 );
                               },
                               product: product,
-                              onAddToCart: () {},
                             )
                           : const SizedBox.shrink();
                     },

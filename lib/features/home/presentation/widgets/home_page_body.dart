@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/router/route_names.dart';
-import 'package:flower_shop/features/home/presentation/widgets/Category_item.dart';
+import 'package:flower_shop/features/home/presentation/widgets/category_item.dart';
 import 'package:flower_shop/features/home/presentation/widgets/home_header.dart';
 import 'package:flower_shop/features/home/presentation/widgets/home_section.dart';
 import 'package:flower_shop/features/home/presentation/widgets/product_item.dart';
@@ -54,35 +54,19 @@ class HomePageBody extends StatelessWidget {
               HomeSection(
                 title: LocaleKeys.bestSelling.tr(),
                 onTap: () {
-                  context.push(RouteNames.BestSeller);
-
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => CatecoryScreen(
-                  //       title: LocaleKeys.categories.tr(),
-                  //       items: state.categories.data ?? [],
-                  //       itemBuilder: (context, category) {
-                  //         return CategoryItem(
-                  //           image: category.image ?? "",
-                  //           label: category.name ?? "",
-                  //         );
-                  //       },
-                  //     ),
-                  //   ),
-                  // );
+                  context.push(RouteNames.bestSeller);
                 },
                 height: size.height * 0.30,
                 resource: state.bestSeller,
-                itemBuilder: (context, BestSeller) {
+                itemBuilder: (context, bestSeller) {
                   return ProductItem(
-                    imageUrl: BestSeller.imgCover ?? "",
-                    title: BestSeller.title ?? "",
-                    price: BestSeller.price?.toString(),
+                    imageUrl: bestSeller.imgCover ?? "",
+                    title: bestSeller.title ?? "",
+                    price: bestSeller.price?.toString(),
                     onTap: () {
                       context.push(
                         RouteNames.productDetails,
-                        extra: BestSeller.id,
+                        extra: bestSeller.id,
                       );
                     },
                   );
