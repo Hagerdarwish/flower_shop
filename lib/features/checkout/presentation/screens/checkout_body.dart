@@ -12,9 +12,12 @@ import 'package:flower_shop/features/checkout/presentation/widgets/order_status.
 import 'package:flower_shop/features/checkout/presentation/widgets/payment.dart';
 import 'package:flower_shop/features/checkout/presentation/widgets/place_order.dart';
 import 'package:flower_shop/features/checkout/presentation/widgets/total_price.dart';
+import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_cubit.dart';
+import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_states.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:js' as js;
 
 class CheckoutBody extends StatefulWidget {
   const CheckoutBody({super.key});
@@ -36,32 +39,57 @@ class _CheckoutBodyState extends State<CheckoutBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CheckoutCubit, CheckoutState>(
-      listenWhen: (prev, curr) =>
-          prev.order != curr.order ||
-          (prev.error != curr.error && curr.error != null),
-      listener: (context, state) {
-        if (state.order.isSuccess) {
-          showAppSnackbar(
-            context,
-            LocaleKeys.order_success.tr(),
-            backgroundColor: AppColors.green,
-          );
-          return;
-        }
+    return MultiBlocListener(
+      listeners: [
+        // Listen for cash order success/errors
+        BlocListener<CheckoutCubit, CheckoutState>(
+          listenWhen: (prev, curr) =>
+              prev.order != curr.order ||
+              (prev.error != curr.error && curr.error != null),
+          listener: (context, state) {
+            if (state.order.isSuccess) {
+              showAppSnackbar(
+                context,
+                LocaleKeys.order_success.tr(),
+                backgroundColor: Colors.green,
+              );
+            }
 
-        if (state.error != null) {
-          showAppSnackbar(
-            context,
-            state.error!,
-            backgroundColor: AppColors.red,
-          );
-        }
+            if (state.error != null) {
+              showAppSnackbar(
+                context,
+                state.error!,
+                backgroundColor: Colors.red,
+              );
+            }
 
-        if (!state.order.isSuccess && state.order != Resource.initial()) {
-          context.read<CheckoutCubit>().doIntent(ResetOrderIntent());
-        }
-      },
+            if (!state.order.isSuccess && state.order != Resource.initial()) {
+              context.read<CheckoutCubit>().doIntent(ResetOrderIntent());
+            }
+          },
+        ),
+
+        BlocListener<PaymentCubit, PaymentStates>(
+          listenWhen: (prev, curr) =>
+              prev.paymentResponse != curr.paymentResponse,
+          listener: (context, state) {
+            final res = state.paymentResponse;
+            if (res != null &&
+                res.isSuccess &&
+                res.data?.session?.url != null) {
+              // Open Stripe session
+              js.context.callMethod('open', [
+                res.data!.session!.url!,
+                '_blank',
+              ]);
+            }
+
+            if (res != null && res.isError) {
+              showAppSnackbar(context, res.error!, backgroundColor: Colors.red);
+            }
+          },
+        ),
+      ],
       child: BlocBuilder<CheckoutCubit, CheckoutState>(
         builder: (context, state) {
           final addresses = state.addresses;
@@ -74,7 +102,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
             return Center(
               child: Text(
                 addresses.error ?? LocaleKeys.failed_load_addresses.tr(),
-                style: const TextStyle(color: AppColors.red),
+                style: const TextStyle(color: Colors.red),
               ),
             );
           }
@@ -83,50 +111,61 @@ class _CheckoutBodyState extends State<CheckoutBody> {
             return Center(child: Text(LocaleKeys.no_addresses.tr()));
           }
 
-          return KeyedSubtree(
-            key: ValueKey(context.locale.languageCode),
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const DeliveryTimeWidget(),
-                  const SizedBox(height: 24),
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const DeliveryTimeWidget(),
+                const SizedBox(height: 24),
 
-                  AddressSection(state: state),
-                  const SizedBox(height: 24),
-                  PaymentMethodSection(state: state),
-                  const SizedBox(height: 24),
+                AddressSection(state: state),
+                const SizedBox(height: 24),
 
-                  GiftSection(
-                    isGift: state.isGift,
-                    giftNameController: _giftNameController,
-                    giftPhoneController: _giftPhoneController,
-                    onToggle: (val) => context.read<CheckoutCubit>().doIntent(
-                      ToggleGiftIntent(val),
-                    ),
-                    onNameChanged: (val) => context
-                        .read<CheckoutCubit>()
-                        .doIntent(UpdateGiftNameIntent(val)),
-                    onPhoneChanged: (val) => context
-                        .read<CheckoutCubit>()
-                        .doIntent(UpdateGiftPhoneIntent(val)),
+                PaymentMethodSection(checkoutState: state),
+                const SizedBox(height: 24),
+
+                GiftSection(
+                  isGift: state.isGift,
+                  giftNameController: _giftNameController,
+                  giftPhoneController: _giftPhoneController,
+                  onToggle: (val) => context.read<CheckoutCubit>().doIntent(
+                    ToggleGiftIntent(val),
                   ),
+                  onNameChanged: (val) => context
+                      .read<CheckoutCubit>()
+                      .doIntent(UpdateGiftNameIntent(val)),
+                  onPhoneChanged: (val) => context
+                      .read<CheckoutCubit>()
+                      .doIntent(UpdateGiftPhoneIntent(val)),
+                ),
+                const SizedBox(height: 24),
 
-                  const SizedBox(height: 24),
+                PlaceOrderButton(state: state),
+                const SizedBox(height: 24),
 
-                  /// 🛒 Place order
-                  PlaceOrderButton(state: state),
+                // Show order status for either cash or card
+                BlocBuilder<PaymentCubit, PaymentStates>(
+                  builder: (context, paymentState) {
+                    final cardSuccess =
+                        paymentState.paymentResponse?.isSuccess ?? false;
+                    final cashSuccess =
+                        state.order.isSuccess && state.order.data != null;
 
-                  const SizedBox(height: 24),
+                    if (cardSuccess || cashSuccess) {
+                      return Column(
+                        children: const [
+                          OrderStatusSection(), // You can pass state if needed
+                          SizedBox(height: 16),
+                          TotalPrice(), // Show totals
+                        ],
+                      );
+                    }
 
-                  if (state.order.isSuccess) ...[
-                    OrderStatusSection(state: state),
-                    const SizedBox(height: 16),
-                    const TotalPrice(),
-                  ],
-                ],
-              ),
+                    return const SizedBox.shrink();
+                  },
+                ),
+              ],
             ),
           );
         },

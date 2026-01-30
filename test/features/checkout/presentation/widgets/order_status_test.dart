@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   Widget buildWidget(CheckoutState state) {
     return MaterialApp(
-      home: Scaffold(body: OrderStatusSection(state: state)),
+      home: Scaffold(body: OrderStatusSection()),
     );
   }
 

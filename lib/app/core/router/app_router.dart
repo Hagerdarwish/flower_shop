@@ -13,6 +13,7 @@ import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cub
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_intent.dart';
 import 'package:flower_shop/features/main_profile/presentation/screens/profile_screen.dart';
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart';
+import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_cubit.dart';
 import 'package:flower_shop/features/orders/presentation/pages/cart_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -150,14 +151,19 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-        GoRoute(
+    GoRoute(
       path: RouteNames.checkout,
       builder: (context, state) {
-        return BlocProvider(
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
           create: (_) => getIt<CheckoutCubit>()..doIntent(GetAllCheckoutIntents()),
+            ),
+            BlocProvider(create: (_) => getIt<PaymentCubit>()),
+          ],
           child: const CheckoutScreen(),
         );
       },
-    )
+    ),
   ],
 );

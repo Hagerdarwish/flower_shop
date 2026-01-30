@@ -55,7 +55,7 @@ void main() {
       value: cubit,
       child: MaterialApp(
         home: Scaffold(
-          body: PaymentMethodSection(state: state),
+          body: PaymentMethodSection(checkoutState: state),
         ),
       ),
     );

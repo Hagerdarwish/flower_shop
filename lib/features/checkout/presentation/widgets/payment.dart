@@ -34,8 +34,9 @@ class PaymentMethodTile extends StatelessWidget {
 }
 
 class PaymentMethodSection extends StatelessWidget {
-  final CheckoutState state;
-  const PaymentMethodSection({required this.state, super.key});
+  final CheckoutState checkoutState;
+
+  const PaymentMethodSection({super.key, required this.checkoutState});
 
   @override
   Widget build(BuildContext context) {
@@ -55,20 +56,28 @@ class PaymentMethodSection extends StatelessWidget {
           ),
           child: Column(
             children: [
+              /// CASH
               PaymentMethodTile(
                 value: PaymentMethod.cash,
-                groupValue: state.paymentMethod,
+                groupValue: checkoutState.paymentMethod,
                 title: LocaleKeys.cash_on_delivery.tr(),
-                onChanged: (val) =>
-                    context.read<CheckoutCubit>().doIntent(ChangePaymentMethodIntent(PaymentMethod.cash)),
+                onChanged: (method) {
+                  context.read<CheckoutCubit>().doIntent(
+                    ChangePaymentMethodIntent(method!),
+                  );
+                },
               ),
 
+              /// CARD
               PaymentMethodTile(
                 value: PaymentMethod.card,
-                groupValue: state.paymentMethod,
+                groupValue: checkoutState.paymentMethod,
                 title: LocaleKeys.credit_card.tr(),
-                onChanged: (val) =>
-                    context.read<CheckoutCubit>().doIntent(ChangePaymentMethodIntent(PaymentMethod.card)),
+                onChanged: (method) {
+                  context.read<CheckoutCubit>().doIntent(
+                    ChangePaymentMethodIntent(method!),
+                  );
+                },
               ),
             ],
           ),

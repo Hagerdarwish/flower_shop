@@ -1,33 +1,47 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_state.dart';
+import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_states.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 class OrderStatusSection extends StatelessWidget {
-  final CheckoutState state;
-  const OrderStatusSection({required this.state, super.key});
+  final CheckoutState? checkoutState;
+  final PaymentStates? paymentState;
+
+  const OrderStatusSection({this.checkoutState, this.paymentState, super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Only show status if order exists and was successful
-    if (!state.order.isSuccess || state.order.data == null) {
-      return const SizedBox.shrink();
+    String? statusText;
+    Color? statusColor;
+
+    // First, check cash order
+    if (checkoutState != null &&
+        checkoutState!.order.isSuccess &&
+        checkoutState!.order.data != null) {
+      final order = checkoutState!.order.data!;
+      if (order.isDelivered) {
+        statusText = LocaleKeys.delivered.tr();
+        statusColor = Colors.green;
+      } else if (order.isPaid) {
+        statusText = LocaleKeys.paid.tr();
+        statusColor = Colors.blue;
+      } else {
+        statusText = LocaleKeys.pending.tr();
+        statusColor = Colors.orange;
+      }
     }
 
-    final order = state.order.data!;
-
-    final String statusText;
-    final Color statusColor;
-
-    if (order.isDelivered) {
-      statusText = LocaleKeys.delivered.tr();
-      statusColor = Colors.green;
-    } else if (order.isPaid) {
-      statusText = LocaleKeys.paid.tr();
+    // If no cash order, check card payment success
+    if ((statusText == null || statusColor == null) &&
+        paymentState != null &&
+        paymentState!.paymentResponse?.isSuccess == true) {
+      statusText = LocaleKeys.paid.tr(); // Card payment means paid
       statusColor = Colors.blue;
-    } else {
-      statusText = LocaleKeys.pending.tr();
-      statusColor = Colors.orange;
+    }
+
+    if (statusText == null || statusColor == null) {
+      return const SizedBox.shrink();
     }
 
     return Container(

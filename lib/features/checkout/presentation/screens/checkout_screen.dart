@@ -1,11 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/router/route_names.dart';
-import 'package:flower_shop/features/checkout/presentation/cubit/checkout_cubit.dart';
-import 'package:flower_shop/features/checkout/presentation/cubit/checkout_intents.dart';
 import 'package:flower_shop/features/checkout/presentation/screens/checkout_body.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -13,25 +10,21 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) =>
-          context.read<CheckoutCubit>()..doIntent(GetAllCheckoutIntents()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Builder(
-            builder: (context) => KeyedSubtree(
-              key: ValueKey(context.locale.languageCode),
-              child: Text(LocaleKeys.checkout.tr()),
-            ),
-          ),
-          leading: BackButton(
-            onPressed: () {
-              context.push(RouteNames.home);
-            },
+    return Scaffold(
+      appBar: AppBar(
+        title: Builder(
+          builder: (context) => KeyedSubtree(
+            key: ValueKey(context.locale.languageCode),
+            child: Text(LocaleKeys.checkout.tr()),
           ),
         ),
-        body: const CheckoutBody(),
+        leading: BackButton(
+          onPressed: () {
+            context.push(RouteNames.home);
+          },
+        ),
       ),
+      body: const CheckoutBody(),
     );
   }
 }

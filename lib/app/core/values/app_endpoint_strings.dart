@@ -11,6 +11,8 @@ class AppEndpointString {
   static const String updateRole = 'auth/update-role';
 
   static const String cashOrder = 'orders';
+  static const String orders = 'orders';
+  static const String checkout = '$orders/checkout';
   static const String addresses = 'addresses';
 
   static const String signup = '/auth/signup';
