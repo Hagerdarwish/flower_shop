@@ -6,12 +6,16 @@ import 'package:flower_shop/features/auth/presentation/signup/pages/signup_scree
 import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/pages/best_sell_screen.dart';
+import 'package:flower_shop/features/checkout/presentation/cubit/checkout_cubit.dart';
+import 'package:flower_shop/features/checkout/presentation/cubit/checkout_intents.dart';
+import 'package:flower_shop/features/checkout/presentation/screens/checkout_screen.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cubit.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_intent.dart';
 import 'package:flower_shop/features/main_profile/presentation/screens/about_screen.dart';
 import 'package:flower_shop/features/main_profile/presentation/screens/profile_screen.dart';
 import 'package:flower_shop/features/main_profile/presentation/screens/terms_screen.dart';
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart';
+import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_cubit.dart';
 import 'package:flower_shop/features/orders/presentation/pages/cart_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -165,6 +169,22 @@ final GoRouter appRouter = GoRouter(
         return BlocProvider<ProfileCubit>(
           create: (context) => getIt<ProfileCubit>()..loadTermsData(),
           child: TermsScreen(),
+        );
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.checkout,
+      builder: (context, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) =>
+                  getIt<CheckoutCubit>()..doIntent(GetAllCheckoutIntents()),
+            ),
+            BlocProvider(create: (_) => getIt<PaymentCubit>()),
+          ],
+          child: const CheckoutScreen(),
         );
       },
     ),

@@ -3,10 +3,14 @@ import 'package:flower_shop/features/auth/data/models/response/logout_response_m
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
+import 'package:flower_shop/features/checkout/data/models/response/address_response.dart';
+import 'package:flower_shop/features/checkout/data/models/response/cash_order_response.dart';
 import 'package:flower_shop/features/e_commerce/data/models/response/product_details_response.dart';
 import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
 import 'package:flower_shop/features/home/data/models/response/home_response.dart';
+import 'package:flower_shop/features/orders/data/models/paymentRequest.dart';
+import 'package:flower_shop/features/orders/data/models/paymentResonse.dart';
 import 'package:flower_shop/features/orders/data/models/user_carts_dto.dart';
 import 'package:flower_shop/features/main_profile/data/models/response/profile_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -109,5 +113,21 @@ abstract class ApiClient {
   @GET(AppEndpointString.logout)
   Future<HttpResponse<LogoutResponse>> logout({
     @Header("Authorization") required String token,
+  });
+
+  @POST(AppEndpointString.cashOrder)
+  Future<HttpResponse<CashOrderResponse>> cashOrder(
+    @Header("Authorization") String token,
+  );
+
+  @GET(AppEndpointString.addresses)
+  Future<HttpResponse<AddressResponse>> address(
+    @Header("Authorization") String token,
+  );
+  @POST(AppEndpointString.checkout)
+  Future<HttpResponse<PaymentResponse>> checkoutOrder({
+    @Header("Authorization") required String token,
+    @Query("url") required String returnUrl,
+    @Body() PaymentRequest? request,
   });
 }

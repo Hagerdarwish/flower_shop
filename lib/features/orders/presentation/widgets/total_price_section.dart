@@ -5,6 +5,7 @@ import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class TotalPriceSection extends StatelessWidget {
@@ -82,7 +83,9 @@ class TotalPriceSection extends StatelessWidget {
             isEnabled: true,
             isLoading: false,
             text: LocaleKeys.checkout.tr(),
-            onPressed: () {},
+            onPressed: () {
+              context.go('/checkout');
+            },
           ),
           const SizedBox(height: 30),
         ],
