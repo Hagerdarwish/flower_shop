@@ -115,6 +115,26 @@
   "invalidRecipientName": "اسم المستلم غير صحيح",
   "invalidAddress": "العنوان غير صحيح",
   "requiredRecipientName": "يرجى إدخال اسم المستلم",
-  "requiredAddress": "يرجى إدخال العنوان"
-
+  "requiredAddress": "يرجى إدخال العنوان",
+  "requiredCity": "يرجى إدخال المدينه",
+  "requiredArea": "يرجى إدخال المنطقه",
+  "address": "العنوان",
+  "enter_address": "أدخل العنوان",
+  "phone_number": "رقم الهاتف",
+  "enter_phone_number": "أدخل رقم الهاتف",
+  "recipient_name": "اسم المستلم",
+  "enter_recipient_name": "أدخل اسم المستلم",
+  "save_address": "حفظ العنوان",
+  "area": "المنطقة",
+  "city": "المدينة",
+  "location_permission": "إذن الموقع",
+  "location_service_off_message": "يرجى تمكين خدمات الموقع (GPS) لاختيار عنوانك على الخريطة.",
+  "location_permission_denied_forever_message": "تم رفض إذن الموقع بشكل دائم. يرجى تمكينه من الإعدادات.",
+  "location_permission_denied_message": "نحتاج إلى إذن الموقع لتحديد عنوانك بدقة على الخريطة.",
+  "open_settings": "فتح الإعدادات",
+  "open_location_settings": "فتح إعدادات الموقع",
+  "allow_location": "السماح بالموقع",
+  "move_map_to_choose_location": "حرك الخريطة لاختيار الموقع",
+  "address_saved_successfully": "تم حفظ العنوان بنجاح",
+  "failed_to_save_address": "فشل حفظ العنوان"
 }

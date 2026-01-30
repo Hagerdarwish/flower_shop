@@ -111,7 +111,6 @@
   "profileUpdatedSuccessfully": "Profile updated successfully",
   "tokenNotFound": "Authentication token not found. Please login again.",
   "editProfile": "Edit Profile",
-
   "productAddedToCart": "Product Added To Cart",
   "change_language": "Change Language",
   "arabic": "Arabic",
@@ -119,6 +118,26 @@
   "invalidRecipientName": "Invalid Recipient Name",
   "invalidAddress": "Invalid Address",
   "requiredRecipientName": "Required Recipient Name",
-  "requiredAddress": "Required Address"
-
+  "requiredAddress": "Required Address",
+  "requiredCity": "Required city",
+  "requiredArea": "Required Area",
+  "address": "Address",
+  "enter_address": "Enter the address",
+  "phone_number": "Phone number",
+  "enter_phone_number": "Enter the phone number",
+  "recipient_name": "Recipient name",
+  "enter_recipient_name": "Enter the recipient name",
+  "save_address": "Save address",
+  "area": "Area",
+  "city": "City",
+  "location_permission": "Location Permission",
+  "location_service_off_message": "Please enable Location Services (GPS) to pick your address on the map.",
+  "location_permission_denied_forever_message": "Location permission is permanently denied. Please enable it from Settings.",
+  "location_permission_denied_message": "We need location permission to select your address precisely on the map.",
+  "open_settings": "Open Settings",
+  "open_location_settings": "Open Location Settings",
+  "allow_location": "Allow Location",
+  "move_map_to_choose_location": "Move map to choose location",
+  "address_saved_successfully": "Address saved successfully",
+  "failed_to_save_address": "Failed to save address"
 }

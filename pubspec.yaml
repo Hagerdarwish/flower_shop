@@ -31,6 +31,8 @@ dependencies:
   shimmer: ^3.0.0
   skeletonizer: ^2.1.2
   image_picker: ^1.2.1
+  google_maps_flutter: ^2.14.0
+  geolocator: ^10.1.0
 
 
 dev_dependencies:
@@ -50,6 +52,8 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
+    - assets/data/states.json
+    - assets/data/cities.json
 
 easy_localization:
   path: assets/translations

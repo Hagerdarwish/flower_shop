@@ -13,6 +13,16 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../../features/addresses/data/datasource/address_datasource.dart'
+    as _i968;
+import '../../../features/addresses/data/datasource/address_datasource_impl.dart'
+    as _i142;
+import '../../../features/addresses/data/repos/address_repo_imp.dart' as _i477;
+import '../../../features/addresses/domain/repos/address_repo.dart' as _i601;
+import '../../../features/addresses/domain/usecase/add_address_usecase.dart'
+    as _i279;
+import '../../../features/addresses/presentation/add_address/manager/add_address_cubit.dart'
+    as _i631;
 import '../../../features/app_start/presentation/manager/app_cubit.dart'
     as _i858;
 import '../../../features/auth/api/datasource/auth_remote_datasource_impl.dart'
@@ -184,6 +194,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i702.ForgetPasswordCubit>(
       () => _i702.ForgetPasswordCubit(gh<_i878.ForgotPasswordUseCase>()),
     );
+    gh.factory<_i968.AddressDatasource>(
+      () => _i142.AddressDatasourceImpl(gh<_i890.ApiClient>()),
+    );
+    gh.factory<_i601.AddressRepo>(
+      () => _i477.AddressRepoImpl(gh<_i968.AddressDatasource>()),
+    );
     gh.factory<_i986.EditProfileDataSource>(
       () => _i857.EditprofiledatascourceImp(gh<_i890.ApiClient>()),
     );
@@ -252,6 +268,9 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i1023.LogoutCubit(gh<_i27.LogoutUsecase>(), gh<_i603.AuthStorage>()),
     );
+    gh.factory<_i279.AddAddressUsecase>(
+      () => _i279.AddAddressUsecase(gh<_i601.AddressRepo>()),
+    );
     gh.factory<_i710.AllCategoriesUsecase>(
       () => _i710.AllCategoriesUsecase(gh<_i332.EcommerceRepo>()),
     );
@@ -309,6 +328,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i153.DeleteCartItemUsecase>(),
         gh<_i323.UpdateCartItemQuantityUsecase>(),
       ),
+    );
+    gh.factory<_i631.AddAddressCubit>(
+      () => _i631.AddAddressCubit(gh<_i279.AddAddressUsecase>()),
     );
     gh.factory<_i682.HomeCubit>(() => _i682.HomeCubit(gh<_i94.HomeFactory>()));
     gh.factory<_i285.GetCurrentUserUsecase>(

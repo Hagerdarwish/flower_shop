@@ -1,3 +1,5 @@
+import '../../../features/addresses/domain/models/city_item.dart';
+import '../../../features/addresses/domain/models/area_item.dart';
 import '../values/user_error_mesagges.dart';
 
 class Validators {
@@ -73,6 +75,18 @@ class Validators {
     return null;
   }
 
+  static String? validateArea(AreaItem? value) {
+    if (value == null) {
+      return UserErrorMessages.requiredArea;
+    }
+    return null;
+  }
 
+  static String? validateCity(CityItem? value) {
+    if (value == null) {
+      return UserErrorMessages.requiredCity;
+    }
+    return null;
+  }
 
 }
