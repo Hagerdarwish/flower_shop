@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flower_shop/features/addresses/presentation/saved_addresses/manager/saved_address_cubit.dart';
 import 'package:flower_shop/features/addresses/presentation/saved_addresses/manager/saved_address_states.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../../app/core/router/route_names.dart';
 
 class SavedAddressViewBody extends StatelessWidget {
   const SavedAddressViewBody({super.key});
@@ -23,7 +26,7 @@ class SavedAddressViewBody extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => context.pop(),
                   ),
                   Text(LocaleKeys.savedAddress.tr()),
                 ],
@@ -58,7 +61,9 @@ class SavedAddressViewBody extends StatelessWidget {
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push(RouteNames.addAddressPage);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,
                     shape: RoundedRectangleBorder(

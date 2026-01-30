@@ -209,6 +209,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.7"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      sha256: "09bad715f418841f976c77db72d5398dc1253c21fb9c0c7f0b0b985860b2d58e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -405,6 +413,54 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  geolocator:
+    dependency: "direct main"
+    description:
+      name: geolocator
+      sha256: f4efb8d3c4cdcad2e226af9661eb1a0dd38c71a9494b22526f9da80ab79520e5
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.1.1"
+  geolocator_android:
+    dependency: transitive
+    description:
+      name: geolocator_android
+      sha256: fcb1760a50d7500deca37c9a666785c047139b5f9ee15aa5469fae7dbbe3170d
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.6.2"
+  geolocator_apple:
+    dependency: transitive
+    description:
+      name: geolocator_apple
+      sha256: dbdd8789d5aaf14cf69f74d4925ad1336b4433a6efdf2fce91e8955dc921bf22
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.13"
+  geolocator_platform_interface:
+    dependency: transitive
+    description:
+      name: geolocator_platform_interface
+      sha256: "30cb64f0b9adcc0fb36f628b4ebf4f731a2961a0ebd849f4b56200205056fe67"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.6"
+  geolocator_web:
+    dependency: transitive
+    description:
+      name: geolocator_web
+      sha256: "102e7da05b48ca6bf0a5bda0010f886b171d1a08059f01bfe02addd0175ebece"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
+  geolocator_windows:
+    dependency: transitive
+    description:
+      name: geolocator_windows
+      sha256: "175435404d20278ffd220de83c2ca293b73db95eafbdc8131fe8609be1421eb6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.5"
   get_it:
     dependency: "direct main"
     description:
@@ -669,6 +725,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  lean_builder:
+    dependency: transitive
+    description:
+      name: lean_builder
+      sha256: ef5cd5f907157eb7aa87d1704504b5a6386d2cbff88a3c2b3344477bab323ee9
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   lints:
     dependency: transitive
     description:
@@ -841,10 +905,10 @@ packages:
     dependency: transitive
     description:
       name: protobuf
-      sha256: de9c9eb2c33f8e933a42932fe1dc504800ca45ebc3d673e6ed7f39754ee4053e
+      sha256: "2fcc8a202ca7ec17dab7c97d6b6d91cf03aa07fe6f65f8afbb6dfa52cc5bd902"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.0"
+    version: "5.1.0"
   provider:
     dependency: "direct main"
     description:
@@ -889,10 +953,18 @@ packages:
     dependency: "direct dev"
     description:
       name: retrofit_generator
-      sha256: "5bb5617bd0d7a7c1d73c194e9b557b8db15874fde6736f1b169fefe898980c54"
+      sha256: "7ec323f3329ad2ca0bcdc96fe02ec7f2486ecfac6cd2d035b03c398ef6f42308"
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.1"
+    version: "10.2.0"
+  sanitize_html:
+    dependency: transitive
+    description:
+      name: sanitize_html
+      sha256: "12669c4a913688a26555323fb9cec373d8f9fbe091f2d01c40c723b33caa8989"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1122,6 +1194,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  uuid:
+    dependency: transitive
+    description:
+      name: uuid
+      sha256: a11b666489b1954e01d992f3d601b1804a33937b5a8fe677bd26b8a9f96f96e8
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.2"
   vector_graphics:
     dependency: transitive
     description:

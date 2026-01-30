@@ -6,7 +6,9 @@ import 'package:flower_shop/app/config/di/di.dart';
 import 'package:flower_shop/app/core/widgets/custom_button.dart';
 import 'package:flower_shop/app/core/widgets/custom_text_form_field.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../app/config/auth_storage/auth_storage.dart';
+import '../../../../../app/core/router/route_names.dart';
 import '../../../../../app/core/utils/validators_helper.dart';
 import '../manager/add_address_cubit.dart';
 import '../manager/add_address_events.dart';
@@ -47,13 +49,12 @@ class _AddAddressPageState extends State<AddAddressPage> {
           final status = state.submitResult.status;
 
           if (status == Status.success) {
-            final msg =
-                state.submitResult.data?.message ??
-                    LocaleKeys.address_saved_successfully.tr();
+            final msg = LocaleKeys.address_saved_successfully.tr();
+
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(msg)));
-            Navigator.pop(context);
+            context.go(RouteNames.savedAddressesView);
           }
 
           if (status == Status.error) {
@@ -69,8 +70,18 @@ class _AddAddressPageState extends State<AddAddressPage> {
           return Scaffold(
             body: Column(
               children: [
-                SafeArea(
-                  child: SingleChildScrollView(
+                SizedBox(height: 50,),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => context.pop(),
+                    ),
+                    Text(LocaleKeys.addNewAddress.tr()),
+                  ],
+                ),
+
+                   SingleChildScrollView(
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
                     child: Form(
                       key: _formKey,
@@ -158,7 +169,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                       ),
                     ),
                   ),
-                ),
+
               ],
             ),
           );

@@ -1,6 +1,9 @@
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/addresses/domain/models/address_entity.dart';
 
+import '../../data/models/response/address_model.dart';
+import '../models/address_dto.dart';
+
 abstract class AddressRepo {
   Future<ApiResult<List<AddressEntity>>> getAddresses({required String token});
   Future<ApiResult<List<AddressEntity>>> deleteAddress({
