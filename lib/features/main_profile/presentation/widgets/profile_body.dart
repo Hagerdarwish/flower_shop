@@ -82,7 +82,11 @@ class ProfileBody extends StatelessWidget {
         _ProfileItem(
           title: LocaleKeys.savedAddresses.tr(),
           icon: Icons.location_on_outlined,
-          onTap: () {},
+          onTap: () {
+            context.push(
+              RouteNames.savedAddressesView,
+            );
+          },
         ),
 
         _ProfileItem(

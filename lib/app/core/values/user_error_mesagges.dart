@@ -43,4 +43,18 @@ class UserErrorMessages {
   static String get least6Characters => LocaleKeys.least6Characters.tr();
 
   static String get invalidName => LocaleKeys.invalidName.tr();
+
+  static String get invalidRecipientName =>
+      LocaleKeys.invalidRecipientName.tr();
+
+  static String get invalidAddress => LocaleKeys.invalidAddress.tr();
+
+  static String get requiredRecipientName =>
+      LocaleKeys.invalidRecipientName.tr();
+
+  static String get requiredAddress => LocaleKeys.invalidAddress.tr();
+  static String get requiredCity => LocaleKeys.requiredCity.tr();
+
+  static String get requiredArea => LocaleKeys.requiredArea.tr();
+
 }

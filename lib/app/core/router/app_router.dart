@@ -20,6 +20,8 @@ import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/pa
 import 'package:flower_shop/features/orders/presentation/pages/cart_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../features/addresses/presentation/add_address/pages/add_address_page.dart';
+import '../../../features/addresses/presentation/saved_addresses/views/saved_address_view.dart';
 import '../../../features/auth/presentation/forget_password/manager/forget_password_cubit.dart';
 import '../../../features/auth/presentation/forget_password/pages/forget_password_page.dart';
 import '../../../features/auth/presentation/reset_password/manager/reset_password_cubit.dart';
@@ -192,6 +194,19 @@ final GoRouter appRouter = GoRouter(
           ],
           child: const CheckoutScreen(),
         );
+      },
+    ),
+    GoRoute(
+      path: RouteNames.addAddressPage,
+      builder: (context, state) {
+        return AddAddressPage();
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.savedAddressesView,
+      builder: (context, state) {
+        return const SavedAddressView();
       },
     ),
   ],

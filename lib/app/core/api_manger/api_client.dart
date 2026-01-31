@@ -15,6 +15,11 @@ import 'package:flower_shop/features/orders/data/models/paymentResonse.dart';
 import 'package:flower_shop/features/orders/data/models/user_carts_dto.dart';
 import 'package:flower_shop/features/main_profile/data/models/response/profile_response.dart';
 import 'package:retrofit/retrofit.dart';
+import '../../../features/addresses/data/models/address_request.dart';
+import '../../../features/addresses/data/models/address_response.dart';
+import '../../../features/addresses/data/models/get_address_response.dart';
+import '../../../features/addresses/data/models/response/add_address_response_model.dart';
+import '../../../features/addresses/data/models/response/address_model.dart';
 import '../../../features/auth/data/models/request/change-password-request-models/change-password-request-model.dart';
 import '../../../features/auth/data/models/request/forget_password_request_model/forget_password_request_model.dart';
 import '../../../features/auth/data/models/request/reset_password_request_model/reset_password_request_model.dart';
@@ -131,5 +136,29 @@ abstract class ApiClient {
     @Header("Authorization") required String token,
     @Query("url") required String returnUrl,
     @Body() PaymentRequest? request,
+  });
+
+  @PATCH(AppEndpointString.addAddress)
+  Future<HttpResponse<AddAddressResponse>> addAddress({
+    @Header("Authorization") required String token,
+    @Body() required AddressModel request,
+  });
+
+  @GET(AppEndpointString.addresses)
+  Future<HttpResponse<GetAddressResponse>> getAddresses({
+    @Header("Authorization") required String token,
+  });
+
+  @DELETE(AppEndpointString.addresses + '/{id}')
+  Future<HttpResponse<AddressResponse>> deleteAddress({
+    @Header("Authorization") required String token,
+    @Path('id') required String addressId,
+  });
+
+  @PATCH(AppEndpointString.addresses + '/{id}')
+  Future<HttpResponse<AddressResponse>> editAddress({
+    @Header("Authorization") required String token,
+    @Path('id') required String addressId,
+    @Body() required AddressRequest request,
   });
 }

@@ -13,7 +13,7 @@ class HomeResponse {
   final String? message;
   @JsonKey(name: "products")
   final List<Product>? products;
-  @JsonKey(name: "categories")
+  @JsonKey(name: "add_address")
   final List<Category>? categories;
   @JsonKey(name: "bestSeller")
   final List<BestSeller>? bestSeller;

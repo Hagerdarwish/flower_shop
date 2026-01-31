@@ -8,7 +8,7 @@ class AllCategoriesDto {
   final String? message;
   @JsonKey(name: 'metadata')
   final MetadataDto? metadata;
-  @JsonKey(name: 'categories')
+  @JsonKey(name: 'add_address')
   final List<CategoryItemDto?>? categories;
 
   AllCategoriesDto({this.message, this.metadata, this.categories});
