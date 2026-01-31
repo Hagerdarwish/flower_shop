@@ -6,6 +6,7 @@ import 'package:flower_shop/features/auth/presentation/signup/pages/signup_scree
 import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/pages/best_sell_screen.dart';
+import 'package:flower_shop/features/e_commerce/presentation/search/pages/search_page.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_cubit.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_intents.dart';
 import 'package:flower_shop/features/checkout/presentation/screens/checkout_screen.dart';
@@ -151,6 +152,11 @@ final GoRouter appRouter = GoRouter(
         final user = state.extra as ProfileUserModel?;
         return EditProfilePage(user: user);
       },
+    ),
+
+    GoRoute(
+      path: RouteNames.searchPage,
+      builder: (context, state) => SearchPage(),
     ),
 
     GoRoute(

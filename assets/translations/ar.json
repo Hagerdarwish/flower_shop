@@ -111,6 +111,7 @@
   "change_language": "تغيير اللغة",
   "arabic": "العربية",
   "english": "الإنجليزية",
+  "initialSearchMsg" : "ابحث عن المنتج الذي تريده",
   "welcomeMessage": "مرحبًا بك في متجر Flowery",
   "home": "الرئيسية",
   "profile": "الملف الشخصي",

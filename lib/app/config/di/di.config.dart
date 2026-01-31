@@ -77,6 +77,8 @@ import '../../../features/e_commerce/presentation/occasion/manager/occasion_cubi
     as _i25;
 import '../../../features/e_commerce/presentation/product%20details/manger/product_details_cubit/product_details_cubit.dart'
     as _i50;
+import '../../../features/e_commerce/presentation/search/manager/products_search_cubit.dart'
+    as _i499;
 import '../../../features/edit_profile/api/datasources/edit_profile_datasource_imp.dart'
     as _i857;
 import '../../../features/edit_profile/data/datasources/edit_profile_datasource.dart'
@@ -367,6 +369,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i682.HomeCubit>(() => _i682.HomeCubit(gh<_i94.HomeFactory>()));
     gh.factory<_i285.GetCurrentUserUsecase>(
       () => _i285.GetCurrentUserUsecase(gh<_i866.ProfileRepo>()),
+    );
+    gh.factory<_i499.ProductsSearchCubit>(
+      () => _i499.ProductsSearchCubit(gh<_i985.GetProductUsecase>()),
     );
     gh.factory<_i259.AllCategoriesCubit>(
       () => _i259.AllCategoriesCubit(

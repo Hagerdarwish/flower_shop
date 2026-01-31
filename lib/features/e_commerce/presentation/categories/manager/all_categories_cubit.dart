@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/e_commerce/domain/models/all_categories_model.dart';
@@ -17,6 +19,16 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
     : super(AllCategoriesStates());
   List<CategoryItemModel> categoriesList = [];
   int selectedIndex = 0;
+
+  final StreamController<EcommerceUiEvents> _ecommerceUiEventStream =
+      StreamController<EcommerceUiEvents>.broadcast();
+
+  Stream<EcommerceUiEvents> get ecommerceUiEventStream =>
+      _ecommerceUiEventStream.stream;
+
+  void doUiIntent(EcommerceUiEvents event) {
+    _ecommerceUiEventStream.add(event);
+  }
 
   void doIntent(AllCategoriesIntent intent) {
     switch (intent) {
@@ -68,5 +80,9 @@ class AllCategoriesCubit extends Cubit<AllCategoriesStates> {
       case ErrorApiResult<List<ProductModel>>():
         emit(state.copyWith(products: Resource.error(result.error)));
     }
+  }
+
+  void onSearchTapped() {
+    _ecommerceUiEventStream.add(OnSearchTapEvent());
   }
 }

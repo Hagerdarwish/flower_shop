@@ -14,6 +14,7 @@ abstract class RouteNames {
   static const changePassword = "/changePassword";
   static const profile = "/profile";
   static const editProfile = "/editProfile";
+  static const searchPage = "/searchPage";
   static const aboutUs = "/aboutUs";
   static const termsAndConditions = "/termsAndConditions";
   static const checkout = "/checkout";

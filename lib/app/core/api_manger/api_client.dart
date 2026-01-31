@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flower_shop/app/core/values/api_constants.dart';
 import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
@@ -54,8 +55,9 @@ abstract class ApiClient {
 
   @GET(AppEndpointString.getProduct)
   Future<HttpResponse<ProductsResponse>> getProducts({
-    @Query("occasion") String? occasion,
-    @Query("category") String? category,
+    @Query(ApiConstants.occasion) String? occasion,
+    @Query(ApiConstants.category) String? category,
+    @Query(ApiConstants.search) String? search,
   });
 
   @GET(AppEndpointString.allCategories)
@@ -66,7 +68,7 @@ abstract class ApiClient {
 
   @GET(AppEndpointString.productDetails)
   Future<HttpResponse<ProductDetailsResponse>> getProductDetails(
-    @Path('id') String productId,
+    @Path(ApiConstants.id) String productId,
   );
 
   @GET(AppEndpointString.cartPage)
@@ -77,14 +79,14 @@ abstract class ApiClient {
     @Body() Map<String, dynamic> body,
   );
 
-  @DELETE('${AppEndpointString.cartPage}/{id}')
+  @DELETE('${AppEndpointString.cartPage}/{${ApiConstants.id}}')
   Future<HttpResponse<UserCartsDto>> deleteCartItem(
-    @Path('id') String cartItemId,
+    @Path(ApiConstants.id) String cartItemId,
   );
 
-  @PUT('${AppEndpointString.cartPage}/{id}')
+  @PUT('${AppEndpointString.cartPage}/{${ApiConstants.id}}')
   Future<HttpResponse<UserCartsDto>> updateCartItemQuantity(
-    @Path('id') String cartItemId,
+    @Path(ApiConstants.id) String cartItemId,
     @Body() Map<String, dynamic> body,
   );
   @PATCH(AppEndpointString.changePassword)
@@ -94,25 +96,25 @@ abstract class ApiClient {
 
   @GET(AppEndpointString.profileData)
   Future<HttpResponse<ProfileResponse>> getProfileData(
-    @Header("Authorization") String token,
+    @Header(ApiConstants.authorization) String token,
   );
 
   @PUT(AppEndpointString.editProfile)
   Future<HttpResponse<EditProfileResponse>> editProfile({
-    @Header("Authorization") required String token,
+    @Header(ApiConstants.authorization) required String token,
     @Body() required EditProfileRequest request,
   });
 
   @MultiPart()
   @PUT(AppEndpointString.uploadPhoto)
   Future<HttpResponse<EditProfileResponse>> uploadPhoto({
-    @Header("Authorization") required String token,
-    @Part(name: "photo") required MultipartFile photo,
+    @Header(ApiConstants.authorization) required String token,
+    @Part(name: ApiConstants.photo) required MultipartFile photo,
   });
 
   @GET(AppEndpointString.logout)
   Future<HttpResponse<LogoutResponse>> logout({
-    @Header("Authorization") required String token,
+    @Header(ApiConstants.authorization) required String token,
   });
 
   @POST(AppEndpointString.cashOrder)
