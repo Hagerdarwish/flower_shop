@@ -6,7 +6,6 @@ import 'package:flower_shop/features/checkout/presentation/cubit/checkout_state.
 import 'package:flower_shop/features/checkout/presentation/cubit/payment_method.dart';
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_cubit.dart';
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_intent.dart';
-import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_intent.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +42,7 @@ class PlaceOrderButton extends StatelessWidget {
                 if (paymentMethod == PaymentMethod.card) {
                   context.read<PaymentCubit>().doIntent(
                     ExecutePaymentIntent(
-                      returnUrl: 'flower://payment-success',
+                      returnUrl: 'http://10.0.2.2:3000',
                       street: state.selectedAddress?.street,
                       phone: state.selectedAddress?.phone,
                       city: state.selectedAddress?.city,

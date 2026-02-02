@@ -56,7 +56,6 @@ class PaymentMethodSection extends StatelessWidget {
           ),
           child: Column(
             children: [
-              /// CASH
               PaymentMethodTile(
                 value: PaymentMethod.cash,
                 groupValue: checkoutState.paymentMethod,
