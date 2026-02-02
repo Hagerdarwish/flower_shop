@@ -2,6 +2,8 @@ import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/app/core/network/safe_api_call.dart';
 import 'package:flower_shop/features/orders/data/datasource/orders_remote_datasource.dart';
+import 'package:flower_shop/features/orders/data/models/paymentRequest.dart';
+import 'package:flower_shop/features/orders/data/models/paymentResonse.dart';
 import 'package:flower_shop/features/orders/data/models/user_carts_dto.dart';
 import 'package:injectable/injectable.dart';
 
@@ -42,6 +44,24 @@ class OrdersRemoteDatasourceImpl implements OrdersRemoteDatasource {
     return safeApiCall<UserCartsDto>(
       call: () =>
           apiClient.updateCartItemQuantity(cartItemId!, {'quantity': quantity}),
+    );
+  }
+
+  @override
+  Future<ApiResult<PaymentResponse>> payment({
+    required String returnUrl,
+    required String token,
+    PaymentRequest? request,
+  }) async {
+    return safeApiCall<PaymentResponse>(
+      call: () async {
+        final response = await apiClient.checkoutOrder(
+          token: 'Bearer $token',
+          returnUrl: returnUrl,
+          request: request as PaymentRequest,
+        );
+        return response;
+      },
     );
   }
 }

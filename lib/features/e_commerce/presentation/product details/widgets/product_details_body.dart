@@ -219,7 +219,7 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
                             isEnabled: true,
                             isLoading: cartState.cart?.isLoading ?? false,
                             text: inCart
-                                ? "In Cart"
+                                ? LocaleKeys.in_cart.tr()
                                 : LocaleKeys.addToCard.tr(),
                             onPressed: () {
                               if (inCart) {

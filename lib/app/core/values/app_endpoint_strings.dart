@@ -9,11 +9,14 @@ class AppEndpointString {
   static const String uploadPhoto = 'auth/upload-photo';
   static const String logout = 'auth/logout';
   static const String updateRole = 'auth/update-role';
+
+  static const String cashOrder = 'orders';
   static const String orders = 'orders';
+  static const String checkout = '$orders/checkout';
   static const String addresses = 'addresses';
 
   static const String signup = '/auth/signup';
-  static const String allCategories = '/categories';
+  static const String allCategories = 'categories';
   static const String getProduct = '/products';
   static const String home = '/home';
   static const String productDetails = 'products/{id}';
@@ -22,4 +25,7 @@ class AppEndpointString {
   static const String tokenKey = 'token';
   static const String editProfile = 'auth/editProfile';
   static const String changepassword = 'auth/change-password';
+  static const String addAddress = 'addresses';
+
+  static const String getaddresses = 'addresses';
 }

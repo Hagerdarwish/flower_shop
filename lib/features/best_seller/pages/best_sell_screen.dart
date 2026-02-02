@@ -35,7 +35,9 @@ class _BestSellerScreenState extends State<BestSellerScreen> {
         titleSpacing: 0,
         centerTitle: true,
         elevation: 0,
-        title: SearchTextField(),
+        title: SearchTextField(
+          onTap: () => context.push(RouteNames.searchPage),
+        ),
       ),
       body: BlocBuilder<BestSellerCubit, BestSellerState>(
         builder: (context, state) {

@@ -25,20 +25,21 @@ class CategoriesPage extends StatefulWidget {
 }
 
 class _CategoriesPageState extends State<CategoriesPage> {
+  final AllCategoriesCubit bloc = getIt<AllCategoriesCubit>();
+
   @override
   void initState() {
     super.initState();
     context.read<CartCubit>().doIntent(GetAllCartsIntent());
+    bloc.doIntent(GetAllCategoriesEvent());
   }
-
-  final bloc = getIt<AllCategoriesCubit>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AllCategoriesCubit>(
-      create: (context) => bloc..doIntent(GetAllCategoriesEvent()),
+    return BlocProvider.value(
+      value: bloc,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
             const SizedBox(height: 40),
@@ -47,10 +48,12 @@ class _CategoriesPageState extends State<CategoriesPage> {
             BlocBuilder<AllCategoriesCubit, AllCategoriesStates>(
               builder: (context, state) {
                 final products = state.products?.data;
+
                 if (state.products?.status == Status.loading ||
                     products == null) {
-                  return Expanded(child: const ShimmerGridLoading());
+                  return const Expanded(child: ShimmerGridLoading());
                 }
+
                 if (products.isEmpty) {
                   return Column(
                     children: [
@@ -58,11 +61,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         height: MediaQuery.of(context).size.height * 0.3,
                       ),
                       Text(
-                        textAlign: TextAlign.center,
                         LocaleKeys.noProductsfound.tr(),
+                        textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: AppColors.blackColor,
                           fontSize: 16,
+                          color: AppColors.blackColor,
                         ),
                       ),
                     ],
@@ -71,7 +74,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
                 return Expanded(
                   child: GridView.builder(
-                    itemCount: state.products?.data?.length ?? 0,
+                    itemCount: products.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
@@ -79,19 +82,17 @@ class _CategoriesPageState extends State<CategoriesPage> {
                           mainAxisSpacing: 17,
                           childAspectRatio: 0.70,
                         ),
-                    itemBuilder: (BuildContext context, int index) {
-                      final product = state.products?.data?[index];
-                      return product != null
-                          ? ProductItemCard(
-                              onTap: () {
-                                context.push(
-                                  RouteNames.productDetails,
-                                  extra: product.id,
-                                );
-                              },
-                              product: product,
-                            )
-                          : const SizedBox.shrink();
+                    itemBuilder: (context, index) {
+                      final product = products[index];
+                      return ProductItemCard(
+                        product: product,
+                        onTap: () {
+                          context.push(
+                            RouteNames.productDetails,
+                            extra: product.id,
+                          );
+                        },
+                      );
                     },
                   ),
                 );

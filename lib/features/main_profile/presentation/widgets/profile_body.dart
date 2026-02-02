@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_shop/app/core/app_constants.dart';
 import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/features/auth/presentation/logout/manager/logout_cubit.dart';
 import 'package:flower_shop/features/auth/presentation/logout/manager/logout_intent.dart';
@@ -7,6 +6,7 @@ import 'package:flower_shop/features/auth/presentation/logout/manager/logout_sta
 import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cubit.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_intent.dart';
+import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -52,7 +52,7 @@ class ProfileBody extends StatelessWidget {
               const SizedBox(height: 12),
 
               Text(
-                user.firstName ?? AppConstants.noName,
+                user.firstName ?? LocaleKeys.noName.tr(),
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
@@ -61,7 +61,7 @@ class ProfileBody extends StatelessWidget {
               const SizedBox(height: 4),
 
               Text(
-                user.email ?? AppConstants.noEmail,
+                user.email ?? LocaleKeys.noEmail.tr(),
                 style: Theme.of(
                   context,
                 ).textTheme.bodySmall?.copyWith(color: Colors.grey),
@@ -74,25 +74,27 @@ class ProfileBody extends StatelessWidget {
         const Divider(),
 
         _ProfileItem(
-          title: AppConstants.myOrders,
+          title: LocaleKeys.myOrders.tr(),
           icon: Icons.receipt_long,
           onTap: () {},
         ),
 
         _ProfileItem(
-          title: AppConstants.savedaddresses,
+          title: LocaleKeys.savedAddresses.tr(),
           icon: Icons.location_on_outlined,
-          onTap: () {},
+          onTap: () {
+            context.push(RouteNames.savedAddressesView);
+          },
         ),
 
         _ProfileItem(
-          title: AppConstants.notifications,
+          title: LocaleKeys.notifications.tr(),
           icon: Icons.notifications_none,
           trailing: Switch(value: true, onChanged: (_) {}),
         ),
 
         _ProfileItem(
-          title: AppConstants.Language,
+          title: LocaleKeys.language.tr(),
           icon: Icons.language,
           onTap: () {
             showModalBottomSheet(
@@ -101,22 +103,28 @@ class ProfileBody extends StatelessWidget {
             );
           },
           trailing: Text(
-            context.locale.languageCode == 'ar' ? 'Arabic' : 'English',
+            context.locale.languageCode == 'ar'
+                ? LocaleKeys.arabic.tr()
+                : LocaleKeys.english.tr(),
           ),
         ),
 
         const Divider(),
 
         _ProfileItem(
-          title: AppConstants.aboutUs,
+          title: LocaleKeys.aboutUs.tr(),
           icon: Icons.info_outline,
-          onTap: () {},
+          onTap: () {
+            context.push(RouteNames.aboutUs);
+          },
         ),
 
         _ProfileItem(
-          title: AppConstants.termsAndConditions,
+          title: LocaleKeys.termsAndConditions.tr(),
           icon: Icons.description_outlined,
-          onTap: () {},
+          onTap: () {
+            context.push(RouteNames.termsAndConditions);
+          },
         ),
 
         const Divider(),
@@ -130,7 +138,9 @@ class ProfileBody extends StatelessWidget {
             if (state.logoutResource.isError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(state.logoutResource.error ?? 'Logout failed'),
+                  content: Text(
+                    state.logoutResource.error ?? LocaleKeys.logoutFailed.tr(),
+                  ),
                 ),
               );
             }
@@ -138,7 +148,7 @@ class ProfileBody extends StatelessWidget {
           builder: (context, state) {
             final isLoading = state.logoutResource.isLoading;
             return _ProfileItem(
-              title: AppConstants.logout,
+              title: LocaleKeys.logout.tr(),
               icon: Icons.logout,
               color: Colors.red,
               trailing: isLoading

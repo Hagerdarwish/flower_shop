@@ -5,7 +5,7 @@ sealed class AllCategoriesIntent {}
 class GetAllCategoriesEvent extends AllCategoriesIntent {}
 
 class SelectCategoryEvent extends AllCategoriesIntent {
-  int selectedIndex;
+  final int selectedIndex;
   SelectCategoryEvent({this.selectedIndex = 0});
 }
 
@@ -13,3 +13,7 @@ class ApplySortEvent extends AllCategoriesIntent {
   final SortType sortType;
   ApplySortEvent(this.sortType);
 }
+
+sealed class EcommerceUiEvents {}
+
+class OnSearchTapEvent extends EcommerceUiEvents {}

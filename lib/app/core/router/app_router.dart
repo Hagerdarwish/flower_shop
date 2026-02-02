@@ -6,13 +6,22 @@ import 'package:flower_shop/features/auth/presentation/signup/pages/signup_scree
 import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/pages/best_sell_screen.dart';
+import 'package:flower_shop/features/e_commerce/presentation/search/pages/search_page.dart';
+import 'package:flower_shop/features/checkout/presentation/cubit/checkout_cubit.dart';
+import 'package:flower_shop/features/checkout/presentation/cubit/checkout_intents.dart';
+import 'package:flower_shop/features/checkout/presentation/screens/checkout_screen.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cubit.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_intent.dart';
+import 'package:flower_shop/features/main_profile/presentation/screens/about_screen.dart';
 import 'package:flower_shop/features/main_profile/presentation/screens/profile_screen.dart';
+import 'package:flower_shop/features/main_profile/presentation/screens/terms_screen.dart';
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart';
+import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_cubit.dart';
 import 'package:flower_shop/features/orders/presentation/pages/cart_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../features/addresses/presentation/add_address/pages/add_address_page.dart';
+import '../../../features/addresses/presentation/saved_addresses/views/saved_address_view.dart';
 import '../../../features/auth/presentation/forget_password/manager/forget_password_cubit.dart';
 import '../../../features/auth/presentation/forget_password/pages/forget_password_page.dart';
 import '../../../features/auth/presentation/reset_password/manager/reset_password_cubit.dart';
@@ -144,6 +153,60 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final user = state.extra as ProfileUserModel?;
         return EditProfilePage(user: user);
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.searchPage,
+      builder: (context, state) => SearchPage(),
+    ),
+
+    GoRoute(
+      path: RouteNames.aboutUs,
+      builder: (context, state) {
+        return BlocProvider<ProfileCubit>(
+          create: (context) => getIt<ProfileCubit>()..loadAboutData(),
+          child: AboutScreen(),
+        );
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.termsAndConditions,
+      builder: (context, state) {
+        return BlocProvider<ProfileCubit>(
+          create: (context) => getIt<ProfileCubit>()..loadTermsData(),
+          child: TermsScreen(),
+        );
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.checkout,
+      builder: (context, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) =>
+                  getIt<CheckoutCubit>()..doIntent(GetAllCheckoutIntents()),
+            ),
+            BlocProvider(create: (_) => getIt<PaymentCubit>()),
+          ],
+          child: const CheckoutScreen(),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteNames.addAddressPage,
+      builder: (context, state) {
+        return AddAddressPage();
+      },
+    ),
+
+    GoRoute(
+      path: RouteNames.savedAddressesView,
+      builder: (context, state) {
+        return const SavedAddressView();
       },
     ),
   ],

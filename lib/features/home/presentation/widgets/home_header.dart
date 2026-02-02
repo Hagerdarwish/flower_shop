@@ -1,8 +1,10 @@
+import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/app/core/ui_helper/assets/images.dart';
 import 'package:flower_shop/features/home/presentation/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../main_profile/presentation/widgets/language_bottom_sheet.dart';
 
@@ -28,7 +30,11 @@ class HomeHeader extends StatelessWidget {
               },
               icon: const Icon(Icons.language),
             ),
-            Expanded(child: SearchTextField()),
+            Expanded(
+              child: SearchTextField(
+                onTap: () => context.push(RouteNames.searchPage),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 10),
