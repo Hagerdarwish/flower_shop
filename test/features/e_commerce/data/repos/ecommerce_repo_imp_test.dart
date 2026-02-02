@@ -84,8 +84,8 @@ void main() {
     });
   });
 
-  group("Get all add_address", () {
-    test('should return ApiSuccess when get all add_address success', () async {
+  group("Get all categories", () {
+    test('should return ApiSuccess when get all categories success', () async {
       final fakeDto = AllCategoriesDto(
         message: 'success',
         categories: [
@@ -113,7 +113,7 @@ void main() {
     });
 
     test(
-      'should return ApiError when get all add_address throws exception',
+      'should return ApiError when get all categories throws exception',
       () async {
         when(datasource.getAllCategories()).thenAnswer(
           (_) async => ErrorApiResult<AllCategoriesDto>(error: 'Network error'),

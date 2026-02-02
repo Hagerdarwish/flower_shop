@@ -75,7 +75,7 @@ void main() {
   });
 
   group('EcommerceRemoteDataSourceImpl.allCaegories', () {
-    test('return ApiSuccess when get all add_address', () async {
+    test('return ApiSuccess when get all categories', () async {
       final fakeDto = AllCategoriesDto(
         message: 'success',
         categories: [
@@ -90,7 +90,7 @@ void main() {
       final fakeResponse = HttpResponse(
         fakeDto,
         Response(
-          requestOptions: RequestOptions(path: '/add_address'),
+          requestOptions: RequestOptions(path: '/categories'),
           statusCode: 200,
         ),
       );
@@ -107,7 +107,7 @@ void main() {
       verify(apiClient.getAllCategories()).called(1);
     });
 
-    test('return ApiError when get all add_address throw exception', () async {
+    test('return ApiError when get all categories throw exception', () async {
       when(apiClient.getAllCategories()).thenThrow(Exception('Network error'));
 
       final result =

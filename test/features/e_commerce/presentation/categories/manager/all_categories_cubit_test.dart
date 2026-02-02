@@ -39,7 +39,7 @@ void main() {
   tearDown(() async {
     await cubit.close();
   });
-  group('Get all add_address event', () {
+  group('Get all categories event', () {
     blocTest(
       'emits loading, success when GetAllCategoriesEvent success',
       build: () {

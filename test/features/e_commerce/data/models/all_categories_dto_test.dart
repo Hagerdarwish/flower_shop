@@ -12,7 +12,7 @@ void main() {
           'totalPages': 5,
           'totalItems': 50,
         },
-        'add_address': [
+        'categories': [
           {
             '_id': '1',
             'name': 'Flowers',
