@@ -19,7 +19,18 @@ class PaymentCubit extends Cubit<PaymentStates> {
   void doIntent(PaymentIntent intent) {
     if (intent is ExecutePaymentIntent) {
       _executePayment(intent);
+    } else if (intent is SimulatePaymentSuccessIntent) {
+      _simulateSuccess();
     }
+  }
+
+  void _simulateSuccess() {
+    emit(
+      state.copyWith(
+        paymentResponse: Resource.success(PaymentResponse(message: 'success')),
+        lastAction: PaymentAction.none,
+      ),
+    );
   }
 
   Future<void> _executePayment(ExecutePaymentIntent intent) async {

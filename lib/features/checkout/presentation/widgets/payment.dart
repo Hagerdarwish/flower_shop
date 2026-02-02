@@ -67,8 +67,6 @@ class PaymentMethodSection extends StatelessWidget {
                   );
                 },
               ),
-
-              /// CARD
               PaymentMethodTile(
                 value: PaymentMethod.card,
                 groupValue: checkoutState.paymentMethod,

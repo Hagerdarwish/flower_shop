@@ -50,7 +50,6 @@ class PlaceOrderButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
             ),
           ),
-
           onPressed: isLoading
               ? null
               : () {

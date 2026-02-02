@@ -19,3 +19,5 @@ class ExecutePaymentIntent extends PaymentIntent {
     this.long,
   });
 }
+
+class SimulatePaymentSuccessIntent extends PaymentIntent {}

@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/app/core/widgets/show_snak_bar.dart';
-import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_cubit.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_intents.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_state.dart';
@@ -12,11 +11,13 @@ import 'package:flower_shop/features/checkout/presentation/widgets/order_status.
 import 'package:flower_shop/features/checkout/presentation/widgets/payment.dart';
 import 'package:flower_shop/features/checkout/presentation/widgets/place_order.dart';
 import 'package:flower_shop/features/checkout/presentation/widgets/total_price.dart';
+import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_cubit.dart';
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_states.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CheckoutBody extends StatefulWidget {
@@ -48,7 +49,6 @@ class _CheckoutBodyState extends State<CheckoutBody> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        // Listen for cash order success/errors
         BlocListener<CheckoutCubit, CheckoutState>(
           listenWhen: (prev, curr) =>
               prev.order != curr.order ||
@@ -60,6 +60,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                 LocaleKeys.order_success.tr(),
                 backgroundColor: Colors.green,
               );
+              context.go(RouteNames.home);
             }
 
             if (state.error != null) {
@@ -81,11 +82,21 @@ class _CheckoutBodyState extends State<CheckoutBody> {
               prev.paymentResponse != curr.paymentResponse,
           listener: (context, state) {
             final res = state.paymentResponse;
-            if (res != null &&
-                res.isSuccess &&
-                res.data?.session?.url != null) {
-              // Open Stripe session using url_launcher
-              _launchURL(res.data!.session!.url!);
+            if (res != null && res.isSuccess) {
+              if (res.data?.session?.url != null) {
+                _launchURL(res.data!.session!.url!);
+              } else {
+                showAppSnackbar(
+                  context,
+                  LocaleKeys.order_success.tr(),
+                  backgroundColor: Colors.green,
+                );
+              }
+              Future.delayed(const Duration(seconds: 3), () {
+                if (mounted) {
+                  context.go(RouteNames.home);
+                }
+              });
             }
 
             if (res != null && res.isError) {
@@ -148,7 +159,6 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                 PlaceOrderButton(state: state),
                 const SizedBox(height: 24),
 
-                // Show order status for either cash or card
                 BlocBuilder<PaymentCubit, PaymentStates>(
                   builder: (context, paymentState) {
                     final cardSuccess =
@@ -161,7 +171,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                         children: const [
                           OrderStatusSection(), // You can pass state if needed
                           SizedBox(height: 16),
-                          TotalPrice(), // Show totals
+                          TotalPrice(),
                         ],
                       );
                     }

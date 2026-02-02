@@ -15,7 +15,6 @@ class OrderStatusSection extends StatelessWidget {
     String? statusText;
     Color? statusColor;
 
-    // First, check cash order
     if (checkoutState != null &&
         checkoutState!.order.isSuccess &&
         checkoutState!.order.data != null) {
@@ -32,11 +31,10 @@ class OrderStatusSection extends StatelessWidget {
       }
     }
 
-    // If no cash order, check card payment success
     if ((statusText == null || statusColor == null) &&
         paymentState != null &&
         paymentState!.paymentResponse?.isSuccess == true) {
-      statusText = LocaleKeys.paid.tr(); // Card payment means paid
+      statusText = LocaleKeys.paid.tr();
       statusColor = Colors.blue;
     }
 
