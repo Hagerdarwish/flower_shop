@@ -42,6 +42,9 @@ jobs:
       # 5️⃣ Get dependencies
       - name: Get dependencies
         run: flutter pub get
+        
+      - name: Run code generation (build_runner)
+        run: flutter pub run build_runner build --delete-conflicting-outputs
 
       # 6️⃣ Build release APK
       - name: Build APK (release)
