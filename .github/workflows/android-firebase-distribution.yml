@@ -42,7 +42,10 @@ jobs:
       # 5️⃣ Get dependencies
       - name: Get dependencies
         run: flutter pub get
-        
+
+      - name: Generate localization keys (easy_localization)
+        run: flutter pub run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart
+
       - name: Run code generation (build_runner)
         run: flutter pub run build_runner build --delete-conflicting-outputs
 
