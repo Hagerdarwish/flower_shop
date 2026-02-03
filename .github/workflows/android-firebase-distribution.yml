@@ -1,0 +1,67 @@
+name: Android Build & Firebase Distribution
+
+on:
+  push:
+    branches: [ "feature/add-app-distribution" ]
+  pull_request:
+    branches: [ "feature/add-app-distribution" ]
+
+env:
+  FLUTTER_VERSION: '3.27.1'
+  JAVA_VERSION: '17'
+  BUILD_TYPE: 'release'
+
+jobs:
+  build_android:
+    name: Android Build
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Setup Java
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+
+      # 3️⃣ Setup Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+
+      # 4️⃣ Check Flutter version
+      - name: Flutter version
+        run: flutter --version
+
+      # 5️⃣ Get dependencies
+      - name: Get dependencies
+        run: flutter pub get
+
+      # 6️⃣ Build release APK
+      - name: Build APK (release)
+        run: flutter build apk --release
+
+      # 7️⃣ Upload to Firebase App Distribution
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          groups: testers
+          file: build/app/outputs/flutter-apk/app-release.apk
+          releaseNotes: |
+            🚀 Android Build
+
+            App: ${{ github.event.repository.name }}
+            Version: ${{ github.run_number }}
+            Build Type: ${{ env.BUILD_TYPE }}
+            Branch: ${{ github.ref_name }}
+
+            Commit:
+            ${{ github.event.head_commit.message }}
