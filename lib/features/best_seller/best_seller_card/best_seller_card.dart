@@ -115,7 +115,7 @@ class BestSellerCard extends StatelessWidget {
                   backgroundColor: AppColors.pink,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius:  BorderRadius.circular(20),
                   ),
                 ),
               ),
