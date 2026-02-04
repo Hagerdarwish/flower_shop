@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/main_profile/data/mappers/about_and_terms_dto_mapper.dart';
+import 'package:flower_shop/features/main_profile/data/models/response/orders_response.dart';
 import 'package:flower_shop/features/main_profile/data/models/response/profile_response.dart';
 import 'package:flower_shop/features/main_profile/data/datasource/profile_remote_data_source.dart';
 import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
@@ -38,5 +40,16 @@ class ProfileRepoImpl implements ProfileRepo {
   Future<List<AboutAndTermsModel>> getTerms() async {
     final dtoList = await profileRemoteDataSource.getTerms();
     return dtoList.map((dto) => dto.toAboutAndTermsModel()).toList();
+  }
+
+  @override
+  Future<ApiResult<OrderResponse>> getOrders({required String token}) async {
+    try {
+      final response = await profileRemoteDataSource.getOrders(token: token);
+
+      return SuccessApiResult(data: response);
+    } catch (e) {
+      return ErrorApiResult(error: e.toString());
+    }
   }
 }

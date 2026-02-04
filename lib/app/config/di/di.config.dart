@@ -142,6 +142,8 @@ import '../../../features/main_profile/domain/usecase/get_about_section_usecase.
     as _i169;
 import '../../../features/main_profile/domain/usecase/get_current_user_usecase.dart'
     as _i285;
+import '../../../features/main_profile/domain/usecase/get_orders_usecases.dart'
+    as _i909;
 import '../../../features/main_profile/domain/usecase/get_terms_section_usecase.dart'
     as _i137;
 import '../../../features/main_profile/presentation/cubit/profile_cubit.dart'
@@ -401,6 +403,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1.UploadPhotoUseCase>(),
         gh<_i603.AuthStorage>(),
       ),
+    );
+    gh.factory<_i909.GetOrdersUsecases>(
+      () => _i909.GetOrdersUsecases(gh<_i866.ProfileRepo>()),
     );
     gh.singleton<_i148.CartCubit>(
       () => _i148.CartCubit(

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/app/core/values/api_constants.dart';
 import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
@@ -9,6 +10,7 @@ import 'package:flower_shop/features/e_commerce/data/models/response/product_det
 import 'package:flower_shop/features/edit_profile/data/models/request/editprofile_request/edit_profile_request.dart';
 import 'package:flower_shop/features/edit_profile/data/models/response/editprofile_response/edit_profile_resonse.dart';
 import 'package:flower_shop/features/home/data/models/response/home_response.dart';
+import 'package:flower_shop/features/main_profile/data/models/response/orders_response.dart';
 import 'package:flower_shop/features/orders/data/models/paymentRequest.dart';
 import 'package:flower_shop/features/orders/data/models/paymentResonse.dart';
 import 'package:flower_shop/features/orders/data/models/user_carts_dto.dart';
@@ -163,4 +165,7 @@ abstract class ApiClient {
     @Path('id') required String addressId,
     @Body() required AddressModel request,
   });
+
+  @GET('/orders')
+  Future<OrderResponse> getUserOrders(@Header('Authorization') String token);
 }
