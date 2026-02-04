@@ -76,7 +76,9 @@ class ProfileBody extends StatelessWidget {
         _ProfileItem(
           title: LocaleKeys.myOrders.tr(),
           icon: Icons.receipt_long,
-          onTap: () {},
+          onTap: () {
+            context.push(RouteNames.orders);
+          },
         ),
 
         _ProfileItem(

@@ -13,6 +13,9 @@ import 'package:flower_shop/features/checkout/presentation/screens/checkout_scre
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cubit.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_intent.dart';
 import 'package:flower_shop/features/main_profile/presentation/screens/about_screen.dart';
+import 'package:flower_shop/features/main_profile/presentation/cubit/oerdercubit/order_cubit.dart';
+import 'package:flower_shop/features/main_profile/presentation/cubit/oerdercubit/order_intent.dart';
+import 'package:flower_shop/features/main_profile/presentation/screens/orderScreen.dart';
 import 'package:flower_shop/features/main_profile/presentation/screens/profile_screen.dart';
 import 'package:flower_shop/features/main_profile/presentation/screens/terms_screen.dart';
 import 'package:flower_shop/features/nav_bar/presentation/manager/nav_cubit.dart';
@@ -218,6 +221,15 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/payment-success',
       redirect: (context, state) => RouteNames.home,
+    ),
+    GoRoute(
+      path: RouteNames.orders,
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => getIt<OrderCubit>()..doIntent(GetOrdersEvent()),
+          child: const Orderscreen(),
+        );
+      },
     ),
   ],
 );

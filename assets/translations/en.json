@@ -188,5 +188,10 @@
   "newest": "Newest",
   "oldest": "Oldest",
   "discount": "Discounts",
-  "filter": "Filter"
+  "filter": "Filter",
+  "active": "Active",
+  "completed": "Completed",
+  "no_orders_found": "No orders found",
+  "track_order": "Track order",
+  "order_number": "Order number#"
 }

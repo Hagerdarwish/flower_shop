@@ -1,6 +1,5 @@
 import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
 import 'package:flower_shop/app/core/app_constants.dart';
-import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_cubit.dart';
 import 'package:flower_shop/features/main_profile/presentation/cubit/profile_state.dart';
 import 'package:flower_shop/features/main_profile/presentation/widgets/guest_screen.dart';
@@ -24,7 +23,6 @@ class ProfileContent extends StatelessWidget {
 
         if (userState.isError) {
           if (_isTokenError(userState.message)) {
-            // Defer side effects
             WidgetsBinding.instance.addPostFrameCallback((_) {
               context.read<AuthStorage>().clearToken();
             });

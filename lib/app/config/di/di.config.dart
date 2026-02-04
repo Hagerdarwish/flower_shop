@@ -146,6 +146,8 @@ import '../../../features/main_profile/domain/usecase/get_orders_usecases.dart'
     as _i909;
 import '../../../features/main_profile/domain/usecase/get_terms_section_usecase.dart'
     as _i137;
+import '../../../features/main_profile/presentation/cubit/oerdercubit/order_cubit.dart'
+    as _i973;
 import '../../../features/main_profile/presentation/cubit/profile_cubit.dart'
     as _i650;
 import '../../../features/nav_bar/presentation/manager/nav_cubit.dart' as _i405;
@@ -433,6 +435,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i25.OccasionCubit>(
       () => _i25.OccasionCubit(gh<_i985.GetProductUsecase>()),
+    );
+    gh.factory<_i973.OrderCubit>(
+      () => _i973.OrderCubit(
+        gh<_i909.GetOrdersUsecases>(),
+        gh<_i603.AuthStorage>(),
+      ),
     );
     gh.factory<_i650.ProfileCubit>(
       () => _i650.ProfileCubit(
