@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
-import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/features/orders/domain/models/user_carts_model.dart';
 import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
 import 'package:flower_shop/features/orders/presentation/manager/cart_intent.dart';
@@ -115,80 +114,6 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
                                         color: Colors.grey,
                                       ),
                                 ),
-                              Spacer(),
-
-                              inCart
-                                  ? Row(
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            BlocProvider.of<CartCubit>(
-                                              context,
-                                            ).doIntent(
-                                              UpdateCartItemQuantityIntent(
-                                                cartItemId: cartModel
-                                                    .product!
-                                                    .id
-                                                    .toString(),
-                                                quantity: cartModel.quantity!,
-                                                increase: false,
-                                              ),
-                                            );
-                                            showAppSnackbar(
-                                              context,
-                                              cartModel.quantity! > 1
-                                                  ? LocaleKeys.productUpdated
-                                                        .tr()
-                                                  : LocaleKeys
-                                                        .productDeletedSuccessfully
-                                                        .tr(),
-                                            );
-                                          },
-                                          icon: Icon(
-                                            Icons.minimize,
-                                            color: AppColors.blackColor,
-                                            size: 20,
-                                          ),
-                                        ),
-                                        Text(
-                                          cartModel.quantity.toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 20,
-                                                color: AppColors.blackColor,
-                                              ),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            BlocProvider.of<CartCubit>(
-                                              context,
-                                            ).doIntent(
-                                              UpdateCartItemQuantityIntent(
-                                                cartItemId: cartModel
-                                                    .product!
-                                                    .id
-                                                    .toString(),
-                                                quantity: cartModel.quantity!,
-                                                increase: true,
-                                              ),
-                                            );
-                                            showAppSnackbar(
-                                              context,
-                                              LocaleKeys.productUpdated.tr(),
-                                            );
-                                          },
-                                          icon: Icon(
-                                            Icons.add,
-                                            color: AppColors.blackColor,
-                                            size: 20,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : SizedBox(),
                             ],
                           ),
                           const SizedBox(height: 6),
@@ -215,25 +140,90 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
                             ).textTheme.headlineSmall?.copyWith(fontSize: 16),
                           ),
                           const SizedBox(height: 120),
-                          CustomButton(
-                            isEnabled: true,
-                            isLoading: cartState.cart?.isLoading ?? false,
-                            text: inCart
-                                ? LocaleKeys.in_cart.tr()
-                                : LocaleKeys.addToCard.tr(),
-                            onPressed: () {
-                              if (inCart) {
-                                context.push(RouteNames.cartPage);
-                              } else {
-                                BlocProvider.of<CartCubit>(context).doIntent(
-                                  AddProductToCartIntent(
-                                    productId: product.id.toString(),
-                                    quantity: 1,
-                                  ),
-                                );
-                              }
-                            },
-                          ),
+
+                          inCart
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        BlocProvider.of<CartCubit>(
+                                          context,
+                                        ).doIntent(
+                                          UpdateCartItemQuantityIntent(
+                                            cartItemId: cartModel.product!.id
+                                                .toString(),
+                                            quantity: cartModel.quantity!,
+                                            increase: false,
+                                          ),
+                                        );
+                                        showAppSnackbar(
+                                          context,
+                                          cartModel.quantity! > 1
+                                              ? LocaleKeys.productUpdated.tr()
+                                              : LocaleKeys
+                                                    .productDeletedSuccessfully
+                                                    .tr(),
+                                        );
+                                      },
+                                      icon: Icon(
+                                        Icons.minimize,
+                                        color: AppColors.blackColor,
+                                        size: 30,
+                                      ),
+                                    ),
+                                    Text(
+                                      cartModel.quantity.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 26,
+                                            color: AppColors.blackColor,
+                                          ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        BlocProvider.of<CartCubit>(
+                                          context,
+                                        ).doIntent(
+                                          UpdateCartItemQuantityIntent(
+                                            cartItemId: cartModel.product!.id
+                                                .toString(),
+                                            quantity: cartModel.quantity!,
+                                            increase: true,
+                                          ),
+                                        );
+                                        showAppSnackbar(
+                                          context,
+                                          LocaleKeys.productUpdated.tr(),
+                                        );
+                                      },
+                                      icon: Icon(
+                                        Icons.add,
+                                        color: AppColors.blackColor,
+                                        size: 30,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : CustomButton(
+                                  isEnabled: true,
+                                  isLoading: cartState.cart?.isLoading ?? false,
+                                  text: LocaleKeys.addToCard.tr(),
+                                  onPressed: () {
+                                    BlocProvider.of<CartCubit>(
+                                      context,
+                                    ).doIntent(
+                                      AddProductToCartIntent(
+                                        productId: product.id.toString(),
+                                        quantity: 1,
+                                      ),
+                                    );
+                                  },
+                                ),
                         ],
                       ),
                     ),

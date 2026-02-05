@@ -13,7 +13,7 @@ import 'package:go_router/go_router.dart';
 import '../ui_helper/color/colors.dart';
 import '../ui_helper/style/font_style.dart';
 
-class ProductItemCard extends StatelessWidget {
+class ProductItemCard extends StatefulWidget {
   final ProductModel product;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry padding;
@@ -26,9 +26,16 @@ class ProductItemCard extends StatelessWidget {
   });
 
   @override
+  State<ProductItemCard> createState() => _ProductItemCardState();
+}
+
+class _ProductItemCardState extends State<ProductItemCard> {
+  bool isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
-    final originalPrice = product.price ?? 0;
-    final priceAfterDiscount = product.priceAfterDiscount;
+    final originalPrice = widget.product.price ?? 0;
+    final priceAfterDiscount = widget.product.priceAfterDiscount;
 
     final hasOldPrice = originalPrice > (priceAfterDiscount ?? 0);
 
@@ -38,9 +45,9 @@ class ProductItemCard extends StatelessWidget {
 
     return InkWell(
       borderRadius: BorderRadius.circular(14),
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
-        padding: padding,
+        padding: widget.padding,
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(14),
@@ -57,7 +64,7 @@ class ProductItemCard extends StatelessWidget {
                   child: Container(
                     color: const Color(0xFFF7E9EE),
                     child: Image.network(
-                      product.imgCover.toString(),
+                      widget.product.imgCover.toString(),
                       fit: BoxFit.fill,
                       errorBuilder: (_, __, ___) =>
                           const Center(child: Icon(Icons.image_not_supported)),
@@ -75,7 +82,7 @@ class ProductItemCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.title.toString(),
+                    widget.product.title.toString(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppStyles.font12BlackBold,
@@ -119,6 +126,14 @@ class ProductItemCard extends StatelessWidget {
             // Button
             BlocConsumer<CartCubit, CartStates>(
               listener: (context, state) {
+                if (isLoading &&
+                    state.lastAction == CartAction.adding &&
+                    (state.cart?.status == Status.success ||
+                        state.cart?.status == Status.error)) {
+                  setState(() {
+                    isLoading = false;
+                  });
+                }
                 if (state.cart?.status == Status.success &&
                     state.lastAction == CartAction.adding) {
                   showAppSnackbar(context, LocaleKeys.productAddedToCart.tr());
@@ -136,9 +151,11 @@ class ProductItemCard extends StatelessWidget {
 
               builder: (context, state) {
                 final cartCubit = context.read<CartCubit>();
+                final bool inCart = cartCubit.cartsList.any(
+                  (item) => item.product?.id == widget.product.id,
+                );
 
-                if (state.cart?.status == Status.loading &&
-                    cartCubit.cartsList.isEmpty) {
+                if (isLoading) {
                   return const SizedBox(
                     height: 30,
                     child: Center(
@@ -149,11 +166,6 @@ class ProductItemCard extends StatelessWidget {
                     ),
                   );
                 }
-
-                final bool inCart = cartCubit.cartsList.any(
-                  (item) => item.product?.id == product.id,
-                );
-
                 return SizedBox(
                   width: double.infinity,
                   height: 30,
@@ -162,9 +174,12 @@ class ProductItemCard extends StatelessWidget {
                       if (inCart) {
                         context.push(RouteNames.cartPage);
                       } else {
+                        setState(() {
+                          isLoading = true;
+                        });
                         cartCubit.doIntent(
                           AddProductToCartIntent(
-                            productId: product.id.toString(),
+                            productId: widget.product.id.toString(),
                             quantity: 1,
                           ),
                         );
