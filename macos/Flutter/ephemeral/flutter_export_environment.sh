@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/hagerelsayed/development/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/hagerelsayed/StudioProjects/flower_shop"
+export "FLUTTER_ROOT=G:\FlutterSdk\flutter"
+export "FLUTTER_APPLICATION_PATH=G:\Flutter Courses\Elevate Course\Flower Shop\flower_shop"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"
