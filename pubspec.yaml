@@ -33,7 +33,7 @@ dependencies:
   image_picker: ^1.2.1
   google_maps_flutter: ^2.14.0
   geolocator: ^10.1.0
-
+  lottie: ^3.3.2
   url_launcher: ^6.1.10
 
 dev_dependencies:
@@ -49,6 +49,7 @@ dev_dependencies:
   network_image_mock: ^2.1.1
   mocktail: ^1.0.3
 
+
 flutter:
   uses-material-design: true
 
@@ -58,8 +59,13 @@ flutter:
     - assets/files/
     - assets/data/states.json
     - assets/data/cities.json
+    - assets/animations/
+
 
 easy_localization:
   path: assets/translations
   fallback_locale: en
   supported_locales: [en, ar]
+
+
+

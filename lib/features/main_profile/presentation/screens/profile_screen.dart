@@ -9,6 +9,9 @@ import 'package:flower_shop/features/main_profile/presentation/widgets/profile_c
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../app/core/router/route_names.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -24,7 +27,14 @@ class ProfileScreen extends StatelessWidget {
       ],
       child: Scaffold(
         appBar: AppBar(
-          actions: [Icon(Icons.notifications, color: AppColors.pink)],
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.go(RouteNames.notifications);
+              },
+              icon: Icon(Icons.notifications, color: AppColors.pink),
+            ),
+          ],
 
           title: Row(
             children: [

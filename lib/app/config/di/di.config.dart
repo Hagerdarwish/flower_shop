@@ -151,6 +151,22 @@ import '../../../features/main_profile/presentation/cubit/oerdercubit/order_cubi
 import '../../../features/main_profile/presentation/cubit/profile_cubit.dart'
     as _i650;
 import '../../../features/nav_bar/presentation/manager/nav_cubit.dart' as _i405;
+import '../../../features/notifications/api/datascource_impl/notification_remote_data_source_impl.dart'
+    as _i417;
+import '../../../features/notifications/data/datascource_contract/notification_remote_data_source_contract.dart'
+    as _i140;
+import '../../../features/notifications/data/repos_impl/notification_repo_impl.dart'
+    as _i463;
+import '../../../features/notifications/domain/repo/notification_repo_contract.dart'
+    as _i136;
+import '../../../features/notifications/domain/usecase/clear_all_notifications_usecase.dart'
+    as _i796;
+import '../../../features/notifications/domain/usecase/delete_notification_by_id_usecase.dart'
+    as _i33;
+import '../../../features/notifications/domain/usecase/get_all_notifications_usecase.dart'
+    as _i35;
+import '../../../features/notifications/presentation/manager/notifications_cubit.dart'
+    as _i0;
 import '../../../features/orders/api/datasource/orders_remote_datasource_impl.dart'
     as _i862;
 import '../../../features/orders/data/datasource/orders_remote_datasource.dart'
@@ -242,6 +258,9 @@ extension GetItInjectableX on _i174.GetIt {
         addressDatasource: gh<_i968.AddressDatasource>(),
       ),
     );
+    gh.factory<_i140.NotificationRemoteDataSource>(
+      () => _i417.NotificationRemoteDataSourceImpl(gh<_i890.ApiClient>()),
+    );
     gh.factory<_i986.EditProfileDataSource>(
       () => _i857.EditprofiledatascourceImp(gh<_i890.ApiClient>()),
     );
@@ -269,6 +288,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i27.LogoutUsecase>(
       () => _i27.LogoutUsecase(gh<_i712.AuthRepo>()),
+    );
+    gh.factory<_i136.NotificationRepoContract>(
+      () =>
+          _i463.NotificationRepoImpl(gh<_i140.NotificationRemoteDataSource>()),
     );
     gh.factory<_i485.EditprofileRepo>(
       () => _i202.EditprofileRepoImpl(gh<_i986.EditProfileDataSource>()),
@@ -327,6 +350,18 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i534.GetBestSellerUseCase>(),
         gh<_i386.GetOccasionsUseCase>(),
       ),
+    );
+    gh.lazySingleton<_i796.ClearAllNotificationsUseCase>(
+      () => _i796.ClearAllNotificationsUseCase(
+        gh<_i136.NotificationRepoContract>(),
+      ),
+    );
+    gh.lazySingleton<_i33.DeleteNotificationUseCase>(
+      () =>
+          _i33.DeleteNotificationUseCase(gh<_i136.NotificationRepoContract>()),
+    );
+    gh.lazySingleton<_i35.GetNotificationsUseCase>(
+      () => _i35.GetNotificationsUseCase(gh<_i136.NotificationRepoContract>()),
     );
     gh.factory<_i1023.LogoutCubit>(
       () =>
@@ -404,6 +439,13 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i924.UploadPhotoCubit(
         gh<_i1.UploadPhotoUseCase>(),
         gh<_i603.AuthStorage>(),
+      ),
+    );
+    gh.factory<_i0.NotificationsCubit>(
+      () => _i0.NotificationsCubit(
+        gh<_i35.GetNotificationsUseCase>(),
+        gh<_i796.ClearAllNotificationsUseCase>(),
+        gh<_i33.DeleteNotificationUseCase>(),
       ),
     );
     gh.factory<_i909.GetOrdersUsecases>(

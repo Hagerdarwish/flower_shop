@@ -28,4 +28,7 @@ class AppEndpointString {
   static const String addAddress = 'addresses';
 
   static const String getaddresses = 'addresses';
+  static const String getNotifications = "notifications/user";
+  static const String deleteSpecificNotification = "notifications/{id}";
+  static const String deleteAllNotifications = "notifications/clear-all";
 }

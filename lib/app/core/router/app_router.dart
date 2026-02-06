@@ -39,6 +39,9 @@ import '../../../features/e_commerce/presentation/product details/pages/product_
 import '../../../features/nav_bar/presentation/pages/app_sections.dart';
 import 'package:flower_shop/features/edit_profile/presentation/pages/edit_profile_screen.dart';
 import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
+import '../../../features/notifications/presentation/manager/notifications_cubit.dart';
+import '../../../features/notifications/presentation/manager/notifications_intent.dart';
+import '../../../features/notifications/presentation/pages/notification_page.dart';
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -228,6 +231,16 @@ final GoRouter appRouter = GoRouter(
         return BlocProvider(
           create: (_) => getIt<OrderCubit>()..doIntent(GetOrdersEvent()),
           child: const Orderscreen(),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteNames.notifications,
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) =>
+              getIt<NotificationsCubit>()..doIntent(LoadNotificationsIntent()),
+          child: const NotificationsPage(),
         );
       },
     ),

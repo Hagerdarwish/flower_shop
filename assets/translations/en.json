@@ -193,5 +193,9 @@
   "completed": "Completed",
   "no_orders_found": "No orders found",
   "track_order": "Track order",
-  "order_number": "Order number#"
+  "order_number": "Order number#",
+  "all_notifications_cleared": "All notifications cleared",
+  "notification_deleted_successfully": "Notification deleted successfully",
+  "clear_all": "Clear all",
+  "no_notifications_yet": "No Notifications Yet"
 }
