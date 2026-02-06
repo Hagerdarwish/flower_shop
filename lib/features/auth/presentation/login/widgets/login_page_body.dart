@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flower_shop/app/core/router/route_names.dart';
 import 'package:flower_shop/app/core/widgets/show_snak_bar.dart';
 import 'package:flower_shop/features/auth/presentation/login/widgets/dont_have_an_account.dart';
@@ -59,6 +60,7 @@ class _LoginPageBodyState extends State<LoginPageBody> {
               width: double.infinity,
               child: TextButton(
                 onPressed: () {
+
                   context.go(RouteNames.home);
                 },
                 style: TextButton.styleFrom(

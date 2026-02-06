@@ -21,10 +21,12 @@ class EcommerceRepoImp implements EcommerceRepo {
   Future<ApiResult<List<ProductModel>>> getProducts({
     String? occasion,
     String? category,
+    String? search,
   }) async {
     final result = await datasource.getProduct(
       occasion: occasion,
       category: category,
+      search: search,
     );
     switch (result) {
       case SuccessApiResult<ProductsResponse>():

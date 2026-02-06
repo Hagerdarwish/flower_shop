@@ -53,7 +53,7 @@ void main() {
       },
     );
 
-    test('return ApiError when repo return get all categories fail', () async {
+    test('return ApiError when repo return get all categories', () async {
       when(mockRepo.getAllCategories()).thenAnswer(
         (_) async =>
             ErrorApiResult<AllCategoriesModel>(error: 'Something went wrong'),

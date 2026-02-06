@@ -2,8 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flower_shop/app/core/ui_helper/style/font_style.dart';
 import 'package:flower_shop/features/home/domain/models/best_seller_model.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_intent.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BestSellerCard extends StatelessWidget {
   final BestSellerModel product;
@@ -95,7 +98,14 @@ class BestSellerCard extends StatelessWidget {
               width: double.infinity,
               height: 32,
               child: ElevatedButton.icon(
-                onPressed: onAddToCart,
+                onPressed: () {
+                  BlocProvider.of<CartCubit>(context).doIntent(
+                    AddProductToCartIntent(
+                      productId: product.id.toString(),
+                      quantity: 1,
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.shopping_cart_outlined, size: 18),
                 label: Text(
                   LocaleKeys.addToCard.tr(),
