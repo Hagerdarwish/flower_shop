@@ -190,5 +190,11 @@
   "completed": "مكتمل",
   "no_orders_found": "لا توجد طلبات",
   "track_order": "تتبع الطلب",
-  "order_number": "رقم الطلب#"
+  "order_number": "رقم الطلب#",
+  "all_notifications_cleared": "تم مسح جميع الإشعارات",
+  "notification_deleted_successfully": "تم حذف الإشعار بنجاح",
+  "clear_all": "مسح الكل",
+  "no_notifications_yet": "لا توجد اشعارات حاليا"
+
+
 }

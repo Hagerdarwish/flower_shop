@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flower_shop/app/core/firebase/cloud_messaging.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flower_shop/app/core/router/app_router.dart';
 import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +19,8 @@ Future<void> main() async {
   FirebaseMessaging.onBackgroundMessage(
     CloudMessaging.firebaseMessagingBackgroundHandler,
   );
-
   await CloudMessaging.setupFlutterNotifications();
   CloudMessaging.printDeviceToken();
-
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],

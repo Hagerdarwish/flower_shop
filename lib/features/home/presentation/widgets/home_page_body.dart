@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/app/core/router/route_names.dart';
-import 'package:flower_shop/features/home/presentation/widgets/category_item.dart';
+import 'package:flower_shop/features/home/presentation/widgets/Category_item.dart';
 import 'package:flower_shop/features/home/presentation/widgets/home_header.dart';
 import 'package:flower_shop/features/home/presentation/widgets/home_section.dart';
 import 'package:flower_shop/features/home/presentation/widgets/product_item.dart';

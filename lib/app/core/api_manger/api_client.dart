@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/app/core/values/api_constants.dart';
 import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
@@ -16,7 +15,6 @@ import 'package:flower_shop/features/orders/data/models/paymentResonse.dart';
 import 'package:flower_shop/features/orders/data/models/user_carts_dto.dart';
 import 'package:flower_shop/features/main_profile/data/models/response/profile_response.dart';
 import 'package:retrofit/retrofit.dart';
-import '../../../features/addresses/data/models/address_request.dart';
 import '../../../features/addresses/data/models/address_response.dart';
 import '../../../features/addresses/data/models/get_address_response.dart';
 import '../../../features/addresses/data/models/response/add_address_response_model.dart';
@@ -32,6 +30,9 @@ import '../../../features/auth/data/models/response/verify_reset_code_response_m
 import '../../../features/checkout/data/models/response/address_check_out_response.dart';
 import '../../../features/e_commerce/data/models/response/all_categories_dto.dart';
 import '../../../features/e_commerce/data/models/response/products_response.dart';
+import '../../../features/notifications/data/models/delete_all_notifications_response_dto.dart';
+import '../../../features/notifications/data/models/delete_notification_by_id_response_dto.dart';
+import '../../../features/notifications/data/models/get_all_notification_response_dto.dart';
 import '../values/app_endpoint_strings.dart';
 part 'api_client.g.dart';
 
@@ -168,4 +169,21 @@ abstract class ApiClient {
 
   @GET('/orders')
   Future<OrderResponse> getUserOrders(@Header('Authorization') String token);
+
+  @GET(AppEndpointString.getNotifications)
+  Future<HttpResponse<GetAllNotificationResponseDto>> getNotifications({
+    @Query("page") int? page,
+    @Query("limit") int? limit,
+    @Query("type") String? type,
+    @Query("sort") String? sort,
+  });
+
+  @DELETE(AppEndpointString.deleteAllNotifications)
+  Future<HttpResponse<DeleteAllNotificationsResponseDto>>
+  clearAllNotifications();
+
+  @DELETE(AppEndpointString.deleteSpecificNotification)
+  Future<HttpResponse<DeleteNotificationByIdResponseDto>> deleteNotification(
+    @Path("id") String id,
+  );
 }
