@@ -3,18 +3,22 @@ import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource
 import 'package:flower_shop/features/auth/data/mappers/signup_dto_mapper.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/domain/models/login_model.dart';
 import 'package:flower_shop/features/auth/domain/models/signup_model.dart';
 import 'package:flower_shop/features/auth/domain/repos/auth_repo.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../domain/models/change_password_entity.dart';
 import '../../domain/models/forget_password_entity.dart';
 import '../../domain/models/reset_password_entity.dart';
 import '../../domain/models/verify_reset_code_entity.dart';
+import '../models/request/change-password-request-models/change-password-request-model.dart';
 import '../models/request/forget_password_request_model/forget_password_request_model.dart';
 import '../models/request/reset_password_request_model/reset_password_request_model.dart';
 import '../models/request/verify_reset_code_request_model/verify_reset_code_request.dart';
+import '../models/response/change-password-response-models/change-password-response-model.dart';
 import '../models/response/forget_password_response_model/forget_password_response_model.dart';
 import '../models/response/reset_password_response_model/reset_password_response_model.dart';
 import '../models/response/verify_reset_code_response_model/verify_reset_code_response_model.dart';
@@ -124,6 +128,35 @@ class AuthRepoImp implements AuthRepo {
       return ErrorApiResult(error: result.error);
     }
     ;
+    return ErrorApiResult(error: 'Unexpected error');
+  }
+
+  @override
+  Future<ApiResult<LogoutResponse>> logout({required String token}) async {
+    final result = await authDatasource.logout(token: token);
+    if (result is SuccessApiResult<LogoutResponse>) {
+      return SuccessApiResult<LogoutResponse>(data: result.data);
+    }
+    if (result is ErrorApiResult<LogoutResponse>) {
+      return ErrorApiResult<LogoutResponse>(error: result.error);
+    }
+    return ErrorApiResult<LogoutResponse>(error: 'Unexpected error');
+  }
+
+  @override
+  Future<ApiResult<ChangePasswordEntity>> changePassword(
+    ChangePasswordRequest request,
+  ) async {
+    final result = await authDatasource.changePassword(request);
+
+    if (result is SuccessApiResult<ChangePasswordResponse>) {
+      return SuccessApiResult(data: result.data.toEntity());
+    }
+
+    if (result is ErrorApiResult<ChangePasswordResponse>) {
+      return ErrorApiResult(error: result.error);
+    }
+
     return ErrorApiResult(error: 'Unexpected error');
   }
 }

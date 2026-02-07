@@ -1,6 +1,7 @@
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flower_shop/features/auth/data/models/response/user_model.dart';
 import 'package:flower_shop/features/auth/data/repos/auth_repo_imp.dart';
@@ -186,5 +187,74 @@ void main() {
         ),
       ).called(1);
     });
+  });
+
+  group("AuthRepoImp.logout()", () {
+    final token = "dummy_token";
+    final logoutResponse = LogoutResponse(message: "Logged out successfully");
+
+    test(
+      "returns SuccessApiResult when datasource returns valid response",
+      () async {
+        // ARRANGE
+        provideDummy<ApiResult<LogoutResponse>>(
+          SuccessApiResult(data: logoutResponse),
+        );
+        when(mockDataSource.logout(token: token)).thenAnswer(
+          (_) async => SuccessApiResult<LogoutResponse>(data: logoutResponse),
+        );
+        // ACT
+        final result = await repo.logout(token: token);
+
+        // ASSERT
+        expect(result, isA<SuccessApiResult<LogoutResponse>>());
+        final data = (result as SuccessApiResult).data;
+        expect(data.message, equals("Logged out successfully"));
+        verify(mockDataSource.logout(token: token)).called(1);
+      },
+    );
+
+    test(
+      "returns ErrorApiResult when datasource returns ErrorApiResult",
+      () async {
+        // ARRANGE
+        final errorMessage = "Logout failed";
+        provideDummy<ApiResult<LogoutResponse>>(
+          ErrorApiResult(error: errorMessage),
+        );
+        when(mockDataSource.logout(token: token)).thenAnswer(
+          (_) async => ErrorApiResult<LogoutResponse>(error: errorMessage),
+        );
+
+        // ACT
+        final result = await repo.logout(token: token);
+
+        // ASSERT
+        expect(result, isA<ErrorApiResult<LogoutResponse>>());
+        expect((result as ErrorApiResult).error, equals(errorMessage));
+        verify(mockDataSource.logout(token: token)).called(1);
+      },
+    );
+
+    test(
+      "returns ErrorApiResult with Unexpected error when datasource returns null",
+      () async {
+        // ARRANGE
+        provideDummy<ApiResult<LogoutResponse>>(
+          ErrorApiResult(error: "Unexpected error"),
+        );
+        when(mockDataSource.logout(token: token)).thenAnswer(
+          (_) async =>
+              ErrorApiResult<LogoutResponse>(error: "Unexpected error"),
+        );
+        // ACT
+        final result = await repo.logout(token: token);
+
+        // ASSERT
+        expect(result, isA<ErrorApiResult<LogoutResponse>>());
+        expect((result as ErrorApiResult).error, equals("Unexpected error"));
+        verify(mockDataSource.logout(token: token)).called(1);
+      },
+    );
   });
 }

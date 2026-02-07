@@ -4,6 +4,7 @@ import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/auth/api/datasource/auth_remote_datasource_impl.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -132,6 +133,58 @@ void main() {
       expect(result, isA<ErrorApiResult<SignupDto>>());
       expect(result.error.toString(), contains("Network error"));
       verify(mockApiClient.signUp(any)).called(1);
+    });
+  });
+
+  group("AuthRemoteDataSourceImpl.logout()", () {
+    final token = "dummy_token";
+    final logoutResponse = LogoutResponse(message: "Logged out successfully");
+
+    test(
+      "returns SuccessApiResult when apiClient returns valid response",
+      () async {
+        // ARRANGE
+        final dioResponse = Response<LogoutResponse>(
+          requestOptions: RequestOptions(path: '/logout'),
+          data: logoutResponse,
+          statusCode: 200,
+        );
+        final fakeHttpResponse = HttpResponse<LogoutResponse>(
+          dioResponse.data!,
+          dioResponse,
+        );
+
+        when(
+          mockApiClient.logout(token: token),
+        ).thenAnswer((_) async => fakeHttpResponse);
+
+        // ACT
+        final result = await dataSource.logout(token: token);
+
+        // ASSERT
+        expect(result, isA<SuccessApiResult<LogoutResponse>>());
+        final data = (result as SuccessApiResult).data;
+        expect(data.message, equals("Logged out successfully"));
+        verify(mockApiClient.logout(token: token)).called(1);
+      },
+    );
+
+    test("returns ErrorApiResult when apiClient throws Exception", () async {
+      // ARRANGE
+      when(
+        mockApiClient.logout(token: token),
+      ).thenThrow(Exception("network error"));
+
+      // ACT
+      final result = await dataSource.logout(token: token);
+
+      // ASSERT
+      expect(result, isA<ErrorApiResult<LogoutResponse>>());
+      expect(
+        (result as ErrorApiResult).error.toString(),
+        contains("network error"),
+      );
+      verify(mockApiClient.logout(token: token)).called(1);
     });
   });
 }
