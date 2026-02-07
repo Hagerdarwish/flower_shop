@@ -18,7 +18,7 @@ class NotificationsPage extends StatelessWidget {
           title: Text(LocaleKeys.notifications.tr()),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new),
-            onPressed: () => context.go(RouteNames.profile),
+            onPressed: () => context.pop(),
           ),
           actions: [ClearAllButton()],
         ),

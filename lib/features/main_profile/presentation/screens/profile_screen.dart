@@ -30,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                context.go(RouteNames.notifications);
+                context.push(RouteNames.notifications);
               },
               icon: Icon(Icons.notifications, color: AppColors.pink),
             ),
