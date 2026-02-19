@@ -37,6 +37,9 @@ dependencies:
   lottie: ^3.3.2
   url_launcher: ^6.1.10
   firebase_crashlytics: ^5.0.7
+  cloud_firestore: ^6.1.2
+  firebase_messaging: ^16.1.1
+  firebase_auth: ^6.1.4
 
 dev_dependencies:
   bloc_test: ^10.0.0

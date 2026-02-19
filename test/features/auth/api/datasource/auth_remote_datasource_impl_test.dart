@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
@@ -11,16 +12,20 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:retrofit/retrofit.dart';
 
-import 'auth_remote_datasource_impl_test.mocks.dart';
+import '../../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
+import 'auth_remote_datasource_impl_test.mocks.dart' hide MockApiClient;
 
-@GenerateMocks([ApiClient])
+@GenerateMocks([ApiClient,FirebaseFirestore])
+
 void main() {
   late MockApiClient mockApiClient;
+  late FirebaseFirestore mockFirebaseFirestore;
   late AuthRemoteDataSourceImpl dataSource;
 
   setUpAll(() {
     mockApiClient = MockApiClient();
-    dataSource = AuthRemoteDataSourceImpl(mockApiClient);
+    mockFirebaseFirestore = MockFirebaseFirestore();
+    dataSource = AuthRemoteDataSourceImpl(mockApiClient,mockFirebaseFirestore);
   });
 
   final loginRequest = LoginRequest(email: "test@test.com", password: "123456");
