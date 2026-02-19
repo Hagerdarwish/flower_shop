@@ -15,17 +15,23 @@ import 'package:retrofit/retrofit.dart';
 import '../../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
 import 'auth_remote_datasource_impl_test.mocks.dart' hide MockApiClient;
 
-@GenerateMocks([ApiClient,FirebaseFirestore])
+import 'package:flower_shop/features/auth/data/models/request/user_profile_model.dart'; // Add this import
 
+@GenerateMocks([
+  ApiClient,
+  FirebaseFirestore,
+  CollectionReference,
+  DocumentReference,
+])
 void main() {
   late MockApiClient mockApiClient;
-  late FirebaseFirestore mockFirebaseFirestore;
+  late MockFirebaseFirestore mockFirebaseFirestore;
   late AuthRemoteDataSourceImpl dataSource;
 
   setUpAll(() {
     mockApiClient = MockApiClient();
     mockFirebaseFirestore = MockFirebaseFirestore();
-    dataSource = AuthRemoteDataSourceImpl(mockApiClient,mockFirebaseFirestore);
+    dataSource = AuthRemoteDataSourceImpl(mockApiClient, mockFirebaseFirestore);
   });
 
   final loginRequest = LoginRequest(email: "test@test.com", password: "123456");
@@ -190,6 +196,33 @@ void main() {
         contains("network error"),
       );
       verify(mockApiClient.logout(token: token)).called(1);
+    });
+  });
+
+  group("AuthRemoteDataSourceImpl.upsertUserProfile()", () {
+    test("calls firestore set with correct data", () async {
+      // Arrange
+      final userProfile = UserProfileModel(
+        idUser: "123",
+        name: "Test User",
+        phone: "123456789",
+        address: "123 Main St",
+        deviceToken: "token123",
+      );
+      final mockCollection = MockCollectionReference<Map<String, dynamic>>();
+      final mockDoc = MockDocumentReference<Map<String, dynamic>>();
+
+      when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollection);
+      when(mockCollection.doc(any)).thenReturn(mockDoc);
+      when(mockDoc.set(any, any)).thenAnswer((_) async {});
+
+      // Act
+      await dataSource.upsertUserProfile(userProfile);
+
+      // Assert
+      verify(mockFirebaseFirestore.collection("u8sj29sk2k")).called(1);
+      verify(mockCollection.doc("123")).called(1);
+      verify(mockDoc.set(userProfile.toJson(), any)).called(1);
     });
   });
 }

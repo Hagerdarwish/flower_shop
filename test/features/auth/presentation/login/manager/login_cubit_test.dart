@@ -18,7 +18,12 @@ import 'package:flower_shop/features/auth/presentation/login/manager/login_state
 import '../../../api/datasource/auth_remote_datasource_impl_test.mocks.dart';
 import 'login_cubit_test.mocks.dart';
 
-@GenerateMocks([LoginUseCase, AuthStorage,FirebaseMessaging,UpsertUserProfileUseCase])
+@GenerateMocks([
+  LoginUseCase,
+  AuthStorage,
+  FirebaseMessaging,
+  UpsertUserProfileUseCase,
+])
 void main() {
   late MockLoginUseCase mockUseCase;
   late MockAuthStorage mockAuthStorage;
@@ -39,7 +44,6 @@ void main() {
       mockAuthStorage,
     );
   });
-
 
   final email = "test@test.com";
   final password = "123456";
@@ -68,6 +72,10 @@ void main() {
         );
         when(mockAuthStorage.saveToken(any)).thenAnswer((_) async {});
         when(mockAuthStorage.saveUser(any)).thenAnswer((_) async {});
+        when(
+          mockFirebaseMessaging.getToken(),
+        ).thenAnswer((_) async => "device_token");
+        when(mockUpsertUserProfileUseCase(any)).thenAnswer((_) async {});
         return cubit;
       },
       act: (cubit) => cubit.doIntent(
@@ -89,6 +97,8 @@ void main() {
         verify(mockUseCase.call(email, password)).called(1);
         verify(mockAuthStorage.saveToken("abc123")).called(1);
         verify(mockAuthStorage.saveUser(loginModel.user)).called(1);
+        verify(mockFirebaseMessaging.getToken()).called(1);
+        verify(mockUpsertUserProfileUseCase(any)).called(1);
       },
     );
 
