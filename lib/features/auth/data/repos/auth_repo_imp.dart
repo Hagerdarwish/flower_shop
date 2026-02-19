@@ -2,6 +2,7 @@ import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:flower_shop/features/auth/data/mappers/signup_dto_mapper.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
+import 'package:flower_shop/features/auth/data/models/request/user_profile_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
@@ -158,5 +159,10 @@ class AuthRepoImp implements AuthRepo {
     }
 
     return ErrorApiResult(error: 'Unexpected error');
+  }
+
+  @override
+  Future<void> upsertUserProfile(UserProfileModel model) {
+return authDatasource.upsertUserProfile(model);
   }
 }

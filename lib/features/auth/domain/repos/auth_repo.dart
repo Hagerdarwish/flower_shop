@@ -5,12 +5,15 @@ import 'package:flower_shop/features/auth/domain/models/signup_model.dart';
 
 import '../../data/models/request/change-password-request-models/change-password-request-model.dart';
 import '../../data/models/request/reset_password_request_model/reset_password_request_model.dart';
+import '../../data/models/request/user_profile_model.dart';
 import '../models/change_password_entity.dart';
 import '../models/forget_password_entity.dart';
 import '../models/reset_password_entity.dart';
 import '../models/verify_reset_code_entity.dart';
 
 abstract class AuthRepo {
+  Future<void> upsertUserProfile(UserProfileModel model);
+
   Future<ApiResult<LoginModel>> login(String email, String password);
 
   Future<ApiResult<SignupModel>> signup({

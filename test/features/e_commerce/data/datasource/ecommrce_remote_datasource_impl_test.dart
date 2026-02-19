@@ -12,7 +12,7 @@ import 'package:flower_shop/features/e_commerce/data/models/response/meta_data.d
 import 'package:flower_shop/features/e_commerce/data/models/response/products_response.dart';
 import 'package:flower_shop/features/e_commerce/data/models/response/remote_product.dart';
 
-import '../../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart';
+import '../../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
 
 @GenerateMocks([ApiClient])
 void main() {

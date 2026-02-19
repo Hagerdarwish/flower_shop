@@ -1,5 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
+import 'package:flower_shop/features/auth/domain/usecase/upsert_user_profile_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -12,18 +15,34 @@ import 'package:flower_shop/features/auth/presentation/login/manager/login_cubit
 import 'package:flower_shop/features/auth/presentation/login/manager/login_intent.dart';
 import 'package:flower_shop/features/auth/presentation/login/manager/login_states.dart';
 
+import '../../../api/datasource/auth_remote_datasource_impl_test.mocks.dart';
 import 'login_cubit_test.mocks.dart';
 
-@GenerateMocks([LoginUseCase, AuthStorage])
+@GenerateMocks([
+  LoginUseCase,
+  AuthStorage,
+  FirebaseMessaging,
+  UpsertUserProfileUseCase,
+])
 void main() {
   late MockLoginUseCase mockUseCase;
   late MockAuthStorage mockAuthStorage;
+  late MockUpsertUserProfileUseCase mockUpsertUserProfileUseCase;
+  late MockFirebaseMessaging mockFirebaseMessaging;
   late LoginCubit cubit;
 
   setUp(() {
     mockUseCase = MockLoginUseCase();
     mockAuthStorage = MockAuthStorage();
-    cubit = LoginCubit(mockUseCase, mockAuthStorage);
+    mockUpsertUserProfileUseCase = MockUpsertUserProfileUseCase();
+    mockFirebaseMessaging = MockFirebaseMessaging();
+
+    cubit = LoginCubit(
+      mockUpsertUserProfileUseCase,
+      mockFirebaseMessaging,
+      mockUseCase,
+      mockAuthStorage,
+    );
   });
 
   final email = "test@test.com";
@@ -53,6 +72,10 @@ void main() {
         );
         when(mockAuthStorage.saveToken(any)).thenAnswer((_) async {});
         when(mockAuthStorage.saveUser(any)).thenAnswer((_) async {});
+        when(
+          mockFirebaseMessaging.getToken(),
+        ).thenAnswer((_) async => "device_token");
+        when(mockUpsertUserProfileUseCase(any)).thenAnswer((_) async {});
         return cubit;
       },
       act: (cubit) => cubit.doIntent(
@@ -74,6 +97,8 @@ void main() {
         verify(mockUseCase.call(email, password)).called(1);
         verify(mockAuthStorage.saveToken("abc123")).called(1);
         verify(mockAuthStorage.saveUser(loginModel.user)).called(1);
+        verify(mockFirebaseMessaging.getToken()).called(1);
+        verify(mockUpsertUserProfileUseCase(any)).called(1);
       },
     );
 

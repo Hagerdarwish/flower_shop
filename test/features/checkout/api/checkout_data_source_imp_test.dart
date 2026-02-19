@@ -10,7 +10,7 @@ import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/checkout/data/models/response/cash_order_response.dart';
 
-import '../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart';
+import '../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
 
 @GenerateMocks([ApiClient])
 void main() {

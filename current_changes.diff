@@ -1,0 +1,1014 @@
+diff --git a/lib/app/config/di/di.config.dart b/lib/app/config/di/di.config.dart
+index 79ec9c6..764ce3b 100644
+--- a/lib/app/config/di/di.config.dart
++++ b/lib/app/config/di/di.config.dart
+@@ -9,7 +9,9 @@
+ // coverage:ignore-file
+ 
+ // ignore_for_file: no_leading_underscores_for_library_prefixes
++import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
+ import 'package:dio/dio.dart' as _i361;
++import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
+ import 'package:get_it/get_it.dart' as _i174;
+ import 'package:injectable/injectable.dart' as _i526;
+ 
+@@ -48,6 +50,8 @@ import '../../../features/auth/domain/usecase/logout_usecase.dart' as _i27;
+ import '../../../features/auth/domain/usecase/reset_password_usecase.dart'
+     as _i280;
+ import '../../../features/auth/domain/usecase/signup_usecase.dart' as _i543;
++import '../../../features/auth/domain/usecase/upsert_user_profile_usecase.dart'
++    as _i638;
+ import '../../../features/auth/domain/usecase/verify_reset_code_usecase.dart'
+     as _i967;
+ import '../../../features/auth/presentation/change_password/manager/change_password_cubit.dart'
+@@ -188,6 +192,7 @@ import '../../../features/orders/presentation/manager/paymentcubit/payment_cubit
+ import '../../core/api_manger/api_client.dart' as _i890;
+ import '../auth_storage/auth_storage.dart' as _i603;
+ import '../network/network_module.dart' as _i200;
++import 'firebase_module.dart' as _i616;
+ 
+ extension GetItInjectableX on _i174.GetIt {
+   // initializes the registration of main-scope dependencies inside of GetIt
+@@ -196,9 +201,14 @@ extension GetItInjectableX on _i174.GetIt {
+     _i526.EnvironmentFilter? environmentFilter,
+   }) {
+     final gh = _i526.GetItHelper(this, environment, environmentFilter);
++    final firebaseModule = _$FirebaseModule();
+     final networkModule = _$NetworkModule();
+     gh.factory<_i405.NavCubit>(() => _i405.NavCubit());
+     gh.lazySingleton<_i603.AuthStorage>(() => _i603.AuthStorage());
++    gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
++    gh.lazySingleton<_i892.FirebaseMessaging>(
++      () => firebaseModule.firebaseMessaging,
++    );
+     gh.factory<_i858.AppCubit>(() => _i858.AppCubit(gh<_i603.AuthStorage>()));
+     gh.lazySingleton<_i361.Dio>(
+       () => networkModule.dio(gh<_i603.AuthStorage>()),
+@@ -206,9 +216,6 @@ extension GetItInjectableX on _i174.GetIt {
+     gh.lazySingleton<_i890.ApiClient>(
+       () => networkModule.authApiClient(gh<_i361.Dio>()),
+     );
+-    gh.factory<_i708.AuthRemoteDataSource>(
+-      () => _i777.AuthRemoteDataSourceImpl(gh<_i890.ApiClient>()),
+-    );
+     gh.factory<_i646.OrdersRemoteDatasource>(
+       () => _i862.OrdersRemoteDatasourceImpl(gh<_i890.ApiClient>()),
+     );
+@@ -223,9 +230,6 @@ extension GetItInjectableX on _i174.GetIt {
+         checkoutDataSource: gh<_i673.CheckoutDataSource>(),
+       ),
+     );
+-    gh.factory<_i712.AuthRepo>(
+-      () => _i866.AuthRepoImp(gh<_i708.AuthRemoteDataSource>()),
+-    );
+     gh.factory<_i520.HomeRepo>(
+       () => _i401.HomeRepoImp(gh<_i701.HomeRemoteDataSource>()),
+     );
+@@ -235,20 +239,11 @@ extension GetItInjectableX on _i174.GetIt {
+     gh.factory<_i152.EcommerceRemoteDatasource>(
+       () => _i396.EcommerceRemoteDatasourceImpl(gh<_i890.ApiClient>()),
+     );
+-    gh.lazySingleton<_i280.ChangePasswordUseCase>(
+-      () => _i280.ChangePasswordUseCase(gh<_i712.AuthRepo>()),
+-    );
+-    gh.lazySingleton<_i991.ChangePasswordUseCase>(
+-      () => _i991.ChangePasswordUseCase(gh<_i712.AuthRepo>()),
+-    );
+-    gh.factory<_i878.ForgotPasswordUseCase>(
+-      () => _i878.ForgotPasswordUseCase(gh<_i712.AuthRepo>()),
+-    );
+-    gh.factory<_i967.VerifyResetCodeUseCase>(
+-      () => _i967.VerifyResetCodeUseCase(gh<_i712.AuthRepo>()),
+-    );
+-    gh.factory<_i702.ForgetPasswordCubit>(
+-      () => _i702.ForgetPasswordCubit(gh<_i878.ForgotPasswordUseCase>()),
++    gh.factory<_i708.AuthRemoteDataSource>(
++      () => _i777.AuthRemoteDataSourceImpl(
++        gh<_i890.ApiClient>(),
++        gh<_i974.FirebaseFirestore>(),
++      ),
+     );
+     gh.factory<_i968.AddressDatasource>(
+       () => _i142.AddressDatasourceImpl(gh<_i890.ApiClient>()),
+@@ -264,13 +259,6 @@ extension GetItInjectableX on _i174.GetIt {
+     gh.factory<_i986.EditProfileDataSource>(
+       () => _i857.EditprofiledatascourceImp(gh<_i890.ApiClient>()),
+     );
+-    gh.factoryParam<_i303.VerifyResetCodeCubit, String, dynamic>(
+-      (email, _) => _i303.VerifyResetCodeCubit(
+-        gh<_i967.VerifyResetCodeUseCase>(),
+-        gh<_i878.ForgotPasswordUseCase>(),
+-        email,
+-      ),
+-    );
+     gh.factory<_i955.ProfileremoteDataSource>(
+       () => _i381.ProfileRemoteDataSourceImpl(gh<_i890.ApiClient>()),
+     );
+@@ -280,15 +268,6 @@ extension GetItInjectableX on _i174.GetIt {
+     gh.factory<_i524.PostCasheOrderUsecase>(
+       () => _i524.PostCasheOrderUsecase(gh<_i14.CheckoutRepo>()),
+     );
+-    gh.factory<_i543.SignupUsecase>(
+-      () => _i543.SignupUsecase(gh<_i712.AuthRepo>()),
+-    );
+-    gh.factory<_i75.LoginUseCase>(
+-      () => _i75.LoginUseCase(gh<_i712.AuthRepo>()),
+-    );
+-    gh.factory<_i27.LogoutUsecase>(
+-      () => _i27.LogoutUsecase(gh<_i712.AuthRepo>()),
+-    );
+     gh.factory<_i136.NotificationRepoContract>(
+       () =>
+           _i463.NotificationRepoImpl(gh<_i140.NotificationRemoteDataSource>()),
+@@ -299,16 +278,6 @@ extension GetItInjectableX on _i174.GetIt {
+     gh.factory<_i332.EcommerceRepo>(
+       () => _i670.EcommerceRepoImp(gh<_i152.EcommerceRemoteDatasource>()),
+     );
+-    gh.factoryParam<_i378.ResetPasswordCubit, String, dynamic>(
+-      (email, _) =>
+-          _i378.ResetPasswordCubit(email, gh<_i280.ChangePasswordUseCase>()),
+-    );
+-    gh.factory<_i115.ChangePasswordCubit>(
+-      () => _i115.ChangePasswordCubit(gh<_i991.ChangePasswordUseCase>()),
+-    );
+-    gh.factory<_i392.AuthCubit>(
+-      () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
+-    );
+     gh.factory<_i90.CheckoutCubit>(
+       () => _i90.CheckoutCubit(
+         gh<_i524.PostCasheOrderUsecase>(),
+@@ -337,6 +306,9 @@ extension GetItInjectableX on _i174.GetIt {
+     gh.factory<_i576.GetCategoriesUseCase>(
+       () => _i576.GetCategoriesUseCase(gh<_i520.HomeRepo>()),
+     );
++    gh.factory<_i712.AuthRepo>(
++      () => _i866.AuthRepoImp(gh<_i708.AuthRemoteDataSource>()),
++    );
+     gh.factory<_i288.SavedAddressCubit>(
+       () => _i288.SavedAddressCubit(
+         gh<_i601.AddressRepo>(),
+@@ -351,6 +323,9 @@ extension GetItInjectableX on _i174.GetIt {
+         gh<_i386.GetOccasionsUseCase>(),
+       ),
+     );
++    gh.lazySingleton<_i35.GetNotificationsUseCase>(
++      () => _i35.GetNotificationsUseCase(gh<_i136.NotificationRepoContract>()),
++    );
+     gh.lazySingleton<_i796.ClearAllNotificationsUseCase>(
+       () => _i796.ClearAllNotificationsUseCase(
+         gh<_i136.NotificationRepoContract>(),
+@@ -360,13 +335,6 @@ extension GetItInjectableX on _i174.GetIt {
+       () =>
+           _i33.DeleteNotificationUseCase(gh<_i136.NotificationRepoContract>()),
+     );
+-    gh.lazySingleton<_i35.GetNotificationsUseCase>(
+-      () => _i35.GetNotificationsUseCase(gh<_i136.NotificationRepoContract>()),
+-    );
+-    gh.factory<_i1023.LogoutCubit>(
+-      () =>
+-          _i1023.LogoutCubit(gh<_i27.LogoutUsecase>(), gh<_i603.AuthStorage>()),
+-    );
+     gh.factory<_i861.DeleteUserAddress>(
+       () => _i861.DeleteUserAddress(gh<_i601.AddressRepo>()),
+     );
+@@ -400,20 +368,45 @@ extension GetItInjectableX on _i174.GetIt {
+     gh.factory<_i622.AddProductToCartUsecase>(
+       () => _i622.AddProductToCartUsecase(gh<_i867.OrdersRepo>()),
+     );
++    gh.lazySingleton<_i280.ChangePasswordUseCase>(
++      () => _i280.ChangePasswordUseCase(gh<_i712.AuthRepo>()),
++    );
++    gh.lazySingleton<_i991.ChangePasswordUseCase>(
++      () => _i991.ChangePasswordUseCase(gh<_i712.AuthRepo>()),
++    );
++    gh.factory<_i878.ForgotPasswordUseCase>(
++      () => _i878.ForgotPasswordUseCase(gh<_i712.AuthRepo>()),
++    );
++    gh.factory<_i967.VerifyResetCodeUseCase>(
++      () => _i967.VerifyResetCodeUseCase(gh<_i712.AuthRepo>()),
++    );
++    gh.factory<_i638.UpsertUserProfileUseCase>(
++      () => _i638.UpsertUserProfileUseCase(gh<_i712.AuthRepo>()),
++    );
+     gh.factory<_i866.ProfileRepo>(
+       () => _i562.ProfileRepoImpl(
+         profileRemoteDataSource: gh<_i955.ProfileremoteDataSource>(),
+       ),
+     );
+-    gh.factory<_i810.LoginCubit>(
+-      () => _i810.LoginCubit(gh<_i75.LoginUseCase>(), gh<_i603.AuthStorage>()),
++    gh.factory<_i702.ForgetPasswordCubit>(
++      () => _i702.ForgetPasswordCubit(gh<_i878.ForgotPasswordUseCase>()),
+     );
+     gh.factory<_i985.GetProductUsecase>(
+       () => _i985.GetProductUsecase(gh<_i332.EcommerceRepo>()),
+     );
++    gh.factoryParam<_i303.VerifyResetCodeCubit, String, dynamic>(
++      (email, _) => _i303.VerifyResetCodeCubit(
++        gh<_i967.VerifyResetCodeUseCase>(),
++        gh<_i878.ForgotPasswordUseCase>(),
++        email,
++      ),
++    );
+     gh.lazySingleton<_i129.GetProductDetailsUseCase>(
+       () => _i129.GetProductDetailsUseCase(gh<_i332.EcommerceRepo>()),
+     );
++    gh.factory<_i543.SignupUsecase>(
++      () => _i543.SignupUsecase(gh<_i712.AuthRepo>()),
++    );
+     gh.factory<_i402.PaymentCubit>(
+       () => _i402.PaymentCubit(
+         gh<_i985.PaymentUsecase>(),
+@@ -423,6 +416,12 @@ extension GetItInjectableX on _i174.GetIt {
+     gh.factory<_i627.BestSellerCubit>(
+       () => _i627.BestSellerCubit(gh<_i534.GetBestSellerUseCase>()),
+     );
++    gh.factory<_i75.LoginUseCase>(
++      () => _i75.LoginUseCase(gh<_i712.AuthRepo>()),
++    );
++    gh.factory<_i27.LogoutUsecase>(
++      () => _i27.LogoutUsecase(gh<_i712.AuthRepo>()),
++    );
+     gh.factory<_i137.GetTermsSectionUsecase>(
+       () => _i137.GetTermsSectionUsecase(gh<_i866.ProfileRepo>()),
+     );
+@@ -435,12 +434,19 @@ extension GetItInjectableX on _i174.GetIt {
+         productId,
+       ),
+     );
++    gh.factoryParam<_i378.ResetPasswordCubit, String, dynamic>(
++      (email, _) =>
++          _i378.ResetPasswordCubit(email, gh<_i280.ChangePasswordUseCase>()),
++    );
+     gh.factory<_i924.UploadPhotoCubit>(
+       () => _i924.UploadPhotoCubit(
+         gh<_i1.UploadPhotoUseCase>(),
+         gh<_i603.AuthStorage>(),
+       ),
+     );
++    gh.factory<_i115.ChangePasswordCubit>(
++      () => _i115.ChangePasswordCubit(gh<_i991.ChangePasswordUseCase>()),
++    );
+     gh.factory<_i0.NotificationsCubit>(
+       () => _i0.NotificationsCubit(
+         gh<_i35.GetNotificationsUseCase>(),
+@@ -448,6 +454,9 @@ extension GetItInjectableX on _i174.GetIt {
+         gh<_i33.DeleteNotificationUseCase>(),
+       ),
+     );
++    gh.factory<_i392.AuthCubit>(
++      () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
++    );
+     gh.factory<_i909.GetOrdersUsecases>(
+       () => _i909.GetOrdersUsecases(gh<_i866.ProfileRepo>()),
+     );
+@@ -463,6 +472,10 @@ extension GetItInjectableX on _i174.GetIt {
+       () => _i631.AddAddressCubit(gh<_i279.AddAddressUsecase>()),
+     );
+     gh.factory<_i682.HomeCubit>(() => _i682.HomeCubit(gh<_i94.HomeFactory>()));
++    gh.factory<_i1023.LogoutCubit>(
++      () =>
++          _i1023.LogoutCubit(gh<_i27.LogoutUsecase>(), gh<_i603.AuthStorage>()),
++    );
+     gh.factory<_i285.GetCurrentUserUsecase>(
+       () => _i285.GetCurrentUserUsecase(gh<_i866.ProfileRepo>()),
+     );
+@@ -478,6 +491,14 @@ extension GetItInjectableX on _i174.GetIt {
+     gh.factory<_i25.OccasionCubit>(
+       () => _i25.OccasionCubit(gh<_i985.GetProductUsecase>()),
+     );
++    gh.factory<_i810.LoginCubit>(
++      () => _i810.LoginCubit(
++        gh<_i638.UpsertUserProfileUseCase>(),
++        gh<_i892.FirebaseMessaging>(),
++        gh<_i75.LoginUseCase>(),
++        gh<_i603.AuthStorage>(),
++      ),
++    );
+     gh.factory<_i973.OrderCubit>(
+       () => _i973.OrderCubit(
+         gh<_i909.GetOrdersUsecases>(),
+@@ -496,4 +517,6 @@ extension GetItInjectableX on _i174.GetIt {
+   }
+ }
+ 
++class _$FirebaseModule extends _i616.FirebaseModule {}
++
+ class _$NetworkModule extends _i200.NetworkModule {}
+diff --git a/lib/app/config/di/firebase_module.dart b/lib/app/config/di/firebase_module.dart
+index e69de29..a0b21cd 100644
+--- a/lib/app/config/di/firebase_module.dart
++++ b/lib/app/config/di/firebase_module.dart
+@@ -0,0 +1,14 @@
++import 'package:cloud_firestore/cloud_firestore.dart';
++import 'package:firebase_auth/firebase_auth.dart';
++import 'package:firebase_messaging/firebase_messaging.dart';
++import 'package:injectable/injectable.dart';
++
++@module
++abstract class FirebaseModule {
++
++  @lazySingleton
++  FirebaseFirestore get firestore => FirebaseFirestore.instance;
++
++  @lazySingleton
++  FirebaseMessaging get firebaseMessaging => FirebaseMessaging.instance;
++}
+diff --git a/lib/features/auth/api/datasource/auth_remote_datasource_impl.dart b/lib/features/auth/api/datasource/auth_remote_datasource_impl.dart
+index d32f5c5..291931f 100644
+--- a/lib/features/auth/api/datasource/auth_remote_datasource_impl.dart
++++ b/lib/features/auth/api/datasource/auth_remote_datasource_impl.dart
+@@ -1,13 +1,14 @@
++import 'package:cloud_firestore/cloud_firestore.dart';
+ import 'package:flower_shop/app/core/api_manger/api_client.dart';
+ import 'package:flower_shop/app/core/network/api_result.dart';
+ import 'package:flower_shop/app/core/network/safe_api_call.dart';
+ import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart';
+ import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
++import 'package:flower_shop/features/auth/data/models/request/user_profile_model.dart';
+ import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
+ import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
+ import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
+ import 'package:injectable/injectable.dart';
+-
+ import '../../data/models/request/change-password-request-models/change-password-request-model.dart';
+ import '../../data/models/request/forget_password_request_model/forget_password_request_model.dart';
+ import '../../data/models/request/reset_password_request_model/reset_password_request_model.dart';
+@@ -20,7 +21,8 @@ import '../../data/models/response/verify_reset_code_response_model/verify_reset
+ @Injectable(as: AuthRemoteDataSource)
+ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+   ApiClient apiClient;
+-  AuthRemoteDataSourceImpl(this.apiClient);
++  final FirebaseFirestore firestore;
++  AuthRemoteDataSourceImpl(this.apiClient,this.firestore);
+   @override
+   Future<ApiResult<LoginResponse>?> login(LoginRequest loginRequest) {
+     return safeApiCall<LoginResponse>(
+@@ -83,4 +85,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+   ) {
+     return safeApiCall(call: () => apiClient.changePassword(request));
+   }
++
++  @override
++  Future<void> upsertUserProfile(UserProfileModel model) async {
++    await firestore
++        .collection("u8sj29sk2k")
++        .doc(model.idUser)
++        .set(
++      model.toJson(),
++      SetOptions(merge: true),
++    );
++  }
+ }
+diff --git a/lib/features/auth/data/datasource/auth_remote_datasource.dart b/lib/features/auth/data/datasource/auth_remote_datasource.dart
+index 77447a8..b8dd720 100644
+--- a/lib/features/auth/data/datasource/auth_remote_datasource.dart
++++ b/lib/features/auth/data/datasource/auth_remote_datasource.dart
+@@ -7,6 +7,7 @@ import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
+ import '../models/request/change-password-request-models/change-password-request-model.dart';
+ import '../models/request/forget_password_request_model/forget_password_request_model.dart';
+ import '../models/request/reset_password_request_model/reset_password_request_model.dart';
++import '../models/request/user_profile_model.dart';
+ import '../models/request/verify_reset_code_request_model/verify_reset_code_request.dart';
+ import '../models/response/change-password-response-models/change-password-response-model.dart';
+ import '../models/response/forget_password_response_model/forget_password_response_model.dart';
+@@ -14,6 +15,8 @@ import '../models/response/reset_password_response_model/reset_password_response
+ import '../models/response/verify_reset_code_response_model/verify_reset_code_response_model.dart';
+ 
+ abstract class AuthRemoteDataSource {
++  Future<void> upsertUserProfile(UserProfileModel model);
++
+   Future<ApiResult<LoginResponse>?> login(LoginRequest loginRequest);
+ 
+   Future<ApiResult<SignupDto>> signUp({
+diff --git a/lib/features/auth/data/models/request/user_profile_model.dart b/lib/features/auth/data/models/request/user_profile_model.dart
+index b42aa49..aff47ae 100644
+--- a/lib/features/auth/data/models/request/user_profile_model.dart
++++ b/lib/features/auth/data/models/request/user_profile_model.dart
+@@ -1,39 +1,54 @@
+-import '../../domain/entities/user_profile.dart';
++class UserProfileModel {
++  final String idUser;
++  final String name;
++  final String phone;
++  final String address;
++  final String deviceToken;
+ 
+-class UserProfileModel extends UserProfile {
+   const UserProfileModel({
+-    required super.idUser,
+-    required super.name,
+-    required super.phone,
+-    required super.address,
+-    required super.deviceToken,
++    required this.idUser,
++    required this.name,
++    required this.phone,
++    required this.address,
++    required this.deviceToken,
+   });
+ 
+-  factory UserProfileModel.fromEntity(UserProfile e) {
++  /// Convert Model -> Firestore JSON
++  Map<String, dynamic> toJson() {
++    return {
++      "id_user": idUser,
++      "name": name,
++      "phone": phone,
++      "address": address,
++      "deviceToken": deviceToken,
++    };
++  }
++
++  /// Convert Firestore JSON -> Model
++  factory UserProfileModel.fromJson(Map<String, dynamic> json) {
+     return UserProfileModel(
+-      idUser: e.idUser,
+-      name: e.name,
+-      phone: e.phone,
+-      address: e.address,
+-      deviceToken: e.deviceToken,
++      idUser: json["id_user"] ?? "",
++      name: json["name"] ?? "",
++      phone: json["phone"] ?? "",
++      address: json["address"] ?? "",
++      deviceToken: json["deviceToken"] ?? "",
+     );
+   }
+ 
+-  Map<String, dynamic> toJson() => {
+-    "id_user": idUser,
+-    "name": name,
+-    "phone": phone,
+-    "address": address,
+-    "deviceToken": deviceToken,
+-  };
+-
+-  factory UserProfileModel.fromJson(Map<String, dynamic> json) {
++  /// Optional: copyWith (very useful)
++  UserProfileModel copyWith({
++    String? idUser,
++    String? name,
++    String? phone,
++    String? address,
++    String? deviceToken,
++  }) {
+     return UserProfileModel(
+-      idUser: (json["id_user"] ?? "") as String,
+-      name: (json["name"] ?? "") as String,
+-      phone: (json["phone"] ?? "") as String,
+-      address: (json["address"] ?? "") as String,
+-      deviceToken: (json["deviceToken"] ?? "") as String,
++      idUser: idUser ?? this.idUser,
++      name: name ?? this.name,
++      phone: phone ?? this.phone,
++      address: address ?? this.address,
++      deviceToken: deviceToken ?? this.deviceToken,
+     );
+   }
+ }
+diff --git a/lib/features/auth/data/repos/auth_repo_imp.dart b/lib/features/auth/data/repos/auth_repo_imp.dart
+index b96e964..3dfa4a8 100644
+--- a/lib/features/auth/data/repos/auth_repo_imp.dart
++++ b/lib/features/auth/data/repos/auth_repo_imp.dart
+@@ -2,6 +2,7 @@ import 'package:flower_shop/app/core/network/api_result.dart';
+ import 'package:flower_shop/features/auth/data/datasource/auth_remote_datasource.dart';
+ import 'package:flower_shop/features/auth/data/mappers/signup_dto_mapper.dart';
+ import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
++import 'package:flower_shop/features/auth/data/models/request/user_profile_model.dart';
+ import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
+ import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
+ import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
+@@ -159,4 +160,9 @@ class AuthRepoImp implements AuthRepo {
+ 
+     return ErrorApiResult(error: 'Unexpected error');
+   }
++
++  @override
++  Future<void> upsertUserProfile(UserProfileModel model) {
++return authDatasource.upsertUserProfile(model);
++  }
+ }
+diff --git a/lib/features/auth/domain/repos/auth_repo.dart b/lib/features/auth/domain/repos/auth_repo.dart
+index c6b31a0..0a26646 100644
+--- a/lib/features/auth/domain/repos/auth_repo.dart
++++ b/lib/features/auth/domain/repos/auth_repo.dart
+@@ -5,12 +5,15 @@ import 'package:flower_shop/features/auth/domain/models/signup_model.dart';
+ 
+ import '../../data/models/request/change-password-request-models/change-password-request-model.dart';
+ import '../../data/models/request/reset_password_request_model/reset_password_request_model.dart';
++import '../../data/models/request/user_profile_model.dart';
+ import '../models/change_password_entity.dart';
+ import '../models/forget_password_entity.dart';
+ import '../models/reset_password_entity.dart';
+ import '../models/verify_reset_code_entity.dart';
+ 
+ abstract class AuthRepo {
++  Future<void> upsertUserProfile(UserProfileModel model);
++
+   Future<ApiResult<LoginModel>> login(String email, String password);
+ 
+   Future<ApiResult<SignupModel>> signup({
+diff --git a/lib/features/auth/domain/usecase/upsert_user_profile_usecase.dart b/lib/features/auth/domain/usecase/upsert_user_profile_usecase.dart
+index e69de29..e0fe31e 100644
+--- a/lib/features/auth/domain/usecase/upsert_user_profile_usecase.dart
++++ b/lib/features/auth/domain/usecase/upsert_user_profile_usecase.dart
+@@ -0,0 +1,14 @@
++import 'package:injectable/injectable.dart';
++import '../../data/models/request/user_profile_model.dart';
++import '../repos/auth_repo.dart';
++
++@injectable
++class UpsertUserProfileUseCase {
++  final AuthRepo repo;
++
++  UpsertUserProfileUseCase(this.repo);
++
++  Future<void> call(UserProfileModel model) {
++    return repo.upsertUserProfile(model);
++  }
++}
+diff --git a/lib/features/auth/presentation/login/manager/login_cubit.dart b/lib/features/auth/presentation/login/manager/login_cubit.dart
+index 9da39c4..e45c989 100644
+--- a/lib/features/auth/presentation/login/manager/login_cubit.dart
++++ b/lib/features/auth/presentation/login/manager/login_cubit.dart
+@@ -1,3 +1,5 @@
++import 'package:firebase_auth/firebase_auth.dart';
++import 'package:firebase_messaging/firebase_messaging.dart';
+ import 'package:flower_shop/app/config/base_state/base_state.dart';
+ import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
+ import 'package:flower_shop/app/core/network/api_result.dart';
+@@ -8,12 +10,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
+ import 'package:injectable/injectable.dart';
+ import 'package:flower_shop/features/auth/domain/usecase/login_usecase.dart';
+ 
++import '../../../data/models/request/user_profile_model.dart';
++import '../../../domain/usecase/upsert_user_profile_usecase.dart';
++
+ @injectable
+ class LoginCubit extends Cubit<LoginStates> {
+   final LoginUseCase _loginUseCase;
+   final AuthStorage _authStorage;
++  final UpsertUserProfileUseCase _upsertUserProfileUseCase;
++  final FirebaseMessaging _firebaseMessaging;
+ 
+-  LoginCubit(this._loginUseCase, this._authStorage) : super(LoginStates());
++  LoginCubit(
++      this._upsertUserProfileUseCase,
++      this._firebaseMessaging,
++      this._loginUseCase,
++      this._authStorage) : super(LoginStates());
+ 
+   void doIntent(LoginIntent intent) {
+     switch (intent.runtimeType) {
+@@ -47,6 +58,8 @@ class LoginCubit extends Cubit<LoginStates> {
+         }
+         await _authStorage.saveToken(result.data.token);
+         await _authStorage.setRememberMe(rememberMe);
++        await _syncProfileToFirestore(result.data);
++
+         emit(state.copyWith(loginResource: Resource.success(result.data)));
+         break;
+ 
+@@ -60,4 +73,22 @@ class LoginCubit extends Cubit<LoginStates> {
+   Future<void> _saveUserData(LoginModel model) async {
+     await _authStorage.saveUser(model.user);
+   }
++
++  Future<void> _syncProfileToFirestore(LoginModel model) async {
++    final deviceToken = await _firebaseMessaging.getToken() ?? "";
++
++
++    final userId = model.user.id;
++
++    final profile = UserProfileModel(
++      idUser: userId,
++      name: model.user.firstName ,
++      phone: model.user.phone ?? "",
++      address: "" ,
++      deviceToken: deviceToken,
++    );
++
++    // 3) Firestore write via Clean Architecture usecase
++    await _upsertUserProfileUseCase(profile);
++  }
+ }
+diff --git a/lib/main.dart b/lib/main.dart
+index d679cb8..19af212 100644
+--- a/lib/main.dart
++++ b/lib/main.dart
+@@ -1,22 +1,46 @@
+ import 'package:easy_localization/easy_localization.dart';
+ import 'package:firebase_core/firebase_core.dart';
+ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
++import 'package:firebase_messaging/firebase_messaging.dart'; // ✅ ADD
+ import 'package:flower_shop/app/core/router/app_router.dart';
+ import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter_bloc/flutter_bloc.dart';
++
+ import 'app/config/di/di.dart';
+ import 'app/core/ui_helper/theme/app_theme.dart';
+ import 'firebase_options.dart';
+ 
++// ✅ (Recommended) background handler (top-level)
++Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
++  await Firebase.initializeApp(
++    options: DefaultFirebaseOptions.currentPlatform,
++  );
++}
++
++Future<void> setupFCM() async {
++  final messaging = FirebaseMessaging.instance;
++
++  await messaging.requestPermission();
++
++  final token = await messaging.getToken();
++  print("FCM Token: $token");
++}
++
+ Future<void> main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await EasyLocalization.ensureInitialized();
++
+   configureDependencies();
++
+   await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.currentPlatform,
+   );
+ 
++  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
++
++  await setupFCM();
++
+   runApp(
+     EasyLocalization(
+       supportedLocales: const [Locale('en'), Locale('ar')],
+diff --git a/linux/flutter/ephemeral/.plugin_symlinks/image_picker_linux b/linux/flutter/ephemeral/.plugin_symlinks/image_picker_linux
+index cc0047e..33d340f 120000
+--- a/linux/flutter/ephemeral/.plugin_symlinks/image_picker_linux
++++ b/linux/flutter/ephemeral/.plugin_symlinks/image_picker_linux
+@@ -1 +1 @@
+-C:/Users/Sroor For Laptop/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_linux-0.2.2/
+\ No newline at end of file
++/Users/hagerdarwish/.pub-cache/hosted/pub.dev/image_picker_linux-0.2.2/
+\ No newline at end of file
+diff --git a/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux b/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux
+index ea8b6e2..7f0f5cc 120000
+--- a/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux
++++ b/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux
+@@ -1 +1 @@
+-C:/Users/Sroor For Laptop/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_linux-2.2.1/
+\ No newline at end of file
++/Users/hagerdarwish/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
+\ No newline at end of file
+diff --git a/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux b/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux
+index 41f3510..3014eb2 120000
+--- a/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux
++++ b/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux
+@@ -1 +1 @@
+-C:/Users/Sroor For Laptop/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_linux-2.4.1/
+\ No newline at end of file
++/Users/hagerdarwish/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.4.1/
+\ No newline at end of file
+diff --git a/linux/flutter/ephemeral/.plugin_symlinks/url_launcher_linux b/linux/flutter/ephemeral/.plugin_symlinks/url_launcher_linux
+index 6733ae1..d7a90f7 120000
+--- a/linux/flutter/ephemeral/.plugin_symlinks/url_launcher_linux
++++ b/linux/flutter/ephemeral/.plugin_symlinks/url_launcher_linux
+@@ -1 +1 @@
+-C:/Users/Sroor For Laptop/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_linux-3.2.2/
+\ No newline at end of file
++/Users/hagerdarwish/.pub-cache/hosted/pub.dev/url_launcher_linux-3.2.2/
+\ No newline at end of file
+diff --git a/macos/Flutter/GeneratedPluginRegistrant.swift b/macos/Flutter/GeneratedPluginRegistrant.swift
+index a024900..d8e815b 100644
+--- a/macos/Flutter/GeneratedPluginRegistrant.swift
++++ b/macos/Flutter/GeneratedPluginRegistrant.swift
+@@ -5,17 +5,23 @@
+ import FlutterMacOS
+ import Foundation
+ 
++import cloud_firestore
+ import file_selector_macos
++import firebase_auth
+ import firebase_core
+ import firebase_crashlytics
++import firebase_messaging
+ import geolocator_apple
+ import shared_preferences_foundation
+ import url_launcher_macos
+ 
+ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
++  FLTFirebaseFirestorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseFirestorePlugin"))
+   FileSelectorPlugin.register(with: registry.registrar(forPlugin: "FileSelectorPlugin"))
++  FLTFirebaseAuthPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseAuthPlugin"))
+   FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))
+   FLTFirebaseCrashlyticsPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCrashlyticsPlugin"))
++  FLTFirebaseMessagingPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseMessagingPlugin"))
+   GeolocatorPlugin.register(with: registry.registrar(forPlugin: "GeolocatorPlugin"))
+   SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))
+   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
+diff --git a/pubspec.lock b/pubspec.lock
+index 07d3266..01f7bb5 100644
+--- a/pubspec.lock
++++ b/pubspec.lock
+@@ -177,6 +177,30 @@ packages:
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.1.2"
++  cloud_firestore:
++    dependency: "direct main"
++    description:
++      name: cloud_firestore
++      sha256: "54484b2fc49f41b46f35b60a54b12351181eeaad22c0e3def276a81e17ae7c9b"
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.1.2"
++  cloud_firestore_platform_interface:
++    dependency: transitive
++    description:
++      name: cloud_firestore_platform_interface
++      sha256: dfaa8b2c0d0a824af289d4159816a5c78417feec264c2194081d645687195158
++      url: "https://pub.dev"
++    source: hosted
++    version: "7.0.6"
++  cloud_firestore_web:
++    dependency: transitive
++    description:
++      name: cloud_firestore_web
++      sha256: "35d01f502b3b701d700470d32a8f82704dac8341a66e86c074900cde5bab343d"
++      url: "https://pub.dev"
++    source: hosted
++    version: "5.1.2"
+   code_builder:
+     dependency: transitive
+     description:
+@@ -353,6 +377,30 @@ packages:
+       url: "https://pub.dev"
+     source: hosted
+     version: "0.9.3+5"
++  firebase_auth:
++    dependency: "direct main"
++    description:
++      name: firebase_auth
++      sha256: b20d1540460814c5984474c1e9dd833bdbcff6ecd8d6ad86cc9da8cfd581c172
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.1.4"
++  firebase_auth_platform_interface:
++    dependency: transitive
++    description:
++      name: firebase_auth_platform_interface
++      sha256: fd0225320b6bbc92460c86352d16b60aea15f9ef88292774cca97b0522ea9f72
++      url: "https://pub.dev"
++    source: hosted
++    version: "8.1.6"
++  firebase_auth_web:
++    dependency: transitive
++    description:
++      name: firebase_auth_web
++      sha256: be7dccb263b89fbda2a564de9d8193118196e8481ffb937222a025cdfdf82c40
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.1.2"
+   firebase_core:
+     dependency: "direct main"
+     description:
+@@ -393,6 +441,30 @@ packages:
+       url: "https://pub.dev"
+     source: hosted
+     version: "3.8.17"
++  firebase_messaging:
++    dependency: "direct main"
++    description:
++      name: firebase_messaging
++      sha256: "06fad40ea14771e969a8f2bbce1944aa20ee2f4f57f4eca5b3ba346b65f3f644"
++      url: "https://pub.dev"
++    source: hosted
++    version: "16.1.1"
++  firebase_messaging_platform_interface:
++    dependency: transitive
++    description:
++      name: firebase_messaging_platform_interface
++      sha256: "6c49e901c77e6e10e86d98e32056a087eb1ca1b93acdf58524f1961e617657b7"
++      url: "https://pub.dev"
++    source: hosted
++    version: "4.7.6"
++  firebase_messaging_web:
++    dependency: transitive
++    description:
++      name: firebase_messaging_web
++      sha256: "2756f8fea583ffb9d294d15ddecb3a9ad429b023b70c9990c151fc92c54a32b3"
++      url: "https://pub.dev"
++    source: hosted
++    version: "4.1.2"
+   fixnum:
+     dependency: transitive
+     description:
+@@ -833,10 +905,10 @@ packages:
+     dependency: transitive
+     description:
+       name: meta
+-      sha256: e3641ec5d63ebf0d9b41bd43201a66e3fc79a65db5f61fc181f04cd27aab950c
++      sha256: "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.16.0"
++    version: "1.17.0"
+   mime:
+     dependency: transitive
+     description:
+@@ -1238,26 +1310,26 @@ packages:
+     dependency: transitive
+     description:
+       name: test
+-      sha256: "65e29d831719be0591f7b3b1a32a3cda258ec98c58c7b25f7b84241bc31215bb"
++      sha256: "75906bf273541b676716d1ca7627a17e4c4070a3a16272b7a3dc7da3b9f3f6b7"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.26.2"
++    version: "1.26.3"
+   test_api:
+     dependency: transitive
+     description:
+       name: test_api
+-      sha256: "522f00f556e73044315fa4585ec3270f1808a4b186c936e612cab0b565ff1e00"
++      sha256: ab2726c1a94d3176a45960b6234466ec367179b87dd74f1611adb1f3b5fb9d55
+       url: "https://pub.dev"
+     source: hosted
+-    version: "0.7.6"
++    version: "0.7.7"
+   test_core:
+     dependency: transitive
+     description:
+       name: test_core
+-      sha256: "80bf5a02b60af04b09e14f6fe68b921aad119493e26e490deaca5993fef1b05a"
++      sha256: "0cc24b5ff94b38d2ae73e1eb43cc302b77964fbf67abad1e296025b78deb53d0"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "0.6.11"
++    version: "0.6.12"
+   timing:
+     dependency: transitive
+     description:
+diff --git a/pubspec.yaml b/pubspec.yaml
+index b2fe4c0..a1446d2 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -37,6 +37,9 @@ dependencies:
+   lottie: ^3.3.2
+   url_launcher: ^6.1.10
+   firebase_crashlytics: ^5.0.7
++  cloud_firestore: ^6.1.2
++  firebase_messaging: ^16.1.1
++  firebase_auth: ^6.1.4
+ 
+ dev_dependencies:
+   bloc_test: ^10.0.0
+diff --git a/test/features/addresses/presentation/pages/add_address_page_test.dart b/test/features/addresses/presentation/pages/add_address_page_test.dart
+index 0aaecc4..5ad0844 100644
+--- a/test/features/addresses/presentation/pages/add_address_page_test.dart
++++ b/test/features/addresses/presentation/pages/add_address_page_test.dart
+@@ -9,7 +9,8 @@ import 'package:flower_shop/app/core/network/api_result.dart';
+ import 'package:flower_shop/features/addresses/data/datasource/address_datasource_impl.dart';
+ import 'package:flower_shop/features/addresses/data/models/response/add_address_response_model.dart';
+ import 'package:flower_shop/features/addresses/data/models/response/address_model.dart';
+-import '../../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart';
++
++import '../../../checkout/api/checkout_data_source_imp_test.mocks.dart';
+ 
+ @GenerateMocks([ApiClient])
+ void main() {
+diff --git a/test/features/auth/api/datasource/auth_remote_datasource_impl_test.dart b/test/features/auth/api/datasource/auth_remote_datasource_impl_test.dart
+index 678c4c6..46e45e2 100644
+--- a/test/features/auth/api/datasource/auth_remote_datasource_impl_test.dart
++++ b/test/features/auth/api/datasource/auth_remote_datasource_impl_test.dart
+@@ -1,3 +1,4 @@
++import 'package:cloud_firestore/cloud_firestore.dart';
+ import 'package:dio/dio.dart';
+ import 'package:flower_shop/app/core/api_manger/api_client.dart';
+ import 'package:flower_shop/app/core/network/api_result.dart';
+@@ -11,16 +12,20 @@ import 'package:mockito/annotations.dart';
+ import 'package:mockito/mockito.dart';
+ import 'package:retrofit/retrofit.dart';
+ 
+-import 'auth_remote_datasource_impl_test.mocks.dart';
++import '../../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
++import 'auth_remote_datasource_impl_test.mocks.dart' hide MockApiClient;
++
++@GenerateMocks([ApiClient,FirebaseFirestore])
+ 
+-@GenerateMocks([ApiClient])
+ void main() {
+   late MockApiClient mockApiClient;
++  late FirebaseFirestore mockFirebaseFirestore;
+   late AuthRemoteDataSourceImpl dataSource;
+ 
+   setUpAll(() {
+     mockApiClient = MockApiClient();
+-    dataSource = AuthRemoteDataSourceImpl(mockApiClient);
++    mockFirebaseFirestore = MockFirebaseFirestore();
++    dataSource = AuthRemoteDataSourceImpl(mockApiClient,mockFirebaseFirestore);
+   });
+ 
+   final loginRequest = LoginRequest(email: "test@test.com", password: "123456");
+diff --git a/test/features/auth/presentation/login/manager/login_cubit_test.dart b/test/features/auth/presentation/login/manager/login_cubit_test.dart
+index aeba584..49881d6 100644
+--- a/test/features/auth/presentation/login/manager/login_cubit_test.dart
++++ b/test/features/auth/presentation/login/manager/login_cubit_test.dart
+@@ -1,5 +1,8 @@
+ import 'package:bloc_test/bloc_test.dart';
++import 'package:firebase_auth/firebase_auth.dart';
++import 'package:firebase_messaging/firebase_messaging.dart';
+ import 'package:flower_shop/app/config/base_state/base_state.dart';
++import 'package:flower_shop/features/auth/domain/usecase/upsert_user_profile_usecase.dart';
+ import 'package:flutter_test/flutter_test.dart';
+ import 'package:mockito/annotations.dart';
+ import 'package:mockito/mockito.dart';
+@@ -12,20 +15,32 @@ import 'package:flower_shop/features/auth/presentation/login/manager/login_cubit
+ import 'package:flower_shop/features/auth/presentation/login/manager/login_intent.dart';
+ import 'package:flower_shop/features/auth/presentation/login/manager/login_states.dart';
+ 
++import '../../../api/datasource/auth_remote_datasource_impl_test.mocks.dart';
+ import 'login_cubit_test.mocks.dart';
+ 
+-@GenerateMocks([LoginUseCase, AuthStorage])
++@GenerateMocks([LoginUseCase, AuthStorage,FirebaseMessaging,UpsertUserProfileUseCase])
+ void main() {
+   late MockLoginUseCase mockUseCase;
+   late MockAuthStorage mockAuthStorage;
++  late MockUpsertUserProfileUseCase mockUpsertUserProfileUseCase;
++  late MockFirebaseMessaging mockFirebaseMessaging;
+   late LoginCubit cubit;
+ 
+   setUp(() {
+     mockUseCase = MockLoginUseCase();
+     mockAuthStorage = MockAuthStorage();
+-    cubit = LoginCubit(mockUseCase, mockAuthStorage);
++    mockUpsertUserProfileUseCase = MockUpsertUserProfileUseCase();
++    mockFirebaseMessaging = MockFirebaseMessaging();
++
++    cubit = LoginCubit(
++      mockUpsertUserProfileUseCase,
++      mockFirebaseMessaging,
++      mockUseCase,
++      mockAuthStorage,
++    );
+   });
+ 
++
+   final email = "test@test.com";
+   final password = "123456";
+ 
+diff --git a/test/features/checkout/api/checkout_data_source_imp_test.dart b/test/features/checkout/api/checkout_data_source_imp_test.dart
+index 9465296..650c268 100644
+--- a/test/features/checkout/api/checkout_data_source_imp_test.dart
++++ b/test/features/checkout/api/checkout_data_source_imp_test.dart
+@@ -10,7 +10,7 @@ import 'package:flower_shop/app/core/api_manger/api_client.dart';
+ import 'package:flower_shop/app/core/network/api_result.dart';
+ import 'package:flower_shop/features/checkout/data/models/response/cash_order_response.dart';
+ 
+-import '../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart';
++import '../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
+ 
+ @GenerateMocks([ApiClient])
+ void main() {
+diff --git a/test/features/e_commerce/data/datasource/ecommrce_remote_datasource_impl_test.dart b/test/features/e_commerce/data/datasource/ecommrce_remote_datasource_impl_test.dart
+index bc0964e..38c0073 100644
+--- a/test/features/e_commerce/data/datasource/ecommrce_remote_datasource_impl_test.dart
++++ b/test/features/e_commerce/data/datasource/ecommrce_remote_datasource_impl_test.dart
+@@ -12,7 +12,7 @@ import 'package:flower_shop/features/e_commerce/data/models/response/meta_data.d
+ import 'package:flower_shop/features/e_commerce/data/models/response/products_response.dart';
+ import 'package:flower_shop/features/e_commerce/data/models/response/remote_product.dart';
+ 
+-import '../../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart';
++import '../../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
+ 
+ @GenerateMocks([ApiClient])
+ void main() {
+diff --git a/test/features/home/api/home_remote_data_source_imp_test.dart b/test/features/home/api/home_remote_data_source_imp_test.dart
+index 1d8fe85..a14f6ba 100644
+--- a/test/features/home/api/home_remote_data_source_imp_test.dart
++++ b/test/features/home/api/home_remote_data_source_imp_test.dart
+@@ -12,7 +12,7 @@ import 'package:mockito/annotations.dart';
+ import 'package:mockito/mockito.dart';
+ import 'package:retrofit/retrofit.dart';
+ 
+-import '../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart';
++import '../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
+ 
+ @GenerateMocks([ApiClient])
+ void main() {
+diff --git a/test/features/main_profile/api/profile_remote_data_source_impl_test.dart b/test/features/main_profile/api/profile_remote_data_source_impl_test.dart
+index 34a21c3..56ee7c9 100644
+--- a/test/features/main_profile/api/profile_remote_data_source_impl_test.dart
++++ b/test/features/main_profile/api/profile_remote_data_source_impl_test.dart
+@@ -13,7 +13,7 @@ import 'package:flower_shop/app/core/network/api_result.dart';
+ import 'package:flower_shop/features/main_profile/data/models/response/orders_response.dart';
+ import 'package:flower_shop/features/main_profile/data/models/response/profile_response.dart';
+ import 'package:flower_shop/features/main_profile/domain/models/profile_user_model.dart';
+-import '../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart';
++import '../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
+ 
+ @GenerateMocks([ApiClient])
+ void main() {

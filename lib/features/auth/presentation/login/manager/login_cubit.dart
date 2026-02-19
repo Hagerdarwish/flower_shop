@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
@@ -8,12 +10,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flower_shop/features/auth/domain/usecase/login_usecase.dart';
 
+import '../../../data/models/request/user_profile_model.dart';
+import '../../../domain/usecase/upsert_user_profile_usecase.dart';
+
 @injectable
 class LoginCubit extends Cubit<LoginStates> {
   final LoginUseCase _loginUseCase;
   final AuthStorage _authStorage;
+  final UpsertUserProfileUseCase _upsertUserProfileUseCase;
+  final FirebaseMessaging _firebaseMessaging;
 
-  LoginCubit(this._loginUseCase, this._authStorage) : super(LoginStates());
+  LoginCubit(
+      this._upsertUserProfileUseCase,
+      this._firebaseMessaging,
+      this._loginUseCase,
+      this._authStorage) : super(LoginStates());
 
   void doIntent(LoginIntent intent) {
     switch (intent.runtimeType) {
@@ -47,6 +58,8 @@ class LoginCubit extends Cubit<LoginStates> {
         }
         await _authStorage.saveToken(result.data.token);
         await _authStorage.setRememberMe(rememberMe);
+        await _syncProfileToFirestore(result.data);
+
         emit(state.copyWith(loginResource: Resource.success(result.data)));
         break;
 
@@ -59,5 +72,23 @@ class LoginCubit extends Cubit<LoginStates> {
 
   Future<void> _saveUserData(LoginModel model) async {
     await _authStorage.saveUser(model.user);
+  }
+
+  Future<void> _syncProfileToFirestore(LoginModel model) async {
+    final deviceToken = await _firebaseMessaging.getToken() ?? "";
+
+
+    final userId = model.user.id;
+
+    final profile = UserProfileModel(
+      idUser: userId,
+      name: model.user.firstName ,
+      phone: model.user.phone ?? "",
+      address: "" ,
+      deviceToken: deviceToken,
+    );
+
+    // 3) Firestore write via Clean Architecture usecase
+    await _upsertUserProfileUseCase(profile);
   }
 }
