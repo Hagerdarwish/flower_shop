@@ -7,6 +7,7 @@ import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app/config/di/di.dart';
+import 'app/core/firebase/cloud_messaging.dart';
 import 'app/core/ui_helper/theme/app_theme.dart';
 import 'firebase_options.dart';
 
