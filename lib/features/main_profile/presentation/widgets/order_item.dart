@@ -57,7 +57,7 @@ class CustomOrderItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  product?.title?.name ??
+                  product?.title ??
                       "order_number".tr() + " ${order.orderNumber}",
                   style: TextStyle(
                     fontSize: screenWidth * 0.04,

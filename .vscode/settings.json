@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "C:/Users/20101/StudioProjects/flower_shop/windows"
+    "cmake.sourceDirectory": "C:/flutter_projects/flower_shop/windows",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

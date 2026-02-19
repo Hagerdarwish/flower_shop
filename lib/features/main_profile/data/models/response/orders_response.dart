@@ -44,13 +44,13 @@ class Order {
   @JsonKey(name: "_id")
   String? id;
   @JsonKey(name: "user")
-  User? user;
+  String? user;
   @JsonKey(name: "orderItems")
   List<OrderItem>? orderItems;
   @JsonKey(name: "totalPrice")
   int? totalPrice;
   @JsonKey(name: "paymentType")
-  PaymentType? paymentType;
+  String? paymentType;
   @JsonKey(name: "isPaid")
   bool? isPaid;
   @JsonKey(name: "paidAt")
@@ -58,7 +58,7 @@ class Order {
   @JsonKey(name: "isDelivered")
   bool? isDelivered;
   @JsonKey(name: "state")
-  State? state;
+  String? state;
   @JsonKey(name: "createdAt")
   DateTime? createdAt;
   @JsonKey(name: "updatedAt")
@@ -112,11 +112,11 @@ class OrderItem {
 @JsonSerializable()
 class Product {
   @JsonKey(name: "_id")
-  Id? id;
+  String? id;
   @JsonKey(name: "title")
-  Title? title;
+  String? title;
   @JsonKey(name: "slug")
-  Slug? slug;
+  String? slug;
   @JsonKey(name: "description")
   String? description;
   @JsonKey(name: "imgCover")
@@ -130,9 +130,9 @@ class Product {
   @JsonKey(name: "quantity")
   int? quantity;
   @JsonKey(name: "category")
-  Category? category;
+  String? category;
   @JsonKey(name: "occasion")
-  Occasion? occasion;
+  String? occasion;
   @JsonKey(name: "createdAt")
   DateTime? createdAt;
   @JsonKey(name: "updatedAt")
@@ -148,7 +148,7 @@ class Product {
   @JsonKey(name: "rateCount")
   int? rateCount;
   @JsonKey(name: "id")
-  Id? productId;
+  String? productId;
 
   Product({
     this.id,
@@ -178,52 +178,6 @@ class Product {
   Map<String, dynamic> toJson() => _$ProductToJson(this);
 }
 
-enum Category {
-  @JsonValue("673c46fd1159920171827c85")
-  THE_673_C46_FD1159920171827_C85,
-  @JsonValue("673c47751159920171827c93")
-  THE_673_C47751159920171827_C93,
-}
-
-enum Id {
-  @JsonValue("673e2bd91159920171828139")
-  THE_673_E2_BD91159920171828139,
-  @JsonValue("673e2d1b1159920171828146")
-  THE_673_E2_D1_B1159920171828146,
-  @JsonValue("6745096c90ab40a0685402fc")
-  THE_6745096_C90_AB40_A0685402_FC,
-}
-
-enum Occasion {
-  @JsonValue("673b34c21159920171827ae0")
-  THE_673_B34_C21159920171827_AE0,
-  @JsonValue("673b368c1159920171827afc")
-  THE_673_B368_C1159920171827_AFC,
-}
-
-enum Slug {
-  @JsonValue("forever-pink-or-baby-roses")
-  FOREVER_PINK_OR_BABY_ROSES,
-  @JsonValue("gabrielle-chanel")
-  GABRIELLE_CHANEL,
-  @JsonValue("red-wdding-flower")
-  RED_WDDING_FLOWER,
-}
-
-enum Title {
-  @JsonValue("Forever Pink | Baby Roses")
-  FOREVER_PINK_BABY_ROSES,
-  @JsonValue("GABRIELLE CHANEL")
-  GABRIELLE_CHANEL,
-  @JsonValue("Red Wdding Flower")
-  RED_WDDING_FLOWER,
-}
-
-enum PaymentType {
-  @JsonValue("cash")
-  CASH,
-}
-
 @JsonSerializable()
 class ShippingAddress {
   @JsonKey(name: "street")
@@ -243,14 +197,4 @@ class ShippingAddress {
       _$ShippingAddressFromJson(json);
 
   Map<String, dynamic> toJson() => _$ShippingAddressToJson(this);
-}
-
-enum State {
-  @JsonValue("pending")
-  PENDING,
-}
-
-enum User {
-  @JsonValue("6968ecf5e364ef6140464199")
-  THE_6968_ECF5_E364_EF6140464199,
 }

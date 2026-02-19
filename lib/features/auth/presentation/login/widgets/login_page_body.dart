@@ -60,7 +60,6 @@ class _LoginPageBodyState extends State<LoginPageBody> {
               width: double.infinity,
               child: TextButton(
                 onPressed: () {
-
                   context.go(RouteNames.home);
                 },
                 style: TextButton.styleFrom(

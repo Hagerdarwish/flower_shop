@@ -6,7 +6,6 @@ import 'package:flower_shop/app/core/router/app_router.dart';
 import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'app/config/di/di.dart';
 import 'app/core/ui_helper/theme/app_theme.dart';
 import 'firebase_options.dart';
@@ -30,17 +29,13 @@ Future<void> setupFCM() async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-
   configureDependencies();
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging.onBackgroundMessage(
+    CloudMessaging.firebaseMessagingBackgroundHandler,
   );
-
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  await setupFCM();
-
+  await CloudMessaging.setupFlutterNotifications();
+  CloudMessaging.printDeviceToken();
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
@@ -54,8 +49,23 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  initState() {
+    super.initState();
+    FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    FirebaseMessaging.onMessage.listen(CloudMessaging.showFlutterNotification);
+  }
 
   @override
   Widget build(BuildContext context) {

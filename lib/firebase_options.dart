@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -64,5 +61,14 @@ class DefaultFirebaseOptions {
     projectId: 'elevate-flower-app',
     storageBucket: 'elevate-flower-app.firebasestorage.app',
     iosBundleId: 'com.example.flowerShop',
+  );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDKWdkFjeKkEAfKFrMO2svs48t2d9OqRGw',
+    appId: '1:725835190067:web:86225b1572d53a90e53846',
+    messagingSenderId: '725835190067',
+    projectId: 'elevate-flower-app',
+    authDomain: 'elevate-flower-app.firebaseapp.com',
+    storageBucket: 'elevate-flower-app.firebasestorage.app',
   );
 }
