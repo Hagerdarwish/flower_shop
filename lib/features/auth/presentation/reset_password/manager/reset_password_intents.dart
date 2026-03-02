@@ -1,19 +1,19 @@
-sealed class ResetPasswordIntent {
-  const ResetPasswordIntent();
+sealed class ChangePasswordIntent {
+  const ChangePasswordIntent();
 
   static const formChanged = FormChangedIntent();
   static const togglePasswordVisibility = TogglePasswordVisibilityIntent();
-  static const submit = SubmitResetPasswordIntent();
+  static const submit = SubmitChangePasswordIntent();
 }
 
-class FormChangedIntent extends ResetPasswordIntent {
+class FormChangedIntent extends ChangePasswordIntent {
   const FormChangedIntent();
 }
 
-class TogglePasswordVisibilityIntent extends ResetPasswordIntent {
+class TogglePasswordVisibilityIntent extends ChangePasswordIntent {
   const TogglePasswordVisibilityIntent();
 }
 
-class SubmitResetPasswordIntent extends ResetPasswordIntent {
-  const SubmitResetPasswordIntent();
+class SubmitChangePasswordIntent extends ChangePasswordIntent {
+  const SubmitChangePasswordIntent();
 }

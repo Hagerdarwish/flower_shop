@@ -7,6 +7,7 @@ abstract class EcommerceRemoteDatasource {
   Future<ApiResult<ProductsResponse>> getProduct({
     String? occasion,
     String? category,
+    String? search,
   });
 
   Future<ApiResult<AllCategoriesDto>> getAllCategories();

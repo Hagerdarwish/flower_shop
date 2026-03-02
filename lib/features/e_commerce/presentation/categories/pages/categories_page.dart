@@ -10,20 +10,36 @@ import 'package:flower_shop/features/e_commerce/presentation/categories/manager/
 import 'package:flower_shop/features/e_commerce/presentation/categories/widgets/categories_tab_view.dart';
 import 'package:flower_shop/features/e_commerce/presentation/categories/widgets/search_with_filter_widget.dart';
 import 'package:flower_shop/features/e_commerce/presentation/occasion/pages/shimmer_grid_loading.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_cubit.dart';
+import 'package:flower_shop/features/orders/presentation/manager/cart_intent.dart';
 import 'package:flower_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class CategoriesPage extends StatelessWidget {
-  CategoriesPage({super.key});
-  final bloc = getIt<AllCategoriesCubit>();
+class CategoriesPage extends StatefulWidget {
+  const CategoriesPage({super.key});
+
+  @override
+  State<CategoriesPage> createState() => _CategoriesPageState();
+}
+
+class _CategoriesPageState extends State<CategoriesPage> {
+  final AllCategoriesCubit bloc = getIt<AllCategoriesCubit>();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<CartCubit>().doIntent(GetAllCartsIntent());
+    bloc.doIntent(GetAllCategoriesEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AllCategoriesCubit>(
-      create: (context) => bloc..doIntent(GetAllCategoriesEvent()),
+    return BlocProvider.value(
+      value: bloc,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
             const SizedBox(height: 40),
@@ -32,10 +48,12 @@ class CategoriesPage extends StatelessWidget {
             BlocBuilder<AllCategoriesCubit, AllCategoriesStates>(
               builder: (context, state) {
                 final products = state.products?.data;
+
                 if (state.products?.status == Status.loading ||
                     products == null) {
-                  return Expanded(child: const ShimmerGridLoading());
+                  return const Expanded(child: ShimmerGridLoading());
                 }
+
                 if (products.isEmpty) {
                   return Column(
                     children: [
@@ -43,11 +61,11 @@ class CategoriesPage extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.3,
                       ),
                       Text(
-                        textAlign: TextAlign.center,
                         LocaleKeys.noProductsfound.tr(),
+                        textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: AppColors.blackColor,
                           fontSize: 16,
+                          color: AppColors.blackColor,
                         ),
                       ),
                     ],
@@ -56,7 +74,7 @@ class CategoriesPage extends StatelessWidget {
 
                 return Expanded(
                   child: GridView.builder(
-                    itemCount: state.products?.data?.length ?? 0,
+                    itemCount: products.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
@@ -64,20 +82,17 @@ class CategoriesPage extends StatelessWidget {
                           mainAxisSpacing: 17,
                           childAspectRatio: 0.70,
                         ),
-                    itemBuilder: (BuildContext context, int index) {
-                      final product = state.products?.data?[index];
-                      return product != null
-                          ? ProductItemCard(
-                              onTap: () {
-                                context.push(
-                                  RouteNames.productDetails,
-                                  extra: product.id,
-                                );
-                              },
-                              product: product,
-                              onAddToCart: () {},
-                            )
-                          : const SizedBox.shrink();
+                    itemBuilder: (context, index) {
+                      final product = products[index];
+                      return ProductItemCard(
+                        product: product,
+                        onTap: () {
+                          context.push(
+                            RouteNames.productDetails,
+                            extra: product.id,
+                          );
+                        },
+                      );
                     },
                   ),
                 );

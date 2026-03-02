@@ -20,7 +20,7 @@ class ResetPasswordForm extends StatelessWidget {
 
     return Form(
       key: cubit.formKey,
-      onChanged: () => cubit.doIntent(ResetPasswordIntent.formChanged),
+      onChanged: () => cubit.doIntent(ChangePasswordIntent.formChanged),
       child: Column(
         children: [
           const SizedBox(height: 20),
@@ -38,7 +38,7 @@ class ResetPasswordForm extends StatelessWidget {
                 label: LocaleKeys.newPassword.tr(),
                 isVisible: state.togglePasswordVisibility,
                 onToggleVisibility: () => cubit.doIntent(
-                  ResetPasswordIntent.togglePasswordVisibility,
+                  ChangePasswordIntent.togglePasswordVisibility,
                 ),
                 validator: Validators.validatePassword,
                 hint: LocaleKeys.enterYourPassword,
@@ -57,7 +57,7 @@ class ResetPasswordForm extends StatelessWidget {
                 text: LocaleKeys.confirm.tr(),
                 isEnabled: state.isFormValid,
                 isLoading: state.resource.status == Status.loading,
-                onPressed: () => cubit.doIntent(ResetPasswordIntent.submit),
+                onPressed: () => cubit.doIntent(ChangePasswordIntent.submit),
               );
             },
           ),

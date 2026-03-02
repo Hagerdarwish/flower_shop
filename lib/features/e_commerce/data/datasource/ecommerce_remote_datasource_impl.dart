@@ -17,9 +17,14 @@ class EcommerceRemoteDatasourceImpl implements EcommerceRemoteDatasource {
   Future<ApiResult<ProductsResponse>> getProduct({
     String? occasion,
     String? category,
+    String? search,
   }) {
     return safeApiCall(
-      call: () => apiClient.getProducts(occasion: occasion, category: category),
+      call: () => apiClient.getProducts(
+        occasion: occasion,
+        category: category,
+        search: search,
+      ),
     );
   }
 

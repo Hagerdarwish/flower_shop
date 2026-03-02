@@ -12,7 +12,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart';
+import '../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
 
 @GenerateMocks([ApiClient])
 void main() {

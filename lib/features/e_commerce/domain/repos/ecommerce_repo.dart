@@ -7,6 +7,7 @@ abstract class EcommerceRepo {
   Future<ApiResult<List<ProductModel>>> getProducts({
     String? occasion,
     String? category,
+    String? search,
   });
 
   Future<ApiResult<AllCategoriesModel>> getAllCategories();

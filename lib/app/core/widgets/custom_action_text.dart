@@ -1,3 +1,4 @@
+import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomActionText extends StatelessWidget {
@@ -19,9 +20,9 @@ class CustomActionText extends StatelessWidget {
       child: Text(
         text,
         style: (Theme.of(context).textTheme.bodyMedium)?.copyWith(
-          color: isEnabled ? Colors.pink : Colors.grey,
+          color: isEnabled ? AppColors.pink : Colors.grey,
           decoration: TextDecoration.underline,
-          decorationColor: isEnabled ? Colors.pink : Colors.grey,
+          decorationColor: isEnabled ? AppColors.pink : Colors.grey,
         ),
       ),
     );

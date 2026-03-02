@@ -1,25 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/auth/api/datasource/auth_remote_datasource_impl.dart';
 import 'package:flower_shop/features/auth/data/models/request/login_request_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/login_response_model.dart';
+import 'package:flower_shop/features/auth/data/models/response/logout_response_model.dart';
 import 'package:flower_shop/features/auth/data/models/response/signup_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:retrofit/retrofit.dart';
 
-import 'auth_remote_datasource_impl_test.mocks.dart';
+import '../../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
+import 'auth_remote_datasource_impl_test.mocks.dart' hide MockApiClient;
 
-@GenerateMocks([ApiClient])
+import 'package:flower_shop/features/auth/data/models/request/user_profile_model.dart'; // Add this import
+
+@GenerateMocks([
+  ApiClient,
+  FirebaseFirestore,
+  CollectionReference,
+  DocumentReference,
+])
 void main() {
   late MockApiClient mockApiClient;
+  late MockFirebaseFirestore mockFirebaseFirestore;
   late AuthRemoteDataSourceImpl dataSource;
 
   setUpAll(() {
     mockApiClient = MockApiClient();
-    dataSource = AuthRemoteDataSourceImpl(mockApiClient);
+    mockFirebaseFirestore = MockFirebaseFirestore();
+    dataSource = AuthRemoteDataSourceImpl(mockApiClient, mockFirebaseFirestore);
   });
 
   final loginRequest = LoginRequest(email: "test@test.com", password: "123456");
@@ -132,6 +144,85 @@ void main() {
       expect(result, isA<ErrorApiResult<SignupDto>>());
       expect(result.error.toString(), contains("Network error"));
       verify(mockApiClient.signUp(any)).called(1);
+    });
+  });
+
+  group("AuthRemoteDataSourceImpl.logout()", () {
+    final token = "dummy_token";
+    final logoutResponse = LogoutResponse(message: "Logged out successfully");
+
+    test(
+      "returns SuccessApiResult when apiClient returns valid response",
+      () async {
+        // ARRANGE
+        final dioResponse = Response<LogoutResponse>(
+          requestOptions: RequestOptions(path: '/logout'),
+          data: logoutResponse,
+          statusCode: 200,
+        );
+        final fakeHttpResponse = HttpResponse<LogoutResponse>(
+          dioResponse.data!,
+          dioResponse,
+        );
+
+        when(
+          mockApiClient.logout(token: token),
+        ).thenAnswer((_) async => fakeHttpResponse);
+
+        // ACT
+        final result = await dataSource.logout(token: token);
+
+        // ASSERT
+        expect(result, isA<SuccessApiResult<LogoutResponse>>());
+        final data = (result as SuccessApiResult).data;
+        expect(data.message, equals("Logged out successfully"));
+        verify(mockApiClient.logout(token: token)).called(1);
+      },
+    );
+
+    test("returns ErrorApiResult when apiClient throws Exception", () async {
+      // ARRANGE
+      when(
+        mockApiClient.logout(token: token),
+      ).thenThrow(Exception("network error"));
+
+      // ACT
+      final result = await dataSource.logout(token: token);
+
+      // ASSERT
+      expect(result, isA<ErrorApiResult<LogoutResponse>>());
+      expect(
+        (result as ErrorApiResult).error.toString(),
+        contains("network error"),
+      );
+      verify(mockApiClient.logout(token: token)).called(1);
+    });
+  });
+
+  group("AuthRemoteDataSourceImpl.upsertUserProfile()", () {
+    test("calls firestore set with correct data", () async {
+      // Arrange
+      final userProfile = UserProfileModel(
+        idUser: "123",
+        name: "Test User",
+        phone: "123456789",
+        address: "123 Main St",
+        deviceToken: "token123",
+      );
+      final mockCollection = MockCollectionReference<Map<String, dynamic>>();
+      final mockDoc = MockDocumentReference<Map<String, dynamic>>();
+
+      when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollection);
+      when(mockCollection.doc(any)).thenReturn(mockDoc);
+      when(mockDoc.set(any, any)).thenAnswer((_) async {});
+
+      // Act
+      await dataSource.upsertUserProfile(userProfile);
+
+      // Assert
+      verify(mockFirebaseFirestore.collection("u8sj29sk2k")).called(1);
+      verify(mockCollection.doc("123")).called(1);
+      verify(mockDoc.set(userProfile.toJson(), any)).called(1);
     });
   });
 }

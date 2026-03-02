@@ -1,3 +1,5 @@
+import '../../../features/addresses/domain/models/city_item.dart';
+import '../../../features/addresses/domain/models/area_item.dart';
 import '../values/user_error_mesagges.dart';
 
 class Validators {
@@ -44,6 +46,46 @@ class Validators {
     }
     if (RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%-]').hasMatch(value)) {
       return UserErrorMessages.invalidName;
+    }
+    return null;
+  }
+
+  static String? validateRecipientName(String? value) {
+    if (value == null || value.isEmpty) {
+      return UserErrorMessages.requiredRecipientName;
+    }
+    if (value.length < 3) {
+      return UserErrorMessages.least3Characters;
+    }
+    if (RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%-]').hasMatch(value)) {
+      return UserErrorMessages.invalidRecipientName;
+    }
+    return null;
+  }
+
+  static String? validateAddress(String? value) {
+    if (value == null || value.isEmpty) {
+      return UserErrorMessages.requiredAddress;
+    }
+    if (value.length < 3) {
+      return UserErrorMessages.least3Characters;
+    }
+    if (RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%-]').hasMatch(value)) {
+      return UserErrorMessages.invalidAddress;
+    }
+    return null;
+  }
+
+  static String? validateArea(AreaItem? value) {
+    if (value == null) {
+      return UserErrorMessages.requiredArea;
+    }
+    return null;
+  }
+
+  static String? validateCity(CityItem? value) {
+    if (value == null) {
+      return UserErrorMessages.requiredCity;
     }
     return null;
   }

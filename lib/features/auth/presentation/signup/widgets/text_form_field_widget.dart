@@ -11,6 +11,9 @@ class TextFormFieldWidget extends StatelessWidget {
     required this.hint,
     this.validator,
     this.onChanged,
+    this.controller,
+    this.enabled = true,
+    this.suffixIcon,
   });
   final bool obscureText;
   final String label;
@@ -19,6 +22,9 @@ class TextFormFieldWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final void Function(String?)? onChanged;
+  final TextEditingController? controller;
+  final bool enabled;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +32,8 @@ class TextFormFieldWidget extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: TextFormField(
+        controller: controller,
+        enabled: enabled,
         onChanged: onChanged,
         obscureText: obscureText,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -37,6 +45,11 @@ class TextFormFieldWidget extends StatelessWidget {
           FocusScope.of(context).unfocus();
         },
         decoration: InputDecoration(
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: AppColors.grey2),
+          ),
+          suffixIcon: suffixIcon,
           hint: Text(
             hint,
             style: textTheme.labelSmall!.copyWith(color: AppColors.grey2),

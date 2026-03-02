@@ -11,10 +11,12 @@ class GetProductUsecase {
   Future<ApiResult<List<ProductModel>>> call({
     String? occasion,
     String? category,
+    String? search,
   }) async {
     return await _productRepo.getProducts(
       occasion: occasion,
       category: category,
+      search: search,
     );
   }
 }

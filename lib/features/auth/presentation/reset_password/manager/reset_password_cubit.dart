@@ -13,7 +13,7 @@ part 'reset_password_state.dart';
 
 @injectable
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
-  final ResetPasswordUseCase _resetPasswordUseCase;
+  final ChangePasswordUseCase _resetPasswordUseCase;
   final String email;
 
   ResetPasswordCubit(@factoryParam this.email, this._resetPasswordUseCase)
@@ -23,7 +23,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   final emailController = TextEditingController();
   final newPasswordController = TextEditingController();
 
-  void doIntent(ResetPasswordIntent intent) {
+  void doIntent(ChangePasswordIntent intent) {
     switch (intent) {
       case FormChangedIntent():
         _validateForm();
@@ -31,7 +31,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       case TogglePasswordVisibilityIntent():
         _togglePasswordVisibility();
         break;
-      case SubmitResetPasswordIntent():
+      case SubmitChangePasswordIntent():
         _submitResetPassword();
         break;
     }

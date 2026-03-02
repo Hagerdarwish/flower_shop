@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flower_shop/features/home/domain/models/product_model.dart';
 
 class BestSellerModel extends Equatable {
   final int? rateAvg;
@@ -62,4 +63,21 @@ class BestSellerModel extends Equatable {
     isSuperAdmin,
     sold,
   ];
+
+  ProductModel toProductModel() {
+    return ProductModel(
+      id: id,
+      title: title,
+      slug: slug,
+      description: description,
+      imgCover: imgCover,
+      images: images,
+      price: price,
+      priceAfterDiscount: priceAfterDiscount,
+      quantity: quantity,
+      category: category,
+      occasion: occasion,
+      isSuperAdmin: isSuperAdmin,
+    );
+  }
 }

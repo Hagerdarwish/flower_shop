@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
+
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.pink,
       primary: AppColors.pink,
@@ -25,11 +26,11 @@ class AppTheme {
       floatingLabelBehavior: FloatingLabelBehavior.always,
       labelStyle: TextStyle(color: AppColors.blackColor, fontSize: 20),
       hintStyle: TextStyle(color: Colors.grey.shade600, fontSize: 13),
-      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+      contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
       filled: true,
       fillColor: Colors.white,
-      errorStyle: TextStyle(color: Colors.red, fontSize: 12, height: 1.3),
-      enabledBorder: _border(Color(0xFF8C8C8C)),
+      errorStyle: const TextStyle(color: Colors.red, fontSize: 12, height: 1.3),
+      enabledBorder: _border(const Color(0xFF8C8C8C)),
       focusedBorder: _border(AppColors.pink),
       errorBorder: _border(Colors.red),
       focusedErrorBorder: _border(Colors.red),
@@ -60,6 +61,22 @@ class AppTheme {
         shape: const StadiumBorder(),
         textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
       ),
+    ),
+
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: AppColors.white,
+      indicatorColor: AppColors.pink,
+      surfaceTintColor: AppColors.white,
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+      elevation: 0,
+      iconTheme: MaterialStateProperty.resolveWith<IconThemeData>((
+        Set<MaterialState> states,
+      ) {
+        if (states.contains(MaterialState.selected)) {
+          return IconThemeData(color: AppColors.white, size: 24);
+        }
+        return IconThemeData(color: AppColors.pink, size: 24);
+      }),
     ),
   );
 

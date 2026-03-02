@@ -42,6 +42,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> _loadProducts() async {
     final result = await _factory.products().call();
+    if (isClosed) return;
     switch (result) {
       case SuccessApiResult<List<ProductModel>>():
         emit(state.copyWith(products: Resource.success(result.data)));
@@ -54,6 +55,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> _loadCategories() async {
     final result = await _factory.categories().call();
+    if (isClosed) return;
     switch (result) {
       case SuccessApiResult<List<CategoryModel>>():
         emit(state.copyWith(categories: Resource.success(result.data)));
@@ -66,6 +68,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> _loadBestSeller() async {
     final result = await _factory.bestSeller().call();
+    if (isClosed) return;
     switch (result) {
       case SuccessApiResult<List<BestSellerModel>>():
         emit(state.copyWith(bestSeller: Resource.success(result.data)));
@@ -78,6 +81,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> _loadOccasions() async {
     final result = await _factory.occasions().call();
+    if (isClosed) return;
     switch (result) {
       case SuccessApiResult<List<OccasionModel>>():
         emit(state.copyWith(occasions: Resource.success(result.data)));
