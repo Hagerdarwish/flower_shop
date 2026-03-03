@@ -11,11 +11,8 @@ import 'app/core/firebase/cloud_messaging.dart';
 import 'app/core/ui_helper/theme/app_theme.dart';
 import 'firebase_options.dart';
 
-// ✅ (Recommended) background handler (top-level)
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
 Future<void> setupFCM() async {
