@@ -22,7 +22,7 @@ import '../../data/models/response/verify_reset_code_response_model/verify_reset
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   ApiClient apiClient;
   final FirebaseFirestore firestore;
-  AuthRemoteDataSourceImpl(this.apiClient,this.firestore);
+  AuthRemoteDataSourceImpl(this.apiClient, this.firestore);
   @override
   Future<ApiResult<LoginResponse>?> login(LoginRequest loginRequest) {
     return safeApiCall<LoginResponse>(
@@ -91,9 +91,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     await firestore
         .collection("u8sj29sk2k")
         .doc(model.idUser)
-        .set(
-      model.toJson(),
-      SetOptions(merge: true),
-    );
+        .set(model.toJson(), SetOptions(merge: true));
   }
 }
