@@ -62,7 +62,9 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                 LocaleKeys.order_success.tr(),
                 backgroundColor: Colors.green,
               );
-              context.go(RouteNames.home);
+              final orderId =
+                  state.order.data?.id ?? ''; // Assuming id is available
+              context.push(RouteNames.trackOrderScreen, extra: orderId);
             }
 
             if (state.error != null) {

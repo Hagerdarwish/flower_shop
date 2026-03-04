@@ -22,4 +22,5 @@ abstract class RouteNames {
   static const checkout = "/checkout";
   static const orders = "/orders";
   static const notifications = "/notifications";
+  static const trackOrderScreen = "/trackOrderScreen";
 }

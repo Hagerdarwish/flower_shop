@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart' hide Order;
 import 'package:dio/dio.dart';
 import 'package:flower_shop/features/checkout/api/checkout_data_source_imp.dart';
 import 'package:flower_shop/features/checkout/data/models/response/address_check_out_response.dart';
@@ -10,16 +11,25 @@ import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/checkout/data/models/response/cash_order_response.dart';
 
-import '../../addresses/data/datasource/address_datasource_impl_test.mocks.dart';
+import 'checkout_data_source_imp_test.mocks.dart';
+import '../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart'
+    show MockFirebaseFirestore;
 
-@GenerateMocks([ApiClient])
+@GenerateMocks([
+  ApiClient,
+  FirebaseFirestore,
+  CollectionReference,
+  DocumentReference,
+])
 void main() {
   late MockApiClient mockApiClient;
+  late MockFirebaseFirestore mockFirebaseFirestore;
   late CheckoutDataSourceImp dataSource;
 
   setUpAll(() {
     mockApiClient = MockApiClient();
-    dataSource = CheckoutDataSourceImp(mockApiClient);
+    mockFirebaseFirestore = MockFirebaseFirestore();
+    dataSource = CheckoutDataSourceImp(mockApiClient, mockFirebaseFirestore);
   });
 
   group("CheckoutDataSourceImp.cashOrder()", () {

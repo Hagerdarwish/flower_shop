@@ -76,10 +76,16 @@ import '../../../features/checkout/data/repos/checkout_repo_imp.dart' as _i178;
 import '../../../features/checkout/domain/repos/checkout_repo.dart' as _i14;
 import '../../../features/checkout/domain/usecases/get_addresss_usecase.dart'
     as _i872;
+import '../../../features/checkout/domain/usecases/get_driver_usecase.dart'
+    as _i147;
+import '../../../features/checkout/domain/usecases/get_order_usecase.dart'
+    as _i745;
 import '../../../features/checkout/domain/usecases/post_cashe_order_usecase.dart'
     as _i524;
 import '../../../features/checkout/presentation/cubit/checkout_cubit.dart'
     as _i90;
+import '../../../features/checkout/presentation/cubit/track_order_cubit.dart'
+    as _i36;
 import '../../../features/e_commerce/data/datasource/ecommerce_remote_datasource.dart'
     as _i152;
 import '../../../features/e_commerce/data/datasource/ecommerce_remote_datasource_impl.dart'
@@ -219,16 +225,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i646.OrdersRemoteDatasource>(
       () => _i862.OrdersRemoteDatasourceImpl(gh<_i890.ApiClient>()),
     );
-    gh.factory<_i673.CheckoutDataSource>(
-      () => _i801.CheckoutDataSourceImp(gh<_i890.ApiClient>()),
-    );
     gh.factory<_i701.HomeRemoteDataSource>(
       () => _i874.HomeRemoteDataSourceImp(gh<_i890.ApiClient>()),
-    );
-    gh.factory<_i14.CheckoutRepo>(
-      () => _i178.CheckoutRepoImpl(
-        checkoutDataSource: gh<_i673.CheckoutDataSource>(),
-      ),
     );
     gh.factory<_i520.HomeRepo>(
       () => _i401.HomeRepoImp(gh<_i701.HomeRemoteDataSource>()),
@@ -259,14 +257,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i986.EditProfileDataSource>(
       () => _i857.EditprofiledatascourceImp(gh<_i890.ApiClient>()),
     );
+    gh.factory<_i673.CheckoutDataSource>(
+      () => _i801.CheckoutDataSourceImp(
+        gh<_i890.ApiClient>(),
+        gh<_i974.FirebaseFirestore>(),
+      ),
+    );
     gh.factory<_i955.ProfileremoteDataSource>(
       () => _i381.ProfileRemoteDataSourceImpl(gh<_i890.ApiClient>()),
-    );
-    gh.factory<_i872.GetAddressUsecase>(
-      () => _i872.GetAddressUsecase(gh<_i14.CheckoutRepo>()),
-    );
-    gh.factory<_i524.PostCasheOrderUsecase>(
-      () => _i524.PostCasheOrderUsecase(gh<_i14.CheckoutRepo>()),
     );
     gh.factory<_i136.NotificationRepoContract>(
       () =>
@@ -278,11 +276,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i332.EcommerceRepo>(
       () => _i670.EcommerceRepoImp(gh<_i152.EcommerceRemoteDatasource>()),
     );
-    gh.factory<_i90.CheckoutCubit>(
-      () => _i90.CheckoutCubit(
-        gh<_i524.PostCasheOrderUsecase>(),
-        gh<_i872.GetAddressUsecase>(),
-        gh<_i603.AuthStorage>(),
+    gh.factory<_i14.CheckoutRepo>(
+      () => _i178.CheckoutRepoImpl(
+        checkoutDataSource: gh<_i673.CheckoutDataSource>(),
       ),
     );
     gh.factory<_i974.GetUserAddresses>(
@@ -404,6 +400,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i129.GetProductDetailsUseCase>(
       () => _i129.GetProductDetailsUseCase(gh<_i332.EcommerceRepo>()),
     );
+    gh.factory<_i872.GetAddressUsecase>(
+      () => _i872.GetAddressUsecase(gh<_i14.CheckoutRepo>()),
+    );
+    gh.factory<_i524.PostCasheOrderUsecase>(
+      () => _i524.PostCasheOrderUsecase(gh<_i14.CheckoutRepo>()),
+    );
     gh.factory<_i543.SignupUsecase>(
       () => _i543.SignupUsecase(gh<_i712.AuthRepo>()),
     );
@@ -427,6 +429,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i169.GetAboutSectionUsecase>(
       () => _i169.GetAboutSectionUsecase(gh<_i866.ProfileRepo>()),
+    );
+    gh.factory<_i745.GetOrderUseCase>(
+      () => _i745.GetOrderUseCase(gh<_i14.CheckoutRepo>()),
+    );
+    gh.factory<_i147.GetDriverUseCase>(
+      () => _i147.GetDriverUseCase(gh<_i14.CheckoutRepo>()),
     );
     gh.factoryParam<_i50.ProductDetailsCubit, String, dynamic>(
       (productId, _) => _i50.ProductDetailsCubit(
@@ -457,6 +465,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i392.AuthCubit>(
       () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
     );
+    gh.factory<_i90.CheckoutCubit>(
+      () => _i90.CheckoutCubit(
+        gh<_i524.PostCasheOrderUsecase>(),
+        gh<_i872.GetAddressUsecase>(),
+        gh<_i603.AuthStorage>(),
+      ),
+    );
     gh.factory<_i909.GetOrdersUsecases>(
       () => _i909.GetOrdersUsecases(gh<_i866.ProfileRepo>()),
     );
@@ -486,6 +501,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i259.AllCategoriesCubit(
         gh<_i710.AllCategoriesUsecase>(),
         gh<_i985.GetProductUsecase>(),
+      ),
+    );
+    gh.factory<_i36.TrackOrderCubit>(
+      () => _i36.TrackOrderCubit(
+        gh<_i745.GetOrderUseCase>(),
+        gh<_i147.GetDriverUseCase>(),
       ),
     );
     gh.factory<_i25.OccasionCubit>(
