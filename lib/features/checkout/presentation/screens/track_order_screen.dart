@@ -37,30 +37,27 @@ class TrackOrderScreen extends StatelessWidget {
             ),
           ),
           actions: [
-            // Demo controls — tap to simulate order progress
             BlocBuilder<TrackOrderCubit, TrackOrderState>(
               builder: (context, state) {
-                return PopupMenuButton<int>(
-                  icon: const Icon(Icons.chevron_right, color: _textDark),
-                  tooltip: 'Simulate step',
-                  onSelected: (i) => context.read<TrackOrderCubit>().doIntent(
-                    SetCurrentStepIntent(i),
+                final activeIndex = state.activeStepIndex;
+                final label = activeIndex >= 0
+                    ? state.steps[activeIndex].title
+                    : '—';
+                return Padding(
+                  padding: const EdgeInsets.only(right: 12),
+                  child: Chip(
+                    label: Text(
+                      label,
+                      style: const TextStyle(
+                        color: _primary,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                      ),
+                    ),
+                    backgroundColor: _primary.withOpacity(0.10),
+                    side: BorderSide.none,
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
                   ),
-                  itemBuilder: (_) => [
-                    const PopupMenuItem(value: 0, child: Text('Set: Received')),
-                    const PopupMenuItem(
-                      value: 1,
-                      child: Text('Set: Preparing'),
-                    ),
-                    const PopupMenuItem(
-                      value: 2,
-                      child: Text('Set: Out for delivery'),
-                    ),
-                    const PopupMenuItem(
-                      value: 3,
-                      child: Text('Set: Delivered'),
-                    ),
-                  ],
                 );
               },
             ),

@@ -1,7 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-
+import 'package:flower_shop/app/core/network/api_result.dart';
+import 'package:flower_shop/features/checkout/domain/models/order_tracking.dart';
 import 'package:flower_shop/features/checkout/domain/models/track_step.dart';
 import 'package:flower_shop/features/checkout/domain/usecases/get_driver_usecase.dart';
 import 'package:flower_shop/features/checkout/domain/usecases/get_order_usecase.dart';
@@ -12,6 +13,22 @@ import 'package:flower_shop/features/checkout/presentation/cubit/track_order_sta
 class MockGetOrderUseCase extends Mock implements GetOrderUseCase {}
 
 class MockGetDriverUseCase extends Mock implements GetDriverUseCase {}
+
+/// Creates a minimal [OrderTracking] with the given [status].
+OrderTracking _fakeOrder(String status) => OrderTracking(
+  driverId: '',
+  status: status,
+  updatedAt: DateTime(2024),
+  userId: 'user1',
+  orderData: const OrderTrackingData(
+    items: [],
+    orderId: 'order1',
+    pickupAddress: '',
+    status: '',
+    totalPrice: 0,
+  ),
+  userAddress: const OrderUserAddress(address: '', name: ''),
+);
 
 void main() {
   late TrackOrderCubit cubit;
@@ -57,13 +74,17 @@ void main() {
   group('TrackOrderCubit — LoadOrderIntent', () {
     blocTest<TrackOrderCubit, TrackOrderState>(
       'emits loading then loaded (isLoading false) on success',
-      build: () => TrackOrderCubit(mockGetOrderUseCase, mockGetDriverUseCase),
+      build: () {
+        when(() => mockGetOrderUseCase.execute(any())).thenAnswer(
+          (_) async => SuccessApiResult(data: _fakeOrder('pending')),
+        );
+        return TrackOrderCubit(mockGetOrderUseCase, mockGetDriverUseCase);
+      },
       act: (c) => c.doIntent(LoadOrderIntent('order-123')),
-      // wait > the 400ms Future.delayed inside _loadOrder so bloc_test
-      // captures both the isLoading:true and isLoading:false emissions
-      wait: const Duration(milliseconds: 600),
+      // The cubit emits 4 states: loading=true, steps updated,
+      // estimatedArrival updated, loading=false. Skip to the final one.
+      skip: 3,
       expect: () => [
-        isA<TrackOrderState>().having((s) => s.isLoading, 'isLoading', true),
         isA<TrackOrderState>().having((s) => s.isLoading, 'isLoading', false),
       ],
     );
@@ -201,5 +222,89 @@ void main() {
       );
       expect(state.activeStepIndex, -1);
     });
+  });
+
+  // ───────────────────────────────────────────────────────────────
+  // _statusToStepIndex — via LoadOrderIntent
+  // ───────────────────────────────────────────────────────────────
+  group('TrackOrderCubit — _statusToStepIndex', () {
+    /// Builds a cubit stubbed to return an order with [status].
+    TrackOrderCubit _buildCubit(String status) {
+      when(
+        () => mockGetOrderUseCase.execute(any()),
+      ).thenAnswer((_) async => SuccessApiResult(data: _fakeOrder(status)));
+      return TrackOrderCubit(mockGetOrderUseCase, mockGetDriverUseCase);
+    }
+
+    blocTest<TrackOrderCubit, TrackOrderState>(
+      'status "pending" → step 0 (Received) is active',
+      build: () => _buildCubit('pending'),
+      act: (c) => c.doIntent(LoadOrderIntent('id')),
+      // The cubit emits 4 states; skip the first 3 intermediate ones
+      // and only assert the final settled state.
+      skip: 3,
+      expect: () => [
+        isA<TrackOrderState>()
+            .having((s) => s.isLoading, 'loading', false)
+            .having((s) => s.steps[0].isActive, 'step0 active', true)
+            .having((s) => s.steps[1].isActive, 'step1 active', false),
+      ],
+    );
+
+    blocTest<TrackOrderCubit, TrackOrderState>(
+      'status "preparing" → step 1 (Preparing) is active',
+      build: () => _buildCubit('preparing'),
+      act: (c) => c.doIntent(LoadOrderIntent('id')),
+      skip: 3,
+      expect: () => [
+        isA<TrackOrderState>()
+            .having((s) => s.isLoading, 'loading', false)
+            .having((s) => s.steps[0].isDone, 'step0 done', true)
+            .having((s) => s.steps[1].isActive, 'step1 active', true)
+            .having((s) => s.steps[2].isActive, 'step2 active', false),
+      ],
+    );
+
+    blocTest<TrackOrderCubit, TrackOrderState>(
+      'status "out_for_delivery" → step 2 (Out for delivery) is active',
+      build: () => _buildCubit('out_for_delivery'),
+      act: (c) => c.doIntent(LoadOrderIntent('id')),
+      skip: 3,
+      expect: () => [
+        isA<TrackOrderState>()
+            .having((s) => s.isLoading, 'loading', false)
+            .having((s) => s.steps[0].isDone, 'step0 done', true)
+            .having((s) => s.steps[1].isDone, 'step1 done', true)
+            .having((s) => s.steps[2].isActive, 'step2 active', true)
+            .having((s) => s.steps[3].isActive, 'step3 active', false),
+      ],
+    );
+
+    blocTest<TrackOrderCubit, TrackOrderState>(
+      'status "delivered" → step 3 (Delivered) is active',
+      build: () => _buildCubit('delivered'),
+      act: (c) => c.doIntent(LoadOrderIntent('id')),
+      skip: 3,
+      expect: () => [
+        isA<TrackOrderState>()
+            .having((s) => s.isLoading, 'loading', false)
+            .having((s) => s.steps[0].isDone, 'step0 done', true)
+            .having((s) => s.steps[1].isDone, 'step1 done', true)
+            .having((s) => s.steps[2].isDone, 'step2 done', true)
+            .having((s) => s.steps[3].isActive, 'step3 active', true),
+      ],
+    );
+
+    blocTest<TrackOrderCubit, TrackOrderState>(
+      'unknown status fallback → step 0 active',
+      build: () => _buildCubit('unknown_status'),
+      act: (c) => c.doIntent(LoadOrderIntent('id')),
+      skip: 3,
+      expect: () => [
+        isA<TrackOrderState>()
+            .having((s) => s.isLoading, 'loading', false)
+            .having((s) => s.steps[0].isActive, 'step0 active', true),
+      ],
+    );
   });
 }

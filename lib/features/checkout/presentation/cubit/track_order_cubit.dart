@@ -86,11 +86,11 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
       switch (orderResult) {
         case SuccessApiResult(:final data):
           final order = data;
-          // Update state with order data
+          // Map order status → timeline step
+          _setCurrentStep(_statusToStepIndex(order.status));
           emit(
             state.copyWith(
               estimatedArrival: 'Today at 6:00 PM', // Fallback or dynamic
-              // Map order status to steps here if needed
             ),
           );
 
@@ -134,5 +134,28 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
     });
 
     emit(state.copyWith(steps: updated));
+  }
+
+  /// Maps a Firestore order status string to a [_setCurrentStep] index.
+  ///
+  /// | Firestore value     | Index | Active step           |
+  /// |---------------------|-------|-----------------------|
+  /// | `pending`           |  0    | Received your order   |
+  /// | `preparing`         |  1    | Preparing your order  |
+  /// | `out_for_delivery`  |  2    | Out for delivery      |
+  /// | `delivered`         |  3    | Delivered             |
+  int _statusToStepIndex(String status) {
+    switch (status.toLowerCase().trim()) {
+      case 'accepted':
+        return 0;
+      case 'pending':
+        return 1;
+      case 'out_for_delivery':
+        return 2;
+      case 'delivered':
+        return 3;
+      default:
+        return 0;
+    }
   }
 }
