@@ -11,7 +11,7 @@ import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/checkout/data/models/response/cash_order_response.dart';
 
-import 'checkout_data_source_imp_test.mocks.dart';
+import 'checkout_data_source_imp_test.mocks.dart' hide MockFirebaseFirestore;
 import '../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart'
     show MockFirebaseFirestore;
 

@@ -284,23 +284,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i974.GetUserAddresses>(
       () => _i974.GetUserAddresses(addressRepo: gh<_i601.AddressRepo>()),
     );
-    gh.factory<_i1.UploadPhotoUseCase>(
-      () => _i1.UploadPhotoUseCase(gh<_i485.EditprofileRepo>()),
-    );
     gh.factory<_i276.EditProfileUseCase>(
       () => _i276.EditProfileUseCase(gh<_i485.EditprofileRepo>()),
     );
+    gh.factory<_i1.UploadPhotoUseCase>(
+      () => _i1.UploadPhotoUseCase(gh<_i485.EditprofileRepo>()),
+    );
     gh.factory<_i534.GetBestSellerUseCase>(
       () => _i534.GetBestSellerUseCase(gh<_i520.HomeRepo>()),
+    );
+    gh.factory<_i576.GetCategoriesUseCase>(
+      () => _i576.GetCategoriesUseCase(gh<_i520.HomeRepo>()),
     );
     gh.factory<_i386.GetOccasionsUseCase>(
       () => _i386.GetOccasionsUseCase(gh<_i520.HomeRepo>()),
     );
     gh.factory<_i498.GetProductsUseCase>(
       () => _i498.GetProductsUseCase(gh<_i520.HomeRepo>()),
-    );
-    gh.factory<_i576.GetCategoriesUseCase>(
-      () => _i576.GetCategoriesUseCase(gh<_i520.HomeRepo>()),
     );
     gh.factory<_i712.AuthRepo>(
       () => _i866.AuthRepoImp(gh<_i708.AuthRemoteDataSource>()),
@@ -319,9 +319,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i386.GetOccasionsUseCase>(),
       ),
     );
-    gh.lazySingleton<_i35.GetNotificationsUseCase>(
-      () => _i35.GetNotificationsUseCase(gh<_i136.NotificationRepoContract>()),
-    );
     gh.lazySingleton<_i796.ClearAllNotificationsUseCase>(
       () => _i796.ClearAllNotificationsUseCase(
         gh<_i136.NotificationRepoContract>(),
@@ -330,6 +327,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i33.DeleteNotificationUseCase>(
       () =>
           _i33.DeleteNotificationUseCase(gh<_i136.NotificationRepoContract>()),
+    );
+    gh.lazySingleton<_i35.GetNotificationsUseCase>(
+      () => _i35.GetNotificationsUseCase(gh<_i136.NotificationRepoContract>()),
     );
     gh.factory<_i861.DeleteUserAddress>(
       () => _i861.DeleteUserAddress(gh<_i601.AddressRepo>()),
@@ -349,35 +349,35 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i603.AuthStorage>(),
       ),
     );
-    gh.factory<_i444.GetUserCartsUsecase>(
-      () => _i444.GetUserCartsUsecase(gh<_i867.OrdersRepo>()),
-    );
-    gh.factory<_i323.UpdateCartItemQuantityUsecase>(
-      () => _i323.UpdateCartItemQuantityUsecase(gh<_i867.OrdersRepo>()),
+    gh.factory<_i622.AddProductToCartUsecase>(
+      () => _i622.AddProductToCartUsecase(gh<_i867.OrdersRepo>()),
     );
     gh.factory<_i153.DeleteCartItemUsecase>(
       () => _i153.DeleteCartItemUsecase(gh<_i867.OrdersRepo>()),
     );
+    gh.factory<_i444.GetUserCartsUsecase>(
+      () => _i444.GetUserCartsUsecase(gh<_i867.OrdersRepo>()),
+    );
     gh.factory<_i985.PaymentUsecase>(
       () => _i985.PaymentUsecase(gh<_i867.OrdersRepo>()),
     );
-    gh.factory<_i622.AddProductToCartUsecase>(
-      () => _i622.AddProductToCartUsecase(gh<_i867.OrdersRepo>()),
-    );
-    gh.lazySingleton<_i280.ChangePasswordUseCase>(
-      () => _i280.ChangePasswordUseCase(gh<_i712.AuthRepo>()),
+    gh.factory<_i323.UpdateCartItemQuantityUsecase>(
+      () => _i323.UpdateCartItemQuantityUsecase(gh<_i867.OrdersRepo>()),
     );
     gh.lazySingleton<_i991.ChangePasswordUseCase>(
       () => _i991.ChangePasswordUseCase(gh<_i712.AuthRepo>()),
     );
+    gh.lazySingleton<_i280.ChangePasswordUseCase>(
+      () => _i280.ChangePasswordUseCase(gh<_i712.AuthRepo>()),
+    );
     gh.factory<_i878.ForgotPasswordUseCase>(
       () => _i878.ForgotPasswordUseCase(gh<_i712.AuthRepo>()),
     );
-    gh.factory<_i967.VerifyResetCodeUseCase>(
-      () => _i967.VerifyResetCodeUseCase(gh<_i712.AuthRepo>()),
-    );
     gh.factory<_i638.UpsertUserProfileUseCase>(
       () => _i638.UpsertUserProfileUseCase(gh<_i712.AuthRepo>()),
+    );
+    gh.factory<_i967.VerifyResetCodeUseCase>(
+      () => _i967.VerifyResetCodeUseCase(gh<_i712.AuthRepo>()),
     );
     gh.factory<_i866.ProfileRepo>(
       () => _i562.ProfileRepoImpl(
@@ -424,17 +424,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i27.LogoutUsecase>(
       () => _i27.LogoutUsecase(gh<_i712.AuthRepo>()),
     );
-    gh.factory<_i137.GetTermsSectionUsecase>(
-      () => _i137.GetTermsSectionUsecase(gh<_i866.ProfileRepo>()),
-    );
     gh.factory<_i169.GetAboutSectionUsecase>(
       () => _i169.GetAboutSectionUsecase(gh<_i866.ProfileRepo>()),
     );
-    gh.factory<_i745.GetOrderUseCase>(
-      () => _i745.GetOrderUseCase(gh<_i14.CheckoutRepo>()),
+    gh.factory<_i137.GetTermsSectionUsecase>(
+      () => _i137.GetTermsSectionUsecase(gh<_i866.ProfileRepo>()),
     );
     gh.factory<_i147.GetDriverUseCase>(
       () => _i147.GetDriverUseCase(gh<_i14.CheckoutRepo>()),
+    );
+    gh.factory<_i745.GetOrderUseCase>(
+      () => _i745.GetOrderUseCase(gh<_i14.CheckoutRepo>()),
     );
     gh.factoryParam<_i50.ProductDetailsCubit, String, dynamic>(
       (productId, _) => _i50.ProductDetailsCubit(

@@ -163,6 +163,6 @@ class AuthRepoImp implements AuthRepo {
 
   @override
   Future<void> upsertUserProfile(UserProfileModel model) {
-return authDatasource.upsertUserProfile(model);
+    return authDatasource.upsertUserProfile(model);
   }
 }
