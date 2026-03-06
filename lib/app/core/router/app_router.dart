@@ -262,15 +262,11 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-    // GoRoute(
-    //   path: RouteNames.trackOrderMap,
-    //   builder: (context, state) {
-    //     final data = state.extra as Map<String, dynamic>;
-    //     return TrackOrderMapScreen(
-    //       orderId: data["orderId"],
-    //       driverId: data["driverId"],
-    //     );
-    //   },
-    // ),
+    GoRoute(
+      path: RouteNames.trackOrderMap,
+      builder: (context, state) {
+        return TrackOrderMapScreen();
+      },
+    ),
   ],
 );

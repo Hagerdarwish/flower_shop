@@ -51,4 +51,20 @@ class CheckoutDataSourceImp extends CheckoutDataSource {
       return null;
     }
   }
+
+  @override
+  Stream<DriverModel?> getDriverStream(String driverId) {
+    try {
+      return firestore.collection('drivers').doc(driverId).snapshots().map((
+        doc,
+      ) {
+        if (doc.exists) {
+          return DriverModel.fromFirestore(doc);
+        }
+        return null;
+      });
+    } catch (e) {
+      return const Stream.empty();
+    }
+  }
 }

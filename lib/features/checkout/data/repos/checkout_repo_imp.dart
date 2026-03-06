@@ -68,4 +68,12 @@ class CheckoutRepoImpl implements CheckoutRepo {
       return ErrorApiResult(error: e.toString());
     }
   }
+
+  @override
+  @override
+  Stream<Driver?> getDriverStream(String driverId) {
+    return checkoutDataSource
+        .getDriverStream(driverId)
+        .map((driverModel) => driverModel?.toDomain());
+  }
 }

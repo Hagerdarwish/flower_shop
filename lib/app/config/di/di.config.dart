@@ -76,6 +76,8 @@ import '../../../features/checkout/data/repos/checkout_repo_imp.dart' as _i178;
 import '../../../features/checkout/domain/repos/checkout_repo.dart' as _i14;
 import '../../../features/checkout/domain/usecases/get_addresss_usecase.dart'
     as _i872;
+import '../../../features/checkout/domain/usecases/get_driver_stream_Ussecase.dart'
+    as _i1006;
 import '../../../features/checkout/domain/usecases/get_driver_usecase.dart'
     as _i147;
 import '../../../features/checkout/domain/usecases/get_order_usecase.dart'
@@ -417,6 +419,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i603.AuthStorage>(),
       ),
     );
+    gh.factory<_i1006.GetDriverStreamUseCase>(
+      () => _i1006.GetDriverStreamUseCase(gh<_i14.CheckoutRepo>()),
+    );
     gh.factory<_i627.BestSellerCubit>(
       () => _i627.BestSellerCubit(gh<_i534.GetBestSellerUseCase>()),
     );
@@ -488,6 +493,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i631.AddAddressCubit>(
       () => _i631.AddAddressCubit(gh<_i279.AddAddressUsecase>()),
     );
+    gh.factory<_i418.TrackOrderMapCubit>(
+      () => _i418.TrackOrderMapCubit(
+        gh<_i745.GetOrderUseCase>(),
+        gh<_i147.GetDriverUseCase>(),
+        gh<_i1006.GetDriverStreamUseCase>(),
+      ),
+    );
     gh.factory<_i682.HomeCubit>(() => _i682.HomeCubit(gh<_i94.HomeFactory>()));
     gh.factory<_i1023.LogoutCubit>(
       () =>
@@ -503,12 +515,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i259.AllCategoriesCubit(
         gh<_i710.AllCategoriesUsecase>(),
         gh<_i985.GetProductUsecase>(),
-      ),
-    );
-    gh.factory<_i418.TrackOrderMapCubit>(
-      () => _i418.TrackOrderMapCubit(
-        gh<_i745.GetOrderUseCase>(),
-        gh<_i147.GetDriverUseCase>(),
       ),
     );
     gh.factory<_i36.TrackOrderCubit>(

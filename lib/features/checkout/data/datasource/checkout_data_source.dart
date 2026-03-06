@@ -10,4 +10,5 @@ abstract class CheckoutDataSource {
   Future<ApiResult<AddressCheckOutResponse>?> getAddress(String token);
   Future<OrderModel?> getOrder(String orderId);
   Future<DriverModel?> getDriver(String driverId);
+  Stream<DriverModel?> getDriverStream(String driverId);
 }

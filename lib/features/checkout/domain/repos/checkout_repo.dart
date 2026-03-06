@@ -9,4 +9,5 @@ abstract class CheckoutRepo {
   Future<ApiResult<List<AddressModel>>> getAddress(String token);
   Future<ApiResult<OrderTracking>> getOrder(String orderId);
   Future<ApiResult<Driver>> getDriver(String driverId);
+  Stream<Driver?> getDriverStream(String driverId);
 }
