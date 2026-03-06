@@ -84,6 +84,8 @@ import '../../../features/checkout/domain/usecases/post_cashe_order_usecase.dart
     as _i524;
 import '../../../features/checkout/presentation/cubit/checkout_cubit.dart'
     as _i90;
+import '../../../features/checkout/presentation/cubit/order_tracking_map/track_order_map_cubit.dart'
+    as _i418;
 import '../../../features/checkout/presentation/cubit/track_order_cubit.dart'
     as _i36;
 import '../../../features/e_commerce/data/datasource/ecommerce_remote_datasource.dart'
@@ -501,6 +503,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i259.AllCategoriesCubit(
         gh<_i710.AllCategoriesUsecase>(),
         gh<_i985.GetProductUsecase>(),
+      ),
+    );
+    gh.factory<_i418.TrackOrderMapCubit>(
+      () => _i418.TrackOrderMapCubit(
+        gh<_i745.GetOrderUseCase>(),
+        gh<_i147.GetDriverUseCase>(),
       ),
     );
     gh.factory<_i36.TrackOrderCubit>(

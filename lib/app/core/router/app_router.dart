@@ -7,6 +7,7 @@ import 'package:flower_shop/features/auth/presentation/login/pages/login_page.da
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/pages/best_sell_screen.dart';
 import 'package:flower_shop/features/checkout/presentation/screens/checkout_success_screen.dart';
+import 'package:flower_shop/features/checkout/presentation/screens/track_order_map_screen.dart';
 import 'package:flower_shop/features/checkout/presentation/screens/track_order_screen.dart';
 import 'package:flower_shop/features/e_commerce/presentation/search/pages/search_page.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_cubit.dart';
@@ -47,7 +48,7 @@ import '../../../features/notifications/presentation/pages/notification_page.dar
 import '../../config/di/di.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouteNames.appStart, //  start here
+  initialLocation: RouteNames.trackOrderMap, // change here
   redirect: (context, state) {
     if (state.uri.toString().startsWith('flower://')) {
       return RouteNames.home;
@@ -260,5 +261,16 @@ final GoRouter appRouter = GoRouter(
         return CheckoutSuccessScreen(orderId: orderId);
       },
     ),
+
+    // GoRoute(
+    //   path: RouteNames.trackOrderMap,
+    //   builder: (context, state) {
+    //     final data = state.extra as Map<String, dynamic>;
+    //     return TrackOrderMapScreen(
+    //       orderId: data["orderId"],
+    //       driverId: data["driverId"],
+    //     );
+    //   },
+    // ),
   ],
 );
