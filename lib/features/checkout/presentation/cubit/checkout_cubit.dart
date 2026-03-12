@@ -134,7 +134,16 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   }
 
   Future<void> _postCreditOrder() async {
-    // TODO: integrate credit card API
+    emit(state.copyWith(isLoading: true, error: null));
+
+    final token = await _authStorage.getToken();
+    if (token == null) {
+      emit(state.copyWith(isLoading: false, error: 'Token not found'));
+      return;
+    }
+
+
+
   }
 
   void _placeOrder() {

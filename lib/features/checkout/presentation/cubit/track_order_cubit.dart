@@ -110,7 +110,7 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
             }
 
             // Map status → step and update arrival
-            _setCurrentStep(_statusToStepIndex(order.status));
+            _setCurrentStep(_statusToStepIndex(order.orderData.status));
             final formattedDate = DateFormat(
               'dd MMM yyyy, hh:mm a',
             ).format(order.updatedAt);

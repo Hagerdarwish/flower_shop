@@ -93,7 +93,7 @@ class TrackOrderScreen extends StatelessWidget {
                             _EstimatedArrivalSection(
                               dateText: state.estimatedArrival,
                             ),
-                          
+
 
                           if (state.activeStepIndex >= 1) ...[
                             _DriverCard(
