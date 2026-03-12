@@ -82,6 +82,10 @@ import '../../../features/checkout/domain/usecases/get_order_usecase.dart'
     as _i745;
 import '../../../features/checkout/domain/usecases/post_cashe_order_usecase.dart'
     as _i524;
+import '../../../features/checkout/domain/usecases/seed_order_tracking_usecase.dart'
+    as _i953;
+import '../../../features/checkout/domain/usecases/watch_order_usecase.dart'
+    as _i126;
 import '../../../features/checkout/presentation/cubit/checkout_cubit.dart'
     as _i90;
 import '../../../features/checkout/presentation/cubit/track_order_cubit.dart'
@@ -415,6 +419,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i603.AuthStorage>(),
       ),
     );
+    gh.factory<_i953.SeedOrderTrackingUseCase>(
+      () => _i953.SeedOrderTrackingUseCase(gh<_i14.CheckoutRepo>()),
+    );
     gh.factory<_i627.BestSellerCubit>(
       () => _i627.BestSellerCubit(gh<_i534.GetBestSellerUseCase>()),
     );
@@ -436,6 +443,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i147.GetDriverUseCase>(
       () => _i147.GetDriverUseCase(gh<_i14.CheckoutRepo>()),
     );
+    gh.factory<_i126.WatchOrderUseCase>(
+      () => _i126.WatchOrderUseCase(gh<_i14.CheckoutRepo>()),
+    );
     gh.factoryParam<_i50.ProductDetailsCubit, String, dynamic>(
       (productId, _) => _i50.ProductDetailsCubit(
         gh<_i129.GetProductDetailsUseCase>(),
@@ -455,6 +465,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i115.ChangePasswordCubit>(
       () => _i115.ChangePasswordCubit(gh<_i991.ChangePasswordUseCase>()),
     );
+    gh.factory<_i90.CheckoutCubit>(
+      () => _i90.CheckoutCubit(
+        gh<_i524.PostCasheOrderUsecase>(),
+        gh<_i872.GetAddressUsecase>(),
+        gh<_i603.AuthStorage>(),
+        gh<_i953.SeedOrderTrackingUseCase>(),
+      ),
+    );
     gh.factory<_i0.NotificationsCubit>(
       () => _i0.NotificationsCubit(
         gh<_i35.GetNotificationsUseCase>(),
@@ -464,13 +482,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i392.AuthCubit>(
       () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
-    );
-    gh.factory<_i90.CheckoutCubit>(
-      () => _i90.CheckoutCubit(
-        gh<_i524.PostCasheOrderUsecase>(),
-        gh<_i872.GetAddressUsecase>(),
-        gh<_i603.AuthStorage>(),
-      ),
     );
     gh.factory<_i909.GetOrdersUsecases>(
       () => _i909.GetOrdersUsecases(gh<_i866.ProfileRepo>()),
@@ -503,12 +514,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i985.GetProductUsecase>(),
       ),
     );
-    gh.factory<_i36.TrackOrderCubit>(
-      () => _i36.TrackOrderCubit(
-        gh<_i745.GetOrderUseCase>(),
-        gh<_i147.GetDriverUseCase>(),
-      ),
-    );
     gh.factory<_i25.OccasionCubit>(
       () => _i25.OccasionCubit(gh<_i985.GetProductUsecase>()),
     );
@@ -518,6 +523,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i892.FirebaseMessaging>(),
         gh<_i75.LoginUseCase>(),
         gh<_i603.AuthStorage>(),
+      ),
+    );
+    gh.factory<_i36.TrackOrderCubit>(
+      () => _i36.TrackOrderCubit(
+        gh<_i126.WatchOrderUseCase>(),
+        gh<_i147.GetDriverUseCase>(),
       ),
     );
     gh.factory<_i973.OrderCubit>(

@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/checkout/domain/usecases/get_driver_usecase.dart';
-import 'package:flower_shop/features/checkout/domain/usecases/get_order_usecase.dart';
+import 'package:flower_shop/features/checkout/domain/usecases/watch_order_usecase.dart';
 import 'package:flower_shop/features/checkout/domain/models/track_step.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/track_order_intents.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/track_order_state.dart';
@@ -9,10 +11,12 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class TrackOrderCubit extends Cubit<TrackOrderState> {
-  final GetOrderUseCase _getOrderUseCase;
+  final WatchOrderUseCase _watchOrderUseCase;
   final GetDriverUseCase _getDriverUseCase;
 
-  TrackOrderCubit(this._getOrderUseCase, this._getDriverUseCase)
+  StreamSubscription? _orderSubscription;
+
+  TrackOrderCubit(this._watchOrderUseCase, this._getDriverUseCase)
     : super(_initial());
 
   // ---------------------------------------------------------------------------
@@ -20,34 +24,46 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
   // ---------------------------------------------------------------------------
   static TrackOrderState _initial() {
     return const TrackOrderState(
-      isLoading: false,
-      estimatedArrival: '03 Sep 2024, 11:00 AM',
-      driverName: 'Muhamed',
+      isLoading: true,
+      estimatedArrival: '',
+      driverName: '',
       driverSubtitle: 'Is your delivery hero for today',
-      driverPhone: '+201000000000',
-      driverWhatsapp: '+201000000000',
+      driverPhone: '',
+      driverWhatsapp: '',
       steps: [
         TrackStep(
-          title: 'Received your order',
-          subtitle: '03 Sep 2024 - 2:10',
-          isDone: true,
-          isActive: true,
+          title: 'Wait for driver',
+          subtitle: '',
+          isDone: false,
+          isActive: false,
         ),
         TrackStep(
-          title: 'Preparing your order',
-          subtitle: '03 Sep 2024 - 2:10',
+          title: 'Confirmed',
+          subtitle: '',
+          isDone: false,
+          isActive: false,
+        ),
+        TrackStep(
+          title: 'Picked up',
+          subtitle: '',
           isDone: false,
           isActive: false,
         ),
         TrackStep(
           title: 'Out for delivery',
-          subtitle: '03 Sep 2024 - 2:10',
+          subtitle: '',
+          isDone: false,
+          isActive: false,
+        ),
+        TrackStep(
+          title: 'Arrived',
+          subtitle: '',
           isDone: false,
           isActive: false,
         ),
         TrackStep(
           title: 'Delivered',
-          subtitle: '03 Sep 2024 - 2:10',
+          subtitle: '',
           isDone: false,
           isActive: false,
         ),
@@ -61,71 +77,71 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
   void doIntent(TrackOrderIntents intent) {
     switch (intent) {
       case LoadOrderIntent():
-        _loadOrder(intent.orderId);
-      case SetCurrentStepIntent():
-        _setCurrentStep(intent.stepIndex);
-      case MarkDeliveredIntent():
-        _setCurrentStep(state.steps.length - 1);
+        _subscribeToOrder(intent.orderId);
       case ShowMapIntent():
         // Navigation handled in the UI layer (listener)
         break;
     }
   }
 
+  Stream getOrderStream(String orderId) => _watchOrderUseCase.execute(orderId);
   // ---------------------------------------------------------------------------
   // Private methods
   // ---------------------------------------------------------------------------
 
-  /// Loads order data from the backend.
-  /// TODO: inject & call a real repository once the API is ready.
-  Future<void> _loadOrder(String orderId) async {
+  /// Subscribes to the real-time Firestore stream for this order.
+  /// Any document change automatically triggers a state rebuild.
+  void _subscribeToOrder(String orderId) {
+    _orderSubscription?.cancel();
     emit(state.copyWith(isLoading: true, errorMessage: null));
-    try {
-      final orderResult = await _getOrderUseCase.execute(orderId);
 
-      switch (orderResult) {
-        case SuccessApiResult(:final data):
-          final order = data;
-          // Map order status → timeline step
-          _setCurrentStep(_statusToStepIndex(order.status));
-          emit(
-            state.copyWith(
-              estimatedArrival: 'Today at 6:00 PM', // Fallback or dynamic
-            ),
-          );
-
-          // Fetch driver details if driverId is present
-          if (order.driverId.isNotEmpty) {
-            final driverResult = await _getDriverUseCase.execute(
-              order.driverId,
-            );
-            switch (driverResult) {
-              case SuccessApiResult(:final data):
-                final driver = data;
-                emit(
-                  state.copyWith(
-                    driverName: driver.name,
-                    driverPhone: driver.phone,
-                    driverWhatsapp: driver.phone,
-                    isLoading: false,
-                  ),
-                );
-              case ErrorApiResult(:final error):
-                emit(state.copyWith(isLoading: false, errorMessage: error));
+    _orderSubscription = _watchOrderUseCase
+        .execute(orderId)
+        .listen(
+          (order) async {
+            if (order == null) {
+              emit(
+                state.copyWith(
+                  isLoading: false,
+                  errorMessage: 'Order not found',
+                ),
+              );
+              return;
             }
-          } else {
-            emit(state.copyWith(isLoading: false));
-          }
-        case ErrorApiResult(:final error):
-          emit(state.copyWith(isLoading: false, errorMessage: error));
-      }
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, errorMessage: e.toString()));
-    }
+
+            // Map status → step and update arrival
+            _setCurrentStep(_statusToStepIndex(order.status));
+            final formattedDate = DateFormat(
+              'dd MMM yyyy, hh:mm a',
+            ).format(order.updatedAt);
+            emit(
+              state.copyWith(isLoading: false, estimatedArrival: formattedDate),
+            );
+
+            if (order.driverId.isNotEmpty) {
+              final driverResult = await _getDriverUseCase.execute(
+                order.driverId,
+              );
+              switch (driverResult) {
+                case SuccessApiResult(:final data):
+                  emit(
+                    state.copyWith(
+                      driverName: data.name,
+                      driverPhone: data.phone,
+                      driverWhatsapp: data.phone,
+                    ),
+                  );
+                case ErrorApiResult():
+                  break; // Keep previous driver info on error
+              }
+            }
+          },
+          onError: (e) {
+            emit(state.copyWith(isLoading: false, errorMessage: e.toString()));
+          },
+        );
   }
 
-  /// Advances the timeline: marks steps before [index] as done,
-  /// step at [index] as active, and steps after [index] as pending.
   void _setCurrentStep(int index) {
     if (index < 0 || index >= state.steps.length) return;
 
@@ -136,26 +152,28 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
     emit(state.copyWith(steps: updated));
   }
 
-  /// Maps a Firestore order status string to a [_setCurrentStep] index.
-  ///
-  /// | Firestore value     | Index | Active step           |
-  /// |---------------------|-------|-----------------------|
-  /// | `pending`           |  0    | Received your order   |
-  /// | `preparing`         |  1    | Preparing your order  |
-  /// | `out_for_delivery`  |  2    | Out for delivery      |
-  /// | `delivered`         |  3    | Delivered             |
   int _statusToStepIndex(String status) {
     switch (status.toLowerCase().trim()) {
-      case 'accepted':
+      case 'wait_for_driver':
         return 0;
       case 'pending':
         return 1;
-      case 'out_for_delivery':
+      case 'picked':
         return 2;
-      case 'delivered':
+      case 'out_for_delivery':
         return 3;
+      case 'arrived':
+        return 4;
+      case 'delivered':
+        return 5;
       default:
         return 0;
     }
+  }
+
+  @override
+  Future<void> close() {
+    _orderSubscription?.cancel();
+    return super.close();
   }
 }

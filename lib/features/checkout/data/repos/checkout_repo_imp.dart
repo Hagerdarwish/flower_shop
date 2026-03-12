@@ -68,4 +68,16 @@ class CheckoutRepoImpl implements CheckoutRepo {
       return ErrorApiResult(error: e.toString());
     }
   }
+
+  @override
+  Stream<OrderTracking?> watchOrder(String orderId) {
+    return checkoutDataSource
+        .watchOrder(orderId)
+        .map((model) => model?.toDomain());
+  }
+
+  @override
+  Future<void> seedOrderTracking(CashOrderModel order) async {
+    await checkoutDataSource.seedOrderTracking(order);
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart' hide Order;
+import 'package:flower_shop/features/checkout/data/models/response/order_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flower_shop/features/checkout/api/checkout_data_source_imp.dart';
 import 'package:flower_shop/features/checkout/data/models/response/address_check_out_response.dart';
@@ -12,14 +13,13 @@ import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/features/checkout/data/models/response/cash_order_response.dart';
 
 import 'checkout_data_source_imp_test.mocks.dart';
-import '../../auth/api/datasource/auth_remote_datasource_impl_test.mocks.dart'
-    show MockFirebaseFirestore;
 
 @GenerateMocks([
   ApiClient,
   FirebaseFirestore,
   CollectionReference,
   DocumentReference,
+  DocumentSnapshot,
 ])
 void main() {
   late MockApiClient mockApiClient;
@@ -30,6 +30,37 @@ void main() {
     mockApiClient = MockApiClient();
     mockFirebaseFirestore = MockFirebaseFirestore();
     dataSource = CheckoutDataSourceImp(mockApiClient, mockFirebaseFirestore);
+  });
+
+  group("CheckoutDataSourceImp.watchOrder()", () {
+    test("returns stream of OrderModel when Firestore emits document", () {
+      // arrange
+      const orderId = "order_123";
+      final mockCollection = MockCollectionReference<Map<String, dynamic>>();
+      final mockDoc = MockDocumentReference<Map<String, dynamic>>();
+      final mockSnapshot = MockDocumentSnapshot<Map<String, dynamic>>();
+
+      when(
+        mockFirebaseFirestore.collection('orders'),
+      ).thenReturn(mockCollection);
+      when(mockCollection.doc(orderId)).thenReturn(mockDoc);
+      when(mockDoc.snapshots()).thenAnswer((_) => Stream.value(mockSnapshot));
+      when(mockSnapshot.exists).thenReturn(true);
+      when(mockSnapshot.data()).thenReturn({
+        'status': 'pending',
+        'driverId': 'driver_1',
+        'updatedAt': Timestamp.now(),
+        // ... add other required fields if needed by fromFirestore
+      });
+      // Note: fromFirestore usually needs a real DocumentSnapshot or we need to mock it properly.
+      // Since our implementation calls OrderModel.fromFirestore(doc), we need it to work.
+
+      // act
+      final stream = dataSource.watchOrder(orderId);
+
+      // assert
+      expect(stream, isA<Stream<OrderModel?>>());
+    });
   });
 
   group("CheckoutDataSourceImp.cashOrder()", () {

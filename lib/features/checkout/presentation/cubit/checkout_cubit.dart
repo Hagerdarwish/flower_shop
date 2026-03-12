@@ -6,6 +6,7 @@ import 'package:flower_shop/features/checkout/domain/models/address_model.dart';
 import 'package:flower_shop/features/checkout/domain/models/cash_order_model.dart';
 import 'package:flower_shop/features/checkout/domain/usecases/get_addresss_usecase.dart';
 import 'package:flower_shop/features/checkout/domain/usecases/post_cashe_order_usecase.dart';
+import 'package:flower_shop/features/checkout/domain/usecases/seed_order_tracking_usecase.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_intents.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_state.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/payment_method.dart';
@@ -15,12 +16,14 @@ import 'package:injectable/injectable.dart';
 class CheckoutCubit extends Cubit<CheckoutState> {
   final GetAddressUsecase _getAddressUsecase;
   final PostCasheOrderUsecase _postOrderUsecase;
+  final SeedOrderTrackingUseCase _seedOrderTrackingUseCase;
   final AuthStorage _authStorage;
 
   CheckoutCubit(
     this._postOrderUsecase,
     this._getAddressUsecase,
     this._authStorage,
+    this._seedOrderTrackingUseCase,
   ) : super(CheckoutState());
 
   void doIntent(CheckoutIntents intent) {
@@ -109,6 +112,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
     switch (result) {
       case SuccessApiResult<CashOrderModel>():
+        await _seedOrderTrackingUseCase.execute(result.data);
         emit(
           state.copyWith(
             isLoading: false,

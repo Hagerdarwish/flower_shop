@@ -9,6 +9,7 @@ import 'package:flower_shop/features/checkout/domain/models/address_model.dart';
 import 'package:flower_shop/features/checkout/domain/models/cash_order_model.dart';
 import 'package:flower_shop/features/checkout/domain/usecases/get_addresss_usecase.dart';
 import 'package:flower_shop/features/checkout/domain/usecases/post_cashe_order_usecase.dart';
+import 'package:flower_shop/features/checkout/domain/usecases/seed_order_tracking_usecase.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_cubit.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_intents.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_state.dart';
@@ -37,11 +38,17 @@ ApiResult<CashOrderModel> dummyCashOrderResult =
       ),
     );
 
-@GenerateMocks([GetAddressUsecase, PostCasheOrderUsecase, AuthStorage])
+@GenerateMocks([
+  GetAddressUsecase,
+  PostCasheOrderUsecase,
+  AuthStorage,
+  SeedOrderTrackingUseCase,
+])
 void main() {
   late MockGetAddressUsecase mockGetAddressUsecase;
   late MockPostCasheOrderUsecase mockPostOrderUsecase;
   late MockAuthStorage mockAuthStorage;
+  late MockSeedOrderTrackingUseCase mockSeedOrderTrackingUseCase;
   late CheckoutCubit cubit;
 
   // Provide dummy values BEFORE setup
@@ -55,10 +62,13 @@ void main() {
     mockPostOrderUsecase = MockPostCasheOrderUsecase();
     mockAuthStorage = MockAuthStorage();
 
+    mockSeedOrderTrackingUseCase = MockSeedOrderTrackingUseCase();
+
     cubit = CheckoutCubit(
       mockPostOrderUsecase,
       mockGetAddressUsecase,
       mockAuthStorage,
+      mockSeedOrderTrackingUseCase,
     );
   });
 
@@ -138,6 +148,9 @@ void main() {
       'emits loading then success when cash order succeeds',
       build: () {
         when(mockAuthStorage.getToken()).thenAnswer((_) async => 'token');
+        when(
+          mockSeedOrderTrackingUseCase.execute(any),
+        ).thenAnswer((_) async {});
 
         when(mockPostOrderUsecase('Bearer token')).thenAnswer(
           (_) async => SuccessApiResult(
@@ -214,6 +227,9 @@ void main() {
       'triggers cash order when payment method is cash',
       build: () {
         when(mockAuthStorage.getToken()).thenAnswer((_) async => 'token');
+        when(
+          mockSeedOrderTrackingUseCase.execute(any),
+        ).thenAnswer((_) async {});
 
         when(mockPostOrderUsecase('Bearer token')).thenAnswer(
           (_) async => SuccessApiResult(

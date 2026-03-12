@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Order;
 import 'package:flower_shop/app/core/api_manger/api_client.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
 import 'package:flower_shop/app/core/network/safe_api_call.dart';
@@ -7,7 +7,8 @@ import 'package:flower_shop/features/checkout/data/models/response/address_check
 import 'package:flower_shop/features/checkout/data/models/response/cash_order_response.dart';
 import 'package:flower_shop/features/checkout/data/models/response/driver_model.dart';
 import 'package:flower_shop/features/checkout/data/models/response/order_model.dart';
-import 'package:injectable/injectable.dart';
+import 'package:flower_shop/features/checkout/domain/models/cash_order_model.dart';
+import 'package:injectable/injectable.dart' hide Order;
 
 @Injectable(as: CheckoutDataSource)
 class CheckoutDataSourceImp extends CheckoutDataSource {
@@ -49,6 +50,44 @@ class CheckoutDataSourceImp extends CheckoutDataSource {
       return null;
     } catch (e) {
       return null;
+    }
+  }
+
+  @override
+  Stream<OrderModel?> watchOrder(String orderId) {
+    return firestore
+        .collection('orders')
+        .doc(orderId)
+        .snapshots()
+        .map((doc) => doc.exists ? OrderModel.fromFirestore(doc) : null);
+  }
+
+  @override
+  Future<void> seedOrderTracking(CashOrderModel order) async {
+    try {
+      await firestore.collection('orders').doc(order.id).set({
+        'driver_id': '',
+        'updated_at': FieldValue.serverTimestamp(),
+        'user_id': order.userId,
+        'oder_dt': {
+          'orderId': order.id,
+          'totalPrice': order.totalPrice,
+          'status': 'wait_for_driver',
+          'items': order.items
+              .map(
+                (item) => {
+                  'title': item.product.title,
+                  'quantity': item.quantity,
+                  'price': item.price,
+                  'productId': item.product.id,
+                  'image': item.product.imgCover,
+                },
+              )
+              .toList(),
+        },
+      });
+    } catch (e) {
+      // Fail silently for seeding as it's an optimization
     }
   }
 }

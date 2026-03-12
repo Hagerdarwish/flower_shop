@@ -5,6 +5,8 @@ import 'package:flower_shop/features/checkout/presentation/cubit/track_order_cub
 import 'package:flower_shop/features/checkout/presentation/cubit/track_order_intents.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/track_order_state.dart';
 import 'package:flower_shop/app/config/di/di.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TrackOrderScreen extends StatelessWidget {
   final String orderId;
@@ -13,7 +15,6 @@ class TrackOrderScreen extends StatelessWidget {
   static const _primary = Color(0xFFD81B60);
   static const _textDark = Color(0xFF111827);
   static const _textMuted = Color(0xFF6B7280);
-  static const _borderColor = Color(0xFFE5E7EB);
   static const _bgGrey = Color(0xFFF5F5F5);
 
   @override
@@ -89,20 +90,20 @@ class TrackOrderScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _EstimatedArrivalSection(
-                            dateText: state.estimatedArrival,
-                          ),
-                          const Divider(
-                            height: 24,
-                            thickness: 1,
-                            color: _borderColor,
-                          ),
-                          _DriverCard(
-                            name: state.driverName,
-                            subtitle: state.driverSubtitle,
-                            onCall: () {},
-                            onWhatsapp: () {},
-                          ),
+                            _EstimatedArrivalSection(
+                              dateText: state.estimatedArrival,
+                            ),
+                          
+
+                          if (state.activeStepIndex >= 1) ...[
+                            _DriverCard(
+                              name: state.driverName,
+                              subtitle: state.driverSubtitle,
+                              onCall: () => _launchCaller(state.driverPhone),
+                              onWhatsapp: () =>
+                                  _launchWhatsapp(state.driverWhatsapp),
+                            ),
+                          ],
                           const SizedBox(height: 20),
                           _CarIllustration(),
                           const SizedBox(height: 20),
@@ -123,6 +124,27 @@ class TrackOrderScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _launchCaller(String phone) async {
+    final cleanPhone = phone.replaceAll(RegExp(r'\s+'), '');
+    final Uri url = Uri(scheme: 'tel', path: cleanPhone);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      debugPrint('Could not launch caller for: $cleanPhone');
+    }
+  }
+
+  void _launchWhatsapp(String phone) async {
+    final cleanPhone = phone.replaceAll(RegExp(r'\s+'), '');
+    final String url = "https://wa.me/$cleanPhone";
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      debugPrint('Could not launch WhatsApp for: $cleanPhone');
+    }
   }
 }
 
@@ -230,17 +252,18 @@ class _DriverCard extends StatelessWidget {
           ),
         ),
         // Action icons
-        _ContactIcon(icon: Icons.phone, onTap: onCall),
+        _ContactIcon(onTap: onCall, iconPath: 'assets/images/call_icon.svg'),
         const SizedBox(width: 10),
-        _ContactIcon(icon: Icons.chat, onTap: onWhatsapp),
+        _ContactIcon(onTap: onWhatsapp, iconPath: 'assets/images/whatsapp.svg'),
       ],
     );
   }
 }
 
 class _ContactIcon extends StatelessWidget {
-  const _ContactIcon({required this.icon, required this.onTap});
-  final IconData icon;
+  const _ContactIcon({required this.iconPath, required this.onTap});
+
+  final String iconPath;
   final VoidCallback onTap;
 
   @override
@@ -248,19 +271,13 @@ class _ContactIcon extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(50),
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: TrackOrderScreen._primary.withValues(alpha: 0.10),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(icon, color: TrackOrderScreen._primary, size: 20),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(child: SvgPicture.asset(iconPath, width: 20, height: 20)),
       ),
     );
   }
 }
-
 // ─────────────────────────────────────────────────────────────────────────────
 // Car Illustration
 // ─────────────────────────────────────────────────────────────────────────────
@@ -269,8 +286,8 @@ class _CarIllustration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Image.asset(
-        'assets/images/car.png',
+      child: SvgPicture.asset(
+        'assets/images/car.svg',
         height: 130,
         fit: BoxFit.contain,
         errorBuilder: (context, error, stackTrace) => Icon(

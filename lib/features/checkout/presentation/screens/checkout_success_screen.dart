@@ -95,7 +95,7 @@ class CheckoutSuccessScreen extends StatelessWidget {
                   onPressed: () {
                     context.pushReplacement(
                       RouteNames.trackOrderScreen,
-                      extra: "696aa6e1e364ef614046e12f",
+                      extra: orderId,
                     );
                   },
                   style: ElevatedButton.styleFrom(

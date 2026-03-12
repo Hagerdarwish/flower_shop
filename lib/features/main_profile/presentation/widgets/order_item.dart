@@ -2,6 +2,9 @@ import 'package:flower_shop/app/core/ui_helper/color/colors.dart';
 import 'package:flower_shop/features/main_profile/data/models/response/orders_response.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../app/core/router/route_names.dart';
 
 class CustomOrderItem extends StatelessWidget {
   final Order order;
@@ -87,9 +90,12 @@ class CustomOrderItem extends StatelessWidget {
                   width: double.infinity,
                   height: screenWidth * 0.1,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Handle track order
-                    },
+                      onPressed: () {
+                        context.pushReplacement(
+                          RouteNames.trackOrderScreen,
+                          extra: order.id,
+                        );
+                      },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.pink,
                       shape: const StadiumBorder(),
