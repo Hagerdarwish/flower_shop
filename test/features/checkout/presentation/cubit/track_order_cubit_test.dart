@@ -175,6 +175,7 @@ void main() {
         steps: [
           TrackStep(title: 'A', subtitle: '', isDone: false, isActive: false),
         ],
+        driverId: '',
       );
       expect(state.activeStepIndex, -1);
     });
