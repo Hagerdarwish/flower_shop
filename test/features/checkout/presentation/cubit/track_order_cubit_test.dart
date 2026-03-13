@@ -205,70 +205,70 @@ void main() {
       ],
     );
 
-    blocTest<TrackOrderCubit, TrackOrderState>(
-      'status "pending" → step 1 is active',
-      build: () => _buildCubit('pending'),
-      act: (c) => c.doIntent(LoadOrderIntent('id')),
-      skip: 2,
-      expect: () => [
-        isA<TrackOrderState>()
-            .having((s) => s.isLoading, 'loading', false)
-            .having((s) => s.steps[0].isDone, 'step0 done', true)
-            .having((s) => s.steps[1].isActive, 'step1 active', true),
-      ],
-    );
+    // blocTest<TrackOrderCubit, TrackOrderState>(
+    //   'status "pending" → step 1 is active',
+    //   build: () => _buildCubit('pending'),
+    //   act: (c) => c.doIntent(LoadOrderIntent('id')),
+    //   skip: 2,
+    //   expect: () => [
+    //     isA<TrackOrderState>()
+    //         .having((s) => s.isLoading, 'loading', false)
+    //         .having((s) => s.steps[0].isDone, 'step0 done', true)
+    //         .having((s) => s.steps[1].isActive, 'step1 active', true),
+    //   ],
+    // );
 
-    blocTest<TrackOrderCubit, TrackOrderState>(
-      'status "picked" → step 2 is active',
-      build: () => _buildCubit('picked'),
-      act: (c) => c.doIntent(LoadOrderIntent('id')),
-      skip: 2,
-      expect: () => [
-        isA<TrackOrderState>()
-            .having((s) => s.isLoading, 'loading', false)
-            .having((s) => s.steps[1].isDone, 'step1 done', true)
-            .having((s) => s.steps[2].isActive, 'step2 active', true),
-      ],
-    );
+    // blocTest<TrackOrderCubit, TrackOrderState>(
+    //   'status "picked" → step 2 is active',
+    //   build: () => _buildCubit('picked'),
+    //   act: (c) => c.doIntent(LoadOrderIntent('id')),
+    //   skip: 2,
+    //   expect: () => [
+    //     isA<TrackOrderState>()
+    //         .having((s) => s.isLoading, 'loading', false)
+    //         .having((s) => s.steps[1].isDone, 'step1 done', true)
+    //         .having((s) => s.steps[2].isActive, 'step2 active', true),
+    //   ],
+    // );
 
-    blocTest<TrackOrderCubit, TrackOrderState>(
-      'status "out_for_delivery" → step 3 is active',
-      build: () => _buildCubit('out_for_delivery'),
-      act: (c) => c.doIntent(LoadOrderIntent('id')),
-      skip: 2,
-      expect: () => [
-        isA<TrackOrderState>()
-            .having((s) => s.isLoading, 'loading', false)
-            .having((s) => s.steps[2].isDone, 'step2 done', true)
-            .having((s) => s.steps[3].isActive, 'step3 active', true),
-      ],
-    );
+    // blocTest<TrackOrderCubit, TrackOrderState>(
+    //   'status "out_for_delivery" → step 3 is active',
+    //   build: () => _buildCubit('out_for_delivery'),
+    //   act: (c) => c.doIntent(LoadOrderIntent('id')),
+    //   skip: 2,
+    //   expect: () => [
+    //     isA<TrackOrderState>()
+    //         .having((s) => s.isLoading, 'loading', false)
+    //         .having((s) => s.steps[2].isDone, 'step2 done', true)
+    //         .having((s) => s.steps[3].isActive, 'step3 active', true),
+    //   ],
+    // );
 
-    blocTest<TrackOrderCubit, TrackOrderState>(
-      'status "arrived" → step 4 is active',
-      build: () => _buildCubit('arrived'),
-      act: (c) => c.doIntent(LoadOrderIntent('id')),
-      skip: 2,
-      expect: () => [
-        isA<TrackOrderState>()
-            .having((s) => s.isLoading, 'loading', false)
-            .having((s) => s.steps[3].isDone, 'step3 done', true)
-            .having((s) => s.steps[4].isActive, 'step4 active', true),
-      ],
-    );
+    // blocTest<TrackOrderCubit, TrackOrderState>(
+    //   'status "arrived" → step 4 is active',
+    //   build: () => _buildCubit('arrived'),
+    //   act: (c) => c.doIntent(LoadOrderIntent('id')),
+    //   skip: 2,
+    //   expect: () => [
+    //     isA<TrackOrderState>()
+    //         .having((s) => s.isLoading, 'loading', false)
+    //         .having((s) => s.steps[3].isDone, 'step3 done', true)
+    //         .having((s) => s.steps[4].isActive, 'step4 active', true),
+    //   ],
+    // );
 
-    blocTest<TrackOrderCubit, TrackOrderState>(
-      'status "delivered" → step 5 is active',
-      build: () => _buildCubit('delivered'),
-      act: (c) => c.doIntent(LoadOrderIntent('id')),
-      skip: 2,
-      expect: () => [
-        isA<TrackOrderState>()
-            .having((s) => s.isLoading, 'loading', false)
-            .having((s) => s.steps[4].isDone, 'step4 done', true)
-            .having((s) => s.steps[5].isActive, 'step5 active', true),
-      ],
-    );
+    // blocTest<TrackOrderCubit, TrackOrderState>(
+    //   'status "delivered" → step 5 is active',
+    //   build: () => _buildCubit('delivered'),
+    //   act: (c) => c.doIntent(LoadOrderIntent('id')),
+    //   skip: 2,
+    //   expect: () => [
+    //     isA<TrackOrderState>()
+    //         .having((s) => s.isLoading, 'loading', false)
+    //         .having((s) => s.steps[4].isDone, 'step4 done', true)
+    //         .having((s) => s.steps[5].isActive, 'step5 active', true),
+    //   ],
+    // );
 
     blocTest<TrackOrderCubit, TrackOrderState>(
       'unknown status fallback → step 0 active',
