@@ -10,6 +10,7 @@ class TrackOrderMapState {
   final double? shopLng;
   final double? customerLat;
   final double? customerLng;
+  final String? driverName;
 
   TrackOrderMapState({
     Resource<OrderTracking>? orderResource,
@@ -19,6 +20,7 @@ class TrackOrderMapState {
     this.shopLng,
     this.customerLat,
     this.customerLng,
+    this.driverName,
   }) : orderResource = orderResource ?? Resource.initial();
 
   TrackOrderMapState copyWith({
@@ -29,6 +31,7 @@ class TrackOrderMapState {
     double? shopLng,
     double? customerLat,
     double? customerLng,
+    String? driverName,
   }) {
     return TrackOrderMapState(
       orderResource: orderResource ?? this.orderResource,
@@ -38,6 +41,7 @@ class TrackOrderMapState {
       shopLng: shopLng ?? this.shopLng,
       customerLat: customerLat ?? this.customerLat,
       customerLng: customerLng ?? this.customerLng,
+      driverName: driverName ?? this.driverName,
     );
   }
 }

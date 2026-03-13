@@ -88,8 +88,11 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
         double dLat = shopLat;
         double dLng = shopLng;
 
+        String? driverName;
+
         if (driverResult case SuccessApiResult(:final data)) {
           final driver = data;
+          driverName = driver.name;
           dLat = driver.currentLocation.lat;
           dLng = driver.currentLocation.lng;
 
@@ -121,6 +124,7 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
             shopLng: shopLng,
             customerLat: customerLat,
             customerLng: customerLng,
+            driverName: driverName,
           ),
         );
       } else if (orderResult case ErrorApiResult(:final error)) {
