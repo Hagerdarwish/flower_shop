@@ -90,10 +90,9 @@ class TrackOrderScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                            _EstimatedArrivalSection(
-                              dateText: state.estimatedArrival,
-                            ),
-
+                          _EstimatedArrivalSection(
+                            dateText: state.estimatedArrival,
+                          ),
 
                           if (state.activeStepIndex >= 1) ...[
                             _DriverCard(

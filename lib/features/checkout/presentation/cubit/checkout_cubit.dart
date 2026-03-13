@@ -141,9 +141,6 @@ class CheckoutCubit extends Cubit<CheckoutState> {
       emit(state.copyWith(isLoading: false, error: 'Token not found'));
       return;
     }
-
-
-
   }
 
   void _placeOrder() {

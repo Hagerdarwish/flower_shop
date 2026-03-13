@@ -21,10 +21,11 @@ class LoginCubit extends Cubit<LoginStates> {
   final FirebaseMessaging _firebaseMessaging;
 
   LoginCubit(
-      this._upsertUserProfileUseCase,
-      this._firebaseMessaging,
-      this._loginUseCase,
-      this._authStorage) : super(LoginStates());
+    this._upsertUserProfileUseCase,
+    this._firebaseMessaging,
+    this._loginUseCase,
+    this._authStorage,
+  ) : super(LoginStates());
 
   void doIntent(LoginIntent intent) {
     switch (intent.runtimeType) {
@@ -77,14 +78,13 @@ class LoginCubit extends Cubit<LoginStates> {
   Future<void> _syncProfileToFirestore(LoginModel model) async {
     final deviceToken = await _firebaseMessaging.getToken() ?? "";
 
-
     final userId = model.user.id;
 
     final profile = UserProfileModel(
       idUser: userId,
-      name: model.user.firstName ,
+      name: model.user.firstName,
       phone: model.user.phone ?? "",
-      address: "" ,
+      address: "",
       deviceToken: deviceToken,
     );
 

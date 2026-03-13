@@ -13,9 +13,7 @@ import 'firebase_options.dart';
 
 // ✅ (Recommended) background handler (top-level)
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
 Future<void> setupFCM() async {

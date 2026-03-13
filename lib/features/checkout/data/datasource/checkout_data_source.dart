@@ -13,4 +13,5 @@ abstract class CheckoutDataSource {
   Future<DriverModel?> getDriver(String driverId);
   Stream<OrderModel?> watchOrder(String orderId);
   Future<void> seedOrderTracking(CashOrderModel order);
+  Stream<DriverModel?> getDriverStream(String driverId);
 }
