@@ -1,5 +1,6 @@
 import 'package:flower_shop/features/checkout/presentation/cubit/tracking_order/track_order_map_cubit.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/tracking_order/track_order_map_intent.dart';
+import 'package:flower_shop/features/checkout/presentation/widgets/marker_generator.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/tracking_order/track_order_map_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,9 @@ class TrackOrderMapBody extends StatefulWidget {
 
 class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
   GoogleMapController? mapController;
+  BitmapDescriptor? shopIcon;
+  BitmapDescriptor? customerIcon;
+  BitmapDescriptor? driverIcon;
 
   @override
   void initState() {
@@ -29,6 +33,33 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
     context.read<TrackOrderMapCubit>().doIntent(
       LoadMapDataIntent(orderId: widget.orderId, driverId: widget.driverId),
     );
+
+    _loadCustomMarkers();
+  }
+
+  Future<void> _loadCustomMarkers() async {
+    final customShopIcon = await MarkerGenerator.createCustomMarker(
+      title: "Flowery",
+      iconData: Icons.local_florist,
+    );
+    final customCustomerIcon = await MarkerGenerator.createCustomMarker(
+      title: "Apartment",
+      iconData: Icons.home_rounded,
+    );
+    final customDriverIcon = await MarkerGenerator.createCustomMarker(
+      title: "Driver",
+      iconData: Icons.two_wheeler,
+      backgroundColor:
+          Colors.blueAccent, // Use distinct color for driver if you like
+    );
+
+    if (mounted) {
+      setState(() {
+        shopIcon = customShopIcon;
+        customerIcon = customCustomerIcon;
+        driverIcon = customDriverIcon;
+      });
+    }
   }
 
   Set<Marker> _buildMarkers(TrackOrderMapState state) {
@@ -39,6 +70,10 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
         Marker(
           markerId: const MarkerId("shop"),
           position: LatLng(state.shopLat!, state.shopLng!),
+          infoWindow: const InfoWindow(title: "Shop Location"),
+          icon:
+              shopIcon ??
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
         ),
       );
     }
@@ -48,6 +83,10 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
         Marker(
           markerId: const MarkerId("customer"),
           position: LatLng(state.customerLat!, state.customerLng!),
+          infoWindow: const InfoWindow(title: "My Destination"),
+          icon:
+              customerIcon ??
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
         ),
       );
     }
@@ -57,11 +96,38 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
         Marker(
           markerId: const MarkerId("driver"),
           position: LatLng(state.driverLat!, state.driverLng!),
+          infoWindow: const InfoWindow(title: "Driver"),
+          icon:
+              driverIcon ??
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
         ),
       );
     }
 
     return markers;
+  }
+
+  Set<Polyline> _buildPolylines(TrackOrderMapState state) {
+    final polylines = <Polyline>{};
+
+    if (state.shopLat != null &&
+        state.shopLng != null &&
+        state.customerLat != null &&
+        state.customerLng != null) {
+      polylines.add(
+        Polyline(
+          polylineId: const PolylineId("route"),
+          color: const Color(0xffE91E63),
+          width: 4,
+          points: [
+            LatLng(state.shopLat!, state.shopLng!),
+            LatLng(state.customerLat!, state.customerLng!),
+          ],
+        ),
+      );
+    }
+
+    return polylines;
   }
 
   @override
@@ -94,6 +160,7 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
                       zoom: 14,
                     ),
                     markers: _buildMarkers(state),
+                    polylines: _buildPolylines(state),
                     myLocationEnabled: true,
                     zoomControlsEnabled: false,
                     onMapCreated: (controller) {

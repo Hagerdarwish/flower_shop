@@ -1,3 +1,4 @@
+import 'package:flower_shop/features/checkout/presentation/screens/track_order_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flower_shop/features/checkout/domain/models/track_step.dart';
@@ -6,6 +7,7 @@ import 'package:flower_shop/features/checkout/presentation/cubit/track_order_int
 import 'package:flower_shop/features/checkout/presentation/cubit/track_order_state.dart';
 import 'package:flower_shop/app/config/di/di.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:injectable/injectable.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TrackOrderScreen extends StatelessWidget {
@@ -112,9 +114,17 @@ class TrackOrderScreen extends StatelessWidget {
                     ),
                   ),
                   _ShowMapButton(
-                    onTap: () => context.read<TrackOrderCubit>().doIntent(
-                      ShowMapIntent(),
-                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => TrackOrderMapScreen(
+                            orderId: orderId,
+                            driverId: state.driverId,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               );

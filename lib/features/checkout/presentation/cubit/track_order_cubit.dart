@@ -30,6 +30,7 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
       driverSubtitle: 'Is your delivery hero for today',
       driverPhone: '',
       driverWhatsapp: '',
+      driverId: '',
       steps: [
         TrackStep(
           title: 'Wait for driver',
@@ -115,7 +116,11 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
               'dd MMM yyyy, hh:mm a',
             ).format(order.updatedAt);
             emit(
-              state.copyWith(isLoading: false, estimatedArrival: formattedDate),
+              state.copyWith(
+                isLoading: false,
+                estimatedArrival: formattedDate,
+                driverId: order.driverId,
+              ),
             );
 
             if (order.driverId.isNotEmpty) {

@@ -9,6 +9,7 @@ class TrackOrderState extends Equatable {
     required this.driverSubtitle,
     required this.driverPhone,
     required this.driverWhatsapp,
+    required this.driverId,
     required this.steps,
     this.errorMessage,
   });
@@ -19,6 +20,7 @@ class TrackOrderState extends Equatable {
   final String driverSubtitle;
   final String driverPhone;
   final String driverWhatsapp;
+  final String driverId;
   final List<TrackStep> steps;
   final String? errorMessage;
 
@@ -32,6 +34,7 @@ class TrackOrderState extends Equatable {
     String? driverSubtitle,
     String? driverPhone,
     String? driverWhatsapp,
+    String? driverId,
     List<TrackStep>? steps,
     String? errorMessage,
   }) {
@@ -42,6 +45,7 @@ class TrackOrderState extends Equatable {
       driverSubtitle: driverSubtitle ?? this.driverSubtitle,
       driverPhone: driverPhone ?? this.driverPhone,
       driverWhatsapp: driverWhatsapp ?? this.driverWhatsapp,
+      driverId: driverId ?? this.driverId,
       steps: steps ?? this.steps,
       errorMessage: errorMessage,
     );
@@ -55,6 +59,7 @@ class TrackOrderState extends Equatable {
     driverSubtitle,
     driverPhone,
     driverWhatsapp,
+    driverId,
     steps,
     errorMessage,
   ];

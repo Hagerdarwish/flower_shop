@@ -25,15 +25,13 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
   ) : super(TrackOrderMapState());
 
   void doIntent(TrackOrderMapIntent intent) {
-    switch (intent.runtimeType) {
-      case LoadMapDataIntent:
-        final data = intent as LoadMapDataIntent;
+    switch (intent) {
+      case LoadMapDataIntent data:
         _loadMapData(orderId: data.orderId, driverId: data.driverId);
         _subscribeToDriver(driverId: data.driverId);
         break;
 
-      case UpdateDriverLocationIntent:
-        final data = intent as UpdateDriverLocationIntent;
+      case UpdateDriverLocationIntent data:
         _updateDriverLocation(data.lat, data.lng);
         break;
     }
@@ -44,6 +42,8 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
     return locations.first;
   }
 
+  Timer? _dummyTimer;
+
   Future<void> _loadMapData({
     required String orderId,
     required String driverId,
@@ -53,45 +53,108 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
     try {
       final orderResult = await _getOrderUseCase.execute(orderId);
 
-      switch (orderResult) {
-        case SuccessApiResult():
-          final driverResult = await _getDriverUseCase.execute(driverId);
+      if (orderResult case SuccessApiResult(:final data)) {
+        final driverResult = await _getDriverUseCase.execute(driverId);
+        final order = data;
 
-          switch (driverResult) {
-            case SuccessApiResult():
-              final order = orderResult.data;
-              final driver = driverResult.data;
+        double shopLat = 30.0444;
+        double shopLng = 31.2357;
 
-              final shopLocation = await _getLocationFromAddress(
-                order.orderData.pickupAddress,
-              );
+        try {
+          final shopLocation = await _getLocationFromAddress(
+            order.orderData.pickupAddress,
+          );
+          shopLat = shopLocation.latitude;
+          shopLng = shopLocation.longitude;
+        } catch (_) {
+          shopLat = 30.0444;
+          shopLng = 31.2357;
+        }
 
-              final customerLocation = await _getLocationFromAddress(
-                order.userAddress.address,
-              );
+        double customerLat = 30.0514;
+        double customerLng = 31.2457;
 
-              emit(
-                state.copyWith(
-                  orderResource: Resource.success(order),
-                  driverLat: driver.currentLocation.lat,
-                  driverLng: driver.currentLocation.lng,
-                  shopLat: shopLocation.latitude,
-                  shopLng: shopLocation.longitude,
-                  customerLat: customerLocation.latitude,
-                  customerLng: customerLocation.longitude,
-                ),
-              );
+        try {
+          final customerLocation = await _getLocationFromAddress(
+            order.userAddress.address,
+          );
+          customerLat = customerLocation.latitude;
+          customerLng = customerLocation.longitude;
+        } catch (_) {
+          customerLat = 30.0514;
+          customerLng = 31.2457;
+        }
 
-            case ErrorApiResult(:final error):
-              emit(state.copyWith(orderResource: Resource.error(error)));
+        double dLat = shopLat;
+        double dLng = shopLng;
+
+        if (driverResult case SuccessApiResult(:final data)) {
+          final driver = data;
+          dLat = driver.currentLocation.lat;
+          dLng = driver.currentLocation.lng;
+
+          if (dLat == 0.0 && dLng == 0.0) {
+            dLat = shopLat;
+            dLng = shopLng;
+            _startDummyDriverAnimation(
+              shopLat,
+              shopLng,
+              customerLat,
+              customerLng,
+            );
           }
+        } else {
+          _startDummyDriverAnimation(
+            shopLat,
+            shopLng,
+            customerLat,
+            customerLng,
+          );
+        }
 
-        case ErrorApiResult(:final error):
-          emit(state.copyWith(orderResource: Resource.error(error)));
+        emit(
+          state.copyWith(
+            orderResource: Resource.success(order),
+            driverLat: dLat,
+            driverLng: dLng,
+            shopLat: shopLat,
+            shopLng: shopLng,
+            customerLat: customerLat,
+            customerLng: customerLng,
+          ),
+        );
+      } else if (orderResult case ErrorApiResult(:final error)) {
+        emit(state.copyWith(orderResource: Resource.error(error)));
       }
     } catch (e) {
       emit(state.copyWith(orderResource: Resource.error(e.toString())));
     }
+  }
+
+  void _startDummyDriverAnimation(
+    double shopLat,
+    double shopLng,
+    double customerLat,
+    double customerLng,
+  ) {
+    _dummyTimer?.cancel();
+    double stepRatio = 0.0;
+
+    _dummyTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      if (stepRatio >= 1.0) {
+        timer.cancel();
+        return;
+      }
+      stepRatio += 0.05;
+      if (stepRatio > 1.0) {
+        stepRatio = 1.0;
+      }
+
+      final currentLat = shopLat + (customerLat - shopLat) * stepRatio;
+      final currentLng = shopLng + (customerLng - shopLng) * stepRatio;
+
+      _updateDriverLocation(currentLat, currentLng);
+    });
   }
 
   void _updateDriverLocation(double lat, double lng) {
@@ -104,7 +167,8 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
     _driverSubscription = _getDriverStreamUseCase.execute(driverId).listen((
       driver,
     ) {
-      if (driver != null) {
+      if (driver != null && driver.currentLocation.lat != 0.0) {
+        _dummyTimer?.cancel();
         _updateDriverLocation(
           driver.currentLocation.lat,
           driver.currentLocation.lng,
