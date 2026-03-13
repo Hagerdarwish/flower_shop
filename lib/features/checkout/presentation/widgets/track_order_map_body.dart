@@ -121,6 +121,18 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
           width: 4,
           points: [
             LatLng(state.shopLat!, state.shopLng!),
+            LatLng(
+              state.shopLat! + (state.customerLat! - state.shopLat!) * 0.5,
+              state.shopLng!,
+            ),
+            LatLng(
+              state.shopLat! + (state.customerLat! - state.shopLat!) * 0.5,
+              state.shopLng! + (state.customerLng! - state.shopLng!) * 0.5,
+            ),
+            LatLng(
+              state.customerLat!,
+              state.shopLng! + (state.customerLng! - state.shopLng!) * 0.5,
+            ),
             LatLng(state.customerLat!, state.customerLng!),
           ],
         ),

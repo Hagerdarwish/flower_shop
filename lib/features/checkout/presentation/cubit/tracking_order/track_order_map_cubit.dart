@@ -154,8 +154,36 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
         stepRatio = 1.0;
       }
 
-      final currentLat = shopLat + (customerLat - shopLat) * stepRatio;
-      final currentLng = shopLng + (customerLng - shopLng) * stepRatio;
+      double currentLat;
+      double currentLng;
+
+      if (stepRatio <= 0.25) {
+        // Segment 1: partial Latitude move
+        double segRatio = stepRatio / 0.25;
+        currentLat = shopLat + (customerLat - shopLat) * 0.5 * segRatio;
+        currentLng = shopLng;
+      } else if (stepRatio <= 0.5) {
+        // Segment 2: partial Longitude move
+        double segRatio = (stepRatio - 0.25) / 0.25;
+        currentLat = shopLat + (customerLat - shopLat) * 0.5;
+        currentLng = shopLng + (customerLng - shopLng) * 0.5 * segRatio;
+      } else if (stepRatio <= 0.75) {
+        // Segment 3: remaining Latitude move
+        double segRatio = (stepRatio - 0.5) / 0.25;
+        currentLat =
+            (shopLat + (customerLat - shopLat) * 0.5) +
+            (customerLat - (shopLat + (customerLat - shopLat) * 0.5)) *
+                segRatio;
+        currentLng = shopLng + (customerLng - shopLng) * 0.5;
+      } else {
+        // Segment 4: remaining Longitude move
+        double segRatio = (stepRatio - 0.75) / 0.25;
+        currentLat = customerLat;
+        currentLng =
+            (shopLng + (customerLng - shopLng) * 0.5) +
+            (customerLng - (shopLng + (customerLng - shopLng) * 0.5)) *
+                segRatio;
+      }
 
       _updateDriverLocation(currentLat, currentLng);
     });
