@@ -29,7 +29,7 @@ void main() {
         // Arrange
         await fakeFirestore.collection('notification').add({
           'title': 'Test Title',
-          'description': 'Test Body',
+          'des': 'Test Body',
           'createdAt': '2026-03-03T10:00:00.000Z',
         });
 
@@ -38,10 +38,15 @@ void main() {
 
         // Assert
         expect(result, isA<SuccessApiResult<GetAllNotificationResponseDto>>());
+
         final successResult =
             result as SuccessApiResult<GetAllNotificationResponseDto>;
-        expect(successResult.data.notifications?.length, 1);
+
+        expect(successResult.data.notifications, isNotNull);
+        expect(successResult.data.notifications!.length, 1);
+
         final notification = successResult.data.notifications!.first;
+
         expect(notification.title, 'Test Title');
         expect(notification.body, 'Test Body');
         expect(notification.createdAt, '2026-03-03T10:00:00.000Z');
