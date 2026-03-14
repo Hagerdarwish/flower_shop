@@ -1,4 +1,5 @@
 import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
+import 'package:flower_shop/features/checkout/domain/usecases/seed_order_tracking_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
@@ -34,7 +35,15 @@ void main() {
   final authStorage =
       AuthStorage(); // <-- make sure it has getToken implemented
 
-  final paymentCubit = PaymentCubit(usecase, authStorage);
+  // Create a dummy SeedOrderTrackingUseCase for testing
+  // In a real test we would mock the repository but here we just need to satisfy the constructor
+  final seedOrderTrackingUseCase = SeedOrderTrackingUseCase(repo as dynamic);
+
+  final paymentCubit = PaymentCubit(
+    usecase,
+    authStorage,
+    seedOrderTrackingUseCase,
+  );
 
   runApp(
     MaterialApp(

@@ -113,6 +113,7 @@ class TrackOrderScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+              if (state.activeStepIndex >= 1) ...[
                   _ShowMapButton(
                     onTap: () {
                       Navigator.push(
@@ -127,7 +128,7 @@ class TrackOrderScreen extends StatelessWidget {
                     },
                   ),
                 ],
-              );
+             ] );
             },
           ),
         ),

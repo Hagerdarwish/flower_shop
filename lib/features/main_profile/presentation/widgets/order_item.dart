@@ -90,12 +90,12 @@ class CustomOrderItem extends StatelessWidget {
                   width: double.infinity,
                   height: screenWidth * 0.1,
                   child: ElevatedButton(
-                    onPressed: () {
-                      context.pushReplacement(
-                        RouteNames.trackOrderScreen,
-                        extra: order.id,
-                      );
-                    },
+                      onPressed: () {
+                        context.push(
+                          RouteNames.trackOrderScreen,
+                          extra: order.id,
+                        );
+                      },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.pink,
                       shape: const StadiumBorder(),

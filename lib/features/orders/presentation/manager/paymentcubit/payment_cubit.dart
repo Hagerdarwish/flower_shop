@@ -1,6 +1,7 @@
 import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/app/core/network/api_result.dart';
+import 'package:flower_shop/features/checkout/domain/usecases/seed_order_tracking_usecase.dart';
 import 'package:flower_shop/features/orders/data/models/paymentResonse.dart';
 import 'package:flower_shop/features/orders/domain/usecase/payment_usecase.dart';
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_intent.dart';
@@ -12,9 +13,13 @@ import 'package:injectable/injectable.dart';
 class PaymentCubit extends Cubit<PaymentStates> {
   final PaymentUsecase _paymentUsecase;
   final AuthStorage _authStorage;
+  final SeedOrderTrackingUseCase _seedOrderTrackingUseCase;
 
-  PaymentCubit(this._paymentUsecase, this._authStorage)
-    : super(PaymentStates());
+  PaymentCubit(
+    this._paymentUsecase,
+    this._authStorage,
+    this._seedOrderTrackingUseCase,
+  ) : super(PaymentStates());
 
   void doIntent(PaymentIntent intent) {
     if (intent is ExecutePaymentIntent) {
@@ -38,6 +43,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
       state.copyWith(
         paymentResponse: Resource.loading(),
         lastAction: PaymentAction.executing,
+        order: intent.order,
       ),
     );
 
@@ -64,6 +70,9 @@ class PaymentCubit extends Cubit<PaymentStates> {
     );
 
     if (result is SuccessApiResult<PaymentResponse>) {
+      if (state.order != null) {
+        await _seedOrderTrackingUseCase.execute(state.order!);
+      }
       emit(
         state.copyWith(
           paymentResponse: Resource.success(result.data),

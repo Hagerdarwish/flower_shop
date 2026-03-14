@@ -1,3 +1,5 @@
+import '../../../../checkout/domain/models/cash_order_model.dart';
+
 abstract class PaymentIntent {}
 
 class ExecutePaymentIntent extends PaymentIntent {
@@ -8,6 +10,7 @@ class ExecutePaymentIntent extends PaymentIntent {
   final String? city;
   final String? lat;
   final String? long;
+  final CashOrderModel? order;
 
   ExecutePaymentIntent({
     this.token,
@@ -17,6 +20,7 @@ class ExecutePaymentIntent extends PaymentIntent {
     this.city,
     this.lat,
     this.long,
+    this.order,
   });
 }
 
