@@ -233,11 +233,33 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i646.OrdersRemoteDatasource>(
       () => _i862.OrdersRemoteDatasourceImpl(gh<_i890.ApiClient>()),
     );
+    gh.factory<_i140.NotificationRemoteDataSource>(
+      () => _i417.NotificationRemoteDataSourceImpl(
+        gh<_i890.ApiClient>(),
+        firestore: gh<_i974.FirebaseFirestore>(),
+      ),
+    );
+    gh.factory<_i136.NotificationRepoContract>(
+      () =>
+          _i463.NotificationRepoImpl(gh<_i140.NotificationRemoteDataSource>()),
+    );
     gh.factory<_i701.HomeRemoteDataSource>(
       () => _i874.HomeRemoteDataSourceImp(gh<_i890.ApiClient>()),
     );
     gh.factory<_i520.HomeRepo>(
       () => _i401.HomeRepoImp(gh<_i701.HomeRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i796.ClearAllNotificationsUseCase>(
+      () => _i796.ClearAllNotificationsUseCase(
+        gh<_i136.NotificationRepoContract>(),
+      ),
+    );
+    gh.lazySingleton<_i33.DeleteNotificationUseCase>(
+      () =>
+          _i33.DeleteNotificationUseCase(gh<_i136.NotificationRepoContract>()),
+    );
+    gh.lazySingleton<_i35.GetNotificationsUseCase>(
+      () => _i35.GetNotificationsUseCase(gh<_i136.NotificationRepoContract>()),
     );
     gh.factory<_i867.OrdersRepo>(
       () => _i895.OrdersRepoImpl(gh<_i646.OrdersRemoteDatasource>()),
@@ -259,9 +281,6 @@ extension GetItInjectableX on _i174.GetIt {
         addressDatasource: gh<_i968.AddressDatasource>(),
       ),
     );
-    gh.factory<_i140.NotificationRemoteDataSource>(
-      () => _i417.NotificationRemoteDataSourceImpl(gh<_i890.ApiClient>()),
-    );
     gh.factory<_i986.EditProfileDataSource>(
       () => _i857.EditprofiledatascourceImp(gh<_i890.ApiClient>()),
     );
@@ -274,15 +293,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i955.ProfileremoteDataSource>(
       () => _i381.ProfileRemoteDataSourceImpl(gh<_i890.ApiClient>()),
     );
-    gh.factory<_i136.NotificationRepoContract>(
-      () =>
-          _i463.NotificationRepoImpl(gh<_i140.NotificationRemoteDataSource>()),
-    );
     gh.factory<_i485.EditprofileRepo>(
       () => _i202.EditprofileRepoImpl(gh<_i986.EditProfileDataSource>()),
     );
     gh.factory<_i332.EcommerceRepo>(
       () => _i670.EcommerceRepoImp(gh<_i152.EcommerceRemoteDatasource>()),
+    );
+    gh.factory<_i0.NotificationsCubit>(
+      () => _i0.NotificationsCubit(
+        gh<_i35.GetNotificationsUseCase>(),
+        gh<_i796.ClearAllNotificationsUseCase>(),
+        gh<_i33.DeleteNotificationUseCase>(),
+      ),
     );
     gh.factory<_i14.CheckoutRepo>(
       () => _i178.CheckoutRepoImpl(
@@ -326,18 +348,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i534.GetBestSellerUseCase>(),
         gh<_i386.GetOccasionsUseCase>(),
       ),
-    );
-    gh.lazySingleton<_i796.ClearAllNotificationsUseCase>(
-      () => _i796.ClearAllNotificationsUseCase(
-        gh<_i136.NotificationRepoContract>(),
-      ),
-    );
-    gh.lazySingleton<_i33.DeleteNotificationUseCase>(
-      () =>
-          _i33.DeleteNotificationUseCase(gh<_i136.NotificationRepoContract>()),
-    );
-    gh.lazySingleton<_i35.GetNotificationsUseCase>(
-      () => _i35.GetNotificationsUseCase(gh<_i136.NotificationRepoContract>()),
     );
     gh.factory<_i861.DeleteUserAddress>(
       () => _i861.DeleteUserAddress(gh<_i601.AddressRepo>()),
@@ -478,13 +488,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i872.GetAddressUsecase>(),
         gh<_i603.AuthStorage>(),
         gh<_i953.SeedOrderTrackingUseCase>(),
-      ),
-    );
-    gh.factory<_i0.NotificationsCubit>(
-      () => _i0.NotificationsCubit(
-        gh<_i35.GetNotificationsUseCase>(),
-        gh<_i796.ClearAllNotificationsUseCase>(),
-        gh<_i33.DeleteNotificationUseCase>(),
       ),
     );
     gh.factory<_i392.AuthCubit>(
