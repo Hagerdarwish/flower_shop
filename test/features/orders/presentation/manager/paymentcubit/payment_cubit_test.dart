@@ -12,16 +12,13 @@ import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/pa
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_intent.dart';
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_states.dart';
 
-import 'package:flower_shop/features/checkout/domain/usecases/seed_order_tracking_usecase.dart';
-
 import 'payment_cubit_test.mocks.dart';
 
 // Generate mocks for all dependencies
-@GenerateMocks([PaymentUsecase, AuthStorage, SeedOrderTrackingUseCase])
+@GenerateMocks([PaymentUsecase, AuthStorage])
 void main() {
   late MockPaymentUsecase mockPaymentUsecase;
   late MockAuthStorage mockAuthStorage;
-  late MockSeedOrderTrackingUseCase mockSeedOrderTrackingUseCase;
   late PaymentCubit cubit;
 
   final fakeResponse = PaymentResponse();
@@ -35,16 +32,11 @@ void main() {
   setUp(() {
     mockPaymentUsecase = MockPaymentUsecase();
     mockAuthStorage = MockAuthStorage();
-    mockSeedOrderTrackingUseCase = MockSeedOrderTrackingUseCase();
 
     // Mock the token retrieval
     when(mockAuthStorage.getToken()).thenAnswer((_) async => 'token');
 
-    cubit = PaymentCubit(
-      mockPaymentUsecase,
-      mockAuthStorage,
-      mockSeedOrderTrackingUseCase,
-    );
+    cubit = PaymentCubit(mockPaymentUsecase, mockAuthStorage);
   });
 
   tearDown(() async {

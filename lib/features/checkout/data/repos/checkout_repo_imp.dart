@@ -77,14 +77,11 @@ class CheckoutRepoImpl implements CheckoutRepo {
   }
 
   @override
-  Future<void> seedOrderTracking(CashOrderModel order) async {
-    await checkoutDataSource.seedOrderTracking(order);
-  }
-
-  @override
   Stream<Driver?> getDriverStream(String driverId) {
     return checkoutDataSource
         .getDriverStream(driverId)
         .map((driverModel) => driverModel?.toDomain());
   }
+
+
 }

@@ -64,7 +64,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
               );
               final orderId =
                   state.order.data?.id ?? ''; // Assuming id is available
-              context.push(RouteNames.checkoutSuccessScreen, extra: orderId);
+              context.push(RouteNames.trackOrderScreen, extra: orderId);
             }
 
             if (state.error != null) {

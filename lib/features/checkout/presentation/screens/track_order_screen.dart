@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flower_shop/features/checkout/presentation/screens/track_order_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,9 @@ import 'package:flower_shop/app/config/di/di.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:injectable/injectable.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../app/core/ui_helper/color/colors.dart';
+import '../../../../generated/locale_keys.g.dart';
 
 class TrackOrderScreen extends StatelessWidget {
   final String orderId;
@@ -76,11 +80,55 @@ class TrackOrderScreen extends StatelessWidget {
               }
 
               if (state.errorMessage != null) {
-                return Center(
-                  child: Text(
-                    state.errorMessage!,
-                    style: const TextStyle(color: Colors.red),
-                  ),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 160,
+                          height: 160,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.green.withValues(alpha: 0.1),
+                          ),
+                        ),
+                        Container(
+                          width: 120,
+                          height: 120,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.green.withValues(alpha: 0.2),
+                          ),
+                        ),
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.green,
+                          ),
+                          child: const Icon(
+                            Icons.check,
+                            color: AppColors.white,
+                            size: 40,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 48),
+                    Text(
+                      LocaleKeys.order_success.tr(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: AppColors.blackColor,
+                        fontSize: 28,
+                        fontWeight: FontWeight.w600,
+                        height: 1.2,
+                      ),
+                    ),
+                  ],
                 );
               }
 
@@ -96,7 +144,6 @@ class TrackOrderScreen extends StatelessWidget {
                             dateText: state.estimatedArrival,
                           ),
 
-                          if (state.activeStepIndex >= 1) ...[
                             _DriverCard(
                               name: state.driverName,
                               subtitle: state.driverSubtitle,
@@ -104,7 +151,7 @@ class TrackOrderScreen extends StatelessWidget {
                               onWhatsapp: () =>
                                   _launchWhatsapp(state.driverWhatsapp),
                             ),
-                          ],
+
                           const SizedBox(height: 20),
                           _CarIllustration(),
                           const SizedBox(height: 20),
@@ -113,7 +160,6 @@ class TrackOrderScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-              if (state.activeStepIndex >= 1) ...[
                   _ShowMapButton(
                     onTap: () {
                       Navigator.push(
@@ -128,7 +174,7 @@ class TrackOrderScreen extends StatelessWidget {
                     },
                   ),
                 ],
-             ] );
+              );
             },
           ),
         ),

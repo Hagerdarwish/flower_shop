@@ -29,11 +29,28 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   configureDependencies();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  FirebaseMessaging.onBackgroundMessage(
-    CloudMessaging.firebaseMessagingBackgroundHandler,
-  );
+
+  // Background handler
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  // Foreground handler
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message while in the foreground!');
+    if (message.notification != null) {
+      print('Notification title: ${message.notification!.title}');
+      print('Notification body: ${message.notification!.body}');
+    }
+    print('Message data: ${message.data}');
+  });
+
+  // Notification opened handler
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print('Notification caused app to open!');
+  });
+
   await CloudMessaging.setupFlutterNotifications();
   CloudMessaging.printDeviceToken();
+
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
@@ -46,7 +63,6 @@ Future<void> main() async {
     ),
   );
 }
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
   @override

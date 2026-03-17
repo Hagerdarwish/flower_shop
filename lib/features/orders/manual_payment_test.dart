@@ -1,5 +1,4 @@
 import 'package:flower_shop/app/config/auth_storage/auth_storage.dart';
-import 'package:flower_shop/features/checkout/domain/usecases/seed_order_tracking_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
@@ -10,6 +9,12 @@ import 'package:flower_shop/features/orders/domain/usecase/payment_usecase.dart'
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_cubit.dart';
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_intent.dart';
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_states.dart';
+import 'package:flower_shop/features/checkout/domain/repos/checkout_repo.dart';
+import 'package:flower_shop/features/checkout/domain/models/address_model.dart';
+import 'package:flower_shop/features/checkout/domain/models/driver.dart';
+import 'package:flower_shop/features/checkout/domain/models/order_tracking.dart';
+import 'package:flower_shop/features/checkout/domain/models/cash_order_model.dart';
+import 'package:flower_shop/app/core/network/api_result.dart';
 import 'dart:js' as js;
 
 void main() {
@@ -32,17 +37,15 @@ void main() {
   final usecase = PaymentUsecase(repo);
 
   // Create a dummy AuthStorage instance for testing
-  final authStorage =
-      AuthStorage(); // <-- make sure it has getToken implemented
+  final authStorage = AuthStorage();
 
-  // Create a dummy SeedOrderTrackingUseCase for testing
-  // In a real test we would mock the repository but here we just need to satisfy the constructor
-  final seedOrderTrackingUseCase = SeedOrderTrackingUseCase(repo as dynamic);
+  // Create a dummy CheckoutRepo for SeedOrderTrackingUseCase
+  final checkoutRepo = _DummyCheckoutRepo();
 
   final paymentCubit = PaymentCubit(
     usecase,
     authStorage,
-    seedOrderTrackingUseCase,
+
   );
 
   runApp(
@@ -54,6 +57,27 @@ void main() {
       debugShowCheckedModeBanner: false,
     ),
   );
+}
+
+class _DummyCheckoutRepo implements CheckoutRepo {
+  @override
+  Future<ApiResult<List<AddressModel>>> getAddress(String token) async =>
+      ErrorApiResult(error: 'Not implemented');
+  @override
+  Future<ApiResult<Driver>> getDriver(String driverId) async =>
+      ErrorApiResult(error: 'Not implemented');
+  @override
+  Stream<Driver?> getDriverStream(String driverId) => const Stream.empty();
+  @override
+  Future<ApiResult<OrderTracking>> getOrder(String orderId) async =>
+      ErrorApiResult(error: 'Not implemented');
+  @override
+  Future<ApiResult<CashOrderModel>> postCashOrder(String token) async =>
+      ErrorApiResult(error: 'Not implemented');
+  @override
+  Future<void> seedOrderTracking(CashOrderModel order) async {}
+  @override
+  Stream<OrderTracking?> watchOrder(String orderId) => const Stream.empty();
 }
 
 class PaymentTestScreen extends StatelessWidget {

@@ -6,7 +6,6 @@ import 'package:flower_shop/features/auth/presentation/signup/pages/signup_scree
 import 'package:flower_shop/features/auth/presentation/login/pages/login_page.dart';
 import 'package:flower_shop/features/best_seller/menager/best_sell_cubit.dart';
 import 'package:flower_shop/features/best_seller/pages/best_sell_screen.dart';
-import 'package:flower_shop/features/checkout/presentation/screens/checkout_success_screen.dart';
 import 'package:flower_shop/features/checkout/presentation/screens/track_order_screen.dart';
 import 'package:flower_shop/features/e_commerce/presentation/search/pages/search_page.dart';
 import 'package:flower_shop/features/checkout/presentation/cubit/checkout_cubit.dart';
@@ -251,13 +250,6 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final orderId = state.extra as String? ?? '';
         return TrackOrderScreen(orderId: orderId);
-      },
-    ),
-    GoRoute(
-      path: RouteNames.checkoutSuccessScreen,
-      builder: (context, state) {
-        final orderId = state.extra as String? ?? '';
-        return CheckoutSuccessScreen(orderId: orderId);
       },
     ),
   ],

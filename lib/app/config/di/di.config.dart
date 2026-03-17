@@ -84,8 +84,6 @@ import '../../../features/checkout/domain/usecases/get_order_usecase.dart'
     as _i745;
 import '../../../features/checkout/domain/usecases/post_cashe_order_usecase.dart'
     as _i524;
-import '../../../features/checkout/domain/usecases/seed_order_tracking_usecase.dart'
-    as _i953;
 import '../../../features/checkout/domain/usecases/watch_order_usecase.dart'
     as _i126;
 import '../../../features/checkout/presentation/cubit/checkout_cubit.dart'
@@ -427,8 +425,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i543.SignupUsecase>(
       () => _i543.SignupUsecase(gh<_i712.AuthRepo>()),
     );
-    gh.factory<_i953.SeedOrderTrackingUseCase>(
-      () => _i953.SeedOrderTrackingUseCase(gh<_i14.CheckoutRepo>()),
+    gh.factory<_i402.PaymentCubit>(
+      () => _i402.PaymentCubit(
+        gh<_i985.PaymentUsecase>(),
+        gh<_i603.AuthStorage>(),
+      ),
     );
     gh.factory<_i947.GetDriverStreamUseCase>(
       () => _i947.GetDriverStreamUseCase(gh<_i14.CheckoutRepo>()),
@@ -476,16 +477,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i115.ChangePasswordCubit>(
       () => _i115.ChangePasswordCubit(gh<_i991.ChangePasswordUseCase>()),
     );
+    gh.factory<_i392.AuthCubit>(
+      () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
+    );
     gh.factory<_i90.CheckoutCubit>(
       () => _i90.CheckoutCubit(
         gh<_i524.PostCasheOrderUsecase>(),
         gh<_i872.GetAddressUsecase>(),
         gh<_i603.AuthStorage>(),
-        gh<_i953.SeedOrderTrackingUseCase>(),
       ),
-    );
-    gh.factory<_i392.AuthCubit>(
-      () => _i392.AuthCubit(gh<_i543.SignupUsecase>()),
     );
     gh.factory<_i909.GetOrdersUsecases>(
       () => _i909.GetOrdersUsecases(gh<_i866.ProfileRepo>()),
@@ -534,13 +534,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i892.FirebaseMessaging>(),
         gh<_i75.LoginUseCase>(),
         gh<_i603.AuthStorage>(),
-      ),
-    );
-    gh.factory<_i402.PaymentCubit>(
-      () => _i402.PaymentCubit(
-        gh<_i985.PaymentUsecase>(),
-        gh<_i603.AuthStorage>(),
-        gh<_i953.SeedOrderTrackingUseCase>(),
       ),
     );
     gh.factory<_i36.TrackOrderCubit>(

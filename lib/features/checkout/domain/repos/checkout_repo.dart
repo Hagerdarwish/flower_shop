@@ -10,6 +10,5 @@ abstract class CheckoutRepo {
   Future<ApiResult<OrderTracking>> getOrder(String orderId);
   Future<ApiResult<Driver>> getDriver(String driverId);
   Stream<OrderTracking?> watchOrder(String orderId);
-  Future<void> seedOrderTracking(CashOrderModel order);
   Stream<Driver?> getDriverStream(String driverId);
 }

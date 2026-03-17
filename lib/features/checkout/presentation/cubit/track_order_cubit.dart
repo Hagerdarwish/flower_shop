@@ -33,12 +33,6 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
       driverId: '',
       steps: [
         TrackStep(
-          title: 'Wait for driver',
-          subtitle: '',
-          isDone: false,
-          isActive: false,
-        ),
-        TrackStep(
           title: 'Confirmed',
           subtitle: '',
           isDone: false,
@@ -101,10 +95,11 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
         .listen(
           (order) async {
             if (order == null) {
+              // Show success UI when order is not yet in Firestore
               emit(
                 state.copyWith(
                   isLoading: false,
-                  errorMessage: 'Order not found',
+                  errorMessage: 'waiting_for_order',
                 ),
               );
               return;
@@ -159,18 +154,16 @@ class TrackOrderCubit extends Cubit<TrackOrderState> {
 
   int _statusToStepIndex(String status) {
     switch (status.toLowerCase().trim()) {
-      case 'wait_for_driver':
-        return 0;
       case 'pending':
-        return 1;
+        return 0;
       case 'picked':
+        return 1;
+      case 'out for delivery':
         return 2;
-      case 'out_for_delivery':
-        return 3;
       case 'arrived':
-        return 4;
+        return 3;
       case 'delivered':
-        return 5;
+        return 4;
       default:
         return 0;
     }
