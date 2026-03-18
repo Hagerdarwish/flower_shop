@@ -56,54 +56,75 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
       final orderResult = await _getOrderUseCase.execute(orderId);
 
       if (orderResult case SuccessApiResult(:final data)) {
-        print('======== Firebase Order Data ========');
+        print(
+          '///////////////////////////////////Firebase Order Data ///////////////////////////////',
+        );
         print(data.toString());
         final driverResult = await _getDriverUseCase.execute(driverId);
         final order = data;
 
-        double shopLat = 30.0444;
-        double shopLng = 31.2357;
+        double shopLat = data.orderData.pickupLat ?? 30.0444;
+        double shopLng = data.orderData.pickupLng ?? 31.2357;
 
-        try {
-          final shopLocation = await _getLocationFromAddress(
-            order.orderData.pickupAddress,
-          );
-          shopLat = shopLocation.latitude;
-          shopLng = shopLocation.longitude;
-        } catch (e) {
-          print('Error getting shop location from address: $e');
-          shopLat = 30.0444;
-          shopLng = 31.2357;
+        if (data.orderData.pickupLat == null) {
+          try {
+            final shopLocation = await _getLocationFromAddress(
+              order.orderData.pickupAddress,
+            );
+            shopLat = shopLocation.latitude;
+            shopLng = shopLocation.longitude;
+          } catch (e) {
+            print('Error getting shop location from address: $e');
+            shopLat = 30.0444;
+            shopLng = 31.2357;
+          }
         }
 
-        double customerLat = 30.0514;
-        double customerLng = 31.2457;
+        double customerLat = data.userAddress.lat ?? 30.0514;
+        double customerLng = data.userAddress.lng ?? 31.2457;
 
-        try {
-          final customerLocation = await _getLocationFromAddress(
-            order.userAddress.address,
-          );
-          customerLat = customerLocation.latitude;
-          customerLng = customerLocation.longitude;
-        } catch (e) {
-          print('Error getting customer location from address: $e');
-          customerLat = 30.0514;
-          customerLng = 31.2457;
+        if (data.userAddress.lat == null) {
+          try {
+            final customerLocation = await _getLocationFromAddress(
+              order.userAddress.address,
+            );
+            customerLat = customerLocation.latitude;
+            customerLng = customerLocation.longitude;
+          } catch (e) {
+            print('Error getting customer location from address: $e');
+            customerLat = 30.0514;
+            customerLng = 31.2457;
+          }
         }
 
-        // Always start driver at shop for the simulation to show movement between two locations
         double dLat = shopLat;
         double dLng = shopLng;
 
         String? driverName;
+        bool shouldStartSimulation = true;
 
         if (driverResult case SuccessApiResult(:final data)) {
-          print('======== Firebase Initial Driver Data ========');
+          print(
+            '/////////////////////Firebase Initial Driver Data//////////////////',
+          );
           print(data.toString());
           driverName = data.name;
+
+          if (data.currentLocation.lat != 0.0) {
+            dLat = data.currentLocation.lat;
+            dLng = data.currentLocation.lng;
+            shouldStartSimulation = false;
+          }
         }
 
-        _startDummyDriverAnimation(shopLat, shopLng, customerLat, customerLng);
+        if (shouldStartSimulation) {
+          _startDummyDriverAnimation(
+            shopLat,
+            shopLng,
+            customerLat,
+            customerLng,
+          );
+        }
 
         emit(
           state.copyWith(
@@ -118,7 +139,6 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
           ),
         );
 
-        // Start subscription only AFTER the initial state with shop/customer is emitted
         _subscribeToDriver(driverId: driverId);
       } else if (orderResult case ErrorApiResult(:final error)) {
         emit(state.copyWith(orderResource: Resource.error(error)));
@@ -137,20 +157,33 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
     _dummyTimer?.cancel();
     double stepRatio = 0.0;
 
-    // Smoother animation: 100ms per step, total ~10 seconds
-    _dummyTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
+    _dummyTimer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
       if (stepRatio >= 1.0) {
         timer.cancel();
         return;
       }
-      stepRatio += 0.01;
-      if (stepRatio > 1.0) {
-        stepRatio = 1.0;
-      }
+      stepRatio += 0.005;
+      if (stepRatio > 1.0) stepRatio = 1.0;
 
-      // Linear interpolation between shop and customer
-      double currentLat = shopLat + (customerLat - shopLat) * stepRatio;
-      double currentLng = shopLng + (customerLng - shopLng) * stepRatio;
+      double currentLat;
+      double currentLng;
+
+      if (stepRatio <= 0.33) {
+        double segRatio = stepRatio / 0.33;
+        currentLat = shopLat + (customerLat - shopLat) * 0.5 * segRatio;
+        currentLng = shopLng;
+      } else if (stepRatio <= 0.66) {
+        double segRatio = (stepRatio - 0.33) / 0.33;
+        currentLat = shopLat + (customerLat - shopLat) * 0.5;
+        currentLng = shopLng + (customerLng - shopLng) * segRatio;
+      } else {
+        double segRatio = (stepRatio - 0.66) / 0.34;
+        currentLat =
+            (shopLat + (customerLat - shopLat) * 0.5) +
+            (customerLat - (shopLat + (customerLat - shopLat) * 0.5)) *
+                segRatio;
+        currentLng = customerLng;
+      }
 
       _updateDriverLocation(currentLat, currentLng);
     });
@@ -169,14 +202,11 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
       print('======== Firebase Stream Driver Update ========');
       print(driver?.toString());
       if (driver != null && driver.currentLocation.lat != 0.0) {
-        // Commenting out real-time updates to keep the driver on the path simulation
-        /*
         _dummyTimer?.cancel();
         _updateDriverLocation(
           driver.currentLocation.lat,
           driver.currentLocation.lng,
         );
-        */
       }
     });
   }

@@ -22,13 +22,15 @@ class OrderModel extends Equatable {
   factory OrderModel.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return OrderModel(
-      driverId: data['driver_id'] ?? '',
+      driverId: data['driver_id'] ?? data['driverId'] ?? '',
       // Mapping 'oder_dt' from Firestore as per image
       orderData: OrderData.fromFirestore(data['oder_dt'] ?? {}),
       status: data['status'] ?? '',
       updatedAt: (data['updated_at'] as Timestamp?)?.toDate() ?? DateTime.now(),
-      userAddress: UserAddress.fromFirestore(data['user_address'] ?? {}),
-      userId: data['user_id'] ?? '',
+      userAddress: UserAddress.fromFirestore(
+        data['userAddress'] ?? data['user_address'] ?? {},
+      ),
+      userId: data['user_id'] ?? data['userId'] ?? '',
     );
   }
 
@@ -58,6 +60,8 @@ class OrderData extends Equatable {
   final List<OrderItemModel> items;
   final String orderId;
   final PickupAddress pickupAddress;
+  final double? pickupLat;
+  final double? pickupLng;
   final String status;
   final double totalPrice;
   final String? userAddressPlaceholder;
@@ -66,6 +70,8 @@ class OrderData extends Equatable {
     required this.items,
     required this.orderId,
     required this.pickupAddress,
+    this.pickupLat,
+    this.pickupLng,
     required this.status,
     required this.totalPrice,
     this.userAddressPlaceholder,
@@ -78,6 +84,8 @@ class OrderData extends Equatable {
           .toList(),
       orderId: data['orderId'] ?? '',
       pickupAddress: PickupAddress.fromFirestore(data['pickupAddress'] ?? {}),
+      pickupLat: (data['pickupLat'] as num?)?.toDouble(),
+      pickupLng: (data['pickupLng'] as num?)?.toDouble(),
       status: data['status'] ?? '',
       totalPrice: (data['totalPrice'] as num?)?.toDouble() ?? 0.0,
       userAddressPlaceholder: data['user_address'],
@@ -89,6 +97,8 @@ class OrderData extends Equatable {
       items: items.map((e) => e.toDomain()).toList(),
       orderId: orderId,
       pickupAddress: pickupAddress.address,
+      pickupLat: pickupLat,
+      pickupLng: pickupLng,
       status: status,
       totalPrice: totalPrice,
     );
@@ -99,6 +109,8 @@ class OrderData extends Equatable {
     items,
     orderId,
     pickupAddress,
+    pickupLat,
+    pickupLng,
     status,
     totalPrice,
     userAddressPlaceholder,
@@ -148,27 +160,33 @@ class UserAddress extends Equatable {
   final String address;
   final String name;
   final String userId;
+  final double? lat;
+  final double? lng;
 
   const UserAddress({
     required this.address,
     required this.name,
     required this.userId,
+    this.lat,
+    this.lng,
   });
 
   factory UserAddress.fromFirestore(Map<String, dynamic> data) {
     return UserAddress(
-      address: data['address'] ?? '',
+      address: data['address'] ?? data['adress'] ?? '',
       name: data['name'] ?? '',
-      userId: data['user_id'] ?? '',
+      userId: data['user_id'] ?? data['userId'] ?? '',
+      lat: (data['lat'] as num?)?.toDouble(),
+      lng: (data['lng'] as num?)?.toDouble(),
     );
   }
 
   OrderUserAddress toDomain() {
-    return OrderUserAddress(address: address, name: name);
+    return OrderUserAddress(address: address, name: name, lat: lat, lng: lng);
   }
 
   @override
-  List<Object?> get props => [address, name, userId];
+  List<Object?> get props => [address, name, userId, lat, lng];
 }
 
 class PickupAddress extends Equatable {

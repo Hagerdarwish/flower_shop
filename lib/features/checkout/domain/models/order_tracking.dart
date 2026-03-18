@@ -32,6 +32,8 @@ class OrderTrackingData extends Equatable {
   final List<OrderTrackingItem> items;
   final String orderId;
   final String pickupAddress;
+  final double? pickupLat;
+  final double? pickupLng;
   final String status;
   final double totalPrice;
 
@@ -39,6 +41,8 @@ class OrderTrackingData extends Equatable {
     required this.items,
     required this.orderId,
     required this.pickupAddress,
+    this.pickupLat,
+    this.pickupLng,
     required this.status,
     required this.totalPrice,
   });
@@ -48,6 +52,8 @@ class OrderTrackingData extends Equatable {
     items,
     orderId,
     pickupAddress,
+    pickupLat,
+    pickupLng,
     status,
     totalPrice,
   ];
@@ -75,9 +81,16 @@ class OrderTrackingItem extends Equatable {
 class OrderUserAddress extends Equatable {
   final String address;
   final String name;
+  final double? lat;
+  final double? lng;
 
-  const OrderUserAddress({required this.address, required this.name});
+  const OrderUserAddress({
+    required this.address,
+    required this.name,
+    this.lat,
+    this.lng,
+  });
 
   @override
-  List<Object?> get props => [address, name];
+  List<Object?> get props => [address, name, lat, lng];
 }
