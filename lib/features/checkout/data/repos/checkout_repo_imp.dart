@@ -82,6 +82,4 @@ class CheckoutRepoImpl implements CheckoutRepo {
         .getDriverStream(driverId)
         .map((driverModel) => driverModel?.toDomain());
   }
-
-
 }

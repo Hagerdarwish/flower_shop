@@ -144,13 +144,13 @@ class TrackOrderScreen extends StatelessWidget {
                             dateText: state.estimatedArrival,
                           ),
 
-                            _DriverCard(
-                              name: state.driverName,
-                              subtitle: state.driverSubtitle,
-                              onCall: () => _launchCaller(state.driverPhone),
-                              onWhatsapp: () =>
-                                  _launchWhatsapp(state.driverWhatsapp),
-                            ),
+                          _DriverCard(
+                            name: state.driverName,
+                            subtitle: state.driverSubtitle,
+                            onCall: () => _launchCaller(state.driverPhone),
+                            onWhatsapp: () =>
+                                _launchWhatsapp(state.driverWhatsapp),
+                          ),
 
                           const SizedBox(height: 20),
                           _CarIllustration(),

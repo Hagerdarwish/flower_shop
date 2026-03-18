@@ -28,7 +28,6 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
     switch (intent) {
       case LoadMapDataIntent data:
         _loadMapData(orderId: data.orderId, driverId: data.driverId);
-        _subscribeToDriver(driverId: data.driverId);
         break;
 
       case UpdateDriverLocationIntent data:
@@ -38,6 +37,9 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
   }
 
   Future<geocoding.Location> _getLocationFromAddress(String address) async {
+    if (address.trim().isEmpty) {
+      throw Exception('Address is empty');
+    }
     final locations = await geocoding.locationFromAddress(address);
     return locations.first;
   }
@@ -54,6 +56,8 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
       final orderResult = await _getOrderUseCase.execute(orderId);
 
       if (orderResult case SuccessApiResult(:final data)) {
+        print('======== Firebase Order Data ========');
+        print(data.toString());
         final driverResult = await _getDriverUseCase.execute(driverId);
         final order = data;
 
@@ -66,7 +70,8 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
           );
           shopLat = shopLocation.latitude;
           shopLng = shopLocation.longitude;
-        } catch (_) {
+        } catch (e) {
+          print('Error getting shop location from address: $e');
           shopLat = 30.0444;
           shopLng = 31.2357;
         }
@@ -80,40 +85,25 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
           );
           customerLat = customerLocation.latitude;
           customerLng = customerLocation.longitude;
-        } catch (_) {
+        } catch (e) {
+          print('Error getting customer location from address: $e');
           customerLat = 30.0514;
           customerLng = 31.2457;
         }
 
+        // Always start driver at shop for the simulation to show movement between two locations
         double dLat = shopLat;
         double dLng = shopLng;
 
         String? driverName;
 
         if (driverResult case SuccessApiResult(:final data)) {
-          final driver = data;
-          driverName = driver.name;
-          dLat = driver.currentLocation.lat;
-          dLng = driver.currentLocation.lng;
-
-          if (dLat == 0.0 && dLng == 0.0) {
-            dLat = shopLat;
-            dLng = shopLng;
-            _startDummyDriverAnimation(
-              shopLat,
-              shopLng,
-              customerLat,
-              customerLng,
-            );
-          }
-        } else {
-          _startDummyDriverAnimation(
-            shopLat,
-            shopLng,
-            customerLat,
-            customerLng,
-          );
+          print('======== Firebase Initial Driver Data ========');
+          print(data.toString());
+          driverName = data.name;
         }
+
+        _startDummyDriverAnimation(shopLat, shopLng, customerLat, customerLng);
 
         emit(
           state.copyWith(
@@ -127,6 +117,9 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
             driverName: driverName,
           ),
         );
+
+        // Start subscription only AFTER the initial state with shop/customer is emitted
+        _subscribeToDriver(driverId: driverId);
       } else if (orderResult case ErrorApiResult(:final error)) {
         emit(state.copyWith(orderResource: Resource.error(error)));
       }
@@ -144,46 +137,20 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
     _dummyTimer?.cancel();
     double stepRatio = 0.0;
 
-    _dummyTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    // Smoother animation: 100ms per step, total ~10 seconds
+    _dummyTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (stepRatio >= 1.0) {
         timer.cancel();
         return;
       }
-      stepRatio += 0.05;
+      stepRatio += 0.01;
       if (stepRatio > 1.0) {
         stepRatio = 1.0;
       }
 
-      double currentLat;
-      double currentLng;
-
-      if (stepRatio <= 0.25) {
-        // Segment 1: partial Latitude move
-        double segRatio = stepRatio / 0.25;
-        currentLat = shopLat + (customerLat - shopLat) * 0.5 * segRatio;
-        currentLng = shopLng;
-      } else if (stepRatio <= 0.5) {
-        // Segment 2: partial Longitude move
-        double segRatio = (stepRatio - 0.25) / 0.25;
-        currentLat = shopLat + (customerLat - shopLat) * 0.5;
-        currentLng = shopLng + (customerLng - shopLng) * 0.5 * segRatio;
-      } else if (stepRatio <= 0.75) {
-        // Segment 3: remaining Latitude move
-        double segRatio = (stepRatio - 0.5) / 0.25;
-        currentLat =
-            (shopLat + (customerLat - shopLat) * 0.5) +
-            (customerLat - (shopLat + (customerLat - shopLat) * 0.5)) *
-                segRatio;
-        currentLng = shopLng + (customerLng - shopLng) * 0.5;
-      } else {
-        // Segment 4: remaining Longitude move
-        double segRatio = (stepRatio - 0.75) / 0.25;
-        currentLat = customerLat;
-        currentLng =
-            (shopLng + (customerLng - shopLng) * 0.5) +
-            (customerLng - (shopLng + (customerLng - shopLng) * 0.5)) *
-                segRatio;
-      }
+      // Linear interpolation between shop and customer
+      double currentLat = shopLat + (customerLat - shopLat) * stepRatio;
+      double currentLng = shopLng + (customerLng - shopLng) * stepRatio;
 
       _updateDriverLocation(currentLat, currentLng);
     });
@@ -199,12 +166,17 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
     _driverSubscription = _getDriverStreamUseCase.execute(driverId).listen((
       driver,
     ) {
+      print('======== Firebase Stream Driver Update ========');
+      print(driver?.toString());
       if (driver != null && driver.currentLocation.lat != 0.0) {
+        // Commenting out real-time updates to keep the driver on the path simulation
+        /*
         _dummyTimer?.cancel();
         _updateDriverLocation(
           driver.currentLocation.lat,
           driver.currentLocation.lng,
         );
+        */
       }
     });
   }

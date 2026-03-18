@@ -13,10 +13,8 @@ class PaymentCubit extends Cubit<PaymentStates> {
   final PaymentUsecase _paymentUsecase;
   final AuthStorage _authStorage;
 
-  PaymentCubit(
-    this._paymentUsecase,
-    this._authStorage,
-  ) : super(PaymentStates());
+  PaymentCubit(this._paymentUsecase, this._authStorage)
+    : super(PaymentStates());
 
   void doIntent(PaymentIntent intent) {
     if (intent is ExecutePaymentIntent) {
@@ -67,7 +65,6 @@ class PaymentCubit extends Cubit<PaymentStates> {
     );
 
     if (result is SuccessApiResult<PaymentResponse>) {
-
       emit(
         state.copyWith(
           paymentResponse: Resource.success(result.data),

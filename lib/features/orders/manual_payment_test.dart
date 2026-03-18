@@ -42,11 +42,7 @@ void main() {
   // Create a dummy CheckoutRepo for SeedOrderTrackingUseCase
   final checkoutRepo = _DummyCheckoutRepo();
 
-  final paymentCubit = PaymentCubit(
-    usecase,
-    authStorage,
-
-  );
+  final paymentCubit = PaymentCubit(usecase, authStorage);
 
   runApp(
     MaterialApp(

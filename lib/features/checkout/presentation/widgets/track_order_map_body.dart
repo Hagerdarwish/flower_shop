@@ -25,6 +25,7 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
   BitmapDescriptor? shopIcon;
   BitmapDescriptor? customerIcon;
   BitmapDescriptor? driverIcon;
+  bool _cameraInitialized = false;
 
   @override
   void initState() {
@@ -118,21 +119,9 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
         Polyline(
           polylineId: const PolylineId("route"),
           color: const Color(0xffE91E63),
-          width: 4,
+          width: 5,
           points: [
             LatLng(state.shopLat!, state.shopLng!),
-            LatLng(
-              state.shopLat! + (state.customerLat! - state.shopLat!) * 0.5,
-              state.shopLng!,
-            ),
-            LatLng(
-              state.shopLat! + (state.customerLat! - state.shopLat!) * 0.5,
-              state.shopLng! + (state.customerLng! - state.shopLng!) * 0.5,
-            ),
-            LatLng(
-              state.customerLat!,
-              state.shopLng! + (state.customerLng! - state.shopLng!) * 0.5,
-            ),
             LatLng(state.customerLat!, state.customerLng!),
           ],
         ),
@@ -140,6 +129,40 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
     }
 
     return polylines;
+  }
+
+  LatLngBounds _calculateBounds(TrackOrderMapState state) {
+    double? minLat, maxLat, minLng, maxLng;
+
+    void updateBounds(double lat, double lng) {
+      if (minLat == null || lat < minLat!) minLat = lat;
+      if (maxLat == null || lat > maxLat!) maxLat = lat;
+      if (minLng == null || lng < minLng!) minLng = lng;
+      if (maxLng == null || lng > maxLng!) maxLng = lng;
+    }
+
+    if (state.shopLat != null && state.shopLng != null) {
+      updateBounds(state.shopLat!, state.shopLng!);
+    }
+    if (state.customerLat != null && state.customerLng != null) {
+      updateBounds(state.customerLat!, state.customerLng!);
+    }
+    if (state.driverLat != null && state.driverLng != null) {
+      updateBounds(state.driverLat!, state.driverLng!);
+    }
+
+    // Default if everything is null (though guard should prevent it)
+    if (minLat == null) {
+      return LatLngBounds(
+        southwest: const LatLng(30.0, 31.0),
+        northeast: const LatLng(30.1, 31.1),
+      );
+    }
+
+    return LatLngBounds(
+      southwest: LatLng(minLat!, minLng!),
+      northeast: LatLng(maxLat!, maxLng!),
+    );
   }
 
   @override
@@ -151,6 +174,18 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(error)));
+        }
+
+        // Move camera to show all markers when we have at least shop and driver
+        if (state.shopLat != null &&
+            state.customerLat != null &&
+            mapController != null &&
+            !_cameraInitialized) {
+          _cameraInitialized = true;
+          final bounds = _calculateBounds(state);
+          mapController!.animateCamera(
+            CameraUpdate.newLatLngBounds(bounds, 80),
+          );
         }
       },
       builder: (context, state) {
@@ -173,10 +208,19 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
                     ),
                     markers: _buildMarkers(state),
                     polylines: _buildPolylines(state),
-                    myLocationEnabled: true,
+                    myLocationEnabled: false,
                     zoomControlsEnabled: false,
                     onMapCreated: (controller) {
                       mapController = controller;
+                      // Move camera once on create if we already have data
+                      if (state.shopLat != null) {
+                        mapController!.animateCamera(
+                          CameraUpdate.newLatLngBounds(
+                            _calculateBounds(state),
+                            80,
+                          ),
+                        );
+                      }
                     },
                   ),
                   const Positioned(
@@ -225,9 +269,10 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
 
                   Row(
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 22,
-                        backgroundImage: AssetImage("assets/images/driver.png"),
+                        backgroundColor: Colors.grey[200],
+                        child: const Icon(Icons.person, color: Colors.pink),
                       ),
                       const SizedBox(width: 10),
 
