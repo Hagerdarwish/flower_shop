@@ -48,3 +48,8 @@ app.*.map.json
 /android/app/release
 
 **/*.freezed.dart
+
+# Firebase Admin Service Accounts
+assets/data/*.json
+!assets/data/states.json
+!assets/data/cities.json
