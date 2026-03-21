@@ -84,6 +84,8 @@ import '../../../features/checkout/domain/usecases/get_order_usecase.dart'
     as _i745;
 import '../../../features/checkout/domain/usecases/post_cashe_order_usecase.dart'
     as _i524;
+import '../../../features/checkout/domain/usecases/send_device_notification_usecase.dart'
+    as _i1048;
 import '../../../features/checkout/domain/usecases/watch_order_usecase.dart'
     as _i126;
 import '../../../features/checkout/presentation/cubit/checkout_cubit.dart'
@@ -431,6 +433,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i603.AuthStorage>(),
       ),
     );
+    gh.factory<_i1048.SendDeviceNotificationUsecase>(
+      () => _i1048.SendDeviceNotificationUsecase(gh<_i14.CheckoutRepo>()),
+    );
     gh.factory<_i947.GetDriverStreamUseCase>(
       () => _i947.GetDriverStreamUseCase(gh<_i14.CheckoutRepo>()),
     );
@@ -506,13 +511,6 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i1023.LogoutCubit(gh<_i27.LogoutUsecase>(), gh<_i603.AuthStorage>()),
     );
-    gh.factory<_i995.TrackOrderMapCubit>(
-      () => _i995.TrackOrderMapCubit(
-        gh<_i745.GetOrderUseCase>(),
-        gh<_i147.GetDriverUseCase>(),
-        gh<_i947.GetDriverStreamUseCase>(),
-      ),
-    );
     gh.factory<_i285.GetCurrentUserUsecase>(
       () => _i285.GetCurrentUserUsecase(gh<_i866.ProfileRepo>()),
     );
@@ -523,6 +521,14 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i259.AllCategoriesCubit(
         gh<_i710.AllCategoriesUsecase>(),
         gh<_i985.GetProductUsecase>(),
+      ),
+    );
+    gh.factory<_i995.TrackOrderMapCubit>(
+      () => _i995.TrackOrderMapCubit(
+        gh<_i745.GetOrderUseCase>(),
+        gh<_i147.GetDriverUseCase>(),
+        gh<_i947.GetDriverStreamUseCase>(),
+        gh<_i1048.SendDeviceNotificationUsecase>(),
       ),
     );
     gh.factory<_i25.OccasionCubit>(

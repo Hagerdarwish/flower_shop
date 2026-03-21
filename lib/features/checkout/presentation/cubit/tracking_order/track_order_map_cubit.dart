@@ -8,6 +8,7 @@ import 'package:injectable/injectable.dart';
 import 'package:flower_shop/app/config/base_state/base_state.dart';
 import 'package:flower_shop/features/checkout/domain/usecases/get_driver_usecase.dart';
 import 'package:flower_shop/features/checkout/domain/usecases/get_order_usecase.dart';
+import 'package:flower_shop/features/checkout/domain/usecases/send_device_notification_usecase.dart';
 import 'package:geocoding/geocoding.dart' as geocoding;
 
 @injectable
@@ -15,13 +16,16 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
   final GetOrderUseCase _getOrderUseCase;
   final GetDriverUseCase _getDriverUseCase;
   final GetDriverStreamUseCase _getDriverStreamUseCase;
+  final SendDeviceNotificationUsecase _sendDeviceNotificationUsecase;
 
   StreamSubscription? _driverSubscription;
+  Timer? _dummyTimer;
 
   TrackOrderMapCubit(
     this._getOrderUseCase,
     this._getDriverUseCase,
     this._getDriverStreamUseCase,
+    this._sendDeviceNotificationUsecase,
   ) : super(TrackOrderMapState());
 
   void doIntent(TrackOrderMapIntent intent) {
@@ -33,7 +37,27 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
       case UpdateDriverLocationIntent data:
         _updateDriverLocation(data.lat, data.lng);
         break;
+
+      case NotifyDriverOrderReceivedIntent():
+        _notifyDriverOrderReceived();
+        break;
     }
+  }
+
+  Future<void> _notifyDriverOrderReceived() async {
+    final order = state.orderResource.data;
+    if (order == null) return;
+
+    final driverId = order.driverId;
+    if (driverId.isEmpty) return;
+
+    await _sendDeviceNotificationUsecase(
+      SendDeviceNotificationParams(
+        userId: driverId,
+        title: "Order Confirmed 🎉",
+        body: "our order has been received successfully",
+      ),
+    );
   }
 
   Future<geocoding.Location> _getLocationFromAddress(String address) async {
@@ -43,8 +67,6 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
     final locations = await geocoding.locationFromAddress(address);
     return locations.first;
   }
-
-  Timer? _dummyTimer;
 
   Future<void> _loadMapData({
     required String orderId,
@@ -214,6 +236,7 @@ class TrackOrderMapCubit extends Cubit<TrackOrderMapState> {
   @override
   Future<void> close() {
     _driverSubscription?.cancel();
+    _dummyTimer?.cancel();
     return super.close();
   }
 }

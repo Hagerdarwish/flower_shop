@@ -11,4 +11,9 @@ abstract class CheckoutRepo {
   Future<ApiResult<Driver>> getDriver(String driverId);
   Stream<OrderTracking?> watchOrder(String orderId);
   Stream<Driver?> getDriverStream(String driverId);
+  Future<ApiResult<void>> sendDeviceNotification({
+    required String userId,
+    required String title,
+    required String body,
+  });
 }

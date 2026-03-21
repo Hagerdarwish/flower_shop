@@ -82,4 +82,17 @@ class CheckoutRepoImpl implements CheckoutRepo {
         .getDriverStream(driverId)
         .map((driverModel) => driverModel?.toDomain());
   }
+
+  @override
+  Future<ApiResult<void>> sendDeviceNotification({
+    required String userId,
+    required String title,
+    required String body,
+  }) async {
+    return await checkoutDataSource.sendDeviceNotification(
+      userId: userId,
+      title: title,
+      body: body,
+    );
+  }
 }

@@ -9,13 +9,9 @@ import 'package:flower_shop/features/orders/domain/usecase/payment_usecase.dart'
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_cubit.dart';
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_intent.dart';
 import 'package:flower_shop/features/orders/presentation/manager/paymentcubit/payment_states.dart';
-import 'package:flower_shop/features/checkout/domain/repos/checkout_repo.dart';
-import 'package:flower_shop/features/checkout/domain/models/address_model.dart';
-import 'package:flower_shop/features/checkout/domain/models/driver.dart';
-import 'package:flower_shop/features/checkout/domain/models/order_tracking.dart';
-import 'package:flower_shop/features/checkout/domain/models/cash_order_model.dart';
+
 import 'package:flower_shop/app/core/network/api_result.dart';
-import 'dart:js' as js;
+import 'package:url_launcher/url_launcher_string.dart';
 
 void main() {
   final dio = Dio(
@@ -39,9 +35,6 @@ void main() {
   // Create a dummy AuthStorage instance for testing
   final authStorage = AuthStorage();
 
-  // Create a dummy CheckoutRepo for SeedOrderTrackingUseCase
-  final checkoutRepo = _DummyCheckoutRepo();
-
   final paymentCubit = PaymentCubit(usecase, authStorage);
 
   runApp(
@@ -55,32 +48,13 @@ void main() {
   );
 }
 
-class _DummyCheckoutRepo implements CheckoutRepo {
-  @override
-  Future<ApiResult<List<AddressModel>>> getAddress(String token) async =>
-      ErrorApiResult(error: 'Not implemented');
-  @override
-  Future<ApiResult<Driver>> getDriver(String driverId) async =>
-      ErrorApiResult(error: 'Not implemented');
-  @override
-  Stream<Driver?> getDriverStream(String driverId) => const Stream.empty();
-  @override
-  Future<ApiResult<OrderTracking>> getOrder(String orderId) async =>
-      ErrorApiResult(error: 'Not implemented');
-  @override
-  Future<ApiResult<CashOrderModel>> postCashOrder(String token) async =>
-      ErrorApiResult(error: 'Not implemented');
-  @override
-  Future<void> seedOrderTracking(CashOrderModel order) async {}
-  @override
-  Stream<OrderTracking?> watchOrder(String orderId) => const Stream.empty();
-}
-
 class PaymentTestScreen extends StatelessWidget {
   const PaymentTestScreen({super.key});
 
-  void _openUrl(String url) {
-    js.context.callMethod('open', [url, '_blank']);
+  Future<void> _openUrl(String url) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url, mode: LaunchMode.externalApplication);
+    }
   }
 
   @override

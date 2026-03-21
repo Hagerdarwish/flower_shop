@@ -13,4 +13,9 @@ abstract class CheckoutDataSource {
   Future<DriverModel?> getDriver(String driverId);
   Stream<OrderModel?> watchOrder(String orderId);
   Stream<DriverModel?> getDriverStream(String driverId);
+  Future<ApiResult<void>> sendDeviceNotification({
+    required String userId,
+    required String title,
+    required String body,
+  });
 }

@@ -312,26 +312,31 @@ class _TrackOrderMapBodyState extends State<TrackOrderMapBody> {
 
                   const SizedBox(height: 20),
 
-                  // SizedBox(
-                  //   width: double.infinity,
-                  //   height: 55,
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       backgroundColor: const Color(0xffE91E63),
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(30),
-                  //       ),
-                  //     ),
-                  //     onPressed: () {},
-                  //     child: const Text(
-                  //       "Order details",
-                  //       style: TextStyle(
-                  //         fontSize: 16,
-                  //         fontWeight: FontWeight.bold,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 55,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffE91E63),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      onPressed: () {
+                        context.read<TrackOrderMapCubit>().doIntent(
+                          NotifyDriverOrderReceivedIntent(),
+                        );
+                      },
+                      child: const Text(
+                        "Confirm Received",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

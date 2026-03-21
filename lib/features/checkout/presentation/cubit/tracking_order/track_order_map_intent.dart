@@ -13,3 +13,5 @@ class UpdateDriverLocationIntent extends TrackOrderMapIntent {
 
   UpdateDriverLocationIntent(this.lat, this.lng);
 }
+
+class NotifyDriverOrderReceivedIntent extends TrackOrderMapIntent {}

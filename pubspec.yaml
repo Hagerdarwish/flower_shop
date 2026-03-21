@@ -43,6 +43,7 @@ dependencies:
 
   firebase_auth: ^6.1.4
   geocoding: ^4.0.0
+  googleapis_auth: ^2.0.0
 
 dev_dependencies:
   bloc_test: ^10.0.0
@@ -68,6 +69,7 @@ flutter:
     - assets/data/states.json
     - assets/data/cities.json
     - assets/animations/
+    - assets/data/elevate-flower-app-a66e96c7e8d7.json
 
 easy_localization:
   path: assets/translations
